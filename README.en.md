@@ -1,36 +1,44 @@
-# mecm-meo-fe
+# mecm-fe
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker-image-update-daily-master%2F)
 
-#### Description
-repo for mecm meo fe
+#### Introduction
+repo for mecm fe
 
-#### Software Architecture
-Software architecture description
+#### Architecture
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
 
 #### Installation
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. npm install
+
 
 #### Instructions
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- Project setup
+npm install
+- Compiles and hot-reloads for development
+npm run serve
+- Compiles and minifies for production
+npm run build
+- Run your tests
+npm run test
+- Lints and fixes files
+npm run lint
+
 
 #### Contribution
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+1.  Fork Repo
+2.  New Feat_xxx Branch
+3.  Push Code
+4.  New Pull Request
 
 
-#### Gitee Feature
+#### Link
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+2.  EdgeGallery：[http://www.edgegallery.org/](http://www.edgegallery.org/)
+3.  EdgeGallery Community：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+4.  E-mail: contact@edgegallery.org
