@@ -159,7 +159,7 @@
               clearable
               v-model="edgeNodeSearchInput"
             >
-              <i
+              <em
                 slot="suffix"
                 class="el-input__icon el-icon-search"
               />
