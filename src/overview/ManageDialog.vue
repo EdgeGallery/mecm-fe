@@ -193,7 +193,7 @@ export default {
     text-align: center;
   }
   .nameLable{
-      font-family: HelveticaNeue;
+      font-family: HelveticaNeue,sans-serif;
       font-size: 18px;
       color: #999999;
       letter-spacing: 0;
