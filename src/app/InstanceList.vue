@@ -59,15 +59,15 @@
             <span
               v-if="scope.row.operationalStatus === 'Instantiated'"
               class="success"
-            ><i class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
+            ><em class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
             <span
               v-else-if="scope.row.operationalStatus === 'Created'"
               class="primary"
-            ><i class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
+            ><em class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
             <span
               v-else
               class="error"
-            ><i class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
+            ><em class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
           </template>
         </el-table-column>
         <el-table-column
@@ -121,11 +121,11 @@
           <span
             v-if="detailData[0].pod_status === 'Running'"
             class="success"
-          ><i class="el-icon-success" />{{ detailData[0].pod_status }}</span>
+          ><em class="el-icon-success" />{{ detailData[0].pod_status }}</span>
           <span
             v-else
             class="failed"
-          ><i class="el-icon-error" />{{ detailData[0].pod_status }}</span>
+          ><em class="el-icon-error" />{{ detailData[0].pod_status }}</span>
         </el-form-item>
         <p>Containers</p>
         <div>

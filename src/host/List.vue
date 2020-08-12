@@ -49,11 +49,10 @@
           :label="$t('app.packageList.name')"
         >
           <template slot-scope="scope">
-            <i
+            <em
               class="el-icon-success"
               :style="{color: '#67C23A'}"
             />
-            <!-- <i class="el-icon-warning" :style="{color: '#E6A23C'}" v-if="mepReadyNodes.indexOf(scope.row.ip) === -1"></i> -->
             <span style="margin-left: 10px">{{ scope.row.hostname }}</span>
           </template>
         </el-table-column>
@@ -127,8 +126,8 @@
       <iframe
         style="height:800px;width:100%;position:relative;left:-50px;"
         id="iframe_a"
+        title="Monitor"
         :src="src"
-        frameborder="0"
       />
     </el-dialog>
     <input

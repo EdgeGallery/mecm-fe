@@ -59,7 +59,7 @@ function getToken () {
 }
 
 function getCookie (name) {
-  let arr
+  let arr = []
   let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
   if (arr === document.cookie.match(reg)) {
     return (arr[2])
@@ -80,8 +80,8 @@ let user = {
 }
 
 let overview = {
-  getPackageInfo (app) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + app.appId + '/packages/' + app.id
+  getPackageInfo (item) {
+    let url = '/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id
     return GET(url)
   },
   getAppInfo () {
