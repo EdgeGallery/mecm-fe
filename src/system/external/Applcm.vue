@@ -1,0 +1,328 @@
+<!--
+  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -
+  -  Licensed under the Apache License, Version 2.0 (the "License");
+  -  you may not use this file except in compliance with the License.
+  -  You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -  Unless required by applicable law or agreed to in writing, software
+  -  distributed under the License is distributed on an "AS IS" BASIS,
+  -  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -  See the License for the specific language governing permissions and
+  -  limitations under the License.
+  -->
+
+<template>
+  <div class="sysLcm">
+    <div class="breadcrumb">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+          {{ $t('nav.mecm') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item><strong>{{ $t('nav.system') }}</strong></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/systems/external/applcm' }">
+          {{ $t('nav.externalSysMan') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t('nav.applcm') }}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <Search
+      :name-item="false"
+      :status-item="false"
+      :affinity-item="false"
+      :ip-item="true"
+      @getSearchData="getSearchData"
+    />
+    <div class="tableDiv">
+      <p>
+        <span class="rt">
+          <el-button
+            id="newregBtn"
+            type="primary"
+            @click="register()"
+          >{{ $t('system.appLcm.newReg') }}</el-button>
+        </span>
+      </p>
+      <el-table
+        :data="currPageTableData"
+        v-loading="dataLoading"
+        border
+        style="width: 100%;"
+      >
+        <el-table-column
+          prop="ip"
+          :label="$t('app.packageList.ip')"
+        />
+        <el-table-column
+          prop="port"
+          :label="$t('system.appLcm.port')"
+          width="180"
+        />
+        <el-table-column
+          prop="username"
+          :label="$t('system.appLcm.userNmae')"
+        />
+        <el-table-column
+          :label="$t('common.operation')"
+        >
+          <template slot-scope="scope">
+            <el-button
+              id="modifyBtn"
+              @click="handleEdit(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.modify') }}
+            </el-button>
+            <el-button
+              id="deleteBtn"
+              @click.native.prevent="handleDelete(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.delete') }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pageBar">
+        <pagination
+          :table-data="paginationData"
+          @getCurrentPageData="getCurrentPageData"
+        />
+      </div>
+    </div>
+    <el-dialog
+      :title="title"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-row>
+        <el-col :span="16">
+          <el-form
+            label-width="150px"
+            :model="form"
+            ref="form"
+            :rules="rules"
+          >
+            <el-form-item
+              :label="$t('app.packageList.ip')"
+              prop="ip"
+            >
+              <el-input
+                id="ip"
+                v-model="form.ip"
+                :disabled="ipDisable"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.port')"
+              prop="port"
+            >
+              <el-input
+                id="port"
+                v-model="form.port"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.userNmae')"
+              prop="username"
+            >
+              <el-input
+                id="username"
+                v-model="form.username"
+                autocomplete="off"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.password')"
+              prop="password"
+            >
+              <el-input
+                id="password"
+                v-model="form.password"
+                type="password"
+                autocomplete="off"
+              />
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="cancelBtn"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+          @click="confirmToRegister('form')"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { system } from '../../tools/request.js'
+import Search from '../../components/Search.vue'
+import pagination from '../../components/Pagination.vue'
+
+export default {
+  name: 'SysLcm',
+  components: {
+    Search, pagination
+  },
+  data () {
+    return {
+      dataLoading: true,
+      tableData: [],
+      currPageTableData: [],
+      paginationData: [],
+      dialogVisible: false,
+      ipDisable: false,
+      title: this.$t('system.appLcm.applcmReg'),
+      form: {
+        ip: '',
+        port: '',
+        username: '',
+        password: ''
+      },
+      editType: 1,
+      rules: {
+        ip: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
+        ],
+        port: [
+          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' }
+        ],
+        username: [
+          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: this.$t('verify.passwordTip'), trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  mounted () {
+    this.initList()
+  },
+  methods: {
+    filterTableData (val, key) {
+      this.paginationData = this.paginationData.filter(item => {
+        let itemVal = item[key].toLowerCase()
+        return itemVal.indexOf(val) > -1
+      })
+    },
+    getSearchData (data) {
+      this.paginationData = this.tableData
+      if (this.paginationData && this.paginationData.length > 0) {
+        let reset = false
+        for (let key in data) {
+          if (data[key]) {
+            reset = true
+            this.filterTableData(data[key].toLowerCase(), key)
+          }
+        }
+        if (!reset) this.paginationData = this.tableData
+      }
+    },
+    getCurrentPageData (data) {
+      this.currPageTableData = data
+    },
+    handleEdit (row) {
+      this.editType = 2
+      this.title = this.$t('system.appLcm.applcmModify')
+      this.dialogVisible = true
+      this.ipDisable = true
+      this.form = row
+    },
+    handleDelete (row) {
+      this.$confirm(this.$t('tip.beforeDeleteApplcm'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        system.delete(1, row.ip).then(res => {
+          this.initList()
+        }, error => {
+          this.$message.error(error.message)
+        })
+      }).catch(() => {
+      })
+    },
+    register () {
+      this.editType = 1
+      this.title = this.$t('system.appLcm.applcmReg')
+      this.dialogVisible = true
+      this.ipDisable = false
+    },
+    confirmToRegister (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          if (this.editType === 1) {
+            system.create(1, this.form).then(res => {
+              this.$message.success(this.$t('tip.regAppLcmSuc'))
+              this.initList()
+              this.dialogVisible = false
+            }, error => {
+              this.$message.error(error.message)
+            })
+          } else {
+            system.modify(1, this.form).then(res => {
+              this.$message.success(this.$t('tip.modAppLcmSuc'))
+              this.initList()
+              this.dialogVisible = false
+            }, error => {
+              this.$message.error(error.message)
+            })
+          }
+        }
+      })
+    },
+    initList () {
+      system.getList(1).then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      // eslint-disable-next-line handle-callback-err
+      }, error => {
+        this.$message.error('Error!')
+      })
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+.sysLcm{
+  .tableDiv{
+    padding-top:25px;
+    p{
+      padding-bottom:5px;
+      .title{
+        position:relative;
+        top:15px;
+      }
+      span.title::before{
+        content:'';
+        display: inline-block;
+        height:15px;
+        width:4px;
+        background: #409EFF;
+        position: relative;
+        top:3px;
+        margin-right:3px;
+      }
+      .rt{
+        margin-bottom:15px;
+      }
+    }
+  }
+}
+</style>

@@ -1,0 +1,411 @@
+<!--
+  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -
+  -  Licensed under the Apache License, Version 2.0 (the "License");
+  -  you may not use this file except in compliance with the License.
+  -  You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -  Unless required by applicable law or agreed to in writing, software
+  -  distributed under the License is distributed on an "AS IS" BASIS,
+  -  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -  See the License for the specific language governing permissions and
+  -  limitations under the License.
+  -->
+
+<template>
+  <div class="appstore">
+    <div class="breadcrumb">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+          {{ $t('nav.mecm') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item><strong>{{ $t('nav.system') }}</strong></el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/systems/external/applcm' }">
+          {{ $t('nav.externalSysMan') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t('nav.appstore') }}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <Search
+      :affinity-item="false"
+      :ip-item="true"
+      :status-item="false"
+      @getSearchData="getSearchData"
+    />
+    <div class="func">
+      <p>
+        <span class="rt">
+          <el-button
+            id="newregBtn"
+            type="primary"
+            @click="register"
+          >{{ $t('system.appLcm.newReg') }}</el-button>
+        </span>
+      </p>
+    </div>
+    <div class="appstoreContainer">
+      <el-table
+        :data="currPageTableData"
+        v-loading="dataLoading"
+        border
+        style="width: 100%;"
+      >
+        <el-table-column
+          prop="appstorename"
+          :label="$t('system.appstore.appstoerName')"
+        />
+        <el-table-column
+          prop="producer"
+          :label="$t('system.appstore.vendor')"
+        />
+        <el-table-column
+          prop="username"
+          :label="$t('system.appLcm.userNmae')"
+        />
+        <el-table-column
+          prop="url"
+          :label="$t('app.packageList.ip')"
+        />
+        <el-table-column
+          prop="time"
+          :label="$t('system.appstore.modifyTime')"
+        />
+        <el-table-column
+          :label="$t('common.operation')"
+        >
+          <template slot-scope="scope">
+            <el-button
+              id="modifyBtn"
+              @click="handleEdit(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.modify') }}
+            </el-button>
+            <el-button
+              id="deleteBtn"
+              @click.native.prevent="handleDelete(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.delete') }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+    <div calss="pageBar">
+      <pagination
+        :table-data="paginationData"
+        @getCurrentPageData="getCurrentPageData"
+      />
+    </div>
+    <el-dialog
+      :title="dialogTitle"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-row>
+        <el-col :span="16">
+          <el-form
+            label-width="140px"
+            :model="form"
+            ref="form"
+            :rules="rules"
+          >
+            <el-form-item
+              :label="$t('system.appstore.appstoerName')"
+              prop="appstorename"
+            >
+              <el-input
+                id="appstorename"
+                v-model="form.appstorename"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appstore.vendor')"
+              prop="producer"
+            >
+              <el-input
+                id="producer"
+                v-model="form.producer"
+              />
+            </el-form-item>
+            <el-form-item
+              label="URL"
+              prop="url"
+            >
+              <el-input
+                id="url"
+                v-model="form.url"
+                :disabled="urlDisable"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.userNmae')"
+              prop="username"
+            >
+              <el-input
+                id="username"
+                v-model="form.username"
+                auto-complete="new-username"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.password')"
+              prop="password"
+            >
+              <el-input
+                id="password"
+                v-model="form.password"
+                type="password"
+                auto-complete="new-password"
+              />
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="cancelBtn"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+          @click="confirmToRegister('form')"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import { system } from '../../tools/request.js'
+import Search from '../../components/Search.vue'
+import pagination from '../../components/Pagination.vue'
+export default {
+  name: 'Appstore',
+  components: {
+    Search, pagination
+  },
+  data () {
+    return {
+      dialogVisible: false,
+      urlDisable: 'false',
+      dialogTitle: this.$t('system.appstore.appStoreReg'),
+      form: {
+        username: '',
+        password: '',
+        url: '',
+        appsorename: '',
+        producer: '',
+        editType: 1
+      },
+      currPageTableData: [],
+      paginationData: [],
+      tableData: [],
+      dataLoading: true,
+      rules: {
+        appstorename: [
+          { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
+        ],
+        producer: [
+          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
+        ],
+        username: [
+          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: this.$t('verify.passwordTip'), trigger: 'blur' }
+        ],
+        url: [
+          { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  mounted () {
+    this.initList()
+  },
+  methods: {
+    // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
+    filterTableData (val, key) {
+      this.paginationData = this.paginationData.filter(item => {
+        let itemVal = item[key].toLowerCase()
+        return itemVal.indexOf(val) > -1
+      })
+    },
+    // 根据搜索组件进行筛选
+    getSearchData (data) {
+      this.paginationData = this.tableData
+      // appstorename  url  后端对应的字段
+      if (this.paginationData && this.paginationData.length > 0) {
+        let reset = false
+        for (let key in data) {
+          if (data[key]) {
+            reset = true
+            let dataKey = key
+            if (key === 'ip') {
+              dataKey = 'url'
+            } else if (key === 'name') {
+              dataKey = 'appstorename'
+            }
+            this.filterTableData(data[key].toLowerCase(), dataKey)
+          }
+        }
+        if (!reset) this.paginationData = this.tableData
+      }
+    },
+    getCurrentPageData (data) {
+      this.currPageTableData = data
+    },
+    resetForm () {
+      this.form = {
+        username: '',
+        password: '',
+        url: ''
+      }
+    },
+    register () {
+      this.editType = 1
+      this.dialogVisible = true
+      this.urlDisable = false
+      this.dialogTitle = this.$t('system.appstore.appStoreReg')
+      this.resetForm()
+    },
+    confirmToRegister (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          if (this.editType === 1) {
+            system.create(3, this.form).then(res => {
+              this.$message.success(this.$t('tip.regAppStoreSuc'))
+              this.initList()
+              this.dialogVisible = false
+              // eslint-disable-next-line handle-callback-err
+            }, error => {
+              this.$message.error(error.message)
+            })
+          } else {
+            system.modify(3, this.form).then(res => {
+              this.$message.success(this.$t('tip.regAppStoreSuc'))
+              this.initList()
+              this.dialogVisible = false
+              // eslint-disable-next-line handle-callback-err
+            }, error => {
+              this.$message.error(error.message)
+            })
+          }
+        }
+      })
+    },
+    handleEdit (row) {
+      this.dialogTitle = this.$t('system.appstore.appStoreModify')
+      this.dialogVisible = true
+      this.urlDisable = true
+      this.form = row
+      this.editType = 2
+    },
+    handleDelete (row) {
+      this.$confirm(this.$t('tip.beforeDeleteAppstore'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        let data = {
+          url: row.url
+        }
+        system.delete(3, data).then(res => {
+          this.initList()
+          this.$message.success(this.$t('tip.deleteAppStoreSuc'))
+        // eslint-disable-next-line handle-callback-err
+        }, error => {
+          this.$message.error(error.message)
+        })
+      }).catch({
+
+      })
+    },
+    initList () {
+      system.getList(3).then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      // eslint-disable-next-line handle-callback-err
+      })
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+.appstore{
+  .appstoreContainer{
+    .appStore{
+      width:30%;
+      height:185px;
+      border:1px solid #ddd;
+      border-radius: 8px;
+      padding:15px;
+      margin:0 15px 25px 0;
+      .lt{
+        width: 30%;
+        padding:15px;
+        text-align: center;
+        p{
+          padding-top:20px;
+          text-align: center;
+        }
+      }
+      .rt{
+        width:60%;
+        div{
+          float:left;
+          width:46%;
+          height:80px;
+          border:1px solid #ddd;
+          border-radius: 4px;
+          margin:0 5px 20px 0;
+          text-align: center;
+          line-height:30px;
+          font-size: 15px;
+          font-weight: bold;
+          p:first-child{
+            margin-top:15px;
+          }
+          p:nth-child(2){
+            color:green;
+          }
+        }
+      }
+    }
+  }
+  .func{
+    padding:25px 0;
+    p{
+      padding-bottom:5px;
+      .title{
+        position:relative;
+        top:15px;
+      }
+      span.title::before{
+        content:'';
+        display: inline-block;
+        height:15px;
+        width:4px;
+        background: #409EFF;
+        position: relative;
+        top:3px;
+        margin-right:3px;
+      }
+      .rt{
+        margin-bottom:15px;
+      }
+    }
+  }
+}
+</style>
