@@ -35,7 +35,7 @@
           :id="item.id"
         >
           <template slot="title">
-            <i :class="item.icon" /><span class="first-menu">{{ item.name }}</span>
+            <em :class="item.icon" /><span class="first-menu">{{ item.name }}</span>
           </template>
 
           <!-- 二级菜单 -->
@@ -47,7 +47,7 @@
               :id="item.id"
             >
               <template slot="title">
-                <i :class="itemChild.icon" /><span class="second-menu">{{ itemChild.name }}</span>
+                <em :class="itemChild.icon" /><span class="second-menu">{{ itemChild.name }}</span>
               </template>
 
               <!-- 三级菜单 -->
@@ -57,7 +57,7 @@
                 :key="itemChild_Child.id"
                 :id="item.id"
               >
-                <i :class="itemChild_Child.icon" />
+                <em :class="itemChild_Child.icon" />
                 <span slot="title">{{ itemChild_Child.name }}</span>
               </el-menu-item>
             </el-submenu>
@@ -68,7 +68,7 @@
               :key="itemChild.id"
               :id="item.id"
             >
-              <i :class="itemChild.icon" />
+              <em :class="itemChild.icon" />
               <span
                 slot="title"
                 class="second-menu"
@@ -84,7 +84,7 @@
           :key="item.id"
           :id="item.id"
         >
-          <i :class="item.icon" />
+          <em :class="item.icon" />
           <span
             slot="title"
             class="first-menu"
@@ -145,9 +145,9 @@ export default {
   top:6px;
   z-index: 0;
   float: left;
-  .el-menu.el-menu--horizontal{
+  .el-menu .el-menu--horizontal{
   height: 50px;
-  border-bottom: none;
+  border:none!important;
   .el-menu-item{
     height: 50px;
     line-height: 50px;
@@ -169,9 +169,6 @@ export default {
   .third-menu{
     font-size: 12px;
   }
-}
-.el-menu.el-menu--horizontal{
-  border:none!important;
 }
 }
 

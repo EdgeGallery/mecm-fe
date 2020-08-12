@@ -343,7 +343,7 @@
         multiple
         :limit="1"
       >
-        <i class="el-icon-upload" />
+        <em class="el-icon-upload" />
         <div class="el-upload__text">
           Drag the file here，or<em> Click to upload</em>
         </div>
@@ -491,9 +491,7 @@ export default {
       if (row.affinity.indexOf(',') > -1) {
         this.affinity = row.affinity.split(',')
       } else {
-        let array = []
-        array.push(row.affinity)
-        this.affinity = array
+        this.affinity.push(row.affinity)
       }
       this.dialogVisible = true
       this.clearValidate('currForm')

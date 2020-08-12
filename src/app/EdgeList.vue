@@ -113,15 +113,15 @@
                     <span
                       v-if="item.status === 'Distributed'"
                       class="success"
-                    ><i class="el-icon-success" />{{ item.status }}</span>
+                    ><em class="el-icon-success" />{{ item.status }}</span>
                     <span
                       v-else-if="item.status === 'Processing'"
                       class="primary"
-                    ><i class="el-icon-loading" />{{ item.status }}</span>
+                    ><em class="el-icon-loading" />{{ item.status }}</span>
                     <span
                       v-else
                       class="error"
-                    ><i class="el-icon-error" />{{ item.status }}</span>
+                    ><em class="el-icon-error" />{{ item.status }}</span>
                   </el-col>
                   <el-col
                     :span="8"
@@ -175,15 +175,15 @@
           <span
             v-if="configForm.status === 'Distributed'"
             class="success"
-          ><i class="el-icon-success" />{{ configForm.status }}</span>
+          ><em class="el-icon-success" />{{ configForm.status }}</span>
           <span
             v-else-if="configForm.status === 'Processing'"
             class="primary"
-          ><i class="el-icon-loading" />{{ configForm.status }}</span>
+          ><em class="el-icon-loading" />{{ configForm.status }}</span>
           <span
             v-else
             class="error"
-          ><i class="el-icon-error" />{{ configForm.status }}</span>
+          ><em class="el-icon-error" />{{ configForm.status }}</span>
         </el-form-item>
         <p>MEC Host</p>
         <el-form-item :label="$t('app.packageList.ip')">
