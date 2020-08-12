@@ -1,0 +1,355 @@
+<!--
+  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -
+  -  Licensed under the Apache License, Version 2.0 (the "License");
+  -  you may not use this file except in compliance with the License.
+  -  You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -  Unless required by applicable law or agreed to in writing, software
+  -  distributed under the License is distributed on an "AS IS" BASIS,
+  -  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -  See the License for the specific language governing permissions and
+  -  limitations under the License.
+  -->
+
+<template>
+  <div class="ainsList">
+    <div class="breadcrumb">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+          {{ $t('nav.mecm') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
+          {{ $t('nav.appMana') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t('nav.appInstance') }}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <Search
+      :affinity-item="false"
+      :status-item="true"
+      :status="status"
+      @getSearchData="getSearchData"
+    />
+    <div class="tableDiv">
+      <el-table
+        :data="currPageTableData"
+        v-loading="dataLoading"
+        border
+        style="width: 100%;"
+      >
+        <el-table-column
+          prop="appName"
+          :label="$t('app.packageList.name')"
+        />
+        <el-table-column
+          prop="appDescr"
+          :label="$t('app.packageList.desc')"
+        />
+        <el-table-column
+          prop="mecHost"
+          :label="$t('app.distriList.mecHost')"
+        />
+        <el-table-column
+          :label="$t('app.distriList.status')"
+        >
+          <template slot-scope="scope">
+            <span
+              v-if="scope.row.operationalStatus === 'Instantiated'"
+              class="success"
+            ><i class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
+            <span
+              v-else-if="scope.row.operationalStatus === 'Created'"
+              class="primary"
+            ><i class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
+            <span
+              v-else
+              class="error"
+            ><i class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          :label="$t('common.operation')"
+        >
+          <template slot-scope="scope">
+            <el-button
+              id="deleteBtn"
+              @click="beforeDelete(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.delete') }}
+            </el-button>
+            <el-button
+              id="detailBtn"
+              @click="checkDetail(scope.row)"
+              :disabled="scope.row.operationalStatus !== 'Instantiated'"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.detail') }}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pageBar">
+        <Pagination
+          :table-data="paginationData"
+          @getCurrentPageData="getCurrentPageData"
+        />
+      </div>
+    </div>
+    <el-dialog
+      :title="$t('app.instanceList.instanceDetail')"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-form
+        label-width="130px"
+        class="detailForm"
+      >
+        <p>Pod Namespace</p>
+        <el-form-item label="pod_name:">
+          <span>{{ detailData[0].pod_name }}</span>
+        </el-form-item>
+        <el-form-item label="pod_namespace:">
+          <span>{{ detailData[0].pod_namespace }}</span>
+        </el-form-item>
+        <el-form-item label="pod_status:">
+          <span
+            v-if="detailData[0].pod_status === 'Running'"
+            class="success"
+          ><i class="el-icon-success" />{{ detailData[0].pod_status }}</span>
+          <span
+            v-else
+            class="failed"
+          ><i class="el-icon-error" />{{ detailData[0].pod_status }}</span>
+        </el-form-item>
+        <p>Containers</p>
+        <div>
+          <el-form-item
+            label="container_name:"
+            v-for="(item,index) in detailData[0].containers"
+            :key="index"
+          >
+            <span>{{ item.container_name }}</span>
+          </el-form-item>
+        </div>
+      </el-form>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="canceleBtn"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import Search from '../components/Search.vue'
+import Pagination from '../components/Pagination.vue'
+import { app } from '../tools/request.js'
+
+export default {
+  name: 'AinsList',
+  components: {
+    Search, Pagination
+  },
+  data () {
+    return {
+      status: ['Instantiated', 'Created', 'Instantiation Failed'],
+      currPageTableData: [],
+      paginationData: [],
+      dataLoading: true,
+      tableData: [],
+      dialogVisible: false,
+      interval: '',
+      detailForm: {
+        podName: ''
+      },
+      detailData: [
+        {
+          'pod_namespace': '',
+          'containers': [
+            {
+              'container_name': ''
+            },
+            {
+              'container_name': ''
+            },
+            {
+              'container_name': ''
+            }
+          ],
+          'pod_status': '',
+          'pod_name': ''
+        }
+      ]
+    }
+  },
+  mounted () {
+    this.initList()
+    this.interval = setInterval(() => {
+      this.initList()
+    }, 10000)
+  },
+  beforeDestroy () {
+    this.clearInterval()
+  },
+  methods: {
+    clearInterval () {
+      clearTimeout(this.interval)
+      this.interval = null
+    },
+    filterTableData (val, key) {
+      this.paginationData = this.paginationData.filter(item => {
+        let itemVal = item[key].toLowerCase()
+        return itemVal.indexOf(val) > -1
+      })
+    },
+    getSearchData (data) {
+      this.paginationData = this.tableData
+      if (this.paginationData && this.paginationData.length > 0) {
+        let reset = false
+        for (let key in data) {
+          if (data[key]) {
+            reset = true
+            let dataKey = ''
+            if (key === 'status') {
+              dataKey = 'operationalStatus'
+            } else if (key === 'name') {
+              dataKey = 'appName'
+            }
+            this.filterTableData(data[key].toLowerCase(), dataKey)
+          }
+        }
+        if (!reset) this.paginationData = this.tableData
+      }
+    },
+    getCurrentPageData (data) {
+      this.currPageTableData = data
+    },
+    beforeDelete (rows) {
+      this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        this.confirmDetlete(rows)
+      }).catch(() => {
+      })
+    },
+    initList () {
+      app.getInstanceList().then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      }).catch(() => {
+        this.$message.error(this.$t('tip.networkError'))
+      })
+    },
+    confirmDetlete (rows) {
+      let param = {
+        mec_host: rows.mec_host
+      }
+      app.deleteInstanceApp(rows.appInstanceId, param).then(response => {
+        this.$message.success(this.$t('tip.deleteSuc'))
+        this.initList()
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    },
+    checkDetail (rows) {
+      app.getInstanceDetail(rows.appInstanceId).then(response => {
+        this.dialogVisible = true
+      }).catch((error) => {
+        this.$message.error(error.message)
+      })
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+.ainsList{
+  .appStore{
+    width:30%;
+    height:185px;
+    border:1px solid #ddd;
+    border-radius: 8px;
+    padding:15px;
+    .lt{
+      width: 30%;
+      padding:15px;
+      img{
+        position: relative;
+        left:15px;
+      }
+      p{
+        padding-top:20px;
+        text-align: center;
+      }
+    }
+    .rt{
+      width:60%;
+      div{
+        float:left;
+        width:46%;
+        height:80px;
+        border:1px solid #ddd;
+        border-radius: 4px;
+        margin:0 5px 20px 0;
+        text-align: center;
+        line-height:30px;
+        font-size: 15px;
+        font-weight: bold;
+        p:first-child{
+          margin-top:15px;
+        }
+        p:nth-child(2){
+          color:green;
+        }
+      }
+    }
+  }
+  .tableDiv{
+    padding-top:25px;
+    p{
+      padding-bottom:5px;
+      .rt{
+        margin-bottom:15px;
+      }
+    }
+  }
+  i{
+    margin-right: 5px;
+  }
+  .detailForm{
+    p{
+      margin-bottom: 12px;
+    }
+    p::before{
+      content:'';
+      display:inline-block;
+      width:3px;
+      height:15px;
+      margin-right:3px;
+      background: #409EFF;
+      position: relative;
+      top:3px;
+    }
+    .el-form-item{
+      margin-bottom: 12px!important;
+    }
+  }
+}
+</style>
