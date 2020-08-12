@@ -1,0 +1,505 @@
+<!--
+  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -
+  -  Licensed under the Apache License, Version 2.0 (the "License");
+  -  you may not use this file except in compliance with the License.
+  -  You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -  Unless required by applicable law or agreed to in writing, software
+  -  distributed under the License is distributed on an "AS IS" BASIS,
+  -  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -  See the License for the specific language governing permissions and
+  -  limitations under the License.
+  -->
+
+<template>
+  <div class="edgeList">
+    <div class="breadcrumb">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+          {{ $t('nav.mecm') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
+          {{ $t('nav.appMana') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t('nav.packageDist') }}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <Search
+      :status-item="false"
+      @getSearchData="getSearchData"
+    />
+    <div class="tableDiv">
+      <el-table
+        :data="currPageTableData"
+        v-loading="dataLoading"
+        border
+        @selection-change="handleSelectionChange"
+        style="width: 100%;"
+      >
+        <el-table-column
+          type="selection"
+          revers-selection
+          width="50"
+        />
+        <el-table-column
+          prop="appPackageName"
+          :label="$t('app.packageList.name')"
+          width="180"
+        />
+        <el-table-column
+          prop="appVersion"
+          :label="$t('app.packageList.version')"
+          width="130"
+        />
+        <el-table-column
+          prop="provider"
+          :label="$t('app.packageList.vendor')"
+          width="160"
+        />
+        <el-table-column
+          prop="appAffinity"
+          :label="$t('app.packageList.affinity')"
+          width="120"
+        />
+        <el-table-column
+          prop="modifiedTime"
+          :label="$t('app.packageList.modifyTime')"
+          width="220"
+        />
+        <el-table-column
+          prop="status"
+          :label="$t('app.distriList.mecHost')"
+        >
+          <template slot-scope="scope">
+            <div class="tableStatus">
+              <div
+                class="listItem"
+                style="padding:0px 0 5px 0;"
+              >
+                <el-row>
+                  <el-col :span="10">
+                    {{ $t('app.distriList.hostIp') }}
+                  </el-col>
+                  <el-col
+                    :span="6"
+                    style="text-align:center;"
+                  >
+                    {{ $t('app.distriList.status') }}
+                  </el-col>
+                  <el-col
+                    :span="8"
+                    style="text-align:center;"
+                  >
+                    {{ $t('common.operation') }}
+                  </el-col>
+                </el-row>
+              </div>
+              <div
+                v-for="(item,index) in scope.row.mecHost"
+                :key="index"
+                class="listItem"
+              >
+                <el-row>
+                  <el-col :span="10">
+                    {{ item.hostIp }}
+                  </el-col>
+                  <el-col
+                    :span="6"
+                    style="text-align:center;"
+                  >
+                    <span
+                      v-if="item.status === 'Distributed'"
+                      class="success"
+                    ><i class="el-icon-success" />{{ item.status }}</span>
+                    <span
+                      v-else-if="item.status === 'Processing'"
+                      class="primary"
+                    ><i class="el-icon-loading" />{{ item.status }}</span>
+                    <span
+                      v-else
+                      class="error"
+                    ><i class="el-icon-error" />{{ item.status }}</span>
+                  </el-col>
+                  <el-col
+                    :span="8"
+                    style="text-align:center;"
+                  >
+                    <el-button
+                      id="deleteBtn"
+                      @click.native.prevent="beforeDelete(scope.row,index)"
+                      type="text"
+                      size="small"
+                    >
+                      {{ $t('common.delete') }}
+                    </el-button>
+                    <el-button
+                      id="distributeBtn"
+                      @click="deploy(scope.row,index)"
+                      :disabled="item.status !=='Distributed'"
+                      type="text"
+                      size="small"
+                    >
+                      {{ $t('app.distriList.deploy') }}
+                    </el-button>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="pageBar">
+        <Pagination
+          :table-data="paginationData"
+          @getCurrentPageData="getCurrentPageData"
+        />
+      </div>
+    </div>
+    <el-dialog
+      :title="$t('app.distriList.deploymentConf')"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-form
+        label-width="130px"
+        class="configForm"
+        :model="configForm"
+        ref="configForm"
+        :rules="rules"
+      >
+        <p>MEPM Information</p>
+        <el-form-item :label="$t('app.distriList.status')">
+          <span
+            v-if="configForm.status === 'Distributed'"
+            class="success"
+          ><i class="el-icon-success" />{{ configForm.status }}</span>
+          <span
+            v-else-if="configForm.status === 'Processing'"
+            class="primary"
+          ><i class="el-icon-loading" />{{ configForm.status }}</span>
+          <span
+            v-else
+            class="error"
+          ><i class="el-icon-error" />{{ configForm.status }}</span>
+        </el-form-item>
+        <p>MEC Host</p>
+        <el-form-item :label="$t('app.packageList.ip')">
+          <span class="primary">{{ configForm.mecHost }}</span>
+        </el-form-item>
+        <p>APP Information</p>
+        <el-form-item
+          :label="$t('app.distriList.appName')"
+          prop="appName"
+        >
+          <el-input
+            id="appname"
+            v-model="configForm.appName"
+          />
+        </el-form-item>
+        <el-form-item
+          :label="$t('app.distriList.appDesc')"
+          prop="appInstanceDescription"
+        >
+          <el-input
+            id="appdesc"
+            v-model="configForm.appInstanceDescription"
+          />
+        </el-form-item>
+        <p>POD Information</p>
+        <el-form-item :label="$t('app.distriList.podName')">
+          <el-input
+            id="podname"
+            v-model="configForm.podName"
+          />
+        </el-form-item>
+        <el-form-item :label="$t('app.distriList.podKind')">
+          <el-input
+            id="podkind"
+            v-model="configForm.podKind"
+          />
+        </el-form-item>
+        <el-form-item :label="$t('app.distriList.podNameEspace')">
+          <el-input
+            id="podnameespace"
+            v-model="configForm.podNameEspace"
+          />
+        </el-form-item>
+        <el-form-item :label="$t('app.distriList.podSel')">
+          <el-input
+            id="podsel"
+            v-model="configForm.podSelector"
+          />
+        </el-form-item>
+      </el-form>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="cancelBtn"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+          @click="confirmToDeploy('configForm')"
+          :loading="loading"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
+  </div>
+</template>
+
+<script>
+import Search from '../components/Search.vue'
+import Pagination from '../components/Pagination.vue'
+import { app } from '../tools/request.js'
+export default {
+  name: 'EdgeList',
+  components: {
+    Search, Pagination
+  },
+  data () {
+    return {
+      loading: false,
+      currPageTableData: [],
+      paginationData: [],
+      searchVal: '',
+      selectedNum: 0,
+      selectedData: [],
+      dialogVisible: false,
+      configForm: {
+        podName: 'pod1',
+        podKind: 'dployment',
+        podNameEspace: 'default',
+        podSelector: 'martchlabel',
+        status: '',
+        appPackageId: '',
+        appName: '',
+        appInstanceDescription: '',
+        mecHost: '',
+        appId: ''
+      },
+      rules: {
+        appName: [
+          { required: true, message: 'App name can not be empty', trigger: 'blur' }
+        ],
+        appInstanceDescription: [
+          { required: true, message: 'App instance description can not be empty', trigger: 'blur' }
+        ]
+      },
+      dataLoading: true,
+      tableData: [],
+      packageData: [],
+      interval: ''
+    }
+  },
+  mounted () {
+    this.initList()
+    this.interval = setInterval(() => {
+      this.initList()
+    }, 10000)
+  },
+  beforeDestroy () {
+    this.clearInterval()
+  },
+  methods: {
+    clearInterval () {
+      clearTimeout(this.interval)
+      this.interval = null
+    },
+    // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
+    filterTableData (val, key) {
+      this.paginationData = this.paginationData.filter(item => {
+        let itemVal = item[key].toLowerCase()
+        return itemVal.indexOf(val) > -1
+      })
+    },
+    // 根据搜索组件进行筛选
+    getSearchData (data) {
+      this.paginationData = this.tableData
+      // appPackageName appAffinity  后端对应的字段
+      if (this.paginationData && this.paginationData.length > 0) {
+        let reset = false
+        for (let key in data) {
+          if (data[key]) {
+            reset = true
+            let dataKey = ''
+            if (key === 'name') {
+              dataKey = 'appPackageName'
+            } else if (key === 'affinity') {
+              dataKey = 'appAffinity'
+            }
+            this.filterTableData(data[key].toLowerCase(), dataKey)
+          }
+        }
+        if (!reset) this.paginationData = this.tableData
+      }
+    },
+    getCurrentPageData (data) {
+      this.currPageTableData = data
+    },
+    beforeDelete (rows, index) {
+      this.$confirm(this.$t('tip.beforeDeleteFromMechost'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        let hostIp = rows.mecHost[index].hostIp
+        let packageId = rows.appPackageId
+        let type = 1
+        if (rows.mecHost.length === 1) {
+          type = 2
+        }
+        app.deletDistributionApp(type, hostIp, packageId).then(res => {
+          this.$message.success(this.$t('tip.deletePacFrmoHost'))
+          this.initList()
+        })
+      }).catch(() => {
+      })
+    },
+    initList () {
+      app.getDistributionList().then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      }).catch(() => {
+        this.dataLoading = false
+        this.$message.error(this.$t('tip.getListFailed'))
+      })
+    },
+    deploy (row, index) {
+      this.configForm.status = row.mecHost[index].status
+      this.configForm.appPackageId = row.appPackageId
+      this.configForm.mecHost = row.mecHost[index].hostIp
+      this.configForm.appId = row.appId
+      this.dialogVisible = true
+    },
+    confirmToDeploy (configForm) {
+      this.loading = true
+      this.$refs[configForm].validate((valid) => {
+        if (valid) {
+          let params = {
+            app_id: this.configForm.appId,
+            app_package_id: this.configForm.appPackageId,
+            app_name: this.configForm.appName,
+            app_instance_description: this.configForm.appInstanceDescription,
+            mec_host: this.configForm.mecHost
+          }
+          app.confirmToDeploy(params).then(res => {
+            let param = {
+              mec_host: params.mec_host
+            }
+            app.instantiateApp(res.data.app_instance_id, param).then(response => {
+              this.loading = false
+              this.dialogVisible = false
+            }).catch(() => {
+              this.$message.error(this.$t('tip.deployFailed'))
+              this.dialogVisible = false
+              this.loading = false
+            })
+            this.$nextTick(() => {
+              this.$router.push('/mecm/ains/list')
+            })
+          }).catch(() => {
+            this.$message.error(this.$t('tip.deployFailed'))
+            this.dialogVisible = false
+          })
+        }
+      })
+    },
+    handleSelectionChange (selection) {
+      this.selectedNum = selection.length
+    }
+  }
+}
+</script>
+
+<style lang='less' scoped>
+.edgeList{
+  .appStore{
+    width:30%;
+    height:185px;
+    border:1px solid #ddd;
+    border-radius: 8px;
+    padding:15px;
+    .lt{
+      width: 30%;
+      padding:15px;
+      text-align: center;
+      p{
+        padding-top:20px;
+        text-align: center;
+      }
+    }
+    .rt{
+      width:60%;
+      div{
+        float:left;
+        width:46%;
+        height:80px;
+        border:1px solid #ddd;
+        border-radius: 4px;
+        margin:0 5px 20px 0;
+        text-align: center;
+        line-height:30px;
+        font-size: 15px;
+        font-weight: bold;
+        p:first-child{
+          margin-top:15px;
+        }
+        p:nth-child(2){
+          color:green;
+        }
+      }
+    }
+  }
+  .tableDiv{
+    padding-top:25px;
+    p{
+      position: relative;
+      top:15px;
+      .rt{
+        margin-bottom:15px;
+      }
+    }
+  }
+}
+.createBtn{
+  position: relative;
+  top: 3px;
+}
+.tableStatus{
+  i{
+    margin-right:5px;
+  }
+}
+.configForm{
+  p{
+    margin-bottom: 12px;
+  }
+  p::before{
+    content:'';
+    display:inline-block;
+    width:3px;
+    height:15px;
+    margin-right:3px;
+    background: #409EFF;
+    position: relative;
+    top:3px;
+  }
+  .el-form-item{
+    margin-bottom: 20px!important;
+  }
+}
+.listItem{
+  border-bottom: 1px solid #ddd;
+  padding-top:10px;
+  .el-button{
+    position: relative;
+    top:-6px;
+  }
+}
+</style>
