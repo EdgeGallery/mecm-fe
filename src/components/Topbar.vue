@@ -145,9 +145,9 @@ export default {
   top:6px;
   z-index: 0;
   float: left;
-  .el-menu .el-menu--horizontal{
+  .el-menu.el-menu--horizontal{
   height: 50px;
-  border:none!important;
+  border-bottom: none;
   .el-menu-item{
     height: 50px;
     line-height: 50px;
@@ -169,6 +169,9 @@ export default {
   .third-menu{
     font-size: 12px;
   }
+}
+.el-menu.el-menu--horizontal{
+  border:none!important;
 }
 }
 

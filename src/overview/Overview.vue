@@ -168,11 +168,7 @@
         :offset="2"
         style="height: 100%;"
       >
-        <ve-map
-          height="100%"
-          :events="mapEvents"
-          :extend="mapExtend"
-        />
+        <Map />
       </el-col>
     </el-row>
     <div v-if="manageDialogStatus">
@@ -186,10 +182,12 @@
 
 <script>
 import manageDialog from './ManageDialog.vue'
+import Map from './Map.vue'
 import { user, overview, edge } from '../tools/request.js'
 export default {
   components: {
-    manageDialog
+    manageDialog,
+    Map
   },
   data () {
     this.chartSettings = {
@@ -262,6 +260,11 @@ export default {
           zoom: 1.2,
           aspectScale: 0.85,
           selectedMode: 'single',
+          roam: true, // 是否开启平游或缩放
+          scaleLimit: { // 滚轮缩放的极限控制
+            min: 1,
+            max: 2
+          },
           label: {
             normal: {
               show: true,
@@ -407,8 +410,8 @@ export default {
         // this.$message.error(this.$t('tip.getNodeListFailed'))
       })
     },
-    getPackageInfo (val) {
-      overview.getPackageInfo(val).then(res => {
+    getPackageInfo (app) {
+      overview.getPackageInfo(app).then(res => {
         this.appPackageList = []
         let obj = {}
         obj.affinity = res.data.affinity
@@ -501,7 +504,7 @@ export default {
   background: url('../assets/images/overview-bg.png') center no-repeat;
   label.overviewLabel{
     opacity: 0.8;
-    font-family: PingFangSC-Medium,sans-serif;
+    font-family: PingFangSC-Medium;
     font-size: 20px;
     color: #FFFFFF;
     letter-spacing: 0;

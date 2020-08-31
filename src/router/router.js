@@ -51,11 +51,11 @@ export default new Router({
           name: 'ainslist',
           component: () => import('../app/InstanceList.vue')
         },
-        {
-          path: 'mecm/mep/list',
-          name: 'mepOverview1',
-          component: () => import('../mep/List.vue')
-        },
+        // {
+        //   path: 'mecm/mep/list',
+        //   name: 'mepOverview1',
+        //   component: () => import('../mep/List.vue')
+        // },
         {
           path: 'mecm/mep/detail',
           name: 'mepOverview2',

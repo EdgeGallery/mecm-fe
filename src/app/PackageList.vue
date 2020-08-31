@@ -55,6 +55,10 @@
             @selection-change="handleSelectionChange"
           >
             <el-table-column
+              type="selection"
+              width="55"
+            />
+            <el-table-column
               prop="name"
               sortable
               :label="$t('app.packageList.name')"
@@ -96,12 +100,12 @@
             </el-table-column>
             <el-table-column
               :label="$t('common.operation')"
-              width="150"
+              width="180"
             >
               <template slot-scope="scope">
                 <el-button
                   id="detailBtn"
-                  @click="checkDetail(scope.row)"
+                  @click="checkDetail(scope.row,1)"
                   type="text"
                   size="small"
                 >
@@ -114,6 +118,21 @@
                   size="small"
                 >
                   {{ $t('app.packageList.distribute') }}
+                </el-button><el-button
+                  id="detailBtn"
+                  @click="checkDetail(scope.row,2)"
+                  type="text"
+                  size="small"
+                >
+                  Deploy
+                </el-button>
+                <el-button
+                  id="detailBtn"
+                  @click="checkDetail(scope.row,3)"
+                  type="text"
+                  size="small"
+                >
+                  Topology
                 </el-button>
               </template>
             </el-table-column>
@@ -191,7 +210,11 @@
                 prop="city"
                 sortable
                 :label="$t('app.packageList.city')"
-              />
+              >
+                <template slot-scope="scope">
+                  <p>{{ codeToText(scope.row.city) }}</p>
+                </template>
+              </el-table-column>
               <el-table-column
                 prop="address"
                 sortable
@@ -246,6 +269,7 @@
 import { app, edge } from '../tools/request.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
+import { CodeToText } from 'element-china-area-data'
 export default {
   name: 'ApacList',
   components: {
@@ -274,7 +298,24 @@ export default {
       version: '',
       options: [],
       dialogLoading: false,
-      appId: ''
+      appId: '',
+      mockData: [
+        { affinity: 'x86',
+          appId: 'ea339be5f1044dcf9f76b05db46f0a56',
+          contact: 'https://github.com/zdirection/Ant-Media-Server',
+          createTime: '2020-07-24 11:46:21.171036',
+          details: 'abc',
+          downloadCount: 10,
+          iconUrl: null,
+          industry: '其他',
+          name: 'AntMediaServer',
+          provider: 'OpenSource',
+          score: 5,
+          shortDesc: 'test',
+          type: 'Video Application',
+          userId: '661add4e-e21d-4277-be81-eeda056c88e1',
+          userName: 'mecdev' }
+      ]
     }
   },
   mounted () {
@@ -293,6 +334,10 @@ export default {
     }
   },
   methods: {
+    codeToText (item) {
+      let val = item.split(',')
+      return CodeToText[val[0]] + '/' + CodeToText[val[1]] + '/' + CodeToText[val[2]]
+    },
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
@@ -318,8 +363,10 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    checkDetail (row) {
-      this.$router.push('/mecm/apac/detail?appId=' + row.appId)
+    checkDetail (row, id) {
+      id === 1 ? this.$router.push('/mecm/apac/detail?appId=' + row.appId)
+        : id === 2 ? this.$router.push('/mecm/edge/list?appId=' + row.appId)
+          : this.$router.push('/mecm/apac/tupu?appId=' + row.appId)
     },
     distribute (row) {
       this.currentRowData = row
@@ -336,6 +383,7 @@ export default {
     },
     async getAppListFromAppStore () {
       this.dataLoading = true
+      this.tableData = this.paginationData = this.mockData
       app.getAppListFromAppStore().then(response => {
         this.tableData = response.data
         this.paginationData = this.tableData
@@ -343,6 +391,7 @@ export default {
         this.dataLoading = false
       }).catch(() => {
         this.$message.error(this.$t('tip.failedToGetAppList'))
+        this.dataLoading = false
       })
     },
     async getNodeList (row) {

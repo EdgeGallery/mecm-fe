@@ -72,7 +72,11 @@
             prop="city"
             sortable
             :label="$t('app.packageList.city')"
-          />
+          >
+            <template slot-scope="scope">
+              <p>{{ codeToText(scope.row.city) }}</p>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="address"
             sortable
@@ -87,12 +91,12 @@
           <el-table-column
             prop="edgeNexusIp"
             sortable
-            label="Edge Nexus Ip"
+            label="Edge Repo Ip"
           />
           <el-table-column
             prop="edgeNexusPort"
             sortable
-            label="Edge Nexus Port"
+            label="Edge Repo Port"
           />
           <el-table-column
             prop="appLcmIp"
@@ -160,6 +164,26 @@
           >
             <el-col :span="10">
               <el-form-item
+                label="类型"
+                prop="hostname"
+              >
+                <el-radio-group
+                  v-model="radio"
+                  @change="changeType"
+                >
+                  <el-radio
+                    label="1"
+                  >
+                    K8S
+                  </el-radio>
+                  <el-radio
+                    label="2"
+                  >
+                    OpenStack
+                  </el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item
                 :label="$t('app.packageList.name')"
                 prop="hostname"
               >
@@ -180,12 +204,12 @@
               </el-form-item>
               <el-form-item
                 :label="$t('system.edgeNodes.deployArea')"
-                prop="selectedOptions"
+                prop="city"
               >
-                <el-cascader
-                  size="large"
-                  :options="options"
-                  v-model="selectedOptions"
+                <area-select
+                  v-model="selectedArea"
+                  :data="$pcaa"
+                  :level="3"
                   @change="handleCityChange"
                 />
               </el-form-item>
@@ -199,40 +223,22 @@
                 />
               </el-form-item>
               <el-form-item
-                :label="$t('system.edgeNodes.zipcode')"
-                prop="zipcode"
+                :label="$t('app.packageList.affinity')"
+                prop="affinity"
               >
-                <el-input
-                  id="zipcode"
-                  v-model="currForm.zipcode"
-                />
+                <el-checkbox-group
+                  v-model="currForm.affinity"
+                  id="affinity"
+                >
+                  <el-checkbox
+                    v-for="(item,index) in affinityList"
+                    :key="index"
+                    :label="item"
+                  />
+                </el-checkbox-group>
               </el-form-item>
               <el-form-item
-                :label="$t('system.appLcm.userNmae')"
-                prop="username"
-              >
-                <el-input
-                  id="username"
-                  v-model="currForm.username"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.password')"
-                prop="password"
-              >
-                <el-input
-                  id="password"
-                  v-model="currForm.password"
-                  type="password"
-                />
-              </el-form-item>
-            </el-col>
-            <el-col
-              :span="10"
-              :offset="1"
-            >
-              <el-form-item
-                label="APP LCM IP"
+                label="APPLCM"
                 prop="appLcmIp"
               >
                 <el-select
@@ -248,17 +254,60 @@
                   />
                 </el-select>
               </el-form-item>
+            </el-col>
+            <el-col
+              :span="10"
+              :offset="1"
+            >
               <el-form-item
-                label="Kubernetes URL"
-                prop="k8sURL"
+                :label="$t('system.appLcm.userNmae')"
+                prop="username"
+                v-if="op"
               >
                 <el-input
-                  id="ksurl"
-                  v-model="currForm.k8sURL"
+                  id="username"
+                  v-model="currForm.username"
                 />
               </el-form-item>
               <el-form-item
-                label="Edge Nexus Ip"
+                :label="$t('system.appLcm.password')"
+                prop="password"
+                v-if="op"
+              >
+                <el-input
+                  id="password"
+                  v-model="currForm.password"
+                  type="password"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.uploadFile')"
+                v-if="!op"
+              >
+                <el-upload
+                  id="upload"
+                  class="upload-demo"
+                  drag
+                  action=""
+                  :http-request="submitUpload"
+                  :file-list="fileList"
+                  multiple
+                  :limit="1"
+                >
+                  <em class="el-icon-upload" />
+                  <div class="el-upload__text">
+                    {{ $t('system.edgeNodes.howToUpload') }}
+                  </div>
+                  <div
+                    class="el-upload__tip"
+                    slot="tip"
+                  >
+                    {{ $t('system.edgeNodes.uploadTip') }}
+                  </div>
+                </el-upload>
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.edgeNexusIp')"
                 prop="edgeNexusIp"
               >
                 <el-input
@@ -267,7 +316,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="Edge Nexus Port"
+                :label="$t('system.edgeNodes.edgeNexusPort')"
                 prop="edgeNexusPort"
               >
                 <el-input
@@ -276,7 +325,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="Edge Nexus Name"
+                :label="$t('system.edgeNodes.edgeNexusName')"
                 prop="edgeNexusUsername"
               >
                 <el-input
@@ -285,7 +334,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="Edge Nexus Password"
+                :label="$t('system.edgeNodes.edgeNexusPass')"
                 prop="edgeNexusPassword"
               >
                 <el-input
@@ -293,21 +342,6 @@
                   v-model="currForm.edgeNexusPassword"
                   type="password"
                 />
-              </el-form-item>
-
-              <el-form-item
-                :label="$t('app.packageList.affinity')"
-              >
-                <el-checkbox-group
-                  v-model="affinity"
-                  id="affinity"
-                >
-                  <el-checkbox
-                    v-for="(item,index) in affinityList"
-                    :key="index"
-                    :label="item"
-                  />
-                </el-checkbox-group>
               </el-form-item>
             </el-col>
           </el-form>
@@ -345,7 +379,7 @@
       >
         <em class="el-icon-upload" />
         <div class="el-upload__text">
-          Drag the file here，or<em> Click to upload</em>
+          {{ $t('system.edgeNodes.howToUpload') }}
         </div>
         <div
           class="el-upload__tip"
@@ -360,7 +394,7 @@
 
 <script>
 import { system, app } from '../../tools/request.js'
-import { regionData, CodeToText, TextToCode } from 'element-china-area-data'
+import { CodeToText } from 'element-china-area-data'
 import pagination from '../../components/Pagination.vue'
 import Search from '../../components/Search.vue'
 export default {
@@ -378,6 +412,9 @@ export default {
       dialogVisibleUpload: false,
       fileList: [],
       applcmList: [],
+      op: false,
+      radio: '1',
+      selectedArea: ['110000', '110100', '110101', '110101001'],
       currForm: {
         ip: '',
         hostname: '',
@@ -386,9 +423,9 @@ export default {
         address: '',
         username: '',
         password: '',
-        edgeNexusIp: '159.138.11.6',
-        edgeNexusPort: '8089',
-        edgeNexusUsername: 'admin',
+        edgeNexusIp: '',
+        edgeNexusPort: '',
+        edgeNexusUsername: '',
         edgeNexusPassword: '',
         appLcmIp: '',
         k8sURL: '',
@@ -401,8 +438,8 @@ export default {
         hostname: [
           { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' }
         ],
-        zipcode: [
-          { required: true, message: this.$t('verify.zipcodeTip'), trigger: 'blur' }
+        city: [
+          { required: true, message: this.$t('verify.typeCity'), trigger: 'blur' }
         ],
         address: [
           { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
@@ -428,16 +465,14 @@ export default {
         appLcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
         ],
-        k8sURL: [
-          { required: true, message: this.$t('verify.k8sURLTip'), trigger: 'blur' }
+        affinity: [
+          { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
         ]
       },
       affinity: [],
       title: '',
       editType: 1,
-      options: regionData,
       isDisable: false,
-      selectedOptions: '',
       affinityList: ['X86', 'ARM64', 'ARM32', 'GPU', 'NPU']
     }
   },
@@ -445,6 +480,10 @@ export default {
     this.getNodeListInPage()
   },
   methods: {
+    codeToText (item) {
+      let val = item.split(',')
+      return CodeToText[val[0]] + '/' + CodeToText[val[1]] + '/' + CodeToText[val[2]]
+    },
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
@@ -474,8 +513,11 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
+    changeType () {
+      this.op = !this.op
+    },
     handleCityChange (val) {
-      this.currForm.city = CodeToText[val[0]] + '/' + CodeToText[val[1]] + '/' + CodeToText[val[2]]
+      this.currForm.city = val.toString()
     },
     uploadFile (row) {
       this.dialogVisibleUpload = true
@@ -486,13 +528,8 @@ export default {
       this.title = this.$t('system.edgeNodes.nodeModify')
       this.isDisable = true
       this.currForm = row
-      let array = row.city.split('/')
-      this.selectedOptions = TextToCode[array[0]][array[1]][array[2]].code
-      if (row.affinity.indexOf(',') > -1) {
-        this.affinity = row.affinity.split(',')
-      } else {
-        this.affinity.push(row.affinity)
-      }
+      this.selectedArea = row.city.split(',')
+      this.currForm.affinity = row.affinity.split(',')
       this.dialogVisible = true
       this.clearValidate('currForm')
     },
@@ -532,7 +569,6 @@ export default {
       this.editType = 1
       this.title = this.$t('system.edgeNodes.nodeReg')
       this.isDisable = false
-      this.selectedOptions = ''
       this.dialogVisible = true
       this.$nextTick(() => {
         this.reset('currForm')
@@ -541,7 +577,7 @@ export default {
         this.applcmList = res.data
       // eslint-disable-next-line handle-callback-err
       }, error => {
-        this.$message.error('Error!')
+        this.$message.error('Network Error!')
       })
     },
     reset (formName) {
@@ -552,8 +588,8 @@ export default {
     async submitUpload (content) {
       let params = new FormData()
       params.append('file', content.file)
-      if (this.currForm.appLcmIp && this.currForm.ip) {
-        system.uploadConfig(this.currForm.ip, params).then(response => {
+      if (this.currForm.appLcmIp) {
+        system.uploadConfig(this.currForm.appLcmIp, params).then(response => {
           this.$message.success(this.$t('tip.uploadSuc'))
           this.dialogVisibleUpload = false
         }).catch((error) => {
@@ -576,20 +612,16 @@ export default {
     },
     confirm (form) {
       this.$refs[form].validate((valid) => {
-        if (valid && this.currForm.city) {
-          this.currForm.affinity = this.affinity.join(',')
+        if (valid) {
+          this.currForm.affinity = this.currForm.affinity.join(',')
+          this.currForm.city = this.selectedArea.toString()
+          console.log(this.currForm)
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
               this.$message.success(this.$t('tip.sucToRegNode'))
               this.getNodeListInPage()
               this.dialogVisible = false
               this.isDisable = false
-              this.$alert(this.$t('tip.uploadConf'), this.$t('common.warning'), {
-                confirmButtonText: this.$t('common.confirm'),
-                callback: action => {
-                  this.dialogVisibleUpload = true
-                }
-              })
             }).catch((error) => {
               this.$message.error(error.message)
             })
@@ -603,10 +635,6 @@ export default {
             }).catch(() => {
               this.$message.error(this.$t('tip.failToModifyNode'))
             })
-          }
-        } else {
-          if (!this.currForm.city) {
-            this.$message.error(this.$t('tip.typeCity'))
           }
         }
       })
@@ -635,9 +663,12 @@ export default {
 </style>
 <style>
 .el-upload{
-    width:100%;
-  }
-  .el-upload-dragger{
-    width:100%;
-  }
+  width:100%;
+}
+.el-upload-dragger{
+  width:100%;
+}
+.area-select .area-selected-trigger{
+  padding-top:0px;
+}
 </style>

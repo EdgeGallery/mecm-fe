@@ -70,82 +70,17 @@
         </el-table>
       </div>
     </div>
-    <el-row :gutter="24">
-      <el-col
-        :span="17"
-        style="position: relative;margin:15px 0 0 30px;"
-      >
-        <div id="appDetailMd">
-          <mavon-editor
-            v-model="source"
-            :toolbars-flag="false"
-            :editable="false"
-            :subfield="false"
-            default-open="preview"
-          />
-        </div>
-      </el-col>
-      <el-col :span="6">
-        <div class="right">
-          <div
-            class="provider"
-            style="background: white;"
-          >
-            <h4>
-              <span>{{ $t('app.packageList.vendor') }}</span>
-              <span class="name">{{ details.provider }}</span>
-            </h4>
-            <p>
-              <el-button type="text">
-                Application Home Page
-              </el-button>
-            </p>
-            <p>
-              <el-button type="text">
-                Submit Bugs
-              </el-button>
-            </p>
-          </div>
-          <div class="box">
-            <h4>Try it!</h4>
-            <p>
-              <el-button type="text">
-                Huawei EdgeGallery Platform
-              </el-button>
-            </p>
-          </div>
-          <div
-            class="box"
-            style="background: white;"
-          >
-            <h4>Dependency</h4>
-            <p>
-              <el-button type="text">
-                MySQl
-              </el-button>
-            </p>
-          </div>
-          <div class="box appDetailFileList">
-            <el-tree
-              :data="appDetailFileList"
-              default-expand-all
-              node-key="id"
-              ref="tree"
-              highlight-current
-              :props="defaultProps"
-              @node-click="handleNodeClick"
-              style="overflow-x: auto;"
-            />
-          </div>
-        </div>
-      </el-col>
-    </el-row>
+    <div>
+      <Edge />
+    </div>
   </div>
 </template>
 <script>
 import { app } from '../tools/request.js'
+import Edge from './EdgeList'
 export default {
   components: {
+    Edge
   },
   data () {
     return {
@@ -243,7 +178,7 @@ export default {
         .el-textarea__inner {
           color: black !important;
           cursor: auto !important;
-          font-family: "Microsoft Yahei", "simsun", "arial", sans-serif;
+          font-family: "Microsoft Yahei", "simsun", "arial", "tahoma";
         }
       }
     }

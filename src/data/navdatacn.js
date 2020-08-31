@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-const navdatacn = [
+const mecm = [
   {
     'id': '2.1',
     'icon': '',
@@ -31,22 +31,22 @@ const navdatacn = [
     'display': false,
     'children': [
       {
-        'id': '2.3',
-        'name': '应用包列表',
+        'id': '2.2.1',
+        'name': '应用包管理',
         'path': '/mecm/apac/list',
         'pageId': '2.0.1.1',
         'display': false
       },
+      // {
+      //   'id': '2.2.2',
+      //   'name': '应用包分发',
+      //   'path': '/mecm/edge/list',
+      //   'pageId': '2.0.1.2',
+      //   'display': false
+      // },
       {
-        'id': '2.4',
-        'name': '应用包分发',
-        'path': '/mecm/edge/list',
-        'pageId': '2.0.1.2',
-        'display': false
-      },
-      {
-        'id': '2.5',
-        'name': '应用实例',
+        'id': '2.2.3',
+        'name': '应用实例管理',
         'path': '/mecm/ains/list',
         'pageId': '2.0.1.3',
         'display': false
@@ -54,58 +54,42 @@ const navdatacn = [
     ]
   },
   {
-    'id': '2.6',
+    'id': '2.3',
     'name': '边缘节点',
-    'path': '/mecm/host/list',
+    'path': '/mecm/node/list',
     'pageId': '2.0.2',
-    'display': false,
-    children: [
-      {
-        'id': '2.7',
-        'name': '边缘节点列表',
-        'path': '/mecm/node/list',
-        'pageId': '2.0.2.1',
-        'display': false
-      },
-      {
-        'id': '2.8',
-        'name': 'MEP列表',
-        'path': '/mecm/mep/list',
-        'pageId': '2.0.2.2',
-        'display': false
-      }
-    ]
+    'display': false
   },
   {
-    'id': '2.9',
+    'id': '2.4',
     'name': '系统',
     'path': '/mecm/systems',
     'pageId': '2.0.3',
     'display': false,
     'children': [
       {
-        'id': '2.10',
+        'id': '2.4.1',
         'name': '外部系统管理',
         'path': '/mecm/systems/external',
         'pageId': '2.0.3.1',
         'display': false,
         children: [
           {
-            'id': '2.11',
-            'name': 'APP LCM注册系统',
+            'id': '2.4.1.1',
+            'name': 'APPLCM注册系统',
             'path': '/mecm/systems/external/applcm',
             'pageId': '2.0.3.1.1',
             'display': false
           },
           {
-            'id': '2.12',
+            'id': '2.4.1.2',
             'name': '边缘节点注册系统',
             'path': '/mecm/systems/external/edgenodes',
             'pageId': '2.0.3.1.2',
             'display': false
           },
           {
-            'id': '2.13',
+            'id': '2.4.1.3',
             'name': '应用市场注册系统',
             'path': '/mecm/systems/external/store',
             'pageId': '2.0.3.1.3',
@@ -117,4 +101,4 @@ const navdatacn = [
   }
 ]
 
-export default navdatacn
+export default mecm

@@ -187,8 +187,7 @@ export default {
         name: '',
         affinity: '',
         type: '',
-        status: '',
-        ip: ''
+        status: ''
       }
     }
   },

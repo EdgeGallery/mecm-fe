@@ -28,65 +28,60 @@
         <el-breadcrumb-item>{{ $t('nav.applcm') }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <Search
+    <!-- <Search
       :name-item="false"
       :status-item="false"
       :affinity-item="false"
       :ip-item="true"
       @getSearchData="getSearchData"
-    />
+    /> -->
     <div class="tableDiv">
-      <p>
+      <p class="btn-p">
         <span class="rt">
           <el-button
             id="newregBtn"
             type="primary"
-            @click="register()"
+            @click="register"
           >{{ $t('system.appLcm.newReg') }}</el-button>
         </span>
       </p>
-      <el-table
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        border
-        style="width: 100%;"
-      >
-        <el-table-column
-          prop="ip"
-          :label="$t('app.packageList.ip')"
-        />
-        <el-table-column
-          prop="port"
-          :label="$t('system.appLcm.port')"
-          width="180"
-        />
-        <el-table-column
-          prop="username"
-          :label="$t('system.appLcm.userNmae')"
-        />
-        <el-table-column
-          :label="$t('common.operation')"
+      <el-row>
+        <el-col
+          :span="3"
+          :offset="1"
+          v-for="(item,index) in currPageTableData"
+          :key="index"
         >
-          <template slot-scope="scope">
-            <el-button
-              id="modifyBtn"
-              @click="handleEdit(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.modify') }}
-            </el-button>
-            <el-button
-              id="deleteBtn"
-              @click.native.prevent="handleDelete(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.delete') }}
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
+          <el-card :body-style="{ padding: '0px' }">
+            <div class="info-card">
+              <p class="name">
+                APPLCM
+              </p>
+              <p class="info">
+                <span>{{ item.ip }}</span><span>&nbsp;/&nbsp;{{ item.port }}</span>
+              </p>
+              <div class="bottom clearfix rt">
+                <el-button
+                  type="text"
+                  class="button"
+                  id="modifyBtn"
+                  @click="handleEdit(item)"
+                >
+                  {{ $t('common.modify') }}
+                </el-button>
+                <el-button
+                  type="text"
+                  class="button"
+                  id="deleteBtn"
+                  @click.native.prevent="handleDelete(item)"
+                >
+                  {{ $t('common.delete') }}
+                </el-button>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
       <div class="pageBar">
         <pagination
           :table-data="paginationData"
@@ -100,13 +95,24 @@
       width="40%"
     >
       <el-row>
-        <el-col :span="16">
+        <el-col
+          :span="16"
+        >
           <el-form
             label-width="150px"
             :model="form"
             ref="form"
             :rules="rules"
           >
+            <el-form-item
+              label="APPLCM 名称"
+              prop="name"
+            >
+              <el-input
+                id="ip"
+                v-model="form.name"
+              />
+            </el-form-item>
             <el-form-item
               :label="$t('app.packageList.ip')"
               prop="ip"
@@ -124,27 +130,6 @@
               <el-input
                 id="port"
                 v-model="form.port"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.userNmae')"
-              prop="username"
-            >
-              <el-input
-                id="username"
-                v-model="form.username"
-                autocomplete="off"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.password')"
-              prop="password"
-            >
-              <el-input
-                id="password"
-                v-model="form.password"
-                type="password"
-                autocomplete="off"
               />
             </el-form-item>
           </el-form>
@@ -170,13 +155,13 @@
 
 <script>
 import { system } from '../../tools/request.js'
-import Search from '../../components/Search.vue'
+// import Search from '../../components/Search.vue'
 import pagination from '../../components/Pagination.vue'
 
 export default {
   name: 'SysLcm',
   components: {
-    Search, pagination
+    pagination
   },
   data () {
     return {
@@ -290,6 +275,7 @@ export default {
       system.getList(1).then(res => {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
+
       // eslint-disable-next-line handle-callback-err
       }, error => {
         this.$message.error('Error!')
@@ -323,6 +309,24 @@ export default {
         margin-bottom:15px;
       }
     }
+  }
+  .el-form{
+    margin-top:36px;
+  }
+  .info-card{
+    line-height: 28px;
+    padding:15px;
+    .name{
+      text-align: center;
+      font-size:15px;
+      font-weight: bold;
+    }
+    .info{
+      text-align: center;
+    }
+  }
+  .btn-p{
+    height:50px;
   }
 }
 </style>
