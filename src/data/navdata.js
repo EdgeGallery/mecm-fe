@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-const navdata = [
+const mecm = [
   {
     'id': '2.1',
     'icon': '',
@@ -37,13 +37,13 @@ const navdata = [
         'pageId': '2.0.1.1',
         'display': false
       },
-      {
-        'id': '2.4',
-        'name': 'Package Distribution',
-        'path': '/mecm/edge/list',
-        'pageId': '2.0.1.2',
-        'display': false
-      },
+      // {
+      //   'id': '2.4',
+      //   'name': 'Package Distribution',
+      //   'path': '/mecm/edge/list',
+      //   'pageId': '2.0.1.2',
+      //   'display': false
+      // },
       {
         'id': '2.5',
         'name': 'App Instance List',
@@ -56,25 +56,25 @@ const navdata = [
   {
     'id': '2.6',
     'name': 'Edge Nodes',
-    'path': '/mecm/host/list',
+    'path': '/mecm/node/list',
     'pageId': '2.0.2',
-    'display': false,
-    children: [
-      {
-        'id': '2.7',
-        'name': 'Edge Nodes List',
-        'path': '/mecm/node/list',
-        'pageId': '2.0.2.1',
-        'display': false
-      },
-      {
-        'id': '2.8',
-        'name': 'MEP List',
-        'path': '/mecm/mep/list',
-        'pageId': '2.0.2.2',
-        'display': false
-      }
-    ]
+    'display': false
+    // children: [
+    //   {
+    //     'id': '2.7',
+    //     'name': 'Edge Nodes List',
+    //     'path': '/mecm/node/list',
+    //     'pageId': '2.0.2.1',
+    //     'display': false
+    //   },
+    //   {
+    //     'id': '2.8',
+    //     'name': 'MEP List',
+    //     'path': '/mecm/mep/list',
+    //     'pageId': '2.0.2.2',
+    //     'display': false
+    //   }
+    // ]
   },
   {
     'id': '2.9',
@@ -117,4 +117,4 @@ const navdata = [
   }
 ]
 
-export default navdata
+export default mecm

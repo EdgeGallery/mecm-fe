@@ -16,7 +16,7 @@
 
 <template>
   <div class="edgeList">
-    <div class="breadcrumb">
+    <!-- <div class="breadcrumb">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
           {{ $t('nav.mecm') }}
@@ -26,7 +26,7 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>{{ $t('nav.packageDist') }}</el-breadcrumb-item>
       </el-breadcrumb>
-    </div>
+    </div> -->
     <Search
       :status-item="false"
       @getSearchData="getSearchData"

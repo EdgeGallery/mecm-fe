@@ -41,6 +41,11 @@
             prop="status"
             :label="$t('app.distriList.status')"
           />
+          <!-- <el-table-column :label="$t('common.operation')" width="100">
+            <template slot-scope>
+              <el-button type="text" size="small">{{$t('overview.register')}}</el-button>
+            </template>
+          </el-table-column> -->
         </el-table>
       </div>
       <el-row
@@ -184,7 +189,7 @@ export default {
     }
   }
   .el-radio{
-    font-family: Roboto-Regular,sans-serif;
+    font-family: Roboto-Regular;
     font-size: 18px;
     color: #212121;
     line-height: 16px;
@@ -193,7 +198,7 @@ export default {
     text-align: center;
   }
   .nameLable{
-      font-family: HelveticaNeue,sans-serif;
+      font-family: HelveticaNeue;
       font-size: 18px;
       color: #999999;
       letter-spacing: 0;
@@ -201,7 +206,7 @@ export default {
       margin-right:5px;
   }
   label.dialogLabel{
-    font-family: Roboto-Regular,sans-serif;
+    font-family: Roboto-Regular;
     font-size: 15px;
     color: #212121;
     letter-spacing: 0;
