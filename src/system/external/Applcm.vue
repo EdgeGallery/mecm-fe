@@ -28,13 +28,6 @@
         <el-breadcrumb-item>{{ $t('nav.applcm') }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <!-- <Search
-      :name-item="false"
-      :status-item="false"
-      :affinity-item="false"
-      :ip-item="true"
-      @getSearchData="getSearchData"
-    /> -->
     <div class="tableDiv">
       <p class="btn-p">
         <span class="rt">

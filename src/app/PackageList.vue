@@ -109,7 +109,7 @@
                   type="text"
                   size="small"
                 >
-                  {{ $t('common.detail') }}
+                  {{ $t('common.detail') }}&Deploy
                 </el-button>
                 <el-button
                   id="distributeBtn"
@@ -118,21 +118,6 @@
                   size="small"
                 >
                   {{ $t('app.packageList.distribute') }}
-                </el-button><el-button
-                  id="detailBtn"
-                  @click="checkDetail(scope.row,2)"
-                  type="text"
-                  size="small"
-                >
-                  Deploy
-                </el-button>
-                <el-button
-                  id="detailBtn"
-                  @click="checkDetail(scope.row,3)"
-                  type="text"
-                  size="small"
-                >
-                  Topology
                 </el-button>
               </template>
             </el-table-column>

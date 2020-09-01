@@ -501,7 +501,7 @@ export default {
   background: url('../assets/images/overview-bg.png') center no-repeat;
   label.overviewLabel{
     opacity: 0.8;
-    font-family: PingFangSC-Medium;
+    font-family: PingFangSC-Medium,sans-serif;
     font-size: 20px;
     color: #FFFFFF;
     letter-spacing: 0;

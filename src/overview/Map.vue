@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import cityMap from '../assets/js/china-map.js'
+import CityMap from '../assets/js/china-map.js'
 import echarts from 'echarts'
 import axios from 'axios'
 
@@ -33,7 +33,7 @@ export default {
   methods: {
     back () {
       if (mapStack.length !== 0) {
-        alert(1)
+        console.log(1)
         let map = mapStack.pop()
         axios
           .get('./map/' + map.mapId + '.json', {})
@@ -60,7 +60,7 @@ export default {
         parentId = chinaId
         parentName = 'china'
         myChart.on('click', function (param) {
-          let cityId = cityMap[param.name]
+          let cityId = CityMap[param.name]
           if (cityId) {
             axios
               .get('./map/' + cityId + '.json', {})
@@ -256,7 +256,7 @@ function initMapData (mapJson) {
   border: 0;
   color: #fff;
   height: 27px;
-  font-family: Microsoft Yahei;
+  font-family: Microsoft Yahei,sans-serif;
   font-size: 1em;
   cursor: pointer;
 }

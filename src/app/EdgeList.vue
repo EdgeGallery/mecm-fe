@@ -16,22 +16,21 @@
 
 <template>
   <div class="edgeList">
-    <!-- <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
-          {{ $t('nav.appMana') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.packageDist') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div> -->
     <Search
       :status-item="false"
       @getSearchData="getSearchData"
     />
     <div class="tableDiv">
+      <div class="btn-group rt">
+        <el-button
+          type="primary"
+        >
+          高级搜索
+        </el-button>
+        <el-button type="primary">
+          批量部署
+        </el-button>
+      </div>
       <el-table
         :data="currPageTableData"
         v-loading="dataLoading"
@@ -71,85 +70,16 @@
         />
         <el-table-column
           prop="status"
-          :label="$t('app.distriList.mecHost')"
-        >
-          <template slot-scope="scope">
-            <div class="tableStatus">
-              <div
-                class="listItem"
-                style="padding:0px 0 5px 0;"
-              >
-                <el-row>
-                  <el-col :span="10">
-                    {{ $t('app.distriList.hostIp') }}
-                  </el-col>
-                  <el-col
-                    :span="6"
-                    style="text-align:center;"
-                  >
-                    {{ $t('app.distriList.status') }}
-                  </el-col>
-                  <el-col
-                    :span="8"
-                    style="text-align:center;"
-                  >
-                    {{ $t('common.operation') }}
-                  </el-col>
-                </el-row>
-              </div>
-              <div
-                v-for="(item,index) in scope.row.mecHost"
-                :key="index"
-                class="listItem"
-              >
-                <el-row>
-                  <el-col :span="10">
-                    {{ item.hostIp }}
-                  </el-col>
-                  <el-col
-                    :span="6"
-                    style="text-align:center;"
-                  >
-                    <span
-                      v-if="item.status === 'Distributed'"
-                      class="success"
-                    ><em class="el-icon-success" />{{ item.status }}</span>
-                    <span
-                      v-else-if="item.status === 'Processing'"
-                      class="primary"
-                    ><em class="el-icon-loading" />{{ item.status }}</span>
-                    <span
-                      v-else
-                      class="error"
-                    ><em class="el-icon-error" />{{ item.status }}</span>
-                  </el-col>
-                  <el-col
-                    :span="8"
-                    style="text-align:center;"
-                  >
-                    <el-button
-                      id="deleteBtn"
-                      @click.native.prevent="beforeDelete(scope.row,index)"
-                      type="text"
-                      size="small"
-                    >
-                      {{ $t('common.delete') }}
-                    </el-button>
-                    <el-button
-                      id="distributeBtn"
-                      @click="deploy(scope.row,index)"
-                      :disabled="item.status !=='Distributed'"
-                      type="text"
-                      size="small"
-                    >
-                      {{ $t('app.distriList.deploy') }}
-                    </el-button>
-                  </el-col>
-                </el-row>
-              </div>
-            </div>
-          </template>
-        </el-table-column>
+          :label=" $t('app.distriList.hostIp')"
+        />
+        <el-table-column
+          prop="status"
+          :label=" $t('app.distriList.status')"
+        />
+        <el-table-column
+          prop="status"
+          :label="$t('common.operation')"
+        />
       </el-table>
       <div class="pageBar">
         <Pagination
@@ -262,6 +192,12 @@ export default {
   components: {
     Search, Pagination
   },
+  props: {
+    appId: {
+      required: true,
+      type: String
+    }
+  },
   data () {
     return {
       loading: false,
@@ -363,6 +299,9 @@ export default {
     },
     initList () {
       app.getDistributionList().then(res => {
+        res.data.forEach(item => {
+          if (item.appId === this.appId) { this.paginationData.push(item) }
+        })
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }).catch(() => {
@@ -419,6 +358,9 @@ export default {
 
 <style lang='less' scoped>
 .edgeList{
+  .btn-group{
+    margin-bottom: 15px;
+  }
   .appStore{
     width:30%;
     height:185px;
