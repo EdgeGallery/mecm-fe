@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import CityMap from '../assets/js/china-map.js'
+import CityMap from '../assets/js/CityMap.js'
 import echarts from 'echarts'
 import axios from 'axios'
 

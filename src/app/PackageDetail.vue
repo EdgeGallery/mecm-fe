@@ -135,7 +135,7 @@ export default {
         .el-textarea__inner {
           color: black !important;
           cursor: auto !important;
-          font-family: "Microsoft Yahei", "simsun", "arial", "tahoma","sans-serif";
+          font-family: Microsoft Yahei, simsun, arial, tahoma,sans-serif,Arial;
         }
       }
     }
