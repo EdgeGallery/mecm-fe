@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import navData from '../data/navdata.js'
-import navDataCn from '../data/navdatacn.js'
+import NavData from '../data/NavData.js'
+import NavDataCn from '../data/NavDataCn.js'
 import { user } from '../tools/request.js'
 import Topbar from '../components/Topbar.vue'
 export default {
@@ -65,7 +65,7 @@ export default {
     }
   },
   mounted () {
-    this.jsonData = navDataCn
+    this.jsonData = NavDataCn
     this.language = 'English'
     user.getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)
@@ -90,11 +90,11 @@ export default {
       if (this.language === 'English') {
         this.language = '简体中文'
         language = 'en'
-        this.jsonData = navData
+        this.jsonData = NavData
       } else {
         this.language = 'English'
         language = 'cn'
-        this.jsonData = navDataCn
+        this.jsonData = NavDataCn
       }
       this.$i18n.locale = language
       let appDom = document.getElementById('app')

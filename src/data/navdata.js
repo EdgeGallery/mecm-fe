@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-const MECM = [
+const NavData = [
   {
     'id': '2.1',
     'icon': '',
@@ -37,13 +37,6 @@ const MECM = [
         'pageId': '2.0.1.1',
         'display': false
       },
-      // {
-      //   'id': '2.4',
-      //   'name': 'Package Distribution',
-      //   'path': '/mecm/edge/list',
-      //   'pageId': '2.0.1.2',
-      //   'display': false
-      // },
       {
         'id': '2.5',
         'name': 'App Instance List',
@@ -59,22 +52,6 @@ const MECM = [
     'path': '/mecm/node/list',
     'pageId': '2.0.2',
     'display': false
-    // children: [
-    //   {
-    //     'id': '2.7',
-    //     'name': 'Edge Nodes List',
-    //     'path': '/mecm/node/list',
-    //     'pageId': '2.0.2.1',
-    //     'display': false
-    //   },
-    //   {
-    //     'id': '2.8',
-    //     'name': 'MEP List',
-    //     'path': '/mecm/mep/list',
-    //     'pageId': '2.0.2.2',
-    //     'display': false
-    //   }
-    // ]
   },
   {
     'id': '2.9',
@@ -117,4 +94,4 @@ const MECM = [
   }
 ]
 
-export default MECM
+export default NavData

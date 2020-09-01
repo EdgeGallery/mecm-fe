@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-const MECM = [
+const NavDataCn = [
   {
     'id': '2.1',
     'icon': '',
@@ -37,13 +37,6 @@ const MECM = [
         'pageId': '2.0.1.1',
         'display': false
       },
-      // {
-      //   'id': '2.2.2',
-      //   'name': '应用包分发',
-      //   'path': '/mecm/edge/list',
-      //   'pageId': '2.0.1.2',
-      //   'display': false
-      // },
       {
         'id': '2.2.3',
         'name': '应用实例管理',
@@ -101,4 +94,4 @@ const MECM = [
   }
 ]
 
-export default MECM
+export default NavDataCn
