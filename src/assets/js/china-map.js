@@ -1,4 +1,4 @@
-const cityMap = {
+const CityMap = {
   '安徽': '340000',
   '澳门': '820000',
   '北京': '110000',
@@ -379,4 +379,4 @@ const cityMap = {
   '澳门特别行政区': '820000'
 }
 
-export default cityMap
+export default CityMap

@@ -16,62 +16,19 @@
 
 <template>
   <div class="app-detail">
-    <div class="app-info">
-      <div class="information">
-        <el-table
-          :data="tableData"
-          border
-          style="width: 100%"
-        >
-          <el-table-column
-            prop="name"
-            :label="$t('app.packageList.name')"
-          />
-          <el-table-column
-            prop="version"
-            :label="$t('app.packageList.version')"
-          />
-          <el-table-column
-            prop="size"
-            :label="$t('app.packageList.size')"
-          />
-          <el-table-column
-            prop="provider"
-            :label="$t('app.packageList.vendor')"
-          />
-          <el-table-column
-            prop="type"
-            :label="$t('app.packageList.type')"
-          />
-          <el-table-column
-            prop="createTime"
-            :label="$t('app.packageList.createTime')"
-          />
-          <el-table-column :label="$t('common.operation')">
-            <template slot-scope="scope">
-              <el-button
-                id="downloadBtn"
-                @click="download(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('app.packageList.download') }}
-              </el-button>
-              <el-button
-                id="detailBtn"
-                @click="getDetail(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.detail') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </div>
+    <div class="breadcrumb">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+          {{ $t('nav.mecm') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
+          {{ $t('nav.appMana') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>Detail</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
     <div>
-      <Edge />
+      <Edge :id="appId" />
     </div>
   </div>
 </template>
@@ -164,7 +121,7 @@ export default {
 .app-detail {
   padding: 0 56px 50px;
   .app-info {
-    padding: 32px;
+    padding-bottom: 32px;
     background: white;
     p {
       font-size: 20px;
@@ -178,7 +135,7 @@ export default {
         .el-textarea__inner {
           color: black !important;
           cursor: auto !important;
-          font-family: "Microsoft Yahei", "simsun", "arial", "tahoma";
+          font-family: "Microsoft Yahei", "simsun", "arial", "tahoma","sans-serif";
         }
       }
     }

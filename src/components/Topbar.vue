@@ -147,7 +147,7 @@ export default {
   float: left;
   .el-menu.el-menu--horizontal{
   height: 50px;
-  border-bottom: none;
+  border:none!important;
   .el-menu-item{
     height: 50px;
     line-height: 50px;
@@ -169,9 +169,6 @@ export default {
   .third-menu{
     font-size: 12px;
   }
-}
-.el-menu.el-menu--horizontal{
-  border:none!important;
 }
 }
 

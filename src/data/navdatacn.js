@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-const mecm = [
+const MECM = [
   {
     'id': '2.1',
     'icon': '',
@@ -101,4 +101,4 @@ const mecm = [
   }
 ]
 
-export default mecm
+export default MECM
