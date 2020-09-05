@@ -43,6 +43,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "less": "^3.11.1",
+    "mockjs": "^1.1.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

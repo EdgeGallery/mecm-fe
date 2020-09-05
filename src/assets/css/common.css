@@ -46,9 +46,9 @@ li{
   clear: both;
 }
 .breadcrumb{
-  height:50px;
   line-height: 50px;
-  padding:25px 0;
+  padding: 25px 5%;
+  margin-top: 60px;
 }
 .pageBar{
   float:right;
@@ -137,4 +137,9 @@ body .el-table th.gutter{
 .el-table .has-gutter th{
   background: #F0F3FA;
   height:32px;
+}
+
+/* area-link样式 */
+.area-select>.area-selected-trigger{
+  padding-top:0px !important;
 }

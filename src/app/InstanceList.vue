@@ -15,155 +15,154 @@
   -->
 
 <template>
-  <div class="ainsList">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
-          {{ $t('nav.appMana') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.appInstance') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <Search
-      :affinity-item="false"
-      :status-item="true"
-      :status="status"
-      @getSearchData="getSearchData"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.appMana')"
+      :third="$t('nav.appInstance')"
     />
-    <div class="tableDiv">
-      <el-table
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        border
-        style="width: 100%;"
-      >
-        <el-table-column
-          prop="appName"
-          :label="$t('app.packageList.name')"
-        />
-        <el-table-column
-          prop="appDescr"
-          :label="$t('app.packageList.desc')"
-        />
-        <el-table-column
-          prop="mecHost"
-          :label="$t('app.distriList.mecHost')"
-        />
-        <el-table-column
-          :label="$t('app.distriList.status')"
+    <div class="ainsList">
+      <Search
+        :affinity-item="false"
+        :status-item="true"
+        :status="status"
+        @getSearchData="getSearchData"
+      />
+      <div class="tableDiv">
+        <el-table
+          :data="currPageTableData"
+          v-loading="dataLoading"
+          border
+          style="width: 100%;"
         >
-          <template slot-scope="scope">
+          <el-table-column
+            prop="appName"
+            sortable
+            :label="$t('app.packageList.name')"
+          />
+          <el-table-column
+            prop="appDescr"
+            :label="$t('app.packageList.desc')"
+          />
+          <el-table-column
+            prop="mecHost"
+            :label="$t('app.distriList.mecHost')"
+          />
+          <el-table-column
+            :label="$t('app.distriList.status')"
+          >
+            <template slot-scope="scope">
+              <span
+                v-if="scope.row.operationalStatus === 'Instantiated'"
+                class="success"
+              ><em class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
+              <span
+                v-else-if="scope.row.operationalStatus === 'Created'"
+                class="primary"
+              ><em class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
+              <span
+                v-else
+                class="error"
+              ><em class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            :label="$t('common.operation')"
+          >
+            <template slot-scope="scope">
+              <el-button
+                id="deleteBtn"
+                @click="beforeDelete(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+              <el-button
+                id="detailBtn"
+                @click="checkDetail(scope.row)"
+                :disabled="scope.row.operationalStatus !== 'Instantiated'"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.detail') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pageBar">
+          <Pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
+      </div>
+      <el-dialog
+        :title="$t('app.instanceList.instanceDetail')"
+        :visible.sync="dialogVisible"
+        width="40%"
+      >
+        <el-form
+          label-width="130px"
+          class="detailForm"
+        >
+          <p>Pod Namespace</p>
+          <el-form-item label="pod_name:">
+            <span>{{ detailData[0].pod_name }}</span>
+          </el-form-item>
+          <el-form-item label="pod_namespace:">
+            <span>{{ detailData[0].pod_namespace }}</span>
+          </el-form-item>
+          <el-form-item label="pod_status:">
             <span
-              v-if="scope.row.operationalStatus === 'Instantiated'"
+              v-if="detailData[0].pod_status === 'Running'"
               class="success"
-            ><em class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
-            <span
-              v-else-if="scope.row.operationalStatus === 'Created'"
-              class="primary"
-            ><em class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
+            ><em class="el-icon-success" />{{ detailData[0].pod_status }}</span>
             <span
               v-else
-              class="error"
-            ><em class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          :label="$t('common.operation')"
-        >
-          <template slot-scope="scope">
-            <el-button
-              id="deleteBtn"
-              @click="beforeDelete(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.delete') }}
-            </el-button>
-            <el-button
-              id="detailBtn"
-              @click="checkDetail(scope.row)"
-              :disabled="scope.row.operationalStatus !== 'Instantiated'"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.detail') }}
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pageBar">
-        <Pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-      </div>
-    </div>
-    <el-dialog
-      :title="$t('app.instanceList.instanceDetail')"
-      :visible.sync="dialogVisible"
-      width="40%"
-    >
-      <el-form
-        label-width="130px"
-        class="detailForm"
-      >
-        <p>Pod Namespace</p>
-        <el-form-item label="pod_name:">
-          <span>{{ detailData[0].pod_name }}</span>
-        </el-form-item>
-        <el-form-item label="pod_namespace:">
-          <span>{{ detailData[0].pod_namespace }}</span>
-        </el-form-item>
-        <el-form-item label="pod_status:">
-          <span
-            v-if="detailData[0].pod_status === 'Running'"
-            class="success"
-          ><em class="el-icon-success" />{{ detailData[0].pod_status }}</span>
-          <span
-            v-else
-            class="failed"
-          ><em class="el-icon-error" />{{ detailData[0].pod_status }}</span>
-        </el-form-item>
-        <p>Containers</p>
-        <div>
-          <el-form-item
-            label="container_name:"
-            v-for="(item,index) in detailData[0].containers"
-            :key="index"
-          >
-            <span>{{ item.container_name }}</span>
+              class="failed"
+            ><em class="el-icon-error" />{{ detailData[0].pod_status }}</span>
           </el-form-item>
-        </div>
-      </el-form>
-      <span
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          id="canceleBtn"
-          @click="dialogVisible = false"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          id="confirmBtn"
-          type="primary"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
+          <p>Containers</p>
+          <div>
+            <el-form-item
+              label="container_name:"
+              v-for="(item,index) in detailData[0].containers"
+              :key="index"
+            >
+              <span>{{ item.container_name }}</span>
+            </el-form-item>
+          </div>
+        </el-form>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="canceleBtn"
+            @click="dialogVisible = false"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            id="confirmBtn"
+            type="primary"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
+import Breadcrumb from '../components/BreadCrumb'
 import { app } from '../tools/request.js'
 
 export default {
   name: 'AinsList',
   components: {
-    Search, Pagination
+    Search, Pagination, Breadcrumb
   },
   data () {
     return {
@@ -281,6 +280,10 @@ export default {
 
 <style lang='less' scoped>
 .ainsList{
+    margin: 0 5%;
+    height: calc(100% - 110px);
+    background: #fff;
+    padding: 30px 60px;
   .appStore{
     width:30%;
     height:185px;

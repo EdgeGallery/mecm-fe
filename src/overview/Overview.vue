@@ -182,7 +182,7 @@
 
 <script>
 import manageDialog from './ManageDialog.vue'
-import Map from './Map.vue'
+import Map from './Map2.vue'
 import { user, overview, edge } from '../tools/request.js'
 export default {
   components: {
@@ -250,77 +250,6 @@ export default {
           console.log(v)
           this.assembly(v.name)
         }
-      },
-      mapExtend: {
-        legend: {
-          show: false
-        },
-        geo: {
-          map: 'china',
-          zoom: 1.2,
-          aspectScale: 0.85,
-          selectedMode: 'single',
-          roam: true, // 是否开启平游或缩放
-          scaleLimit: { // 滚轮缩放的极限控制
-            min: 1,
-            max: 2
-          },
-          label: {
-            normal: {
-              show: true,
-              color: '#eee'
-            },
-            emphasis: {
-              show: true,
-              color: '#eee'
-            }
-          },
-          itemStyle: {
-            normal: {
-              areaColor: '#6077BB',
-              borderColor: '#9BB6FF'
-            },
-            emphasis: {
-              areaColor: '#7299FF',
-              color: '#eee'
-            }
-          },
-          regions: [
-            {
-              name: '北京',
-              selected: true
-            }
-          ]
-        },
-        series: [
-          {
-            type: 'scatter',
-            coordinateSystem: 'geo',
-            data: [{ name: '北京' }],
-            symbolSize: 12,
-            label: {
-              normal: {
-                show: true,
-                formatter (val) {
-                  return val.data.value[2]
-                },
-                offset: [0, 15]
-              }
-            },
-            itemStyle: {
-              normal: {
-                color: '#fdf565'
-              },
-              emphasis: {
-                borderColor: '#fff',
-                borderWidth: 1
-              }
-            },
-            tooltip: {
-              show: false
-            }
-          }
-        ]
       },
       regionEdge: '',
       regionEdgeIp: '',
@@ -502,6 +431,9 @@ export default {
   right: 0;
   overflow: auto;
   background: url('../assets/images/overview-bg.png') center no-repeat;
+  margin-top: 60px;
+  padding: 0 30px;
+}
   label.overviewLabel{
     opacity: 0.8;
     font-family: PingFangSC-Medium,sans-serif;
@@ -609,5 +541,4 @@ export default {
   .headerClassName{
     font-size: 12px;
   }
-}
 </style>

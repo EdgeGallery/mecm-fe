@@ -26,28 +26,26 @@ import '../src/assets/css/common.css'
 import locale from 'element-ui/lib/locale/lang/en'
 import i18n from './locales/i18n.js'
 import VCharts from 'v-charts'
-import VueAMap from 'vue-amap'
 import { pcaa } from 'area-data-vue'
 import 'area-linkage-vue/dist/index.css'
 import AreaLinkageVue from 'area-linkage-vue'
+import AMap from 'vue-amap'
+require('./mock.js')
+
+AMap.initAMapApiLoader({
+  key: '85daac944eb6dd5690d235151d0e5dc7',
+  plugin: ['AMap.Geocoder', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
+  v: '1.4.4'
+})
 Vue.prototype.$pcaa = pcaa
 
+Vue.use(AMap)
 Vue.use(AreaLinkageVue)
-
-Vue.use(VueAMap)
-
 Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
 Vue.use(mavonEditor)
 Vue.config.productionTip = false
 
-VueAMap.initAMapApiLoader({
-  key: '85daac944eb6dd5690d235151d0e5dc7',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.ControlBar', 'AMap.MouseTool', 'AMap.GeometryUtil', 'AMap.DistrictSearch'],
-  // 默认高德 sdk 版本为 1.4.4
-  v: '1.4.4',
-  uiVersion: '1.0.11'
-})
 new Vue({
   router,
   store,

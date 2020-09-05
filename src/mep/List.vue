@@ -15,63 +15,60 @@
   -->
 
 <template>
-  <div class="meplist">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/node/list' }">
-          Edge Nodes
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>MEP List</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <searchForm
-      :affinity-item="false"
-      :ip-item="true"
-      :status-item="true"
-      :status="status"
-      @getSearchData="getSearchData"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.edgeNodes')"
+      :third="$t('nav.mepList')"
     />
-    <div class="tableDiv">
-      <el-table
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        border
-        style="width: 100%;"
-      >
-        <el-table-column
-          prop="name"
-          sortable
-          :label="$t('app.packageList.name')"
-        />
-        <el-table-column
-          prop="host"
-          sortable
-          :label="$t('app.packageList.ip')"
-        />
-        <el-table-column
-          prop="version"
-          sortable
-          :label="$t('app.packageList.version')"
-        />
-        <el-table-column
-          prop="provider"
-          sortable
-          :label="$t('app.packageList.vendor')"
-        />
-        <el-table-column
-          prop="status"
-          sortable
-          :label="$t('app.distriList.status')"
-        />
-      </el-table>
-      <div class="pageBar">
-        <pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
+    <div class="meplist">
+      <searchForm
+        :affinity-item="false"
+        :ip-item="true"
+        :status-item="true"
+        :status="status"
+        @getSearchData="getSearchData"
+      />
+      <div class="tableDiv">
+        <el-table
+          :data="currPageTableData"
+          v-loading="dataLoading"
+          border
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="name"
+            sortable
+            :label="$t('app.packageList.name')"
+          />
+          <el-table-column
+            prop="host"
+            sortable
+            :label="$t('app.packageList.ip')"
+          />
+          <el-table-column
+            prop="version"
+            sortable
+            :label="$t('app.packageList.version')"
+          />
+          <el-table-column
+            prop="provider"
+            sortable
+            :label="$t('app.packageList.vendor')"
+          />
+          <el-table-column
+            prop="status"
+            sortable
+            :label="$t('app.distriList.status')"
+          />
+        </el-table>
+        <div class="pageBar">
+          <pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -80,10 +77,11 @@
 <script>
 import searchForm from '../components/Search.vue'
 import pagination from '../components/Pagination.vue'
+import Breadcrumb from '../components/BreadCrumb'
 export default {
   name: 'Meplist',
   components: {
-    searchForm, pagination
+    searchForm, pagination, Breadcrumb
   },
   data () {
     return {
@@ -112,10 +110,17 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.tableDiv {
-  margin-top: 20px;
+.mepList{
+  margin: 0 5%;
+  height: calc(100% - 110px);
+  background: #fff;
+  padding: 30px 60px;
+  .tableDiv {
+    margin-top: 20px;
+  }
+  .el-table .cell i:before{
+    margin-right: 5px;
+  }
 }
-.el-table .cell i:before{
-  margin-right: 5px;
-}
+
 </style>

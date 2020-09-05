@@ -15,38 +15,55 @@
   -->
 
 <template>
-  <div id="app">
-    <router-view />
+  <div class="breadcrumb">
+    <el-breadcrumb separator="/">
+      <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+        {{ first }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+        {{ second }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>
+        {{ third }}
+      </el-breadcrumb-item>
+    </el-breadcrumb>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'Breadcrumb',
   components: {
+
+  },
+  props: {
+    first: {
+      required: true,
+      type: String
+    },
+    second: {
+      required: true,
+      type: String
+    },
+    third: {
+      required: true,
+      type: String
+    }
   },
   data () {
     return {
+
     }
   },
-  mounted () {},
-  methods: {},
-  beforeCreate () {
-    if (sessionStorage.getItem('before_route')) {
-      this.$router.push(sessionStorage.getItem('before_route'))
-    }
+  mounted () {
+
+  },
+  methods: {
+
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Huaweisans, Arial, Microsoft YaHei, FZLTXHJW, Microsoft JhengHei, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  min-width: 988px;
-  height:100%;
-  background-size:cover;
-  background: #f5f5f5;
-}
+<style lang='less' scoped>
+
 </style>

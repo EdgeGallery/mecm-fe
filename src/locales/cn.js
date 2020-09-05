@@ -56,6 +56,7 @@ const cn = {
     appInstance: '应用实例',
     edgeNodes: '边缘节点',
     nodeList: '边缘节点列表',
+    mepList: 'MEP列表',
     system: '系统',
     externalSysMan: '外部系统管理',
     applcm: 'APPLCM注册系统',
@@ -152,6 +153,7 @@ const cn = {
       applcmModify: 'App LCM 编辑'
     },
     edgeNodes: {
+      systemPlatform: '系统',
       ip: 'IP地址',
       city: '城市',
       affinity: '架构',

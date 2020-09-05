@@ -15,8 +15,15 @@
   -->
 
 <template>
-  <div class="appstore">
-    <div class="breadcrumb">
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.system')"
+      :third="$t('nav.appstore')"
+    />
+    <div class="appstore">
+      <!-- <div class="breadcrumb">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
           {{ $t('nav.mecm') }}
@@ -27,161 +34,164 @@
         </el-breadcrumb-item>
         <el-breadcrumb-item>{{ $t('nav.appstore') }}</el-breadcrumb-item>
       </el-breadcrumb>
-    </div>
-    <Search
-      :affinity-item="false"
-      :ip-item="true"
-      :status-item="false"
-      @getSearchData="getSearchData"
-    />
-    <div class="func">
-      <p>
-        <span class="rt">
-          <el-button
-            id="newregBtn"
-            type="primary"
-            @click="register"
-          >{{ $t('system.appLcm.newReg') }}</el-button>
-        </span>
-      </p>
-    </div>
-    <div class="appstoreContainer">
-      <el-table
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        border
-        style="width: 100%;"
-      >
-        <el-table-column
-          prop="appstorename"
-          :label="$t('system.appstore.appstoerName')"
-        />
-        <el-table-column
-          prop="producer"
-          :label="$t('system.appstore.vendor')"
-        />
-        <el-table-column
-          prop="username"
-          :label="$t('system.appLcm.userNmae')"
-        />
-        <el-table-column
-          prop="url"
-          :label="$t('app.packageList.ip')"
-        />
-        <el-table-column
-          prop="time"
-          :label="$t('system.appstore.modifyTime')"
-        />
-        <el-table-column
-          :label="$t('common.operation')"
-        >
-          <template slot-scope="scope">
-            <el-button
-              id="modifyBtn"
-              @click="handleEdit(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.modify') }}
-            </el-button>
-            <el-button
-              id="deleteBtn"
-              @click.native.prevent="handleDelete(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.delete') }}
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div calss="pageBar">
-      <pagination
-        :table-data="paginationData"
-        @getCurrentPageData="getCurrentPageData"
+    </div> -->
+      <Search
+        :affinity-item="false"
+        :ip-item="true"
+        :status-item="false"
+        @getSearchData="getSearchData"
       />
-    </div>
-    <el-dialog
-      :title="dialogTitle"
-      :visible.sync="dialogVisible"
-      width="40%"
-    >
-      <el-row>
-        <el-col :span="16">
-          <el-form
-            label-width="140px"
-            :model="form"
-            ref="form"
-            :rules="rules"
+      <div class="func">
+        <p>
+          <span class="rt">
+            <el-button
+              id="newregBtn"
+              type="primary"
+              disabled="true"
+              @click="register"
+            >{{ $t('system.appLcm.newReg') }}</el-button>
+          </span>
+        </p>
+      </div>
+      <div class="appstoreContainer">
+        <el-table
+          :data="currPageTableData"
+          v-loading="dataLoading"
+          border
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="appstorename"
+            sortable
+            :label="$t('system.appstore.appstoerName')"
+          />
+          <el-table-column
+            prop="producer"
+            :label="$t('system.appstore.vendor')"
+          />
+          <el-table-column
+            prop="username"
+            :label="$t('system.appLcm.userNmae')"
+          />
+          <el-table-column
+            prop="url"
+            :label="$t('app.packageList.ip')"
+          />
+          <el-table-column
+            prop="time"
+            :label="$t('system.appstore.modifyTime')"
+          />
+          <el-table-column
+            :label="$t('common.operation')"
           >
-            <el-form-item
-              :label="$t('system.appstore.appstoerName')"
-              prop="appstorename"
-            >
-              <el-input
-                id="appstorename"
-                v-model="form.appstorename"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appstore.vendor')"
-              prop="producer"
-            >
-              <el-input
-                id="producer"
-                v-model="form.producer"
-              />
-            </el-form-item>
-            <el-form-item
-              label="URL"
-              prop="url"
-            >
-              <el-input
-                id="url"
-                v-model="form.url"
-                :disabled="urlDisable"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.userNmae')"
-              prop="username"
-            >
-              <el-input
-                id="username"
-                v-model="form.username"
-                auto-complete="new-username"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.password')"
-              prop="password"
-            >
-              <el-input
-                id="password"
-                v-model="form.password"
-                type="password"
-                auto-complete="new-password"
-              />
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
-      <span
-        slot="footer"
-        class="dialog-footer"
+            <template slot-scope="scope">
+              <el-button
+                id="modifyBtn"
+                @click="handleEdit(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.modify') }}
+              </el-button>
+              <el-button
+                id="deleteBtn"
+                @click.native.prevent="handleDelete(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pageBar">
+          <pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
+      </div>
+      <el-dialog
+        :title="dialogTitle"
+        :visible.sync="dialogVisible"
+        width="40%"
       >
-        <el-button
-          id="cancelBtn"
-          @click="dialogVisible = false"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          @click="confirmToRegister('form')"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
+        <el-row>
+          <el-col :span="16">
+            <el-form
+              label-width="140px"
+              :model="form"
+              ref="form"
+              :rules="rules"
+            >
+              <el-form-item
+                :label="$t('system.appstore.appstoerName')"
+                prop="appstorename"
+              >
+                <el-input
+                  id="appstorename"
+                  v-model="form.appstorename"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appstore.vendor')"
+                prop="producer"
+              >
+                <el-input
+                  id="producer"
+                  v-model="form.producer"
+                />
+              </el-form-item>
+              <el-form-item
+                label="URL"
+                prop="url"
+              >
+                <el-input
+                  id="url"
+                  v-model="form.url"
+                  :disabled="urlDisable"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.userNmae')"
+                prop="username"
+              >
+                <el-input
+                  id="username"
+                  v-model="form.username"
+                  auto-complete="new-username"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.password')"
+                prop="password"
+              >
+                <el-input
+                  id="password"
+                  v-model="form.password"
+                  type="password"
+                  auto-complete="new-password"
+                />
+              </el-form-item>
+            </el-form>
+          </el-col>
+        </el-row>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="cancelBtn"
+            @click="dialogVisible = false"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            @click="confirmToRegister('form')"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -189,10 +199,11 @@
 import { system } from '../../tools/request.js'
 import Search from '../../components/Search.vue'
 import pagination from '../../components/Pagination.vue'
+import Breadcrumb from '../../components/BreadCrumb'
 export default {
   name: 'Appstore',
   components: {
-    Search, pagination
+    Search, pagination, Breadcrumb
   },
   data () {
     return {
@@ -344,68 +355,15 @@ export default {
 
 <style lang='less' scoped>
 .appstore{
-  .appstoreContainer{
-    .appStore{
-      width:30%;
-      height:185px;
-      border:1px solid #ddd;
-      border-radius: 8px;
-      padding:15px;
-      margin:0 15px 25px 0;
-      .lt{
-        width: 30%;
-        padding:15px;
-        text-align: center;
-        p{
-          padding-top:20px;
-          text-align: center;
-        }
-      }
-      .rt{
-        width:60%;
-        div{
-          float:left;
-          width:46%;
-          height:80px;
-          border:1px solid #ddd;
-          border-radius: 4px;
-          margin:0 5px 20px 0;
-          text-align: center;
-          line-height:30px;
-          font-size: 15px;
-          font-weight: bold;
-          p:first-child{
-            margin-top:15px;
-          }
-          p:nth-child(2){
-            color:green;
-          }
-        }
-      }
-    }
-  }
+  margin: 0 5%;
+  height: calc(100% - 110px);
+  background: #fff;
+  padding: 30px 60px;
   .func{
     padding:25px 0;
-    p{
-      padding-bottom:5px;
-      .title{
-        position:relative;
-        top:15px;
-      }
-      span.title::before{
-        content:'';
-        display: inline-block;
-        height:15px;
-        width:4px;
-        background: #409EFF;
-        position: relative;
-        top:3px;
-        margin-right:3px;
-      }
-      .rt{
+    .rt{
         margin-bottom:15px;
       }
-    }
   }
 }
 </style>

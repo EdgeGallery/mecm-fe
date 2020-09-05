@@ -61,12 +61,10 @@ export default {
 </script>
 <style lang='less' scoped>
 .home-container{
-  height:calc(100% - 60px);
-  position: relative;
-  top: 65px;
-  overflow-y: auto;
+  height:calc(100% - 110px);
 }
 #container{
-  padding:0 50px;
+  // padding:0 50px;
+  height: 100%;
 }
 </style>

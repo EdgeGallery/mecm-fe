@@ -22,11 +22,6 @@
     />
     <div class="tableDiv">
       <div class="btn-group rt">
-        <el-button
-          type="primary"
-        >
-          高级搜索
-        </el-button>
         <el-button type="primary">
           批量部署
         </el-button>
@@ -47,39 +42,93 @@
           prop="appPackageName"
           :label="$t('app.packageList.name')"
           width="180"
-        />
+        >
+          <template>
+            <div>
+              {{ this.appPackageName }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="appVersion"
           :label="$t('app.packageList.version')"
           width="130"
-        />
+        >
+          <template>
+            <div>
+              {{ this.appVersion }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="provider"
           :label="$t('app.packageList.vendor')"
           width="160"
-        />
+        >
+          <template>
+            <div>
+              {{ this.provider }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="appAffinity"
           :label="$t('app.packageList.affinity')"
           width="120"
-        />
+        >
+          <template>
+            <div>
+              {{ this.appAffinity }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
-          prop="modifiedTime"
-          :label="$t('app.packageList.modifyTime')"
-          width="220"
-        />
-        <el-table-column
-          prop="status"
+          prop="hostIp"
           :label=" $t('app.distriList.hostIp')"
         />
         <el-table-column
           prop="status"
           :label=" $t('app.distriList.status')"
-        />
+        >
+          <template slot-scope="scope">
+            <span
+              v-if="scope.row.status === 'Distributed'"
+              class="success"
+            ><em class="el-icon-success" />{{ scope.row.status }}</span>
+            <span
+              v-else-if="scope.row.status === 'Processing'"
+              class="primary"
+            ><em class="el-icon-loading" />{{ scope.row.status }}</span>
+            <span
+              v-else
+              class="error"
+            ><em class="el-icon-error" />{{ scope.row.status }}</span>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="status"
           :label="$t('common.operation')"
-        />
+        >
+          <template slot-scope="scope">
+            <el-button
+              id="deleteBtn"
+              @click.native.prevent="beforeDelete(scope.row)"
+              type="text"
+              size="small"
+            >
+              {{ $t('common.delete') }}
+            </el-button>
+            <el-button
+              id="distributeBtn"
+              @click="deploy(scope.row)"
+              :disabled="scope.row.status !=='Distributed'"
+              type="text"
+              size="small"
+            >
+              {{ $t('app.distriList.deploy') }}
+            </el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div class="pageBar">
         <Pagination
@@ -192,12 +241,6 @@ export default {
   components: {
     Search, Pagination
   },
-  props: {
-    appId: {
-      required: true,
-      type: String
-    }
-  },
   data () {
     return {
       loading: false,
@@ -206,7 +249,13 @@ export default {
       searchVal: '',
       selectedNum: 0,
       selectedData: [],
+      appPackageId: '',
+      appVersion: '',
+      appPackageName: '',
+      appAffinity: '',
+      provider: '',
       dialogVisible: false,
+      appId: sessionStorage.getItem('appId'),
       configForm: {
         podName: 'pod1',
         podKind: 'dployment',
@@ -217,7 +266,7 @@ export default {
         appName: '',
         appInstanceDescription: '',
         mecHost: '',
-        appId: ''
+        appId: sessionStorage.getItem('appId')
       },
       rules: {
         appName: [
@@ -278,19 +327,15 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    beforeDelete (rows, index) {
+    beforeDelete (rows) {
       this.$confirm(this.$t('tip.beforeDeleteFromMechost'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        let hostIp = rows.mecHost[index].hostIp
-        let packageId = rows.appPackageId
+        let hostIp = rows.hostIp
         let type = 1
-        if (rows.mecHost.length === 1) {
-          type = 2
-        }
-        app.deletDistributionApp(type, hostIp, packageId).then(res => {
+        app.deletDistributionApp(type, hostIp, this.appPackageId).then(res => {
           this.$message.success(this.$t('tip.deletePacFrmoHost'))
           this.initList()
         })
@@ -299,24 +344,33 @@ export default {
     },
     initList () {
       app.getDistributionList().then(res => {
+        this.paginationData = []
         res.data.forEach(item => {
-          if (item.appId === this.appId) { this.paginationData.push(item) }
+          if (item.appId === this.appId) {
+            this.appPackageId = item.appPackageId
+            this.appPackageName = item.appPackageName
+            this.appVersion = item.appVersion
+            this.appAffinity = item.appAffinity
+            this.provider = item.provider
+            this.paginationData = item.mecHost
+          }
         })
-        this.tableData = this.paginationData = res.data
+        this.tableData = this.paginationData
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
         this.$message.error(this.$t('tip.getListFailed'))
       })
     },
-    deploy (row, index) {
-      this.configForm.status = row.mecHost[index].status
-      this.configForm.appPackageId = row.appPackageId
-      this.configForm.mecHost = row.mecHost[index].hostIp
-      this.configForm.appId = row.appId
+    deploy (row) {
+      this.configForm.status = row.status
+      this.configForm.appPackageId = this.appPackageId
+      this.configForm.mecHost = row.hostIp
+      this.configForm.appId = this.appId
       this.dialogVisible = true
     },
     confirmToDeploy (configForm) {
+      console.log(this.configForm)
       this.loading = true
       this.$refs[configForm].validate((valid) => {
         if (valid) {
