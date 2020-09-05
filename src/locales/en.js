@@ -152,6 +152,7 @@ const en = {
       applcmModify: 'App LCM Modify'
     },
     edgeNodes: {
+      systemPlatform: 'System',
       ip: 'Ip',
       city: 'City',
       affinity: 'Architecture',

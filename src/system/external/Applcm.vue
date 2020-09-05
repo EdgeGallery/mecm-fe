@@ -15,146 +15,143 @@
   -->
 
 <template>
-  <div class="sysLcm">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item><strong>{{ $t('nav.system') }}</strong></el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/systems/external/applcm' }">
-          {{ $t('nav.externalSysMan') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.applcm') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="tableDiv">
-      <p class="btn-p">
-        <span class="rt">
-          <el-button
-            id="newregBtn"
-            type="primary"
-            @click="register"
-          >{{ $t('system.appLcm.newReg') }}</el-button>
-        </span>
-      </p>
-      <el-row>
-        <el-col
-          :span="3"
-          :offset="1"
-          v-for="(item,index) in currPageTableData"
-          :key="index"
-        >
-          <el-card :body-style="{ padding: '0px' }">
-            <div class="info-card">
-              <p class="name">
-                APPLCM
-              </p>
-              <p class="info">
-                <span>{{ item.ip }}</span><span>&nbsp;/&nbsp;{{ item.port }}</span>
-              </p>
-              <div class="bottom clearfix rt">
-                <el-button
-                  type="text"
-                  class="button"
-                  id="modifyBtn"
-                  @click="handleEdit(item)"
-                >
-                  {{ $t('common.modify') }}
-                </el-button>
-                <el-button
-                  type="text"
-                  class="button"
-                  id="deleteBtn"
-                  @click.native.prevent="handleDelete(item)"
-                >
-                  {{ $t('common.delete') }}
-                </el-button>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-      <div class="pageBar">
-        <pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-      </div>
-    </div>
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-      width="40%"
-    >
-      <el-row>
-        <el-col
-          :span="16"
-        >
-          <el-form
-            label-width="150px"
-            :model="form"
-            ref="form"
-            :rules="rules"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.system')"
+      :third="$t('nav.applcm')"
+    />
+    <div class="sysLcm">
+      <div class="tableDiv">
+        <p class="btn-p">
+          <span class="rt">
+            <el-button
+              id="newregBtn"
+              type="primary"
+              @click="register"
+            >{{ $t('system.appLcm.newReg') }}</el-button>
+          </span>
+        </p>
+        <el-row>
+          <el-col
+            :span="3"
+            :offset="1"
+            v-for="(item,index) in currPageTableData"
+            :key="index"
           >
-            <el-form-item
-              label="APPLCM 名称"
-              prop="name"
-            >
-              <el-input
-                id="ip"
-                v-model="form.name"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('app.packageList.ip')"
-              prop="ip"
-            >
-              <el-input
-                id="ip"
-                v-model="form.ip"
-                :disabled="ipDisable"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.port')"
-              prop="port"
-            >
-              <el-input
-                id="port"
-                v-model="form.port"
-              />
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
-      <span
-        slot="footer"
-        class="dialog-footer"
+            <el-card :body-style="{ padding: '0px' }">
+              <div class="info-card">
+                <p class="name">
+                  APPLCM
+                </p>
+                <p class="info">
+                  <span>{{ item.ip }}</span><span>&nbsp;/&nbsp;{{ item.port }}</span>
+                </p>
+                <div class="bottom clearfix rt">
+                  <el-button
+                    type="text"
+                    class="button"
+                    id="modifyBtn"
+                    @click="handleEdit(item)"
+                  >
+                    {{ $t('common.modify') }}
+                  </el-button>
+                  <el-button
+                    type="text"
+                    class="button"
+                    id="deleteBtn"
+                    @click.native.prevent="handleDelete(item)"
+                  >
+                    {{ $t('common.delete') }}
+                  </el-button>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
+        <div class="pageBar">
+          <pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
+      </div>
+      <el-dialog
+        :title="title"
+        :visible.sync="dialogVisible"
+        width="40%"
       >
-        <el-button
-          id="cancelBtn"
-          @click="dialogVisible = false"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          @click="confirmToRegister('form')"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
+        <el-row>
+          <el-col
+            :span="16"
+          >
+            <el-form
+              label-width="150px"
+              :model="form"
+              ref="form"
+              :rules="rules"
+            >
+              <el-form-item
+                label="APPLCM 名称"
+                prop="name"
+              >
+                <el-input
+                  id="ip"
+                  v-model="form.name"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.ip')"
+                prop="ip"
+              >
+                <el-input
+                  id="ip"
+                  v-model="form.ip"
+                  :disabled="ipDisable"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.port')"
+                prop="port"
+              >
+                <el-input
+                  id="port"
+                  v-model="form.port"
+                />
+              </el-form-item>
+            </el-form>
+          </el-col>
+        </el-row>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="cancelBtn"
+            @click="dialogVisible = false"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            @click="confirmToRegister('form')"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 import { system } from '../../tools/request.js'
-// import Search from '../../components/Search.vue'
 import pagination from '../../components/Pagination.vue'
+import Breadcrumb from '../../components/BreadCrumb'
 
 export default {
   name: 'SysLcm',
   components: {
-    pagination
+    pagination,
+    Breadcrumb
   },
   data () {
     return {
@@ -280,6 +277,10 @@ export default {
 
 <style lang='less' scoped>
 .sysLcm{
+  margin: 0 5%;
+  height: calc(100% - 110px);
+  background: #fff;
+  padding: 30px 60px;
   .tableDiv{
     padding-top:25px;
     p{

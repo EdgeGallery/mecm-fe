@@ -15,126 +15,123 @@
   -->
 
 <template>
-  <div
-    class="nodelist"
-    id="nodelist"
-  >
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/node/list' }">
-          Edge Nodes
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>Edge Node List</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <searchForm
-      :status-item="false"
-      :affinity-item="false"
-      :ip-item="true"
-      @getSearchData="getSearchData"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.edgeNodes')"
+      :third="$t('nav.nodeList')"
     />
-    <div class="tableDiv">
-      <el-table
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        border
-        style="width: 100%;"
-      >
-        <el-table-column
-          prop="hostname"
-          sortable
-          :label="$t('app.packageList.name')"
-        >
-          <template slot-scope="scope">
-            <em
-              class="el-icon-success"
-              :style="{color: '#67C23A'}"
-            />
-            <span style="margin-left: 10px">{{ scope.row.hostname }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="ip"
-          sortable
-          :label="$t('app.packageList.ip')"
-        />
-        <el-table-column
-          prop="city"
-          sortable
-          :label="$t('app.packageList.city')"
-        />
-        <el-table-column
-          prop="address"
-          sortable
-          :label="$t('app.packageList.address')"
-        />
-        <el-table-column
-          prop="affinity"
-          sortable
-          :label="$t('app.packageList.affinity')"
-        />
-        <el-table-column
-          prop="edgeNexusIp"
-          sortable
-          label="Edge Repo Ip"
-        />
-        <el-table-column
-          prop="edgeNexusPort"
-          sortable
-          label="Edge Repo Port"
-        />
-        <el-table-column
-          prop="appLcmIp"
-          sortable
-          label="App Lcm Ip"
-        />
-        <el-table-column
-          prop="k8sURL"
-          sortable
-          label="K8S URL"
-        />
-        <el-table-column
-          :label="$t('common.operation')"
-        >
-          <template slot-scope="scope">
-            <el-button
-              id="monitorBtn"
-              type="text"
-              size="small"
-              @click="handleMonitor(scope.row)"
-            >
-              {{ $t('edgeNode.monitor') }}
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pageBar">
-        <Pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-      </div>
-    </div>
-    <el-dialog
-      :visible.sync="dialogVisible"
-      width="75%"
-      class="my-dialog"
+    <div
+      class="nodelist"
+      id="nodelist"
     >
-      <iframe
-        style="height:800px;width:100%;position:relative;left:-50px;"
-        id="iframe_a"
-        :src="src"
-        title="Node Monitor"
+      <searchForm
+        :status-item="false"
+        :affinity-item="false"
+        :ip-item="true"
+        @getSearchData="getSearchData"
       />
-    </el-dialog>
-    <input
-      type="text"
-      id="btn"
-      style="width: 0;height: 0;position:fixed;top:100%;z-index:-5;"
-    >
+      <div class="tableDiv">
+        <el-table
+          :data="currPageTableData"
+          v-loading="dataLoading"
+          border
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="hostname"
+            sortable
+            :label="$t('app.packageList.name')"
+          >
+            <template slot-scope="scope">
+              <em
+                class="el-icon-success"
+                :style="{color: '#67C23A'}"
+              />
+              <span style="margin-left: 10px">{{ scope.row.hostname }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="ip"
+            sortable
+            :label="$t('app.packageList.ip')"
+          />
+          <el-table-column
+            prop="city"
+            sortable
+            :label="$t('app.packageList.city')"
+          />
+          <el-table-column
+            prop="address"
+            sortable
+            :label="$t('app.packageList.address')"
+          />
+          <el-table-column
+            prop="affinity"
+            sortable
+            :label="$t('app.packageList.affinity')"
+          />
+          <el-table-column
+            prop="edgeNexusIp"
+            sortable
+            label="Edge Repo Ip"
+          />
+          <el-table-column
+            prop="edgeNexusPort"
+            sortable
+            label="Edge Repo Port"
+          />
+          <el-table-column
+            prop="appLcmIp"
+            sortable
+            label="App Lcm Ip"
+          />
+          <el-table-column
+            prop="k8sURL"
+            sortable
+            label="K8S URL"
+          />
+          <el-table-column
+            :label="$t('common.operation')"
+          >
+            <template slot-scope="scope">
+              <el-button
+                id="monitorBtn"
+                type="text"
+                size="small"
+                @click="handleMonitor(scope.row)"
+              >
+                {{ $t('edgeNode.monitor') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pageBar">
+          <Pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
+      </div>
+      <el-dialog
+        :visible.sync="dialogVisible"
+        width="75%"
+        class="my-dialog"
+      >
+        <iframe
+          style="height:800px;width:100%;position:relative;left:-50px;"
+          id="iframe_a"
+          :src="src"
+          title="Node Monitor"
+        />
+      </el-dialog>
+      <input
+        type="text"
+        id="btn"
+        style="width: 0;height: 0;position:fixed;top:100%;z-index:-5;"
+      >
+    </div>
   </div>
 </template>
 
@@ -142,11 +139,12 @@
 import { edge } from '../tools/request.js'
 import searchForm from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
+import Breadcrumb from '../components/BreadCrumb'
 
 export default {
   name: 'Nodelist',
   components: {
-    searchForm, Pagination
+    searchForm, Pagination, Breadcrumb
   },
   data () {
     return {
@@ -216,6 +214,10 @@ export default {
 
 <style lang='less' scoped>
 .nodelist{
+    margin: 0 5%;
+    height: calc(100% - 110px);
+    background: #fff;
+    padding: 30px 60px;
   .tableDiv {
     margin-top: 20px;
   }

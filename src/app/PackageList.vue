@@ -15,237 +15,242 @@
   -->
 
 <template>
-  <div class="apacList">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
-          {{ $t('nav.appMana') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.packageMana') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <Search
-      @getSearchData="getSearchData"
-      :status-item="false"
-      :type-item="true"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.appMana')"
+      :third="$t('nav.packageMana')"
     />
-    <div class="tableDiv">
-      <div class="el-row-button-input">
-        <el-button
-          id="syncBtn"
-          style="float:right;"
-          type="primary"
-          @click="getAppListFromAppStore()"
-        >
-          {{ $t('app.packageList.synchronize') }}
-        </el-button>
-      </div>
-      <el-row>
-        <el-col
-          :span="24"
-          class="table"
-        >
-          <el-table
-            v-loading="dataLoading"
-            :data="currPageTableData"
-            border
-            @selection-change="handleSelectionChange"
+    <div class="apacList">
+      <Search
+        @getSearchData="getSearchData"
+        :status-item="false"
+        :type-item="true"
+      />
+      <div class="tableDiv">
+        <div class="el-row-button-input">
+          <el-button
+            id="syncBtn"
+            style="float:right;"
+            type="primary"
+            @click="getAppListFromAppStore()"
           >
-            <el-table-column
-              type="selection"
-              width="55"
-            />
-            <el-table-column
-              prop="name"
-              sortable
-              :label="$t('app.packageList.name')"
-            />
-            <el-table-column
-              prop="userName"
-              sortable
-              :label="$t('app.packageList.auth')"
-            />
-            <el-table-column
-              prop="provider"
-              sortable
-              :label="$t('app.packageList.vendor')"
-            />
-            <el-table-column
-              prop="type"
-              sortable
-              :label="$t('app.packageList.type')"
-            />
-            <el-table-column
-              prop="affinity"
-              sortable
-              :label="$t('app.packageList.affinity')"
-            />
-            <el-table-column
-              prop="shortDesc"
-              sortable
-              width="350"
-              :label="$t('app.packageList.desc')"
-            >
-              <template slot-scope="scope">
-                <p
-                  :title="scope.row.shortDesc"
-                  class="shortdesc"
-                >
-                  {{ scope.row.shortDesc }}
-                </p>
-              </template>
-            </el-table-column>
-            <el-table-column
-              :label="$t('common.operation')"
-              width="180"
-            >
-              <template slot-scope="scope">
-                <el-button
-                  id="detailBtn"
-                  @click="checkDetail(scope.row,1)"
-                  type="text"
-                  size="small"
-                >
-                  {{ $t('common.detail') }}&Deploy
-                </el-button>
-                <el-button
-                  id="distributeBtn"
-                  @click="distribute(scope.row)"
-                  type="text"
-                  size="small"
-                >
-                  {{ $t('app.packageList.distribute') }}
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-col>
-      </el-row>
-      <div class="pageBar">
-        <Pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-      </div>
-      <el-dialog
-        :title="$t('app.packageList.slectEdgeNodes')"
-        :visible.sync="dialogVisible"
-        v-loading="loading"
-      >
-        <el-row class="el-row-search">
+            {{ $t('app.packageList.synchronize') }}
+          </el-button>
+        </div>
+        <el-row>
           <el-col
-            :span="16"
-            class="el-col-selected-text"
+            :span="24"
+            class="table"
           >
-            <label style="margin-right:10px;font-size:14px;font-weight:bold;">{{ $t('app.packageList.pacVersion') }}:</label>
-            <el-select
-              v-model="version"
-              @change="versionChange"
-            >
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.version"
-                :value="item.csarId"
-              />
-            </el-select>
-          </el-col>
-          <el-col
-            :span="8"
-            :offset="0"
-          >
-            <el-input
-              id="nodesearch"
-              class="el-input-search"
-              clearable
-              v-model="edgeNodeSearchInput"
-            >
-              <em
-                slot="suffix"
-                class="el-input__icon el-icon-search"
-              />
-            </el-input>
-          </el-col>
-        </el-row>
-        <el-row class="el-row-table">
-          <el-col :span="24">
             <el-table
-              ref="multipleEdgeNodeTable"
-              :data="currPageEdgeNodeTableData"
+              v-loading="dataLoading"
+              :data="currPageTableData"
               border
-              @selection-change="handleEdgeNodeSelectionChange"
+              @selection-change="handleSelectionChange"
             >
               <el-table-column
                 type="selection"
+                width="55"
               />
               <el-table-column
-                prop="hostname"
+                prop="name"
                 sortable
                 :label="$t('app.packageList.name')"
               />
               <el-table-column
-                prop="ip"
+                prop="userName"
                 sortable
-                :label="$t('app.packageList.ip')"
+                :label="$t('app.packageList.auth')"
               />
               <el-table-column
-                prop="city"
+                prop="provider"
                 sortable
-                :label="$t('app.packageList.city')"
-              >
-                <template slot-scope="scope">
-                  <p>{{ codeToText(scope.row.city) }}</p>
-                </template>
-              </el-table-column>
+                :label="$t('app.packageList.vendor')"
+              />
               <el-table-column
-                prop="address"
+                prop="type"
                 sortable
-                :label="$t('app.packageList.address')"
+                :label="$t('app.packageList.type')"
               />
               <el-table-column
                 prop="affinity"
                 sortable
                 :label="$t('app.packageList.affinity')"
               />
+              <el-table-column
+                prop="shortDesc"
+                sortable
+                width="350"
+                :label="$t('app.packageList.desc')"
+              >
+                <template slot-scope="scope">
+                  <p
+                    :title="scope.row.shortDesc"
+                    class="shortdesc"
+                  >
+                    {{ scope.row.shortDesc }}
+                  </p>
+                </template>
+              </el-table-column>
+              <el-table-column
+                :label="$t('common.operation')"
+                width="180"
+              >
+                <template slot-scope="scope">
+                  <el-button
+                    id="detailBtn"
+                    @click="checkDetail(scope.row,1)"
+                    type="text"
+                    size="small"
+                  >
+                    {{ $t('common.detail') }}
+                  </el-button>
+                  <el-button
+                    id="distributeBtn"
+                    @click="distribute(scope.row)"
+                    type="text"
+                    size="small"
+                  >
+                    {{ $t('app.packageList.distribute') }}
+                  </el-button>
+                  <el-button
+                    id="detailBtn"
+                    @click="checkDetail(scope.row,1)"
+                    type="text"
+                    size="small"
+                  >
+                    {{ $t('app.distriList.deploy') }}
+                  </el-button>
+                </template>
+              </el-table-column>
             </el-table>
           </el-col>
         </el-row>
-        <el-row>
-          <el-pagination
-            background
-            class="pageBar"
-            @size-change="handleEdgeNodePageSizeChange"
-            @current-change="handleEdgeNodeCurrentPageChange"
-            :current-page="edgeNodeCurrentPage"
-            :page-sizes="[5, 10, 15, 20]"
-            :page-size="edgeNodePageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="edgeNodeTotalNum"
+        <div class="pageBar">
+          <Pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
           />
-        </el-row>
-        <div
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-button
-            id="cancelBtn"
-            @click="cancel()"
-          >
-            {{ $t('common.cancel') }}
-          </el-button>
-          <el-button
-            id="confirmBtn"
-            type="primary"
-            @click="confirm()"
-            :loading="loading"
-          >
-            {{ $t('common.confirm') }}
-          </el-button>
         </div>
-      </el-dialog>
+        <el-dialog
+          :title="$t('app.packageList.slectEdgeNodes')"
+          :visible.sync="dialogVisible"
+          v-loading="loading"
+        >
+          <el-row class="el-row-search">
+            <el-col
+              :span="16"
+              class="el-col-selected-text"
+            >
+              <label style="margin-right:10px;font-size:14px;font-weight:bold;">{{ $t('app.packageList.pacVersion') }}:</label>
+              <el-select
+                v-model="version"
+                @change="versionChange"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.version"
+                  :value="item.csarId"
+                />
+              </el-select>
+            </el-col>
+            <el-col
+              :span="8"
+              :offset="0"
+            >
+              <el-input
+                id="nodesearch"
+                class="el-input-search"
+                clearable
+                v-model="edgeNodeSearchInput"
+              >
+                <em
+                  slot="suffix"
+                  class="el-input__icon el-icon-search"
+                />
+              </el-input>
+            </el-col>
+          </el-row>
+          <el-row class="el-row-table">
+            <el-col :span="24">
+              <el-table
+                ref="multipleEdgeNodeTable"
+                :data="currPageEdgeNodeTableData"
+                border
+                @selection-change="handleEdgeNodeSelectionChange"
+              >
+                <el-table-column
+                  type="selection"
+                />
+                <el-table-column
+                  prop="hostname"
+                  sortable
+                  :label="$t('app.packageList.name')"
+                />
+                <el-table-column
+                  prop="ip"
+                  sortable
+                  :label="$t('app.packageList.ip')"
+                />
+                <el-table-column
+                  prop="city"
+                  sortable
+                  :label="$t('app.packageList.city')"
+                >
+                  <template slot-scope="scope">
+                    <p>{{ codeToText(scope.row.city) }}</p>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="address"
+                  sortable
+                  :label="$t('app.packageList.address')"
+                />
+                <el-table-column
+                  prop="affinity"
+                  sortable
+                  :label="$t('app.packageList.affinity')"
+                />
+              </el-table>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-pagination
+              background
+              class="pageBar"
+              @size-change="handleEdgeNodePageSizeChange"
+              @current-change="handleEdgeNodeCurrentPageChange"
+              :current-page="edgeNodeCurrentPage"
+              :page-sizes="[5, 10, 15, 20]"
+              :page-size="edgeNodePageSize"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="edgeNodeTotalNum"
+            />
+          </el-row>
+          <div
+            slot="footer"
+            class="dialog-footer"
+          >
+            <el-button
+              id="cancelBtn"
+              @click="cancel()"
+            >
+              {{ $t('common.cancel') }}
+            </el-button>
+            <el-button
+              id="confirmBtn"
+              type="primary"
+              @click="confirm()"
+              :loading="loading"
+            >
+              {{ $t('common.confirm') }}
+            </el-button>
+          </div>
+        </el-dialog>
+      </div>
     </div>
   </div>
 </template>
@@ -254,11 +259,12 @@
 import { app, edge } from '../tools/request.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
+import Breadcrumb from '../components/BreadCrumb'
 import { CodeToText } from 'element-china-area-data'
 export default {
   name: 'ApacList',
   components: {
-    Search, Pagination
+    Search, Pagination, Breadcrumb
   },
   data () {
     return {
@@ -283,24 +289,7 @@ export default {
       version: '',
       options: [],
       dialogLoading: false,
-      appId: '',
-      mockData: [
-        { affinity: 'x86',
-          appId: 'ea339be5f1044dcf9f76b05db46f0a56',
-          contact: 'https://github.com/zdirection/Ant-Media-Server',
-          createTime: '2020-07-24 11:46:21.171036',
-          details: 'abc',
-          downloadCount: 10,
-          iconUrl: null,
-          industry: '其他',
-          name: 'AntMediaServer',
-          provider: 'OpenSource',
-          score: 5,
-          shortDesc: 'test',
-          type: 'Video Application',
-          userId: '661add4e-e21d-4277-be81-eeda056c88e1',
-          userName: 'mecdev' }
-      ]
+      appId: ''
     }
   },
   mounted () {
@@ -349,9 +338,10 @@ export default {
       this.currPageTableData = data
     },
     checkDetail (row, id) {
-      id === 1 ? this.$router.push('/mecm/apac/detail?appId=' + row.appId)
-        : id === 2 ? this.$router.push('/mecm/edge/list?appId=' + row.appId)
-          : this.$router.push('/mecm/apac/tupu?appId=' + row.appId)
+      sessionStorage.setItem('appId', row.appId)
+      id === 1 ? this.$router.push('/mecm/apac/detail')
+        : id === 2 ? this.$router.push('/mecm/edge/list')
+          : this.$router.push('/mecm/apac/tupu')
     },
     distribute (row) {
       this.currentRowData = row
@@ -367,8 +357,6 @@ export default {
       this.selectedEdgeNodeNum = multipleEdgeNodeSelection.length
     },
     async getAppListFromAppStore () {
-      this.dataLoading = true
-      this.tableData = this.paginationData = this.mockData
       app.getAppListFromAppStore().then(response => {
         this.tableData = response.data
         this.paginationData = this.tableData
@@ -457,6 +445,10 @@ export default {
 
 <style lang='less' scoped>
 .apacList {
+    margin: 0 5%;
+    height: calc(100% - 110px);
+    background: #fff;
+    padding: 30px 60px;
   .appStore {
     width: 100%;
     height: 175px;

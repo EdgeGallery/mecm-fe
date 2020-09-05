@@ -15,29 +15,28 @@
   -->
 
 <template>
-  <div class="app-detail">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/apac/overview' }">
-          {{ $t('nav.appMana') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>Detail</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div>
-      <Edge :id="appId" />
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.appMana')"
+      :third="$t('nav.appDetail')"
+    />
+    <div class="app-detail">
+      <div>
+        <Edge :appid="appId" />
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { app } from '../tools/request.js'
+import Breadcrumb from '../components/BreadCrumb'
 import Edge from './EdgeList'
 export default {
   components: {
-    Edge
+    Edge,
+    Breadcrumb
   },
   data () {
     return {
@@ -63,9 +62,10 @@ export default {
         data.forEach(item => {
           this.tableData.push(item)
         })
-        this.editDetails = this.source = data[0].details
-        this.appDetailFileList = [JSON.parse(data[0].format)]
-        this.packageId = data[0].csarId
+        // 0.9
+        // this.editDetails = this.source = data[0].details
+        // this.appDetailFileList = [JSON.parse(data[0].format)]
+        // this.packageId = data[0].csarId
       })
     },
     getParent (nodes) {
@@ -112,14 +112,17 @@ export default {
     }
   },
   mounted () {
-    this.appId = window.location.href.split('=')[1]
+    this.appId = sessionStorage.getItem('appId')
     this.getTableData()
   }
 }
 </script>
 <style lang='less' >
 .app-detail {
-  padding: 0 56px 50px;
+    margin: 0 5%;
+    height: calc(100% - 110px);
+    background: #fff;
+    padding: 30px 60px;
   .app-info {
     padding-bottom: 32px;
     background: white;

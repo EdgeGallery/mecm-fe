@@ -15,380 +15,376 @@
   -->
 
 <template>
-  <div class="sysk8s">
-    <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item><strong>{{ $t('nav.system') }}</strong></el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/systems/external/applcm' }">
-          {{ $t('nav.externalSysMan') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.edgeNode') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <Search
-      :status-item="false"
-      :ip-item="true"
-      @getSearchData="getSearchData"
+  <div>
+    <Breadcrumb
+      class="breadcrumb"
+      :first="$t('nav.mecm')"
+      :second="$t('nav.system')"
+      :third="$t('nav.edgeNode')"
     />
-    <div class="tableDiv">
-      <el-row>
-        <el-col
-          :span="2"
-          :offset="22"
-        >
-          <div class="el-row-button">
-            <el-button
-              id="newregBtn"
-              type="primary"
-              @click="register()"
-            >
-              {{ $t('system.appLcm.newReg') }}
-            </el-button>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row class="table">
-        <el-table
-          :data="currPageTableData"
-          v-loading="dataLoading"
-          border
-        >
-          <el-table-column
-            prop="hostname"
-            sortable
-            :label="$t('app.packageList.name')"
-            width="120"
-          />
-          <el-table-column
-            prop="ip"
-            sortable
-            :label="$t('app.packageList.ip')"
-            width="120"
-          />
-          <el-table-column
-            prop="city"
-            sortable
-            :label="$t('app.packageList.city')"
-          >
-            <template slot-scope="scope">
-              <p>{{ codeToText(scope.row.city) }}</p>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="address"
-            sortable
-            :label="$t('app.packageList.address')"
-            width="120"
-          />
-          <el-table-column
-            prop="affinity"
-            sortable
-            :label="$t('app.packageList.affinity')"
-          />
-          <el-table-column
-            prop="edgeNexusIp"
-            sortable
-            label="Edge Repo Ip"
-          />
-          <el-table-column
-            prop="edgeNexusPort"
-            sortable
-            label="Edge Repo Port"
-          />
-          <el-table-column
-            prop="appLcmIp"
-            sortable
-            label="App Lcm Ip"
-          />
-          <el-table-column
-            prop="k8sURL"
-            sortable
-            label="K8S URL"
-          />
-          <el-table-column
-            :label="$t('common.operation')"
-            width="200"
-          >
-            <template slot-scope="scope">
-              <el-button
-                id="deleteBtn"
-                @click.native.prevent="beforeDelete(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.delete') }}
-              </el-button>
-              <el-button
-                id="deleteBtn"
-                @click.native.prevent="uploadFile(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('system.edgeNodes.uploadFile') }}
-              </el-button>
-              <el-button
-                id="modifyBtn"
-                @click="handleModify(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.modify') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-row>
-      <div class="pageBar">
-        <pagination
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
-      </div>
-    </div>
-    <el-dialog
-      :title="title"
-      :visible.sync="dialogVisible"
-      :close-on-click-modal="false"
-      width="80%"
-    >
-      <div class="k8s">
+    <div class="sysk8s">
+      <Search
+        :status-item="false"
+        :ip-item="true"
+        @getSearchData="getSearchData"
+      />
+      <div class="tableDiv">
         <el-row>
-          <el-form
-            label-width="165px"
-            :model="currForm"
-            ref="currForm"
-            :rules="rules"
+          <el-col
+            :span="2"
+            :offset="22"
           >
-            <el-col :span="10">
-              <el-form-item
-                label="类型"
-                prop="hostname"
+            <div class="el-row-button">
+              <el-button
+                id="newregBtn"
+                type="primary"
+                @click="register()"
               >
-                <el-radio-group
-                  v-model="radio"
-                  @change="changeType"
-                >
-                  <el-radio
-                    label="1"
-                  >
-                    K8S
-                  </el-radio>
-                  <el-radio
-                    label="2"
-                  >
-                    OpenStack
-                  </el-radio>
-                </el-radio-group>
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.name')"
-                prop="hostname"
-              >
-                <el-input
-                  id="hostname"
-                  v-model="currForm.hostname"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.ip')"
-                prop="ip"
-              >
-                <el-input
-                  id="ip"
-                  v-model="currForm.ip"
-                  :disabled="isDisable"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.deployArea')"
-                prop="city"
-              >
-                <area-select
-                  v-model="selectedArea"
-                  :data="$pcaa"
-                  :level="3"
-                  @change="handleCityChange"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.address')"
-                prop="address"
-              >
-                <el-input
-                  id="address"
-                  v-model="currForm.address"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.affinity')"
-                prop="affinity"
-              >
-                <el-checkbox-group
-                  v-model="currForm.affinity"
-                  id="affinity"
-                >
-                  <el-checkbox
-                    v-for="(item,index) in affinityList"
-                    :key="index"
-                    :label="item"
-                  />
-                </el-checkbox-group>
-              </el-form-item>
-              <el-form-item
-                label="APPLCM"
-                prop="appLcmIp"
-              >
-                <el-select
-                  id="aaplcmip"
-                  v-model="currForm.appLcmIp"
-                  :placeholder="$t('system.edgeNodes.applcmIp')"
-                >
-                  <el-option
-                    v-for="(item,index) in applcmList"
-                    :key="index"
-                    :label="item.ip"
-                    :value="item.ip"
-                  />
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col
-              :span="10"
-              :offset="1"
-            >
-              <el-form-item
-                :label="$t('system.appLcm.userNmae')"
-                prop="username"
-                v-if="op"
-              >
-                <el-input
-                  id="username"
-                  v-model="currForm.username"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.password')"
-                prop="password"
-                v-if="op"
-              >
-                <el-input
-                  id="password"
-                  v-model="currForm.password"
-                  type="password"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.uploadFile')"
-                v-if="!op"
-              >
-                <el-upload
-                  id="upload"
-                  class="upload-demo"
-                  drag
-                  action=""
-                  :http-request="submitUpload"
-                  :file-list="fileList"
-                  multiple
-                  :limit="1"
-                >
-                  <em class="el-icon-upload" />
-                  <div class="el-upload__text">
-                    {{ $t('system.edgeNodes.howToUpload') }}
-                  </div>
-                  <div
-                    class="el-upload__tip"
-                    slot="tip"
-                  >
-                    {{ $t('system.edgeNodes.uploadTip') }}
-                  </div>
-                </el-upload>
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusIp')"
-                prop="edgeNexusIp"
-              >
-                <el-input
-                  id="edgeip"
-                  v-model="currForm.edgeNexusIp"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusPort')"
-                prop="edgeNexusPort"
-              >
-                <el-input
-                  id="edgeport"
-                  v-model="currForm.edgeNexusPort"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusName')"
-                prop="edgeNexusUsername"
-              >
-                <el-input
-                  id="edgename"
-                  v-model="currForm.edgeNexusUsername"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusPass')"
-                prop="edgeNexusPassword"
-              >
-                <el-input
-                  id="edgepass"
-                  v-model="currForm.edgeNexusPassword"
-                  type="password"
-                />
-              </el-form-item>
-            </el-col>
-          </el-form>
+                {{ $t('system.appLcm.newReg') }}
+              </el-button>
+            </div>
+          </el-col>
         </el-row>
+        <el-row class="table">
+          <el-table
+            :data="currPageTableData"
+            v-loading="dataLoading"
+            border
+          >
+            <el-table-column
+              prop="hostname"
+              sortable
+              :label="$t('app.packageList.name')"
+              width="120"
+            />
+            <el-table-column
+              prop="ip"
+              sortable
+              :label="$t('app.packageList.ip')"
+              width="120"
+            />
+            <el-table-column
+              prop="city"
+              sortable
+              :label="$t('app.packageList.city')"
+            >
+              <template slot-scope="scope">
+                <p>{{ codeToText(scope.row.city) }}</p>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="address"
+              sortable
+              :label="$t('app.packageList.address')"
+              width="120"
+            />
+            <el-table-column
+              prop="affinity"
+              sortable
+              :label="$t('app.packageList.affinity')"
+            />
+            <el-table-column
+              prop="edgeNexusIp"
+              sortable
+              label="Edge Repo Ip"
+            />
+            <el-table-column
+              prop="edgeNexusPort"
+              sortable
+              label="Edge Repo Port"
+            />
+            <el-table-column
+              prop="appLcmIp"
+              sortable
+              label="App Lcm Ip"
+            />
+            <el-table-column
+              prop="k8sURL"
+              sortable
+              label="K8S URL"
+            />
+            <el-table-column
+              :label="$t('common.operation')"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  id="deleteBtn"
+                  @click.native.prevent="beforeDelete(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('common.delete') }}
+                </el-button>
+                <el-button
+                  id="deleteBtn"
+                  @click.native.prevent="uploadFile(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('system.edgeNodes.uploadFile') }}
+                </el-button>
+                <el-button
+                  id="modifyBtn"
+                  @click="handleModify(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('common.modify') }}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-row>
+        <div class="pageBar">
+          <pagination
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
       </div>
-      <span
-        slot="footer"
-        class="dialog-footer"
+      <el-dialog
+        :title="title"
+        :visible.sync="dialogVisible"
+        :close-on-click-modal="false"
+        width="80%"
       >
-        <el-button
-          id="cancelBtn"
-          @click="cancel()"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          @click="confirm('currForm')"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      :title="$t('system.edgeNodes.uploadFile')"
-      :visible.sync="dialogVisibleUpload"
-      width="30%"
-    >
-      <el-upload
-        id="upload"
-        class="upload-demo"
-        drag
-        action=""
-        :http-request="submitUpload"
-        :file-list="fileList"
-        multiple
-        :limit="1"
-      >
-        <em class="el-icon-upload" />
-        <div class="el-upload__text">
-          {{ $t('system.edgeNodes.howToUpload') }}
+        <div class="k8s">
+          <el-row>
+            <el-form
+              label-width="165px"
+              :model="currForm"
+              ref="currForm"
+              :rules="rules"
+            >
+              <el-col :span="10">
+                <el-form-item
+                  :label="$t('system.edgeNodes.systemPlatform')"
+                  prop="hostname"
+                >
+                  <el-radio-group
+                    v-model="radio"
+                    @change="changeType"
+                  >
+                    <el-radio
+                      label="1"
+                    >
+                      K8S
+                    </el-radio>
+                    <el-radio
+                      label="2"
+                    >
+                      OpenStack
+                    </el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item
+                  :label="$t('app.packageList.name')"
+                  prop="hostname"
+                >
+                  <el-input
+                    id="hostname"
+                    v-model="currForm.hostname"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('app.packageList.ip')"
+                  prop="ip"
+                >
+                  <el-input
+                    id="ip"
+                    v-model="currForm.ip"
+                    :disabled="isDisable"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.deployArea')"
+                  prop="city"
+                >
+                  <area-select
+                    v-model="selectedArea"
+                    :data="$pcaa"
+                    :level="3"
+                    @change="handleCityChange"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('app.packageList.address')"
+                  prop="address"
+                >
+                  <el-input
+                    id="address"
+                    v-model="currForm.address"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('app.packageList.affinity')"
+                  prop="affinity"
+                >
+                  <el-checkbox-group
+                    v-model="currForm.affinity"
+                    id="affinity"
+                  >
+                    <el-checkbox
+                      v-for="(item,index) in affinityList"
+                      :key="index"
+                      :label="item"
+                    />
+                  </el-checkbox-group>
+                </el-form-item>
+                <el-form-item
+                  label="APPLCM"
+                  prop="appLcmIp"
+                >
+                  <el-select
+                    id="aaplcmip"
+                    v-model="currForm.appLcmIp"
+                    :placeholder="$t('system.edgeNodes.applcmIp')"
+                  >
+                    <el-option
+                      v-for="(item,index) in applcmList"
+                      :key="index"
+                      :label="item.ip"
+                      :value="item.ip"
+                    />
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col
+                :span="10"
+                :offset="1"
+              >
+                <el-form-item
+                  :label="$t('system.appLcm.userNmae')"
+                  prop="username"
+                  v-if="op"
+                >
+                  <el-input
+                    id="username"
+                    v-model="currForm.username"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.appLcm.password')"
+                  prop="password"
+                  v-if="op"
+                >
+                  <el-input
+                    id="password"
+                    v-model="currForm.password"
+                    type="password"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.uploadFile')"
+                  v-if="!op"
+                >
+                  <el-upload
+                    id="upload"
+                    class="upload-demo"
+                    drag
+                    action=""
+                    :http-request="submitUpload"
+                    :file-list="fileList"
+                    multiple
+                    :limit="1"
+                  >
+                    <em class="el-icon-upload" />
+                    <div class="el-upload__text">
+                      {{ $t('system.edgeNodes.howToUpload') }}
+                    </div>
+                    <div
+                      class="el-upload__tip"
+                      slot="tip"
+                    >
+                      {{ $t('system.edgeNodes.uploadTip') }}
+                    </div>
+                  </el-upload>
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.edgeNexusIp')"
+                  prop="edgeNexusIp"
+                >
+                  <el-input
+                    id="edgeip"
+                    v-model="currForm.edgeNexusIp"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.edgeNexusPort')"
+                  prop="edgeNexusPort"
+                >
+                  <el-input
+                    id="edgeport"
+                    v-model="currForm.edgeNexusPort"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.edgeNexusName')"
+                  prop="edgeNexusUsername"
+                >
+                  <el-input
+                    id="edgename"
+                    v-model="currForm.edgeNexusUsername"
+                  />
+                </el-form-item>
+                <el-form-item
+                  :label="$t('system.edgeNodes.edgeNexusPass')"
+                  prop="edgeNexusPassword"
+                >
+                  <el-input
+                    id="edgepass"
+                    v-model="currForm.edgeNexusPassword"
+                    type="password"
+                  />
+                </el-form-item>
+              </el-col>
+            </el-form>
+          </el-row>
         </div>
-        <div
-          class="el-upload__tip"
-          slot="tip"
+        <span
+          slot="footer"
+          class="dialog-footer"
         >
-          {{ $t('system.edgeNodes.uploadTip') }}
-        </div>
-      </el-upload>
-    </el-dialog>
+          <el-button
+            id="cancelBtn"
+            @click="cancel()"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            @click="confirm('currForm')"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
+      </el-dialog>
+      <el-dialog
+        :title="$t('system.edgeNodes.uploadFile')"
+        :visible.sync="dialogVisibleUpload"
+        width="30%"
+      >
+        <el-upload
+          id="upload"
+          class="upload-demo"
+          drag
+          action=""
+          :http-request="submitUpload"
+          :file-list="fileList"
+          multiple
+          :limit="1"
+        >
+          <em class="el-icon-upload" />
+          <div class="el-upload__text">
+            {{ $t('system.edgeNodes.howToUpload') }}
+          </div>
+          <div
+            class="el-upload__tip"
+            slot="tip"
+          >
+            {{ $t('system.edgeNodes.uploadTip') }}
+          </div>
+        </el-upload>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -397,10 +393,11 @@ import { system, app } from '../../tools/request.js'
 import { CodeToText } from 'element-china-area-data'
 import pagination from '../../components/Pagination.vue'
 import Search from '../../components/Search.vue'
+import Breadcrumb from '../../components/BreadCrumb'
 export default {
   name: 'Sysk8s',
   components: {
-    Search, pagination
+    Search, pagination, Breadcrumb
   },
   data () {
     return {
@@ -651,6 +648,11 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.sysk8s{
+  margin: 0 5%;
+  height: calc(100% - 110px);
+  background: #fff;
+  padding: 30px 60px;
   .table {
     margin-top: 10px;
   }
@@ -660,15 +662,12 @@ export default {
   .el-row-button {
     float: right;
   }
-</style>
-<style>
-.el-upload{
-  width:100%;
+  .el-upload{
+    width:100%;
+  }
+  .el-upload-dragger{
+    width:100%;
+  }
 }
-.el-upload-dragger{
-  width:100%;
-}
-.area-select .area-selected-trigger{
-  padding-top:0px;
-}
+
 </style>

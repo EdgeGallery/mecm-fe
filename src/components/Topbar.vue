@@ -123,6 +123,7 @@ export default {
   watch: {
     $route (to, from) {
       this.indexName = to.path
+      console.log(this.indexName)
       // 解决MECDeveloper下DevTools导航子菜单首次点击没有选中状态问题
       if (this.indexName === '/mecm/mep/detail') {
         this.indexName = '/mecm/mep/list'
@@ -135,6 +136,9 @@ export default {
   },
   mounted () {
     this.indexName = this.$route.fullPath
+    if (this.indexName === '/mecm/apac/detail') {
+      this.indexName = '/mecm/apac/list'
+    }
   }
 }
 
