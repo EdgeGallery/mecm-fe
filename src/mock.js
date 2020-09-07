@@ -141,7 +141,7 @@ const applcmData = function () {
       'port': '30101',
       'managedMecHost': null,
       'username': 'wenson',
-      'password': '123456',
+      'password': '######',
       'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
     },
     { 'ip': '159.138.140.246',
@@ -158,7 +158,7 @@ const appstoreData = function () {
   return [
     { 'url': 'https://appstore.edgegallery.com',
       'username': 'wenson',
-      'password': '123456',
+      'password': '######',
       'appstorename': 'huaweiappstore',
       'producer': 'huawei',
       'time': '01-09-2020 09:04:04',

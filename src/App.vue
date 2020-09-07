@@ -25,10 +25,6 @@ export default {
   name: 'App',
   components: {
   },
-  data () {
-    return {
-    }
-  },
   mounted () {},
   methods: {},
   beforeCreate () {
@@ -46,7 +42,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   min-width: 988px;
   height:100%;
-  background-size:cover;
   background: #f5f5f5;
+  background-size:cover;
 }
 </style>
