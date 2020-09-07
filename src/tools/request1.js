@@ -14,8 +14,6 @@
  *  limitations under the License.
  */
 
-//  Mock Data
-
 import axios from 'axios'
 
 let api
@@ -28,30 +26,56 @@ if (window.location.href.indexOf('30093') > -1) {
 let sysApi = api + ':30105'
 let mecmApi = api + ':30107'
 let meoApi = api + ':30108'
+let infoApi = api + ':30106'
 
-function GET (url) {
-  return axios.get(URL)
+function GET (url, params, headers) {
+  return axios.get(url, {
+    params: params,
+    headers: headers
+  })
 }
 
-function POST (url) {
-  return axios.post(url)
+function POST (url, params, headers) {
+  return axios.post(url, params, { headers: headers })
 }
 
-function PUT (url) {
-  return axios.put(url)
+function PUT (url, params, headers) {
+  return axios.put(url, params, { headers: headers })
 }
 
-function DELETE (url) {
-  return axios.delete(url)
+function DELETE (url, params, headers) {
+  return axios.delete(url, {
+    params: params,
+    headers: headers
+  })
 }
 
 function getUserId () {
   return sessionStorage.getItem('userId')
 }
 
+function getToken () {
+  return sessionStorage.getItem('access_token')
+}
+
+function getCookie (name) {
+  let arr = []
+  let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
+  if (arr === document.cookie.match(reg)) {
+    return (arr[2])
+  } else { return null }
+}
+
 let user = {
   getUserInfo () {
-    return axios.get('/mock/login')
+    return GET('/auth/login-info')
+  },
+  logout () {
+    let headers = {
+      'Content-Type': 'application/json',
+      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+    }
+    return axios.post('/logout', '', { withCredentials: true, headers: headers })
   }
 }
 
@@ -61,49 +85,92 @@ let overview = {
     return GET(url)
   },
   getAppInfo () {
-    return axios.get('/mock/appInstanceInfo')
+    let url = infoApi + '/tenant/' + getUserId() + '/appInstanceInfo'
+    let headers = {
+      'Authorization': 'Basic YnBlbDpwYXNzd29yZDEk',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   },
   getMepCap (host) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + host + '/mep-capabilities'
-
-    return GET(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   },
   getNodeKpi (ip) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + ip
-
-    return GET(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   },
   getServiceInfo (instanceId) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + instanceId
-
-    return GET(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   }
 }
 let app = {
   confirmToDistribute (csarId, params) {
+    let headers = {
+      'token': getToken()
+    }
     let url = mecmApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/' + csarId
-    return POST(url)
+    return POST(url, params, headers)
   },
   getAppListFromAppStore (params) {
-    return axios.get('/mock/appPackageList')
+    let url = '/mec-appstore/mec/appstore/v1/apps'
+    return GET(url)
   },
   getPackageList (appId) {
-    return axios.get('/mock/appPackageList')
+    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages'
+    return GET(url)
   },
   readFile (appId, packageId, params) {
     let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/files'
-    return POST(url)
+    return POST(url, params)
+  },
+  downloadPackage (appId, packageId) {
+    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/action/download'
+    try {
+      var elemIF = document.createElement('iframe')
+      elemIF.src = url
+      elemIF.style.display = 'none'
+      document.body.appendChild(elemIF)
+      // 防止下载两次
+      setTimeout(function () {
+        document.body.removeChild(elemIF)
+      }, 1000)
+    } catch (e) {
+      console.log(e)
+    }
   },
   getDistributionList () {
-    return axios.get('/mock/appDistributionList')
+    let url = mecmApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/'
+    return GET(url)
   },
   confirmToDeploy (params) {
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance'
-    return POST(url)
+    return POST(url, params, headers)
   },
   instantiateApp (instanceId, params) {
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + instanceId
-    return POST(url)
+    return POST(url, params, headers)
   },
   deletDistributionApp (type, hostIp, packageId) {
     let url = mecmApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/' + packageId + '/host/' + hostIp
@@ -113,22 +180,34 @@ let app = {
     return DELETE(url)
   },
   getInstanceList (params) {
-    return axios.get('/mock/appInstanceList')
+    let url = infoApi + '/tenant/' + getUserId() + '/appInstanceInfo'
+    let headers = {
+      'Authorization': 'Basic YnBlbDpwYXNzd29yZDEk',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   },
   getInstanceDetail (appInstanceId) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + appInstanceId
-
-    return GET(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return GET(url, '', headers)
   },
   deleteInstanceApp (appInstanceId, params) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + appInstanceId
-
-    return DELETE(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return DELETE(url, params, headers)
   }
 }
 let edge = {
   getNodeList () {
-    return axios.get('/mock/hosts')
+    let url = sysApi + '/tenant/' + getUserId() + '/hosts'
+    return GET(url)
   }
 }
 let system = {
@@ -141,7 +220,7 @@ let system = {
     } else {
       url = '/appstore'
     }
-    return POST(sysApi + '/tenant/' + getUserId() + url)
+    return POST(sysApi + '/tenant/' + getUserId() + url, params)
   },
   getList (type, params) {
     let url = ''
@@ -152,7 +231,7 @@ let system = {
     } else {
       url = '/appstores'
     }
-    return axios.get('/mock' + url)
+    return GET(sysApi + '/tenant/' + getUserId() + url)
   },
   modify (type, params) {
     let url = ''
@@ -163,13 +242,13 @@ let system = {
     } else {
       url = '/appstore'
     }
-    return PUT(sysApi + '/tenant/' + getUserId() + url)
+    return PUT(sysApi + '/tenant/' + getUserId() + url, params)
   },
   delete (type, params) {
     let url = ''
     if (type === 3) {
       url = '/appstores/appstore'
-      return DELETE(sysApi + '/tenant/' + getUserId() + url)
+      return DELETE(sysApi + '/tenant/' + getUserId() + url, params)
     } else {
       if (type === 1) {
         url = '/applcms/applcm/'
@@ -181,8 +260,11 @@ let system = {
   },
   uploadConfig (ip, params) {
     let url = meoApi + '/mec/v1/mgmt/tenant/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
-
-    return POST(url)
+    let headers = {
+      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
+      'access_token': getToken()
+    }
+    return POST(url, params, headers)
   }
 }
 

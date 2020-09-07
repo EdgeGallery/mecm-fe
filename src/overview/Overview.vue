@@ -168,7 +168,7 @@
         :offset="2"
         style="height: 100%;"
       >
-        <Map />
+        <Map :ipdata="getIpData" />
       </el-col>
     </el-row>
     <div v-if="manageDialogStatus">
@@ -182,7 +182,7 @@
 
 <script>
 import manageDialog from './ManageDialog.vue'
-import Map from './Map2.vue'
+import Map from './Map.vue'
 import { user, overview, edge } from '../tools/request.js'
 export default {
   components: {
@@ -294,6 +294,9 @@ export default {
       this.appPackageList = []
       this.edgeAppList = []
       this.edgeApp = ''
+    },
+    getIpData (msg) {
+      console.log(msg)
     },
     async nodeChange (val) {
       await this.resetData()
