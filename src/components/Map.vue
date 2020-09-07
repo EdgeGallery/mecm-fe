@@ -11,19 +11,12 @@
 
 <script>
 import CityMap from '../assets/js/CityMap'
-import { edge } from '../tools/request'
-import codeToText from '../tools/codetotext'
 import echarts from 'echarts'
 import axios from 'axios'
 
-let myChart = null
-
+let myChart
 export default {
   name: 'ChinaMap',
-  mounted: function () {
-    // this.getNodeList()
-    this.mapChart('mapChart')
-  },
   data () {
     return {
       chinaId: 100000,
@@ -32,64 +25,20 @@ export default {
       mapStack: [],
       parentId: null,
       parentName: null,
-      nodeData: []
+      nodeData: [],
+      myChart: null
     }
   },
+  mounted () {
+    this.mapChart('mapChart')
+  },
   methods: {
-    async getNodeList () {
-      await edge.getNodeList().then(res => {
-        if (res.data && res.data.length > 0) {
-          res.data.forEach((item, index) => {
-            let obj = {}
-            obj.coord = codeToText(item.city)
-            obj.ip = item.ip
-            this.geoCode(obj)
-          })
-        }
-      })
-    },
-    geoCode (obj) {
-      // var geocoder = new AMap.Geocoder({
-      //   city: ''
-      // })
-      // geocoder.getLocation(obj.coord, function (status, result) {
-      //   if (status === 'complete' && result.geocodes.length) {
-      //     var lnglat = result.geocodes[0].location
-      //     let coord = []
-      //     coord.push(lnglat.Q)
-      //     coord.push(lnglat.R)
-      //     obj.coord = coord
-      //     // this.nodeData.push(obj)
-      //   } else {
-      //     console.error('failed')
-      //   }
-      // })
-    },
-    back () {
-      if (this.mapStack.length !== 0) {
-        let map = this.mapStack.pop()
-        axios
-          .get('./map/' + map.mapId + '.json', {})
-          .then(response => {
-            const mapJson = response.data
-            this.this.registerAndsetOption(
-              myChart,
-              map.mapId,
-              map.mapName,
-              mapJson,
-              false
-            )
-            this.parentId = map.mapId
-            this.parentName = map.mapName
-          })
-      }
-    },
     mapChart (divid) {
       axios.get('./map/' + this.chinaId + '.json', {}).then(response => {
         const mapJson = response.data
         this.chinaJson = mapJson
-        myChart = echarts.init(document.getElementById(divid))
-        this.registerAndsetOption(myChart, this.chinaId, this.chinaName, mapJson, false)
+        myChart = echarts.init(document.getElementById('mapChart'))
+        this.registerAndsetOption(myChart, this.chinaId, this.chinaName, this.chinaJson, false)
         this.parentId = this.chinaId
         this.parentName = 'china'
         myChart.on('click', param => {
@@ -118,6 +67,17 @@ export default {
     },
     registerAndsetOption (myChart1, id, name, mapJson, flag) {
       echarts.registerMap(name, mapJson)
+      this.setOption(myChart1, mapJson)
+      if (flag) {
+        this.mapStack.push({
+          mapId: this.parentId,
+          mapName: this.parentName
+        })
+        this.parentId = id
+        this.parentName = name
+      }
+    },
+    setOption (myChart1, mapJson) {
       myChart1.setOption({
         visualMap: {
           show: false,
@@ -186,14 +146,6 @@ export default {
           }
         ]
       })
-      if (flag) {
-        this.mapStack.push({
-          mapId: this.parentId,
-          mapName: this.parentName
-        })
-        this.parentId = id
-        this.parentName = name
-      }
     },
     initMapData (mapJson) {
       let mapData = []
@@ -208,66 +160,15 @@ export default {
 }
 </script>
 <style scoped>
-.title {
-  width: 100%;
-  height: 10vh;
-  text-align: center;
-  color: #fff;
-  font-size: 2em;
-  line-height: 10vh;
-}
 .box {
   width: 90%;
   height: 80vh;
   left: 5%;
   top: 10%;
 }
-
 .chart {
   position: relative;
   height: 90%;
   top: 10%;
-}
-.backBtn {
-  position: absolute;
-  top: 0;
-  background-color: #00c298;
-  border: 0;
-  color: #fff;
-  height: 27px;
-  font-family: Microsoft Yahei,sans-serif;
-  font-size: 1em;
-  cursor: pointer;
-}
-.myBlog {
-  position: absolute;
-  top: 2px;
-  right: 5%;
-  display: block;
-  border: 2px solid #262a53;
-}
-.myBlog a {
-  text-decoration: none;
-  display: inline-block;
-  color: #fff;
-  padding: 5px;
-  font-size: 1em;
-}
-
-.myBlog a img {
-  vertical-align: middle;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  margin: -5px 5px auto auto;
-}
-.bottom {
-  position: absolute;
-  width: 100%;
-  height: 5%;
-  line-height: 100%;
-  left: 0;
-  bottom: 0%;
-  text-align: center;
 }
 </style>

@@ -18,7 +18,7 @@ const hostData = function () {
       'ip': '119.8.125.174',
       'hostname': '119.8.125.174',
       'zipcode': '',
-      'city': '110000,110100,110101,110101001',
+      'city': '北京市/北京市/东城区/景山街道',
       'address': 'Beijing',
       'affinity': 'X86',
       'username': '',

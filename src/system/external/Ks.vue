@@ -67,11 +67,7 @@
               prop="city"
               sortable
               :label="$t('app.packageList.city')"
-            >
-              <template slot-scope="scope">
-                <p>{{ codeToText(scope.row.city) }}</p>
-              </template>
-            </el-table-column>
+            />
             <el-table-column
               prop="address"
               sortable
@@ -160,7 +156,6 @@
               <el-col :span="10">
                 <el-form-item
                   :label="$t('system.edgeNodes.systemPlatform')"
-                  prop="hostname"
                 >
                   <el-radio-group
                     v-model="radio"
@@ -205,6 +200,7 @@
                     v-model="selectedArea"
                     :data="$pcaa"
                     :level="3"
+                    type="text"
                     @change="handleCityChange"
                   />
                 </el-form-item>
@@ -390,7 +386,6 @@
 
 <script>
 import { system, app } from '../../tools/request.js'
-import { CodeToText } from 'element-china-area-data'
 import pagination from '../../components/Pagination.vue'
 import Search from '../../components/Search.vue'
 import Breadcrumb from '../../components/BreadCrumb'
@@ -411,7 +406,7 @@ export default {
       applcmList: [],
       op: false,
       radio: '1',
-      selectedArea: ['110000', '110100', '110101', '110101001'],
+      selectedArea: ['北京市', '北京市', '东城区', '景山街道'],
       currForm: {
         ip: '',
         hostname: '',
@@ -434,9 +429,6 @@ export default {
         ],
         hostname: [
           { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' }
-        ],
-        city: [
-          { required: true, message: this.$t('verify.typeCity'), trigger: 'blur' }
         ],
         address: [
           { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
@@ -477,10 +469,6 @@ export default {
     this.getNodeListInPage()
   },
   methods: {
-    codeToText (item) {
-      let val = item.split(',')
-      return CodeToText[val[0]] + '/' + CodeToText[val[1]] + '/' + CodeToText[val[2]]
-    },
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
@@ -514,6 +502,7 @@ export default {
       this.op = !this.op
     },
     handleCityChange (val) {
+      console.log(val)
       this.currForm.city = val.toString()
     },
     uploadFile (row) {
@@ -525,7 +514,8 @@ export default {
       this.title = this.$t('system.edgeNodes.nodeModify')
       this.isDisable = true
       this.currForm = row
-      this.selectedArea = row.city.split(',')
+      this.selectedArea = row.city.split('/')
+      console.log(this.selectedArea)
       this.currForm.affinity = row.affinity.split(',')
       this.dialogVisible = true
       this.clearValidate('currForm')
@@ -611,8 +601,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.currForm.affinity = this.currForm.affinity.join(',')
-          this.currForm.city = this.selectedArea.toString()
-          console.log(this.currForm)
+          this.currForm.city = this.selectedArea.join('/')
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
               this.$message.success(this.$t('tip.sucToRegNode'))
