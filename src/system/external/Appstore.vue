@@ -23,18 +23,6 @@
       :third="$t('nav.appstore')"
     />
     <div class="appstore">
-      <!-- <div class="breadcrumb">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
-          {{ $t('nav.mecm') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item><strong>{{ $t('nav.system') }}</strong></el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/mecm/systems/external/applcm' }">
-          {{ $t('nav.externalSysMan') }}
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ $t('nav.appstore') }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div> -->
       <Search
         :affinity-item="false"
         :ip-item="true"
