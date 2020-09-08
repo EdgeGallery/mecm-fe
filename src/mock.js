@@ -168,7 +168,7 @@ const appstoreData = function () {
 }
 
 Mock.mock('/mock/login', userData)
-Mock.mock('/mock/hosts', hostData)
+Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appInstanceList', appData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
