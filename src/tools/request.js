@@ -72,7 +72,7 @@ function getCookie (name) {
 
 let user = {
   getUserInfo () {
-    return GET('/auth/login-info')
+    return axios.get('/auth/login-info')
   },
   logout () {
     let header = {

@@ -170,7 +170,6 @@ let system = {
   },
   uploadConfig (ip, params) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
-
     return POST(url)
   }
 }
