@@ -59,28 +59,12 @@ export default {
           coord.push(lnglat.Q)
           obj.coord = coord
           nodeData.push(obj)
+          console.log(nodeData)
           this.mapChart('mapChart')
         } else {
           console.error('failed')
         }
       })
-      // AMap.plugin('AMap.Geocoder', function () {
-      //   var geocoder = new AMap.Geocoder({
-      //     city: '010'
-      //   })
-      //   geocoder.getLocation(obj.coord, status, res => {
-      //     if (status === 'complete' && res.info === 'OK') {
-      //       var lnglat = res.geocodes[0].location
-      //       let coord = []
-      //       coord.push(lnglat.R)
-      //       coord.push(lnglat.Q)
-      //       obj.coord = coord
-      //       nodeData.push(obj)
-      //       console.log(lnglat)
-      //       this.mapChart('mapChart')
-      //     }
-      //   })
-      // })
     },
     back () {
       if (mapStack.length !== 0) {

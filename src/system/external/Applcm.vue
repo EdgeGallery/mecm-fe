@@ -35,7 +35,7 @@
         </p>
         <el-row>
           <el-col
-            :span="3"
+            :span="4"
             :offset="1"
             v-for="(item,index) in currPageTableData"
             :key="index"
