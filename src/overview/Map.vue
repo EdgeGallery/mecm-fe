@@ -28,9 +28,15 @@ export default {
   name: 'ChinaMap',
   data () {
     return {
-
+      // one: 1
     }
   },
+  // watch: {
+  //   one () {
+  //     console.log(this.one)
+  //     this.$emit('ipdata', nodeData)
+  //   }
+  // },
   mounted () {
     this.getNodeList()
   },
@@ -59,7 +65,6 @@ export default {
           coord.push(lnglat.Q)
           obj.coord = coord
           nodeData.push(obj)
-          console.log(nodeData)
           this.mapChart('mapChart')
         } else {
           console.error('failed')
@@ -98,9 +103,11 @@ export default {
         parentName = 'china'
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            this.$emit.bind('ipdata', param.data.ip)
+            // this.one++
+            this.$emit('node', param.data.ip)
           } else {
             let cityId = CityMap[param.name]
+            this.$emit('area', param.data.name)
             if (cityId) {
               axios
                 .get('./map/' + cityId + '.json', {})

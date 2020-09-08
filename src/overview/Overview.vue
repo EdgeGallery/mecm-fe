@@ -168,7 +168,10 @@
         :offset="2"
         style="height: 100%;"
       >
-        <Map :ipdata="getIpData" />
+        <Map
+          @node="clickNode"
+          @area="clickMap"
+        />
       </el-col>
     </el-row>
     <div v-if="manageDialogStatus">
@@ -295,7 +298,10 @@ export default {
       this.edgeAppList = []
       this.edgeApp = ''
     },
-    getIpData (msg) {
+    clickNode (msg) {
+      console.log(msg)
+    },
+    clickMap (msg) {
       console.log(msg)
     },
     async nodeChange (val) {
