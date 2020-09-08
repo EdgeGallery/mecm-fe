@@ -315,25 +315,6 @@
                     v-model="currForm.edgeNexusPort"
                   />
                 </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.edgeNexusName')"
-                  prop="edgeNexusUsername"
-                >
-                  <el-input
-                    id="edgename"
-                    v-model="currForm.edgeNexusUsername"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.edgeNexusPass')"
-                  prop="edgeNexusPassword"
-                >
-                  <el-input
-                    id="edgepass"
-                    v-model="currForm.edgeNexusPassword"
-                    type="password"
-                  />
-                </el-form-item>
               </el-col>
             </el-form>
           </el-row>
@@ -444,12 +425,6 @@ export default {
         ],
         edgeNexusPort: [
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' }
-        ],
-        edgeNexusUsername: [
-          { required: true, message: this.$t('verify.edgeNexusUsernameTip'), trigger: 'blur' }
-        ],
-        edgeNexusPassword: [
-          { required: true, message: this.$t('verify.edgeNexusPasswordTip'), trigger: 'blur' }
         ],
         appLcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }

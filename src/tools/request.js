@@ -28,23 +28,26 @@ let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', 'appstores']
+let headers = {
+  'access_token': getToken()
+}
 
-function GET (url, params, headers) {
+function GET (url, params) {
   return axios.get(url, {
     params: params,
     headers: headers
   })
 }
 
-function POST (url, params, headers) {
+function POST (url, params) {
   return axios.post(url, params, { headers: headers })
 }
 
-function PUT (url, params, headers) {
+function PUT (url, params) {
   return axios.put(url, params, { headers: headers })
 }
 
-function DELETE (url, params, headers) {
+function DELETE (url, params) {
   return axios.delete(url, {
     params: params,
     headers: headers
@@ -72,11 +75,11 @@ let user = {
     return GET('/auth/login-info')
   },
   logout () {
-    let headers = {
+    let header = {
       'Content-Type': 'application/json',
       'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
     }
-    return axios.post('/logout', '', { withCredentials: true, headers: headers })
+    return axios.post('/logout', '', { withCredentials: true, headers: header })
   }
 }
 
@@ -87,44 +90,25 @@ let overview = {
   },
   getAppInfo () {
     let url = appo + '/tenant/' + getUserId() + '/app_Instance_Infos'
-    let headers = {
-      'Authorization': 'Basic YnBlbDpwYXNzd29yZDEk',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   },
   getMepCap (host) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + host + '/mep-capabilities'
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   },
   getNodeKpi (ip) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + ip
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   },
   getServiceInfo (instanceId) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + instanceId
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   }
 }
 let app = {
   confirmToDistribute (csarId, params) {
-    let headers = {
-      'token': getToken()
-    }
     let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/' + csarId
-    return POST(url, params, headers)
+    return POST(url, params)
   },
   getAppListFromAppStore (params) {
     let url = '/mec-appstore/mec/appstore/v1/apps'
@@ -158,20 +142,12 @@ let app = {
     return GET(url)
   },
   confirmToDeploy (params) {
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances'
-    return POST(url, params, headers)
+    return POST(url, params)
   },
   instantiateApp (instanceId, params) {
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + instanceId
-    return POST(url, params, headers)
+    return POST(url, params)
   },
   deletDistributionApp (type, hostIp, packageId) {
     let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/' + packageId + '/host/' + hostIp
@@ -182,27 +158,15 @@ let app = {
   },
   getInstanceList (params) {
     let url = appo + '/tenant/' + getUserId() + '/app_Instance_Infos'
-    let headers = {
-      'Authorization': 'Basic YnBlbDpwYXNzd29yZDEk',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   },
   getInstanceDetail (appInstanceId) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + appInstanceId
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return GET(url, '', headers)
+    return GET(url, '')
   },
   deleteInstanceApp (appInstanceId, params) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + appInstanceId
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return DELETE(url, params, headers)
+    return DELETE(url, params)
   }
 }
 let edge = {
@@ -226,11 +190,7 @@ let system = {
   },
   uploadConfig (ip, params) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
-    let headers = {
-      'Authorization': 'Basic SW5mcmFQb3J0YWxDbGllbnQ6cGFzc3dvcmQxJA==',
-      'access_token': getToken()
-    }
-    return POST(url, params, headers)
+    return POST(url, params)
   }
 }
 
