@@ -25,6 +25,33 @@
         class="content-right"
       >
         <div class="edge-souces mt20">
+          <label class="overviewLabel">{{ $t('overview.statistics') }}</label>
+          <el-select
+            class="mt20"
+            v-model="alarmStatus"
+            style="width:100%;"
+          >
+            <el-option
+              :label="$t('overview.alarms')"
+              value="alarms"
+            />
+            <el-option
+              :label="$t('overview.nodeinfo')"
+              value="nodeinfo"
+            />
+          </el-select>
+        </div>
+        <div
+          class="edge-souces mt20"
+          v-if="alarmStatus === 'alarms'"
+        >
+          <label class="overviewLabel">{{ $t('overview.alarms') }}</label>
+          <Chart :chart-data="chartData" />
+        </div>
+        <div
+          class="edge-souces mt20"
+          v-if="alarmStatus !== 'alarms'"
+        >
           <label class="overviewLabel">{{ $t('overview.regionEdge') }}</label>
           <el-select
             class="mt20"
@@ -40,7 +67,10 @@
             />
           </el-select>
         </div>
-        <div class="edge-souces ml20">
+        <div
+          class="edge-souces ml20"
+          v-if="alarmStatus !== 'alarms'"
+        >
           <el-row :gutter="40">
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
@@ -78,7 +108,10 @@
             </el-col>
           </el-row>
         </div>
-        <div class="edge-souces">
+        <div
+          class="edge-souces"
+          v-if="alarmStatus !== 'alarms'"
+        >
           <label class="overviewLabel">{{ $t('overview.mepCapa') }}</label>
           <el-table
             :data="mepCapabilitiesData"
@@ -103,7 +136,10 @@
             />
           </el-table>
         </div>
-        <div class="edge-souces">
+        <div
+          class="edge-souces"
+          v-if="alarmStatus !== 'alarms'"
+        >
           <label class="overviewLabel">{{ $t('overview.app') }}</label>
           <el-select
             class="mt20"
@@ -187,10 +223,12 @@
 import manageDialog from './ManageDialog.vue'
 import Map from './Map.vue'
 import { user, overview, edge } from '../tools/request.js'
+import Chart from './Chart.vue'
 export default {
   components: {
     manageDialog,
-    Map
+    Map,
+    Chart
   },
   data () {
     this.chartSettings = {
@@ -254,6 +292,7 @@ export default {
           this.assembly(v.name)
         }
       },
+      alarmStatus: 'alarms',
       regionEdge: '',
       regionEdgeIp: '',
       regionEdgeList: [],
@@ -284,7 +323,8 @@ export default {
       infoList: [],
       appPackageList: [],
       kpiInfo: [],
-      loginBtnLoading: false
+      loginBtnLoading: false,
+      chartData: {}
     }
   },
   methods: {
@@ -299,9 +339,11 @@ export default {
       this.edgeApp = ''
     },
     clickNode (msg) {
+      this.alarmStatus = 'nodeinfo'
       console.log(msg)
     },
     clickMap (msg) {
+      this.alarmStatus = 'alarms'
       console.log(msg)
     },
     async nodeChange (val) {
@@ -424,10 +466,16 @@ export default {
     },
     async checkServiceInfo () {
       await this.getServiceInfo(this.edgeApp)
+    },
+    getChartData (data) {
+      this.chartData = data
     }
   },
   mounted () {
     this.getHostsInfo('北京')
+  },
+  beforeMount () {
+    this.$root.$on('refreshChart', this.getChartData)
   }
 }
 </script>

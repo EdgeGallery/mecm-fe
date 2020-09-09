@@ -31,7 +31,7 @@ import { pcaa } from 'area-data-vue'
 import 'area-linkage-vue/dist/index.css'
 import AreaLinkageVue from 'area-linkage-vue'
 require('./mock.js')
-
+require('./dark.js')
 // Vue.prototype.VueAMap = VueAMap
 // VueAMap.initAMapApiLoader({
 //   key: '85daac944eb6dd5690d235151d0e5dc7',

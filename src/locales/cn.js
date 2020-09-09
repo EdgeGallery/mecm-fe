@@ -84,7 +84,10 @@ const cn = {
     containers: '容器',
     containerUsage: '容器占用率',
     name: '名称：',
-    register: '注册'
+    register: '注册',
+    alarms: '警报',
+    nodeinfo: '节点信息',
+    statistics: '统计表'
   },
   app: {
     packageList: {
