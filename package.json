@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "a": "^2.1.2",
+    "area-data": "^5.0.6",
     "area-data-vue": "^1.0.9",
     "area-linkage-vue": "^5.1.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "echarts": "^4.1.0",
+    "echarts": "^4.2.1",
     "el-table-pagination": "^0.4.38",
     "element-ui": "^2.13.2",
     "elliptic": "^6.5.3",
