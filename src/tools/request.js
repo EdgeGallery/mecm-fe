@@ -27,7 +27,7 @@ let inventory = api + ':30203' + '/inventory/v1'
 let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
 
-let inventoryUrl = ['/applcms', '/mechosts', 'appstores']
+let inventoryUrl = ['/applcms', '/mechosts', '/appstores']
 let headers = {
   'access_token': getToken()
 }
@@ -89,19 +89,19 @@ let overview = {
     return GET(url)
   },
   getAppInfo () {
-    let url = appo + '/tenant/' + getUserId() + '/app_Instance_Infos'
+    let url = appo + '/tenants/' + getUserId() + '/app_Instance_Infos'
     return GET(url, '')
   },
-  getMepCap (host) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + host + '/mep-capabilities'
+  getMepCap (hostip) {
+    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep-capabilities'
     return GET(url, '')
   },
-  getNodeKpi (ip) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + ip
+  getNodeKpi (hostip) {
+    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip
     return GET(url, '')
   },
   getServiceInfo (instanceId) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + instanceId
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
     return GET(url, '')
   },
   getChart (cityId) {
@@ -111,7 +111,7 @@ let overview = {
 }
 let app = {
   confirmToDistribute (csarId, params) {
-    let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/' + csarId
+    let url = apm + '/mec/v1/mgmt/tenants/' + getUserId() + '/packages/' + csarId
     return POST(url, params)
   },
   getAppListFromAppStore (params) {
@@ -142,58 +142,58 @@ let app = {
     }
   },
   getDistributionList () {
-    let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/'
+    let url = apm + '/tenants/' + getUserId() + '/packages/'
     return GET(url)
   },
   confirmToDeploy (params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances'
+    let url = appo + '/tenants/' + getUserId() + '/app_instances'
     return POST(url, params)
   },
   instantiateApp (instanceId, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + instanceId
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
     return POST(url, params)
   },
   deletDistributionApp (type, hostIp, packageId) {
-    let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/' + packageId + '/host/' + hostIp
+    let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/host/' + hostIp
     if (type === 2) {
-      url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/packages/' + packageId
+      url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
   },
   getInstanceList (params) {
-    let url = appo + '/tenant/' + getUserId() + '/app_Instance_Infos'
+    let url = appo + '/tenants/' + getUserId() + '/app_Instance_Infos'
     return GET(url, '')
   },
   getInstanceDetail (appInstanceId) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + appInstanceId
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
     return GET(url, '')
   },
   deleteInstanceApp (appInstanceId, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + appInstanceId
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
     return DELETE(url, params)
   }
 }
 let edge = {
   getNodeList () {
-    let url = inventory + '/tenant/' + getUserId() + '/hosts'
+    let url = inventory + '/tenants/' + getUserId() + '/mechosts'
     return GET(url)
   }
 }
 let system = {
   create (type, params) {
-    return POST(inventory + '/tenant/' + getUserId() + inventoryUrl[type - 1], params)
+    return POST(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
   getList (type, params) {
-    return GET(inventory + '/tenant/' + getUserId() + inventoryUrl[type - 1])
+    return GET(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1])
   },
   modify (type, params) {
-    return PUT(inventory + '/tenant/' + getUserId() + inventoryUrl[type - 1], params)
+    return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
   delete (type, params) {
-    return DELETE(inventory + '/tenant/' + getUserId() + inventoryUrl[type - 1] + params)
+    return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + params)
   },
   uploadConfig (ip, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
+    let url = appo + '/tenants/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
     return POST(url, params)
   }
 }
