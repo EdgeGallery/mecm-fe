@@ -103,6 +103,10 @@ let overview = {
   getServiceInfo (instanceId) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instances/' + instanceId
     return GET(url, '')
+  },
+  getChart (cityId) {
+    return axios.get('/mock/alarmData')
+    // return GET('/mec/v1/mgmt/cities/' + cityId, '')
   }
 }
 let app = {

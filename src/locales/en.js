@@ -85,7 +85,10 @@ const en = {
     containers: 'Containers',
     containerUsage: 'Container Usage',
     name: 'Name:',
-    register: 'Register'
+    register: 'Register',
+    alarms: 'Alarms',
+    nodeinfo: 'Node Info',
+    statistics: 'Statistics'
   },
   app: {
     packageList: {

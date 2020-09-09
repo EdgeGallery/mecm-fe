@@ -63,7 +63,7 @@ let overview = {
     return GET(url)
   },
   getAppInfo () {
-    return axios.get('/mock/appInstanceInfo')
+    return axios.get('/mock/appInstanceList')
   },
   getMepCap (host) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + host + '/mep-capabilities'
@@ -76,6 +76,9 @@ let overview = {
   getServiceInfo (instanceId) {
     let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + instanceId
     return GET(url)
+  },
+  getChart (cityId) {
+    return axios.get('/mock/alarmData')
   }
 }
 let app = {

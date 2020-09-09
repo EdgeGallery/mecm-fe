@@ -167,6 +167,42 @@ const appstoreData = function () {
   ]
 }
 
+const alarmData = function () {
+  let alarm = {
+    '100000': {
+      'Overall': 13100,
+      'Critical': 6700,
+      'Major': 3600,
+      'Minor': 2800
+    },
+    '110000': {
+      'Overall': 1000,
+      'Critical': 650,
+      'Major': 300,
+      'Minor': 50
+    },
+    '650000': {
+      'Overall': 12100,
+      'Critical': 6050,
+      'Major': 3300,
+      'Minor': 2750
+    },
+    '652800': {
+      'Overall': 11000,
+      'Critical': 5500,
+      'Major': 3000,
+      'Minor': 2500
+    },
+    '653200': {
+      'Overall': 1100,
+      'Critical': 550,
+      'Major': 300,
+      'Minor': 250
+    }
+  }
+  return alarm
+}
+
 Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appInstanceList', appData)
@@ -174,3 +210,4 @@ Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
 Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
+Mock.mock('/mock/alarmData', alarmData)

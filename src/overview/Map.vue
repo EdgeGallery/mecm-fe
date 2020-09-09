@@ -11,7 +11,7 @@
 
 <script>
 import CityMap from '../assets/js/CityMap'
-import { edge } from '../tools/request'
+import { overview, edge } from '../tools/request'
 import echarts from 'echarts'
 import axios from 'axios'
 
@@ -91,6 +91,7 @@ export default {
       }
     },
     mapChart (divid) {
+      const self = this
       axios.get('./map/' + chinaId + '.json', {}).then(response => {
         const mapJson = response.data
         chinaJson = mapJson
@@ -101,6 +102,7 @@ export default {
         registerAndsetOption(myChart, chinaId, chinaName, mapJson, false)
         parentId = chinaId
         parentName = 'china'
+        self.getChart(chinaId)
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
             // this.one++
@@ -121,14 +123,27 @@ export default {
                     true
                   )
                 })
+              self.getChart(cityId)
             } else {
               registerAndsetOption(myChart, chinaId, chinaName, chinaJson, false)
               mapStack = []
               parentId = chinaId
               parentName = chinaName
+              self.getChart(chinaId)
             }
           }
         })
+      })
+    },
+    getChart (id) {
+      let chartData = {}
+      overview.getChart().then(res => {
+        if (res.data[id]) {
+          chartData = res.data[id]
+        }
+        this.$root.$emit('refreshChart', chartData)
+      }).catch(() => {
+        console.log('Failed to get chart data')
       })
     }
   }
