@@ -205,10 +205,10 @@ export default {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
-        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
-          this.$message.error(error.response.detail)
+          this.$message.error(error.response.details[0])
         }
       })
     }

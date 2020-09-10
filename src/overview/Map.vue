@@ -52,11 +52,11 @@ export default {
           })
         }
       }, error => {
-        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
           nodeData = []
           this.mapChart('mapChart')
         } else {
-          this.$message.error(error.response.detail)
+          this.$message.error(error.response.details[0])
         }
       })
     },

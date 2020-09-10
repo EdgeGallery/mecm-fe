@@ -219,17 +219,14 @@ export default {
     this.initList()
   },
   methods: {
-    // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
         let itemVal = item[key].toLowerCase()
         return itemVal.indexOf(val) > -1
       })
     },
-    // 根据搜索组件进行筛选
     getSearchData (data) {
       this.paginationData = this.tableData
-      // appstorename  url  后端对应的字段
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
         for (let key in data) {
@@ -275,7 +272,6 @@ export default {
               this.$message.success(this.$t('tip.regAppStoreSuc'))
               this.initList()
               this.dialogVisible = false
-              // eslint-disable-next-line handle-callback-err
             }, error => {
               this.$message.error(error.message)
             })
@@ -284,7 +280,6 @@ export default {
               this.$message.success(this.$t('tip.regAppStoreSuc'))
               this.initList()
               this.dialogVisible = false
-              // eslint-disable-next-line handle-callback-err
             }, error => {
               this.$message.error(error.message)
             })
@@ -311,24 +306,20 @@ export default {
         system.delete(3, data).then(res => {
           this.initList()
           this.$message.success(this.$t('tip.deleteAppStoreSuc'))
-        // eslint-disable-next-line handle-callback-err
-        }, error => {
+        }).catch(error => {
           this.$message.error(error.message)
         })
-      }).catch({
-
       })
     },
     initList () {
       system.getList(3).then(res => {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
-      // eslint-disable-next-line handle-callback-err
       }, error => {
-        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
-          this.$message.error(error.response.detail)
+          this.$message.error(error.response.details[0])
         }
       })
     }
