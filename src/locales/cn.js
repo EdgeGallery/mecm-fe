@@ -85,7 +85,7 @@ const cn = {
     containerUsage: '容器占用率',
     name: '名称：',
     register: '注册',
-    alarms: '警报',
+    alarms: '告警',
     nodeinfo: '节点信息',
     statistics: '统计表'
   },

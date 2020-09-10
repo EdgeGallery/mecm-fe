@@ -268,6 +268,7 @@ export default {
 
       // eslint-disable-next-line handle-callback-err
       }, error => {
+        console.log(error)
         this.$message.error('Error!')
       })
     }

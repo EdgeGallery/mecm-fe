@@ -568,7 +568,8 @@ export default {
       system.getList(2).then(response => {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
+        console.log(error)
         this.$message.error(this.$t('tip.failedToGetList'))
       })
     },
