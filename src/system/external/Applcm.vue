@@ -107,7 +107,7 @@
               >
                 <el-input
                   id="ip"
-                  v-model="form.ip"
+                  v-model="form.applcmIp"
                   :disabled="ipDisable"
                 />
               </el-form-item>
@@ -117,7 +117,7 @@
               >
                 <el-input
                   id="port"
-                  v-model="form.port"
+                  v-model="form.applcmPort"
                 />
               </el-form-item>
             </el-form>
@@ -163,10 +163,9 @@ export default {
       ipDisable: false,
       title: this.$t('system.appLcm.applcmReg'),
       form: {
-        ip: '',
-        port: '',
-        username: '',
-        password: ''
+        applcmIip: '',
+        applcmPort: '',
+        username: ''
       },
       editType: 1,
       rules: {
