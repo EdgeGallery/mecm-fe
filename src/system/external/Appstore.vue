@@ -335,6 +335,8 @@ export default {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       // eslint-disable-next-line handle-callback-err
+      }, error => {
+        console.log(error)
       })
     }
   }
