@@ -179,7 +179,7 @@
                 >
                   <el-input
                     id="hostname"
-                    v-model="currForm.hostname"
+                    v-model="currForm.mechostName"
                   />
                 </el-form-item>
                 <el-form-item
@@ -188,7 +188,7 @@
                 >
                   <el-input
                     id="ip"
-                    v-model="currForm.ip"
+                    v-model="currForm.mechostIp"
                     :disabled="isDisable"
                   />
                 </el-form-item>
@@ -234,7 +234,7 @@
                 >
                   <el-select
                     id="aaplcmip"
-                    v-model="currForm.appLcmIp"
+                    v-model="currForm.applcmIp"
                     :placeholder="$t('system.edgeNodes.applcmIp')"
                   >
                     <el-option
@@ -303,7 +303,7 @@
                 >
                   <el-input
                     id="edgeip"
-                    v-model="currForm.edgeNexusIp"
+                    v-model="currForm.edgerepoIp"
                   />
                 </el-form-item>
                 <el-form-item
@@ -312,7 +312,7 @@
                 >
                   <el-input
                     id="edgeport"
-                    v-model="currForm.edgeNexusPort"
+                    v-model="currForm.edgerepoPort"
                   />
                 </el-form-item>
               </el-col>
@@ -389,49 +389,21 @@ export default {
       radio: '1',
       selectedArea: ['北京市', '北京市', '东城区', '景山街道'],
       currForm: {
-        ip: '',
-        hostname: '',
-        zipcode: '',
-        city: '',
-        address: '',
-        username: '',
-        password: '',
-        edgeNexusIp: '',
-        edgeNexusPort: '',
-        edgeNexusUsername: '',
-        edgeNexusPassword: '',
-        appLcmIp: '',
-        k8sURL: '',
-        affinity: []
+        'address': '',
+        'affinity': [],
+        'applcmIp': '',
+        'city': '',
+        'edgeName': '',
+        'edgerepoIp': '',
+        'edgerepoPort': '',
+        'edgerepoUsername': '',
+        'mechostIp': '',
+        'mechostName': '',
+        'userName': '',
+        'zipCode': ''
       },
       rules: {
-        ip: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
-        ],
-        hostname: [
-          { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' }
-        ],
-        address: [
-          { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
-        ],
-        username: [
-          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: this.$t('verify.passwordTip'), trigger: 'blur' }
-        ],
-        edgeNexusIp: [
-          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' }
-        ],
-        edgeNexusPort: [
-          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' }
-        ],
-        appLcmIp: [
-          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
-        ],
-        affinity: [
-          { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
-        ]
+
       },
       affinity: [],
       title: '',
@@ -508,6 +480,10 @@ export default {
         } else {
           this.showWarningBox(row)
         }
+      }, error => {
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.showWarningBox(row)
+        }
       })
     },
     showWarningBox (row) {
@@ -537,9 +513,12 @@ export default {
       })
       system.getList(1).then(res => {
         this.applcmList = res.data
-      // eslint-disable-next-line handle-callback-err
       }, error => {
-        this.$message.error('Network Error!')
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     },
     reset (formName) {
@@ -569,8 +548,11 @@ export default {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
-        console.log(error)
-        this.$message.error(this.$t('tip.failedToGetList'))
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.failedToGetList'))
+        }
       })
     },
     confirm (form) {

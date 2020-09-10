@@ -204,8 +204,12 @@ export default {
       edge.getNodeList().then(response => {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
-      }).catch(() => {
-        this.$message.error(this.$t('tip.getNodeListFailed'))
+      }).catch((error) => {
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     }
   }

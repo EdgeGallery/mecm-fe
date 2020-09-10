@@ -278,7 +278,6 @@ export default {
       multipleEdgeNodeSelection: [],
       selectedEdgeNodeNum: 0,
       currentRowData: '',
-      alreadyDistributedPackageData: [],
       appType: '',
       loading: false,
       version: '',
@@ -402,16 +401,18 @@ export default {
         address = 'https'
       }
       let params = {
-        appPackageId: this.currentRowData.csarId,
+        appPkgId: this.currentRowData.csarId,
         appId: this.currentRowData.appId,
-        appPackageName: this.currentRowData.name,
-        version: this.currentRowData.version,
-        appPackageDescription: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
-        appAffinity: this.currentRowData.affinity,
-        appDownloadUrl: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.csarId + '/action/download',
+        appPkgName: this.currentRowData.name,
+        appPkgVersion: this.currentRowData.version,
+        appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
+        appPkgAffinity: this.currentRowData.affinity,
+        appPkgPath: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.csarId + '/action/download',
         appIconUrl: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
-        provider: this.currentRowData.provider,
-        mecHost: selectedMecHost
+        appProvider: this.currentRowData.provider,
+        mecHostInfo: selectedMecHost,
+        createdTime: '',
+        modifiedTime: ''
       }
       if (params.version && params.mecHost.length > 0) {
         app.confirmToDistribute(this.currentRowData.csarId, params).then(response => {

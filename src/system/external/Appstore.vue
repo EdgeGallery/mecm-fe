@@ -58,7 +58,7 @@
             :label="$t('system.appstore.vendor')"
           />
           <el-table-column
-            prop="username"
+            prop="userName"
             :label="$t('system.appLcm.userNmae')"
           />
           <el-table-column
@@ -118,7 +118,7 @@
               >
                 <el-input
                   id="appstorename"
-                  v-model="form.appstorename"
+                  v-model="form.appstoreName"
                 />
               </el-form-item>
               <el-form-item
@@ -136,29 +136,18 @@
               >
                 <el-input
                   id="url"
-                  v-model="form.url"
+                  v-model="form.uri"
                   :disabled="urlDisable"
                 />
               </el-form-item>
               <el-form-item
                 :label="$t('system.appLcm.userNmae')"
-                prop="username"
+                prop="userName"
               >
                 <el-input
                   id="username"
-                  v-model="form.username"
+                  v-model="form.userName"
                   auto-complete="new-username"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.password')"
-                prop="password"
-              >
-                <el-input
-                  id="password"
-                  v-model="form.password"
-                  type="password"
-                  auto-complete="new-password"
                 />
               </el-form-item>
             </el-form>
@@ -199,33 +188,30 @@ export default {
       urlDisable: 'false',
       dialogTitle: this.$t('system.appstore.appStoreReg'),
       form: {
-        username: '',
-        password: '',
-        url: '',
-        appsorename: '',
+        appstoreIp: '',
+        appstoreName: '',
+        appstorePort: '',
         producer: '',
-        editType: 1
+        uri: '',
+        userName: ''
       },
       currPageTableData: [],
       paginationData: [],
       tableData: [],
       dataLoading: true,
       rules: {
-        appstorename: [
-          { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
-        ],
-        producer: [
-          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
-        ],
-        username: [
-          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: this.$t('verify.passwordTip'), trigger: 'blur' }
-        ],
-        url: [
-          { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
-        ]
+      //   appstoreName: [
+      //     { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
+      //   ],
+      //   producer: [
+      //     { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
+      //   ],
+      //   userName: [
+      //     { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+      //   ],
+      //   uri: [
+      //     { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
+      //   ]
       }
     }
   },
@@ -266,9 +252,12 @@ export default {
     },
     resetForm () {
       this.form = {
-        username: '',
-        password: '',
-        url: ''
+        appstoreIp: '',
+        appstoreName: '',
+        appstorePort: '',
+        producer: '',
+        uri: '',
+        userName: ''
       }
     },
     register () {
@@ -317,7 +306,7 @@ export default {
         type: 'warning'
       }).then(() => {
         let data = {
-          url: row.url
+          url: row.appstoreIp
         }
         system.delete(3, data).then(res => {
           this.initList()
@@ -336,7 +325,11 @@ export default {
         this.dataLoading = false
       // eslint-disable-next-line handle-callback-err
       }, error => {
-        console.log(error)
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     }
   }

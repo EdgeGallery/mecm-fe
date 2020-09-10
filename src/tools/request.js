@@ -105,7 +105,7 @@ let overview = {
     return GET(url, '')
   },
   getChart (cityId) {
-    return axios.get('/mock/alarmData')
+    // return axios.get('/mock/alarmData')
     // return GET('/mec/v1/mgmt/cities/' + cityId, '')
   }
 }
@@ -193,7 +193,7 @@ let system = {
     return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + params)
   },
   uploadConfig (ip, params) {
-    let url = appo + '/tenants/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
+    let url = appo + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig'
     return POST(url, params)
   }
 }
