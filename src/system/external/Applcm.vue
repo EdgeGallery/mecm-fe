@@ -262,7 +262,7 @@ export default {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {
-        if (error.response.status === '404' && error.response.data.details[0] === 'Record not found') {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
