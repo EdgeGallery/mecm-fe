@@ -273,10 +273,10 @@ export default {
       edgeNodeSearchInput: '',
       edgeNodeCurrentPage: 1,
       edgeNodePageSize: 5,
-      multipleSelection: [],
+      rowSelection: [],
       selectedNum: 0,
-      multipleEdgeNodeSelection: [],
-      selectedEdgeNodeNum: 0,
+      nodeSelection: [],
+      selectedNodeNum: 0,
       currentRowData: '',
       appType: '',
       loading: false,
@@ -338,13 +338,15 @@ export default {
       this.dialogVisible = true
       this.getNodeList(row)
     },
-    handleSelectionChange (multipleSelection) {
-      this.multipleSelection = multipleSelection
-      this.selectedNum = multipleSelection.length
+    handleSelectionChange (val) {
+      console.log(val)
+      this.rowSelection = val
+      this.selectedNum = val.length
     },
-    handleEdgeNodeSelectionChange (multipleEdgeNodeSelection) {
-      this.multipleEdgeNodeSelection = multipleEdgeNodeSelection
-      this.selectedEdgeNodeNum = multipleEdgeNodeSelection.length
+    handleEdgeNodeSelectionChange (val) {
+      console.log(val)
+      this.nodeSelection = val
+      this.selectedNodeNum = val.length
     },
     async getAppListFromAppStore () {
       app.getAppListFromAppStore().then(response => {
@@ -393,7 +395,7 @@ export default {
     async confirm () {
       this.loading = true
       let selectedMecHost = []
-      this.multipleEdgeNodeSelection.forEach(data => selectedMecHost.push(data.ip))
+      this.nodeSelection.forEach(data => selectedMecHost.push(data.ip))
       this.$refs.multipleEdgeNodeTable.clearSelection()
       this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
       let address = 'http'
