@@ -46,7 +46,7 @@
                   APPLCM
                 </p>
                 <p class="info">
-                  <span>{{ item.ip }}</span><span>&nbsp;/&nbsp;{{ item.port }}</span>
+                  <span>{{ item.applcmIp }}</span><span>&nbsp;/&nbsp;{{ item.applcmPort }}</span>
                 </p>
                 <div class="bottom clearfix rt">
                   <el-button
@@ -220,7 +220,7 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        system.delete(1, row.ip).then(res => {
+        system.delete(1, row.applcmIp).then(res => {
           this.initList()
         }, error => {
           this.$message.error(error.message)
@@ -262,13 +262,10 @@ export default {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {
-        console.log(error.response)
-        console.log(error.response.status)
-        console.log(error.response.details[0])
-        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
+        if (error.response.status === '404' && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
-          this.$message.error(error.response.details[0])
+          this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
     }

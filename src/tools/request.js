@@ -199,7 +199,7 @@ let system = {
     return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
   delete (type, params) {
-    return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + params)
+    return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
   },
   uploadConfig (ip, params) {
     let url = appo + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig'

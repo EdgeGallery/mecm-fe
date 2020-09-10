@@ -227,6 +227,7 @@ const en = {
     areaTip: 'Area should not be empty'
   },
   tip: {
+    getCommonListFailed: 'Get list failed',
     deletePacFrmoHost: 'You have deleted the package from the host successfully!',
     networkError: 'Error, please check your internet!',
     failedReg: 'Failed to register user, ',
@@ -278,7 +279,7 @@ const en = {
     faileToUpload: 'Failed to upload config file',
     failToRegNode: 'Failed to register the node',
     failToModifyNode: 'Failed to modify',
-    typeApp: 'Please select APPLCM ip first!',
+    typeApp: 'Please type MEC host ip first!',
     uploadConf: 'Please upload config file first',
     typeCity: 'Please select deployment area',
     confirmToDeleteNode: 'Are you sure to delete this node?',
