@@ -228,6 +228,7 @@ const cn = {
     areaTip: '请选择地域'
   },
   tip: {
+    getCommonListFailed: '获取列表失败',
     deletePacFrmoHost: '你已经成功从host节点删除应用！',
     networkError: '错误，请检查你的网络！',
     failedReg: '注册用户失败, ',
@@ -279,7 +280,7 @@ const cn = {
     faileToUpload: '上传config文件失败',
     failToRegNode: '注册新的node节点失败',
     failToModifyNode: '修改节点失败',
-    typeApp: '请先选择APPLCM地址!',
+    typeApp: '请先输入节点IP地址!',
     uploadConf: '请上传config文件',
     typeCity: '请选择部署区域',
     confirmToDeleteNode: '确认要删除该节点吗？',

@@ -233,15 +233,15 @@
                   prop="appLcmIp"
                 >
                   <el-select
-                    id="aaplcmip"
+                    id="applcmip"
                     v-model="currForm.applcmIp"
                     :placeholder="$t('system.edgeNodes.applcmIp')"
                   >
                     <el-option
                       v-for="(item,index) in applcmList"
                       :key="index"
-                      :label="item.ip"
-                      :value="item.ip"
+                      :label="item.applcmIp"
+                      :value="item.applcmIp"
                     />
                   </el-select>
                 </el-form-item>
@@ -449,7 +449,6 @@ export default {
       this.op = !this.op
     },
     handleCityChange (val) {
-      console.log(val)
       this.currForm.city = val.toString()
     },
     uploadFile (row) {
@@ -462,7 +461,6 @@ export default {
       this.isDisable = true
       this.currForm = row
       this.selectedArea = row.city.split('/')
-      console.log(this.selectedArea)
       this.currForm.affinity = row.affinity.split(',')
       this.dialogVisible = true
       this.clearValidate('currForm')
@@ -481,7 +479,7 @@ export default {
           this.showWarningBox(row)
         }
       }, error => {
-        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
+        if (error.response.status === '404' && error.response.data.details[0] === 'Record not found') {
           this.showWarningBox(row)
         }
       })
@@ -496,7 +494,7 @@ export default {
       })
     },
     handleDelete (row) {
-      system.delete(2, row.ip).then(response => {
+      system.delete(2, row.mechostIp).then(response => {
         this.$message.success(this.$t('tip.sucToDeleteNodes'))
         this.getNodeListInPage()
       }).catch(() => {
@@ -514,10 +512,10 @@ export default {
       system.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {
-        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
+        if (error.response.status === '404' && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
-          this.$message.error(error.response.details[0])
+          this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
     },
@@ -529,8 +527,8 @@ export default {
     async submitUpload (content) {
       let params = new FormData()
       params.append('file', content.file)
-      if (this.currForm.appLcmIp) {
-        system.uploadConfig(this.currForm.appLcmIp, params).then(response => {
+      if (this.currForm.mechostIp) {
+        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
           this.$message.success(this.$t('tip.uploadSuc'))
           this.dialogVisibleUpload = false
         }).catch((error) => {
@@ -548,7 +546,7 @@ export default {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
-        if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
+        if (error.response.status === '404' && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
           this.$message.error(this.$t('tip.failedToGetList'))
