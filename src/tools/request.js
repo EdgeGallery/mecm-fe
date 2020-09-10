@@ -28,11 +28,11 @@ let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores']
-let headers = {
-  'access_token': getToken()
-}
 
 function GET (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
   return axios.get(url, {
     params: params,
     headers: headers
@@ -40,14 +40,23 @@ function GET (url, params) {
 }
 
 function POST (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
   return axios.post(url, params, { headers: headers })
 }
 
 function PUT (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
   return axios.put(url, params, { headers: headers })
 }
 
 function DELETE (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
   return axios.delete(url, {
     params: params,
     headers: headers
