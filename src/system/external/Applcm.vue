@@ -98,7 +98,7 @@
               >
                 <el-input
                   id="ip"
-                  v-model="form.name"
+                  v-model="form.userName"
                 />
               </el-form-item>
               <el-form-item
@@ -163,23 +163,20 @@ export default {
       ipDisable: false,
       title: this.$t('system.appLcm.applcmReg'),
       form: {
-        applcmIip: '',
+        applcmIp: '',
         applcmPort: '',
-        username: ''
+        userName: ''
       },
       editType: 1,
       rules: {
-        ip: [
+        applcmIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
-        port: [
+        applcmPort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' }
         ],
-        username: [
+        userName: [
           { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
-        ],
-        password: [
-          { required: true, message: this.$t('verify.passwordTip'), trigger: 'blur' }
         ]
       }
     }
@@ -267,8 +264,11 @@ export default {
 
       // eslint-disable-next-line handle-callback-err
       }, error => {
-        console.log(error)
-        this.$message.error('Error!')
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     }
   }

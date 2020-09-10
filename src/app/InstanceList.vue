@@ -252,8 +252,13 @@ export default {
       app.getInstanceList().then(res => {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
-      }).catch(() => {
-        this.$message.error(this.$t('tip.networkError'))
+      }).catch((error) => {
+        this.dataLoading = false
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     },
     confirmDetlete (rows) {

@@ -357,9 +357,13 @@ export default {
         })
         this.tableData = this.paginationData
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
         this.dataLoading = false
-        this.$message.error(this.$t('tip.getListFailed'))
+        if (error.response.status === '404' && error.response.detail === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(error.response.detail)
+        }
       })
     },
     deploy (row) {
