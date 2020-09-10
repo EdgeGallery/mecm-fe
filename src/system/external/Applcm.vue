@@ -262,6 +262,9 @@ export default {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.details[0])
         if (error.response.status === '404' && error.response.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
