@@ -337,6 +337,9 @@ export default {
       // eslint-disable-next-line handle-callback-err
       }, error => {
         console.log(error)
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.detail)
       })
     }
   }

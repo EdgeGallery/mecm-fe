@@ -570,6 +570,9 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         console.log(error)
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.detail)
         this.$message.error(this.$t('tip.failedToGetList'))
       })
     },
