@@ -339,12 +339,10 @@ export default {
       this.getNodeList(row)
     },
     handleSelectionChange (val) {
-      console.log(val)
       this.rowSelection = val
       this.selectedNum = val.length
     },
     handleEdgeNodeSelectionChange (val) {
-      console.log(val)
       this.nodeSelection = val
       this.selectedNodeNum = val.length
     },
@@ -397,7 +395,11 @@ export default {
     async confirm () {
       this.loading = true
       let selectedMecHost = []
-      this.nodeSelection.forEach(data => selectedMecHost.push(data.mechostIp))
+      this.nodeSelection.forEach(data => {
+        let obj = {}
+        obj.hostIp = data.mechostIp
+        selectedMecHost.push(obj)
+      })
       this.$refs.multipleEdgeNodeTable.clearSelection()
       this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
       let address = 'http'
@@ -419,7 +421,7 @@ export default {
         modifiedTime: ''
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
-        app.confirmToDistribute(this.currentRowData.csarId, params).then(response => {
+        app.confirmToDistribute(params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
           this.$router.push('/mecm/edge/list')
         }).catch(() => {
