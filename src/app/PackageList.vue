@@ -418,7 +418,7 @@ export default {
         createdTime: '',
         modifiedTime: ''
       }
-      if (params.version && params.mecHost.length > 0) {
+      if (params.version && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(this.currentRowData.csarId, params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
           this.$router.push('/mecm/edge/list')
@@ -428,7 +428,7 @@ export default {
         })
       } else {
         this.loading = false
-        if (params.mecHost.length === 0) {
+        if (params.mecHostInfo.length === 0) {
           this.$message.warning(this.$t('tip.mecHost'))
         } else {
           this.$message.warning(this.$t('tip.version'))
