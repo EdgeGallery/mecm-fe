@@ -418,7 +418,7 @@ export default {
         createdTime: '',
         modifiedTime: ''
       }
-      if (params.version && params.mecHostInfo.length > 0) {
+      if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(this.currentRowData.csarId, params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
           this.$router.push('/mecm/edge/list')

@@ -574,7 +574,7 @@ export default {
   }
 }
 
-.el-upload el-upload--text{
+.el-upload .el-upload--text{
   width:100%;
 }
 
