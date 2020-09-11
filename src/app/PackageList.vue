@@ -355,8 +355,8 @@ export default {
         if (this.appType) this.filterTableData(this.appType, 'type')
         this.dataLoading = false
       }).catch(() => {
-        this.$message.error(this.$t('tip.failedToGetAppList'))
         this.dataLoading = false
+        this.$message.error(this.$t('tip.failedToGetAppList'))
       })
     },
     async getNodeList (row) {
