@@ -225,7 +225,7 @@
               </el-form-item>
               <el-form-item
                 label="APPLCM"
-                prop="appLcmIp"
+                prop="applcmIp"
               >
                 <el-select
                   id="applcmip"

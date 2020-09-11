@@ -115,8 +115,7 @@ let overview = {
     return GET(url, '')
   },
   getChart (cityId) {
-    // return axios.get('/mock/alarmData')
-    // return GET('/mec/v1/mgmt/cities/' + cityId, '')
+    return GET('/mec/v1/mgmt/cities/' + cityId, '')
   }
 }
 let app = {
