@@ -423,6 +423,7 @@ export default {
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
+          sessionStorage.setItem('appId', params.appId)
           this.$router.push('/mecm/edge/list')
         }).catch(() => {
           this.$message.error(this.$t('tip.failedToDownload'))
