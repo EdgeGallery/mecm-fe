@@ -417,8 +417,8 @@ export default {
         appIconUrl: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
         appProvider: this.currentRowData.provider,
         mecHostInfo: selectedMecHost,
-        createdTime: '',
-        modifiedTime: ''
+        createdTime: new Date().toString(),
+        modifiedTime: new Date().toString()
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(params).then(response => {
