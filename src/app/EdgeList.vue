@@ -347,12 +347,12 @@ export default {
         this.paginationData = []
         res.data.forEach(item => {
           if (item.appId === this.appId) {
-            this.appPackageId = item.appPackageId
+            this.appPackageId = item.appPkgId
             this.appPackageName = item.appPackageName
-            this.appVersion = item.appVersion
-            this.appAffinity = item.appAffinity
-            this.provider = item.provider
-            this.paginationData = item.mecHost
+            this.appVersion = item.appPkgVersion
+            this.appAffinity = item.appPkgAffinity
+            this.provider = item.appProvider
+            this.paginationData = item.mecHostInfo
           }
         })
         this.tableData = this.paginationData

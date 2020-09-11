@@ -152,7 +152,7 @@ let app = {
     }
   },
   getDistributionList () {
-    let url = apm + '/tenants/' + getUserId() + '/packages/'
+    let url = apm + '/tenants/' + getUserId() + '/packages'
     return GET(url)
   },
   confirmToDeploy (params) {
