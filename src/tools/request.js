@@ -120,8 +120,8 @@ let overview = {
   }
 }
 let app = {
-  confirmToDistribute (csarId, params) {
-    let url = apm + '/mec/v1/mgmt/tenants/' + getUserId() + '/packages/' + csarId
+  confirmToDistribute (params) {
+    let url = apm + '/tenants/' + getUserId() + '/packages'
     return POST(url, params)
   },
   getAppListFromAppStore (params) {
