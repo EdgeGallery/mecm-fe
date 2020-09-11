@@ -40,7 +40,7 @@
           style="width: 100%;"
         >
           <el-table-column
-            prop="hostname"
+            prop="mechostName"
             sortable
             :label="$t('app.packageList.name')"
           >
@@ -53,7 +53,7 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="ip"
+            prop="mechostIp"
             sortable
             :label="$t('app.packageList.ip')"
           />
@@ -179,9 +179,9 @@ export default {
           if (data[key]) {
             reset = true
             let dataKey = ''
-            if (key === 'ip') {
+            if (key === 'mechostIp') {
               dataKey = 'ip'
-            } else if (key === 'name') {
+            } else if (key === 'mechostName') {
               dataKey = 'hostname'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
@@ -197,7 +197,7 @@ export default {
       this.$router.push(path)
     },
     handleMonitor (row) {
-      this.src = 'http://' + row.ip + ':30000/dashboards'
+      this.src = 'https://' + row.mechostIp + ':30000/dashboards'
       this.dialogVisible = true
     },
     getNodeList (row) {

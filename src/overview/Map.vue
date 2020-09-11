@@ -31,12 +31,6 @@ export default {
       // one: 1
     }
   },
-  // watch: {
-  //   one () {
-  //     console.log(this.one)
-  //     this.$emit('ipdata', nodeData)
-  //   }
-  // },
   mounted () {
     this.getNodeList()
   },
@@ -47,7 +41,7 @@ export default {
           res.data.forEach((item, index) => {
             let obj = {}
             obj.coord = item.city.split('/').join('')
-            obj.ip = item.ip
+            obj.ip = item.mechostIip
             this.geoCode(obj)
           })
         }
@@ -112,7 +106,6 @@ export default {
         self.getChart(chinaId)
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            // this.one++
             this.$emit('node', param.data.ip)
           } else {
             let cityId = CityMap[param.name]

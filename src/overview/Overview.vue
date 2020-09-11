@@ -24,23 +24,6 @@
         :span="6"
         class="content-right"
       >
-        <div class="edge-souces mt20">
-          <label class="overviewLabel">{{ $t('overview.statistics') }}</label>
-          <el-select
-            class="mt20"
-            v-model="alarmStatus"
-            style="width:100%;"
-          >
-            <el-option
-              :label="$t('overview.alarms')"
-              value="alarms"
-            />
-            <el-option
-              :label="$t('overview.nodeinfo')"
-              value="nodeinfo"
-            />
-          </el-select>
-        </div>
         <div
           class="edge-souces mt20"
           v-if="alarmStatus === 'alarms'"
@@ -49,29 +32,13 @@
           <Chart :chart-data="chartData" />
         </div>
         <div
-          class="edge-souces mt20"
-          v-if="alarmStatus !== 'alarms'"
-        >
-          <label class="overviewLabel">{{ $t('overview.regionEdge') }}</label>
-          <el-select
-            class="mt20"
-            v-model="regionEdge"
-            style="width:100%;"
-            @change="nodeChange"
-          >
-            <el-option
-              v-for="item in regionEdgeList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-        <div
           class="edge-souces ml20"
           v-if="alarmStatus !== 'alarms'"
         >
-          <el-row :gutter="40">
+          <el-row
+            :gutter="40"
+            style="margin-top:30px;"
+          >
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
               :span="8"
@@ -222,7 +189,7 @@
 <script>
 import manageDialog from './ManageDialog.vue'
 import Map from './Map.vue'
-import { user, overview, edge } from '../tools/request.js'
+import { overview } from '../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -286,16 +253,7 @@ export default {
     }
     return {
       serviceInfo: {},
-      mapEvents: {
-        click: v => {
-          console.log(v)
-          this.assembly(v.name)
-        }
-      },
       alarmStatus: 'alarms',
-      regionEdge: '',
-      regionEdgeIp: '',
-      regionEdgeList: [],
       mepCapabilitiesData: [],
       edgeApp: '',
       edgeAppList: [],
@@ -329,7 +287,6 @@ export default {
   },
   methods: {
     resetData () {
-      this.regionEdge = ''
       this.chartDataCpu.rows[0].value = 0
       this.chartDataMem.rows[0].value = 0
       this.chartDataDisk.rows[0].value = 0
@@ -340,57 +297,20 @@ export default {
     },
     clickNode (msg) {
       this.alarmStatus = 'nodeinfo'
-      console.log(msg)
+      this.resetData()
+      this.getNodeKpi(msg)
+      this.getMepCap(msg)
+      this.getAppInfo(msg)
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
       console.log(msg)
-    },
-    async nodeChange (val) {
-      await this.resetData()
-      await this.getNodeKpi(this.regionEdge)
-      await this.getMepCap(this.regionEdge)
-      await this.getAppInfo()
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
         if (item.value === val) {
           this.edgeApp = val
           this.getPackageInfo(item)
-        }
-      })
-    },
-    async assembly (city) {
-      this.regionEdgeList = []
-      if (this.nodeList && this.nodeList.length > 0) {
-        this.nodeList.forEach(item => {
-          if (item.city.indexOf(city) > -1) {
-            let obj = {}
-            obj.label = item.hostname
-            obj.value = item.ip
-            this.regionEdgeList.push(obj)
-          }
-        })
-      }
-      await this.resetData()
-      if (this.regionEdgeList.length > 0) {
-        this.regionEdge = this.regionEdgeList[0].label
-        this.regionEdgeIp = this.regionEdgeList[0].value
-        await this.getNodeKpi(this.regionEdgeList[0].value)
-        await this.getMepCap(this.regionEdgeList[0].value)
-        await this.getAppInfo()
-      }
-    },
-    async getHostsInfo (city) {
-      await user.getUserInfo()
-      edge.getNodeList().then(res => {
-        this.nodeList = res.data
-        this.assembly(city)
-      }).catch((error) => {
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
     },
@@ -406,12 +326,12 @@ export default {
         // this.$message.error(this.$t('tip.getPackageInfoFailed'))
       })
     },
-    getAppInfo () {
+    getAppInfo (ip) {
       overview.getAppInfo().then(res => {
         this.infoList = res.data
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
-            if (item.mecHost === this.regionEdgeIp) {
+            if (item.mechostIp === this.ip) {
               let obj = {}
               obj.label = item.appName
               obj.value = item.appInstanceId
@@ -476,7 +396,7 @@ export default {
     }
   },
   mounted () {
-    this.getHostsInfo('北京')
+
   },
   beforeMount () {
     this.$root.$on('refreshChart', this.getChartData)
