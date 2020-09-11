@@ -52,13 +52,13 @@
             border
           >
             <el-table-column
-              prop="hostname"
+              prop="mechostName"
               sortable
               :label="$t('app.packageList.name')"
               width="120"
             />
             <el-table-column
-              prop="ip"
+              prop="mechostIp"
               sortable
               :label="$t('app.packageList.ip')"
               width="120"
@@ -80,12 +80,12 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="edgeNexusIp"
+              prop="edgerepoIp"
               sortable
               label="Edge Repo Ip"
             />
             <el-table-column
-              prop="edgeNexusPort"
+              prop="edgerepoPort"
               sortable
               label="Edge Repo Port"
             />
@@ -93,11 +93,6 @@
               prop="appLcmIp"
               sortable
               label="App Lcm Ip"
-            />
-            <el-table-column
-              prop="k8sURL"
-              sortable
-              label="K8S URL"
             />
             <el-table-column
               :label="$t('common.operation')"
@@ -387,12 +382,12 @@ export default {
       applcmList: [],
       op: false,
       radio: '1',
-      selectedArea: ['北京市', '北京市', '东城区', '景山街道'],
+      selectedArea: ['北京市', '北京市', '东城区', '东华门街道'],
       currForm: {
         'address': '',
         'affinity': [],
         'applcmIp': '',
-        'city': '',
+        'city': '北京市/北京市/东城区/东华门街道',
         'edgeName': '',
         'edgerepoIp': '',
         'edgerepoPort': '',
@@ -416,7 +411,6 @@ export default {
     this.getNodeListInPage()
   },
   methods: {
-    // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
         let itemVal = item[key]
@@ -426,7 +420,6 @@ export default {
     // 根据搜索组件进行筛选
     getSearchData (data) {
       this.paginationData = this.tableData
-      // name  host  status  后端对应的字段
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
         for (let key in data) {
@@ -546,6 +539,7 @@ export default {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
+        this.dataLoading = false
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {

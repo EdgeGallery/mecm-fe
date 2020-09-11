@@ -202,7 +202,7 @@ let system = {
     return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
   },
   uploadConfig (ip, params) {
-    let url = appo + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig'
+    let url = inventory + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig'
     return POST(url, params)
   }
 }
