@@ -90,7 +90,7 @@
               label="Edge Repo Port"
             />
             <el-table-column
-              prop="appLcmIp"
+              prop="applcmIp"
               sortable
               label="App Lcm Ip"
             />
@@ -138,179 +138,147 @@
         :title="title"
         :visible.sync="dialogVisible"
         :close-on-click-modal="false"
-        width="80%"
+        style="padding-right:30px;"
+        width="40%"
       >
         <div class="k8s">
           <el-row>
             <el-form
-              label-width="165px"
+              label-width="105px"
               :model="currForm"
               ref="currForm"
               :rules="rules"
             >
-              <el-col :span="10">
-                <el-form-item
-                  :label="$t('system.edgeNodes.systemPlatform')"
-                >
-                  <el-radio-group
-                    v-model="radio"
-                    @change="changeType"
-                  >
-                    <el-radio
-                      label="1"
-                    >
-                      K8S
-                    </el-radio>
-                    <el-radio
-                      label="2"
-                    >
-                      OpenStack
-                    </el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item
-                  :label="$t('app.packageList.name')"
-                  prop="hostname"
-                >
-                  <el-input
-                    id="hostname"
-                    v-model="currForm.mechostName"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('app.packageList.ip')"
-                  prop="ip"
-                >
-                  <el-input
-                    id="ip"
-                    v-model="currForm.mechostIp"
-                    :disabled="isDisable"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.deployArea')"
-                  prop="city"
-                >
-                  <area-select
-                    v-model="selectedArea"
-                    :data="$pcaa"
-                    :level="3"
-                    type="text"
-                    @change="handleCityChange"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('app.packageList.address')"
-                  prop="address"
-                >
-                  <el-input
-                    id="address"
-                    v-model="currForm.address"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('app.packageList.affinity')"
-                  prop="affinity"
-                >
-                  <el-checkbox-group
-                    v-model="currForm.affinity"
-                    id="affinity"
-                  >
-                    <el-checkbox
-                      v-for="(item,index) in affinityList"
-                      :key="index"
-                      :label="item"
-                    />
-                  </el-checkbox-group>
-                </el-form-item>
-                <el-form-item
-                  label="APPLCM"
-                  prop="appLcmIp"
-                >
-                  <el-select
-                    id="applcmip"
-                    v-model="currForm.applcmIp"
-                    :placeholder="$t('system.edgeNodes.applcmIp')"
-                  >
-                    <el-option
-                      v-for="(item,index) in applcmList"
-                      :key="index"
-                      :label="item.applcmIp"
-                      :value="item.applcmIp"
-                    />
-                  </el-select>
-                </el-form-item>
-              </el-col>
-              <el-col
-                :span="10"
-                :offset="1"
+              <el-form-item
+                :label="$t('system.edgeNodes.systemPlatform')"
               >
-                <el-form-item
-                  :label="$t('system.appLcm.userNmae')"
-                  prop="username"
-                  v-if="op"
+                <el-radio-group
+                  v-model="radio"
+                  @change="changeType"
                 >
-                  <el-input
-                    id="username"
-                    v-model="currForm.username"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.appLcm.password')"
-                  prop="password"
-                  v-if="op"
-                >
-                  <el-input
-                    id="password"
-                    v-model="currForm.password"
-                    type="password"
-                  />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.uploadFile')"
-                  v-if="!op"
-                >
-                  <el-upload
-                    id="upload"
-                    class="upload-demo"
-                    drag
-                    action=""
-                    :http-request="submitUpload"
-                    :file-list="fileList"
-                    multiple
-                    :limit="1"
+                  <el-radio
+                    label="1"
                   >
-                    <em class="el-icon-upload" />
-                    <div class="el-upload__text">
-                      {{ $t('system.edgeNodes.howToUpload') }}
-                    </div>
-                    <div
-                      class="el-upload__tip"
-                      slot="tip"
-                    >
-                      {{ $t('system.edgeNodes.uploadTip') }}
-                    </div>
-                  </el-upload>
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.edgeNexusIp')"
-                  prop="edgeNexusIp"
+                    K8S
+                  </el-radio>
+                  <el-radio
+                    label="2"
+                  >
+                    OpenStack
+                  </el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.name')"
+                prop="hostname"
+              >
+                <el-input
+                  id="hostname"
+                  v-model="currForm.mechostName"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.ip')"
+                prop="ip"
+              >
+                <el-input
+                  id="ip"
+                  v-model="currForm.mechostIp"
+                  :disabled="isDisable"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.deployArea')"
+                prop="city"
+              >
+                <area-select
+                  v-model="selectedArea"
+                  :data="$pcaa"
+                  :level="3"
+                  type="text"
+                  @change="handleCityChange"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.address')"
+                prop="address"
+              >
+                <el-input
+                  id="address"
+                  v-model="currForm.address"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.affinity')"
+                prop="affinity"
+              >
+                <el-checkbox-group
+                  v-model="currForm.affinity"
+                  id="affinity"
                 >
-                  <el-input
-                    id="edgeip"
-                    v-model="currForm.edgerepoIp"
+                  <el-checkbox
+                    v-for="(item,index) in affinityList"
+                    :key="index"
+                    :label="item"
                   />
-                </el-form-item>
-                <el-form-item
-                  :label="$t('system.edgeNodes.edgeNexusPort')"
-                  prop="edgeNexusPort"
+                </el-checkbox-group>
+              </el-form-item>
+              <el-form-item
+                label="APPLCM"
+                prop="appLcmIp"
+              >
+                <el-select
+                  id="applcmip"
+                  v-model="currForm.applcmIp"
+                  :placeholder="$t('system.edgeNodes.applcmIp')"
                 >
-                  <el-input
-                    id="edgeport"
-                    v-model="currForm.edgerepoPort"
+                  <el-option
+                    v-for="(item,index) in applcmList"
+                    :key="index"
+                    :label="item.applcmIp"
+                    :value="item.applcmIp"
                   />
-                </el-form-item>
-              </el-col>
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.userNmae')"
+                prop="username"
+                v-if="op"
+              >
+                <el-input
+                  id="username"
+                  v-model="currForm.username"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.password')"
+                prop="password"
+                v-if="op"
+              >
+                <el-input
+                  id="password"
+                  v-model="currForm.password"
+                  type="password"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.edgeNexusIp')"
+                prop="edgeNexusIp"
+              >
+                <el-input
+                  id="edgeip"
+                  v-model="currForm.edgerepoIp"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.edgeNexusPort')"
+                prop="edgeNexusPort"
+              >
+                <el-input
+                  id="edgeport"
+                  v-model="currForm.edgerepoPort"
+                />
+              </el-form-item>
             </el-form>
           </el-row>
         </div>
@@ -562,7 +530,7 @@ export default {
               this.$message.error(error.message)
             })
           } else {
-            system.modify(2, this.currForm).then(response => {
+            system.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
               this.$message.success(this.$t('tip.sucToModNode'))
               this.getNodeListInPage()
               this.dialogVisible = false
@@ -604,9 +572,14 @@ export default {
   .el-upload{
     width:100%;
   }
-  .el-upload-dragger{
-    width:100%;
-  }
+}
+
+.el-upload el-upload--text{
+  width:100%;
+}
+
+.el-upload-dragger{
+  width:100%;
 }
 
 </style>

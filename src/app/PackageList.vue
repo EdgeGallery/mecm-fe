@@ -186,12 +186,12 @@
                   type="selection"
                 />
                 <el-table-column
-                  prop="hostname"
+                  prop="mechostName"
                   sortable
                   :label="$t('app.packageList.name')"
                 />
                 <el-table-column
-                  prop="ip"
+                  prop="mechostIp"
                   sortable
                   :label="$t('app.packageList.ip')"
                 />
@@ -369,8 +369,10 @@ export default {
       this.appId = row.appId
       await edge.getNodeList().then(response => {
         this.edgeNodesData = response.data
-      }).catch(() => {
-        this.$message.error(this.$t('tip.failedToGetList'))
+      }).catch((error) => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.edgeNodesData = []
+        }
       })
     },
     versionChange (val) {
@@ -395,7 +397,7 @@ export default {
     async confirm () {
       this.loading = true
       let selectedMecHost = []
-      this.nodeSelection.forEach(data => selectedMecHost.push(data.ip))
+      this.nodeSelection.forEach(data => selectedMecHost.push(data.mechostIp))
       this.$refs.multipleEdgeNodeTable.clearSelection()
       this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
       let address = 'http'

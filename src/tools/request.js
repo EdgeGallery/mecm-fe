@@ -23,6 +23,7 @@ if (window.location.href.indexOf('30093') > -1) {
   api = 'http://' + window.location.host
 }
 
+// applcm port:30204
 let inventory = api + ':30203' + '/inventory/v1'
 let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
@@ -195,8 +196,8 @@ let system = {
   getList (type, params) {
     return GET(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1])
   },
-  modify (type, params) {
-    return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+  modify (type, params, ip) {
+    return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
   },
   delete (type, params) {
     return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
