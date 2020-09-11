@@ -246,7 +246,7 @@ export default {
               this.$message.error(error.message)
             })
           } else {
-            system.modify(1, this.form).then(res => {
+            system.modify(1, this.form, this.form.applcmIp).then(res => {
               this.$message.success(this.$t('tip.modAppLcmSuc'))
               this.initList()
               this.dialogVisible = false
