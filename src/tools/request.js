@@ -164,14 +164,14 @@ let app = {
     return POST(url, params)
   },
   deletDistributionApp (type, hostIp, packageId) {
-    let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/host/' + hostIp
+    let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
     if (type === 2) {
       url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
   },
   getInstanceList (params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_Instance_Infos'
+    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
     return GET(url, '')
   },
   getInstanceDetail (appInstanceId) {

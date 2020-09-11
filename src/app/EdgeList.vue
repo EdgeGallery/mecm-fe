@@ -348,7 +348,7 @@ export default {
         res.data.forEach(item => {
           if (item.appId === this.appId) {
             this.appPackageId = item.appPkgId
-            this.appPackageName = item.appPackageName
+            this.appPackageName = item.appPkgName
             this.appVersion = item.appPkgVersion
             this.appAffinity = item.appPkgAffinity
             this.provider = item.appProvider
@@ -374,7 +374,6 @@ export default {
       this.dialogVisible = true
     },
     confirmToDeploy (configForm) {
-      console.log(this.configForm)
       this.loading = true
       this.$refs[configForm].validate((valid) => {
         if (valid) {
