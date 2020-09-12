@@ -267,8 +267,8 @@ export default {
     },
     confirmDetlete (appInstanceId) {
       app.deleteInstanceApp(appInstanceId).then(response => {
-        this.$message.success(this.$t('tip.deleteSuc'))
         this.initList()
+        this.$message.success(this.$t('tip.deleteSuc'))
       }).catch((error) => {
         this.$message.error(error.message)
       })
