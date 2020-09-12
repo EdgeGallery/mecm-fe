@@ -388,7 +388,7 @@ export default {
             console.log(res.data)
             app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
               console.log(res1.data)
-              if (res1.data.status === 'created') {
+              if (res1.data.response.operationalStatus === 'created') {
                 app.instantiateApp(res.data.response.app_instance_id).then(response => {
                   console.log(response)
                   this.loading = false

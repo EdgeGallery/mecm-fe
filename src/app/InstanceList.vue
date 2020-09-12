@@ -250,7 +250,7 @@ export default {
     },
     initList () {
       app.getInstanceList().then(res => {
-        this.tableData = this.paginationData = res.data
+        this.tableData = this.paginationData = res.data.response
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
