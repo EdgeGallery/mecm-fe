@@ -98,10 +98,6 @@ let overview = {
     let url = '/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id
     return GET(url)
   },
-  getAppInfo () {
-    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
-    return GET(url, '')
-  },
   getMepCap (hostip) {
     let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities'
     return GET(url, '')
@@ -159,6 +155,10 @@ let app = {
     let url = appo + '/tenants/' + getUserId() + '/app_instances'
     return POST(url, params)
   },
+  getInstanceList (params) {
+    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
+    return GET(url, '')
+  },
   getInstanceInfo (instanceId) {
     let url = appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId
     return GET(url)
@@ -173,10 +173,6 @@ let app = {
       url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
-  },
-  getInstanceList (params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
-    return GET(url, '')
   },
   getInstanceDetail (appInstanceId) {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
