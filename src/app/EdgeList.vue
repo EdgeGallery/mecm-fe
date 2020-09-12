@@ -378,26 +378,32 @@ export default {
       this.$refs[configForm].validate((valid) => {
         if (valid) {
           let params = {
-            app_id: this.configForm.appId,
-            app_package_id: this.configForm.appPackageId,
-            app_name: this.configForm.appName,
-            app_instance_description: this.configForm.appInstanceDescription,
-            mec_host: this.configForm.mecHost
+            appId: this.configForm.appId,
+            appPackageId: this.configForm.appPackageId,
+            appName: this.configForm.appName,
+            appInstanceDescription: this.configForm.appInstanceDescription,
+            mecHost: this.configForm.mecHost
           }
           app.confirmToDeploy(params).then(res => {
-            let param = {
-              mec_host: params.mec_host
-            }
-            app.instantiateApp(res.data.app_instance_id, param).then(response => {
-              this.loading = false
-              this.dialogVisible = false
-            }).catch(() => {
-              this.$message.error(this.$t('tip.deployFailed'))
-              this.dialogVisible = false
-              this.loading = false
-            })
-            this.$nextTick(() => {
-              this.$router.push('/mecm/ains/list')
+            console.log(res.data)
+            app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
+              console.log(res1.data)
+              if (res1.data.response.operationalStatus === 'created') {
+                app.instantiateApp(res.data.response.app_instance_id).then(response => {
+                  console.log(response)
+                  this.loading = false
+                  this.dialogVisible = false
+                  this.$nextTick(() => {
+                    this.$router.push('/mecm/ains/list')
+                  })
+                }).catch(() => {
+                  this.$message.error(this.$t('tip.deployFailed'))
+                  this.dialogVisible = false
+                  this.loading = false
+                })
+              } else {
+                this.$message.error('create instance error!')
+              }
             })
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))

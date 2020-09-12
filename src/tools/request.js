@@ -115,8 +115,7 @@ let overview = {
     return GET(url, '')
   },
   getChart (cityId) {
-    // return axios.get('/mock/alarmData')
-    // return GET('/mec/v1/mgmt/cities/' + cityId, '')
+    return GET('/mec/v1/mgmt/cities/' + cityId, '')
   }
 }
 let app = {
@@ -159,9 +158,13 @@ let app = {
     let url = appo + '/tenants/' + getUserId() + '/app_instances'
     return POST(url, params)
   },
-  instantiateApp (instanceId, params) {
+  getInstanceInfo (instanceId) {
+    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId
+    return GET(url)
+  },
+  instantiateApp (instanceId) {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return POST(url, params)
+    return POST(url)
   },
   deletDistributionApp (type, hostIp, packageId) {
     let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
@@ -178,9 +181,9 @@ let app = {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
     return GET(url, '')
   },
-  deleteInstanceApp (appInstanceId, params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
-    return DELETE(url, params)
+  deleteInstanceApp (instanceId) {
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
+    return POST(url)
   }
 }
 let edge = {

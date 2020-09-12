@@ -101,7 +101,7 @@
                 <template slot-scope="scope">
                   <el-button
                     id="detailBtn"
-                    @click="checkDetail(scope.row,1)"
+                    @click="checkDetail(scope.row)"
                     type="text"
                     size="small"
                   >
@@ -117,7 +117,7 @@
                   </el-button>
                   <el-button
                     id="detailBtn"
-                    @click="checkDetail(scope.row,1)"
+                    @click="checkDetail(scope.row)"
                     type="text"
                     size="small"
                   >
@@ -327,11 +327,9 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    checkDetail (row, id) {
+    checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
-      id === 1 ? this.$router.push('/mecm/apac/detail')
-        : id === 2 ? this.$router.push('/mecm/edge/list')
-          : this.$router.push('/mecm/apac/tupu')
+      this.$router.push('/mecm/apac/detail')
     },
     distribute (row) {
       this.currentRowData = row
@@ -424,10 +422,10 @@ export default {
         app.confirmToDistribute(params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
           sessionStorage.setItem('appId', params.appId)
-          this.$router.push('/mecm/edge/list')
+          this.$router.push('/mecm/apac/detail')
         }).catch(() => {
+          this.loading = false
           this.$message.error(this.$t('tip.failedToDownload'))
-          this.loading = true
         })
       } else {
         this.loading = false

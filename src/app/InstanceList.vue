@@ -244,13 +244,13 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        this.confirmDetlete(rows)
+        this.confirmDetlete(rows.appInstanceId)
       }).catch(() => {
       })
     },
     initList () {
       app.getInstanceList().then(res => {
-        this.tableData = this.paginationData = res.data
+        this.tableData = this.paginationData = res.data.response
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
@@ -275,6 +275,7 @@ export default {
     checkDetail (rows) {
       app.getInstanceDetail(rows.appInstanceId).then(response => {
         this.dialogVisible = true
+        console.log(response.data.response)
       }).catch((error) => {
         this.$message.error(error.message)
       })
