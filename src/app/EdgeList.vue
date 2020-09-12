@@ -385,11 +385,17 @@ export default {
             mecHost: this.configForm.mecHost
           }
           app.confirmToDeploy(params).then(res => {
+            console.log(res.data)
             app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
+              console.log(res1.data)
               if (res1.data.status === 'created') {
                 app.instantiateApp(res.data.response.app_instance_id).then(response => {
+                  console.log(response)
                   this.loading = false
                   this.dialogVisible = false
+                  this.$nextTick(() => {
+                    this.$router.push('/mecm/ains/list')
+                  })
                 }).catch(() => {
                   this.$message.error(this.$t('tip.deployFailed'))
                   this.dialogVisible = false
@@ -398,9 +404,6 @@ export default {
               } else {
                 this.$message.error('create instance error!')
               }
-            })
-            this.$nextTick(() => {
-              this.$router.push('/mecm/ains/list')
             })
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
