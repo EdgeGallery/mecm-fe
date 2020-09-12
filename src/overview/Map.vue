@@ -41,7 +41,7 @@ export default {
           res.data.forEach((item, index) => {
             let obj = {}
             obj.coord = item.city.split('/').join('')
-            obj.ip = item.mechostIip
+            obj.ip = item.mechostIp
             this.geoCode(obj)
           })
         }
