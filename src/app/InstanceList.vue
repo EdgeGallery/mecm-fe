@@ -244,7 +244,7 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        this.confirmDetlete(rows)
+        this.confirmDetlete(rows.appInstanceId)
       }).catch(() => {
       })
     },

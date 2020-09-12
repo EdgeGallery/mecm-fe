@@ -181,9 +181,9 @@ let app = {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
     return GET(url, '')
   },
-  deleteInstanceApp (appInstanceId, params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
-    return DELETE(url, params)
+  deleteInstanceApp (instanceId) {
+    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
+    return POST(url)
   }
 }
 let edge = {
