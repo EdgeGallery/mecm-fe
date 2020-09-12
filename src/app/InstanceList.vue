@@ -112,13 +112,13 @@
           class="detailForm"
         >
           <p>Pod Namespace</p>
-          <el-form-item label="pod_name:">
+          <el-form-item label="Pod Name:">
             <span>{{ detailData[0].pod_name }}</span>
           </el-form-item>
-          <el-form-item label="pod_namespace:">
+          <el-form-item label="Pod Namespace:">
             <span>{{ detailData[0].pod_namespace }}</span>
           </el-form-item>
-          <el-form-item label="pod_status:">
+          <el-form-item label="Pod Status:">
             <span
               v-if="detailData[0].pod_status === 'Running'"
               class="success"
@@ -131,7 +131,7 @@
           <p>Containers</p>
           <div>
             <el-form-item
-              label="container_name:"
+              label="Container Name:"
               v-for="(item,index) in detailData[0].containers"
               :key="index"
             >
