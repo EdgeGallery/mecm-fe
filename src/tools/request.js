@@ -99,15 +99,15 @@ let overview = {
     return GET(url)
   },
   getAppInfo () {
-    let url = appo + '/tenants/' + getUserId() + '/app_Instance_Infos'
+    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
     return GET(url, '')
   },
   getMepCap (hostip) {
-    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep-capabilities'
+    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities'
     return GET(url, '')
   },
   getNodeKpi (hostip) {
-    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip
+    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi'
     return GET(url, '')
   },
   getServiceInfo (instanceId) {
@@ -115,7 +115,8 @@ let overview = {
     return GET(url, '')
   },
   getChart (cityId) {
-    return GET('/mec/v1/mgmt/cities/' + cityId, '')
+    // return GET('/mec/v1/mgmt/cities/' + cityId, '')
+    return axios.get('/mock/alarmData')
   }
 }
 let app = {

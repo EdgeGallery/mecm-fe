@@ -295,12 +295,12 @@ export default {
       this.edgeAppList = []
       this.edgeApp = ''
     },
-    clickNode (msg) {
+    clickNode (val) {
       this.alarmStatus = 'nodeinfo'
       this.resetData()
-      this.getNodeKpi(msg)
-      this.getMepCap(msg)
-      this.getAppInfo(msg)
+      this.getNodeKpi(val)
+      this.getMepCap(val)
+      this.getAppInfo(val)
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
