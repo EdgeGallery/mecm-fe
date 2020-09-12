@@ -42,12 +42,16 @@
             :label="$t('app.packageList.name')"
           />
           <el-table-column
-            prop="appDescr"
+            prop="appDescriptor"
             :label="$t('app.packageList.desc')"
           />
           <el-table-column
             prop="mecHost"
             :label="$t('app.distriList.mecHost')"
+          />
+          <el-table-column
+            prop="applcmHost"
+            :label="$t('system.edgeNoodes.applcmIp')"
           />
           <el-table-column
             :label="$t('app.distriList.status')"
@@ -261,11 +265,8 @@ export default {
         }
       })
     },
-    confirmDetlete (rows) {
-      let param = {
-        mec_host: rows.mec_host
-      }
-      app.deleteInstanceApp(rows.appInstanceId, param).then(response => {
+    confirmDetlete (appInstanceId) {
+      app.deleteInstanceApp(appInstanceId).then(response => {
         this.$message.success(this.$t('tip.deleteSuc'))
         this.initList()
       }).catch((error) => {
