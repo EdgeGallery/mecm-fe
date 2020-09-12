@@ -378,7 +378,7 @@ export default {
       this.$refs[configForm].validate((valid) => {
         if (valid) {
           let params = {
-            appdId: this.configForm.appId,
+            appId: this.configForm.appId,
             appPackageId: this.configForm.appPackageId,
             appName: this.configForm.appName,
             appInstanceDescription: this.configForm.appInstanceDescription,

@@ -275,6 +275,7 @@ export default {
     checkDetail (rows) {
       app.getInstanceDetail(rows.appInstanceId).then(response => {
         this.dialogVisible = true
+        console.log(response.data.response)
       }).catch((error) => {
         this.$message.error(error.message)
       })
