@@ -286,7 +286,6 @@ export default {
   },
   mounted () {
     this.initList()
-    this.timer = setTimeout(this.queryInstanceStatus(this.instanceId), 1000)
     this.interval = setInterval(() => {
       this.initList()
     }, 10000)
@@ -391,11 +390,7 @@ export default {
           }
           app.confirmToDeploy(params).then(res => {
             this.instanceId = res.data.response.app_instance_id
-            setTimeout(function () {}, 1000)
-            this.$nextTick(() => {
-              this.queryInstanceStatus(res)
-            })
-            this.queryInstanceStatus(res)
+            this.timer = setTimeout(this.queryInstanceStatus(this.instanceId), 2000)
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
             this.dialogVisible = false
@@ -410,6 +405,8 @@ export default {
           this.instaniateApp(res1)
         } else if (status === 'Create failed') {
           this.$message.error('create instance error!')
+          this.dialogVisible = false
+          this.loading = false
         } else {
           this.queryInstanceStatus()
         }
