@@ -328,7 +328,7 @@ export default {
     },
     getAppInfo (ip) {
       app.getInstanceList().then(res => {
-        this.infoList = res.data
+        this.infoList = res.data.response
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
             if (item.mechostIp === this.ip) {
@@ -364,7 +364,8 @@ export default {
       overview.getNodeKpi(ip).then(res => {
         if (res.data) {
           console.log(res.data.response)
-          this.kpiInfo = JSON.parse(res.data.response)
+          let str = JSON.parse(res.data.response)
+          this.kpiInfo = JSON.parse(str)
           console.log(this.kpiInfo)
           this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used * 100).toFixed(2)
           this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used * 100).toFixed(2)
