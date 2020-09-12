@@ -279,11 +279,14 @@ export default {
       dataLoading: true,
       tableData: [],
       packageData: [],
-      interval: ''
+      interval: null,
+      instanceId: '',
+      timer: null
     }
   },
   mounted () {
     this.initList()
+    this.timer = setTimeout(this.queryInstanceStatus(this.instanceId), 1000)
     this.interval = setInterval(() => {
       this.initList()
     }, 10000)
@@ -295,6 +298,8 @@ export default {
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
+      clearTimeout(this.timer)
+      this.timer = null
     },
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
@@ -385,9 +390,12 @@ export default {
             mecHost: this.configForm.mecHost
           }
           app.confirmToDeploy(params).then(res => {
-            setTimeout(function () {
+            this.instanceId = res.data.response.app_instance_id
+            setTimeout(function () {}, 1000)
+            this.$nextTick(() => {
               this.queryInstanceStatus(res)
-            }, 1000)
+            })
+            this.queryInstanceStatus(res)
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
             this.dialogVisible = false
@@ -395,29 +403,30 @@ export default {
         }
       })
     },
-    queryInstanceStatus (res) {
-      app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
-        this.instaniateApp(res, res1)
+    queryInstanceStatus () {
+      app.getInstanceInfo(this.instanceId).then(res1 => {
+        let status = res1.data.response.operationalStatus
+        if (status === 'Created') {
+          this.instaniateApp(res1)
+        } else if (status === 'Create failed') {
+          this.$message.error('create instance error!')
+        } else {
+          this.queryInstanceStatus()
+        }
       })
     },
-    instaniateApp (res, res1) {
-      if (res1.data.response.operationalStatus === 'Created') {
-        app.instantiateApp(res.data.response.app_instance_id).then(response => {
-          this.loading = false
-          this.dialogVisible = false
-          this.$nextTick(() => {
-            this.$router.push('/mecm/ains/list')
-          })
-        }).catch(() => {
-          this.$message.error(this.$t('tip.deployFailed'))
-          this.dialogVisible = false
-          this.loading = false
+    instaniateApp (res1) {
+      app.instantiateApp(this.instanceId).then(response => {
+        this.loading = false
+        this.dialogVisible = false
+        this.$nextTick(() => {
+          this.$router.push('/mecm/ains/list')
         })
-      } else if (res1.data.response.operationalStatus === 'Create failed') {
-        this.$message.error('create instance error!')
-      } else {
-        this.queryInstanceStatus(res)
-      }
+      }).catch(() => {
+        this.$message.error(this.$t('tip.deployFailed'))
+        this.dialogVisible = false
+        this.loading = false
+      })
     },
     handleSelectionChange (selection) {
       this.selectedNum = selection.length
