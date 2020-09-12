@@ -189,7 +189,7 @@
 <script>
 import manageDialog from './ManageDialog.vue'
 import Map from './Map.vue'
-import { overview } from '../tools/request.js'
+import { overview, app } from '../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -314,8 +314,8 @@ export default {
         }
       })
     },
-    getPackageInfo (app) {
-      overview.getPackageInfo(app).then(res => {
+    getPackageInfo (item) {
+      overview.getPackageInfo(item).then(res => {
         this.appPackageList = []
         let obj = {}
         obj.affinity = res.data.affinity
@@ -327,7 +327,7 @@ export default {
       })
     },
     getAppInfo (ip) {
-      overview.getAppInfo().then(res => {
+      app.getInstanceList().then(res => {
         this.infoList = res.data
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
@@ -363,7 +363,9 @@ export default {
     getNodeKpi (ip) {
       overview.getNodeKpi(ip).then(res => {
         if (res.data) {
+          console.log(res.data.response)
           this.kpiInfo = JSON.parse(res.data.response)
+          console.log(this.kpiInfo)
           this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used * 100).toFixed(2)
           this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used * 100).toFixed(2)
           this.chartDataDisk.rows[0].value = (this.kpiInfo.diskusage.used * 100).toFixed(2)
