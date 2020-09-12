@@ -280,12 +280,12 @@
                 />
               </el-form-item>
               <el-form-item
-                :label="$t('system.edgeNodes.username')"
+                :label="$t('system.edgeNodes.repoUsername')"
                 prop="edgeNexusIp"
               >
                 <el-input
                   id="edgeip"
-                  v-model="currForm.userName"
+                  v-model="currForm.edgerepoUsername"
                 />
               </el-form-item>
             </el-form>
