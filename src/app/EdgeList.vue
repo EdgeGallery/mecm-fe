@@ -390,7 +390,7 @@ export default {
           }
           app.confirmToDeploy(params).then(res => {
             this.instanceId = res.data.response.app_instance_id
-            this.timer = setTimeout(() => { this.queryInstanceStatus(this.instanceId) }, 5000)
+            this.timer = setTimeout(() => { this.queryInstanceStatus(this.instanceId) }, 1000)
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
             this.dialogVisible = false
