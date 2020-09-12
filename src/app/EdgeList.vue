@@ -385,32 +385,39 @@ export default {
             mecHost: this.configForm.mecHost
           }
           app.confirmToDeploy(params).then(res => {
-            console.log(res.data)
-            app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
-              console.log(res1.data)
-              if (res1.data.response.operationalStatus === 'created') {
-                app.instantiateApp(res.data.response.app_instance_id).then(response => {
-                  console.log(response)
-                  this.loading = false
-                  this.dialogVisible = false
-                  this.$nextTick(() => {
-                    this.$router.push('/mecm/ains/list')
-                  })
-                }).catch(() => {
-                  this.$message.error(this.$t('tip.deployFailed'))
-                  this.dialogVisible = false
-                  this.loading = false
-                })
-              } else {
-                this.$message.error('create instance error!')
-              }
-            })
+            setTimeout(function () {
+              this.queryInstanceStatus(res)
+            }, 1000)
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
             this.dialogVisible = false
           })
         }
       })
+    },
+    queryInstanceStatus (res) {
+      app.getInstanceInfo(res.data.response.app_instance_id).then(res1 => {
+        this.instaniateApp(res, res1)
+      })
+    },
+    instaniateApp (res, res1) {
+      if (res1.data.response.operationalStatus === 'Created') {
+        app.instantiateApp(res.data.response.app_instance_id).then(response => {
+          this.loading = false
+          this.dialogVisible = false
+          this.$nextTick(() => {
+            this.$router.push('/mecm/ains/list')
+          })
+        }).catch(() => {
+          this.$message.error(this.$t('tip.deployFailed'))
+          this.dialogVisible = false
+          this.loading = false
+        })
+      } else if (res1.data.response.operationalStatus === 'Create failed') {
+        this.$message.error('create instance error!')
+      } else {
+        this.queryInstanceStatus(res)
+      }
     },
     handleSelectionChange (selection) {
       this.selectedNum = selection.length
