@@ -158,9 +158,13 @@ let app = {
     let url = appo + '/tenants/' + getUserId() + '/app_instances'
     return POST(url, params)
   },
-  instantiateApp (instanceId, params) {
+  getInstanceInfo (instanceId) {
+    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId
+    return GET(url)
+  },
+  instantiateApp (instanceId) {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return POST(url, params)
+    return POST(url)
   },
   deletDistributionApp (type, hostIp, packageId) {
     let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
