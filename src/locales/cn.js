@@ -171,6 +171,7 @@ const cn = {
       deployArea: '部署区域',
       zipcode: '邮政编码',
       username: '用户名',
+      repoUsername: '边缘仓库用户名',
       password: '密码',
       kubernetesUrl: 'K8S Url',
       edgeNexusName: '边缘仓库名称',

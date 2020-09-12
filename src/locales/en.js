@@ -170,6 +170,7 @@ const en = {
       deployArea: 'Deploy Area',
       zipcode: 'Zipcode',
       username: 'Username',
+      repoUsername: 'Edge Repo Username',
       password: 'Password',
       kubernetesUrl: 'Kubernetes Url',
       edgeNexusName: 'Edge Repo Name',
