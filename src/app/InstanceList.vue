@@ -51,7 +51,7 @@
           />
           <el-table-column
             prop="applcmHost"
-            :label="$t('system.edgeNoodes.applcmIp')"
+            :label="$t('system.edgeNodes.applcmIp')"
           />
           <el-table-column
             :label="$t('app.distriList.status')"

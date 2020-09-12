@@ -385,9 +385,8 @@ export default {
             mecHost: this.configForm.mecHost
           }
           app.confirmToDeploy(params).then(res => {
-            setTimeout(function () {
-              this.queryInstanceStatus(res)
-            }, 1000)
+            setTimeout(function () {}, 1000)
+            this.queryInstanceStatus(res)
           }).catch(() => {
             this.$message.error(this.$t('tip.deployFailed'))
             this.dialogVisible = false

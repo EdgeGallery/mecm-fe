@@ -183,7 +183,7 @@ let app = {
   },
   deleteInstanceApp (instanceId) {
     let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return POST(url)
+    return DELETE(url)
   }
 }
 let edge = {
