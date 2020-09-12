@@ -279,6 +279,15 @@
                   v-model="currForm.edgerepoPort"
                 />
               </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.username')"
+                prop="edgeNexusIp"
+              >
+                <el-input
+                  id="edgeip"
+                  v-model="currForm.userName"
+                />
+              </el-form-item>
             </el-form>
           </el-row>
         </div>
