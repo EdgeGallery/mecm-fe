@@ -364,9 +364,9 @@ export default {
       overview.getNodeKpi(ip).then(res => {
         if (res.data) {
           this.kpiInfo = JSON.parse(res.data.response)
-          this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage * 100).toFixed(2)
-          this.chartDataMem.rows[0].value = (this.kpiInfo.memusage * 100).toFixed(2)
-          this.chartDataDisk.rows[0].value = (this.kpiInfo.diskusage * 100).toFixed(2)
+          this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used * 100).toFixed(2)
+          this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used * 100).toFixed(2)
+          this.chartDataDisk.rows[0].value = (this.kpiInfo.diskusage.used * 100).toFixed(2)
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getKpiFailed'))
