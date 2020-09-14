@@ -110,34 +110,27 @@
         <el-form
           label-width="130px"
           class="detailForm"
+          v-for="(item,index) in detailData"
+          :key="index"
         >
-          <p>Pod Namespace</p>
           <el-form-item label="Pod Name:">
-            <span>{{ detailData[0].pod_name }}</span>
-          </el-form-item>
-          <el-form-item label="Pod Namespace:">
-            <span>{{ detailData[0].pod_namespace }}</span>
+            <span>{{ item.podname }}</span>
           </el-form-item>
           <el-form-item label="Pod Status:">
             <span
               v-if="detailData[0].pod_status === 'Running'"
               class="success"
-            ><em class="el-icon-success" />{{ detailData[0].pod_status }}</span>
+            ><em class="el-icon-success" />{{ item.podstatus }}</span>
             <span
               v-else
               class="failed"
-            ><em class="el-icon-error" />{{ detailData[0].pod_status }}</span>
+            ><em class="el-icon-error" />{{ item.podstatus }}</span>
           </el-form-item>
-          <p>Containers</p>
-          <div>
-            <el-form-item
-              label="Container Name:"
-              v-for="(item,index) in detailData[0].containers"
-              :key="index"
-            >
-              <span>{{ item.container_name }}</span>
-            </el-form-item>
-          </div>
+          <el-form-item
+            label="Container Name:"
+          >
+            <span>{{ item.containers.containername }}</span>
+          </el-form-item>
         </el-form>
         <span
           slot="footer"
@@ -180,24 +173,7 @@ export default {
       detailForm: {
         podName: ''
       },
-      detailData: [
-        {
-          'pod_namespace': '',
-          'containers': [
-            {
-              'container_name': ''
-            },
-            {
-              'container_name': ''
-            },
-            {
-              'container_name': ''
-            }
-          ],
-          'pod_status': '',
-          'pod_name': ''
-        }
-      ]
+      detailData: []
     }
   },
   mounted () {
@@ -276,7 +252,9 @@ export default {
     checkDetail (rows) {
       app.getInstanceDetail(rows.appInstanceId).then(response => {
         this.dialogVisible = true
+        this.detailData = JSON.parse(response.data.response)
         console.log(response.data.response)
+        console.log(JSON.parse(response.data.response))
       }).catch((error) => {
         this.$message.error(error.message)
       })

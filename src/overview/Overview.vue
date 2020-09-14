@@ -364,9 +364,7 @@ export default {
       overview.getNodeKpi(ip).then(res => {
         if (res.data) {
           console.log(res.data.response)
-          let str = res.data.response.substr(1)
-          str = str.substr(0, str.length - 1)
-          str = JSON.stringify(str)
+          let str = res.data.response
           this.kpiInfo = JSON.parse(str)
           this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used * 100).toFixed(2)
           this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used * 100).toFixed(2)
