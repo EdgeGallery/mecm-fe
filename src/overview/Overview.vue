@@ -366,9 +366,9 @@ export default {
           console.log(res.data.response)
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
-          this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used * 100).toFixed(2)
-          this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used * 100).toFixed(2)
-          this.chartDataDisk.rows[0].value = (this.kpiInfo.diskusage.used * 100).toFixed(2)
+          this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total * 100).toFixed(2)
+          this.chartDataMem.rows[0].value = (this.kpiInfo.memusage.used / this.kpiInfo.memusage.total * 100).toFixed(2)
+          this.chartDataDisk.rows[0].value = (this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total * 100).toFixed(2)
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getKpiFailed'))
