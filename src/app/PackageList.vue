@@ -392,6 +392,7 @@ export default {
     },
     async confirm () {
       this.loading = true
+      sessionStorage.setItem('appId', this.currentRowData.appId)
       let selectedMecHost = []
       this.nodeSelection.forEach(data => {
         let obj = {}
@@ -421,7 +422,6 @@ export default {
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
-          sessionStorage.setItem('appId', params.appId)
           this.$router.push('/mecm/apac/detail')
         }).catch(() => {
           this.loading = false

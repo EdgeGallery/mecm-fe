@@ -94,16 +94,16 @@
             >
               <el-form-item
                 label="APPLCM 名称"
-                prop="name"
+                prop="applcmName"
               >
                 <el-input
                   id="ip"
-                  v-model="form.userName"
+                  v-model="form.applcmName"
                 />
               </el-form-item>
               <el-form-item
                 :label="$t('app.packageList.ip')"
-                prop="ip"
+                prop="applcmIp"
               >
                 <el-input
                   id="ip"
@@ -113,7 +113,7 @@
               </el-form-item>
               <el-form-item
                 :label="$t('system.appLcm.port')"
-                prop="port"
+                prop="applcmPort"
               >
                 <el-input
                   id="port"
@@ -170,13 +170,15 @@ export default {
       editType: 1,
       rules: {
         applcmIp: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
         applcmPort: [
-          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        userName: [
-          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+        applcmName: [
+          { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' }
         ]
       }
     }

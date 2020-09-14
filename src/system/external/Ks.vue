@@ -144,7 +144,7 @@
         <div class="k8s">
           <el-row>
             <el-form
-              label-width="105px"
+              label-width="120px"
               :model="currForm"
               ref="currForm"
               :rules="rules"
@@ -163,6 +163,7 @@
                   </el-radio>
                   <el-radio
                     label="2"
+                    disabled="true"
                   >
                     OpenStack
                   </el-radio>
@@ -170,7 +171,7 @@
               </el-form-item>
               <el-form-item
                 :label="$t('app.packageList.name')"
-                prop="hostname"
+                prop="mechostName"
               >
                 <el-input
                   id="hostname"
@@ -179,7 +180,7 @@
               </el-form-item>
               <el-form-item
                 :label="$t('app.packageList.ip')"
-                prop="ip"
+                prop="mechostIp"
               >
                 <el-input
                   id="ip"
@@ -263,7 +264,7 @@
               </el-form-item>
               <el-form-item
                 :label="$t('system.edgeNodes.edgeNexusIp')"
-                prop="edgeNexusIp"
+                prop="edgerepoIp"
               >
                 <el-input
                   id="edgeip"
@@ -272,20 +273,11 @@
               </el-form-item>
               <el-form-item
                 :label="$t('system.edgeNodes.edgeNexusPort')"
-                prop="edgeNexusPort"
+                prop="edgerepoPort"
               >
                 <el-input
                   id="edgeport"
                   v-model="currForm.edgerepoPort"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.repoUsername')"
-                prop="edgeNexusIp"
-              >
-                <el-input
-                  id="edgeip"
-                  v-model="currForm.edgerepoUsername"
                 />
               </el-form-item>
             </el-form>
@@ -375,7 +367,33 @@ export default {
         'zipCode': ''
       },
       rules: {
-
+        mechostIp: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        mechostName: [
+          { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' }
+        ],
+        city: [
+          { required: true, message: this.$t('verify.typeCity'), trigger: 'blur' }
+        ],
+        address: [
+          { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
+        ],
+        edgerepoIp: [
+          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        edgerepoPort: [
+          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        appLcmIp: [
+          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
+        ],
+        affinity: [
+          { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
+        ]
       },
       affinity: [],
       title: '',

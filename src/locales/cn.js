@@ -226,7 +226,9 @@ const cn = {
     vendorTip: '生产商不能为空。',
     urlTip: 'Url不能为空。',
     affinityTip: '架构不能为空。',
-    areaTip: '请选择地域'
+    areaTip: '请选择地域',
+    applcmNameTip: 'applcm名称不能为空',
+    normalVerify: '输入的内容格式不正确'
   },
   tip: {
     getCommonListFailed: '获取列表失败',

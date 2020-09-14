@@ -49,7 +49,7 @@
                 class="el-icon-success"
                 :style="{color: '#67C23A'}"
               />
-              <span style="margin-left: 10px">{{ scope.row.hostname }}</span>
+              <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
             </template>
           </el-table-column>
           <el-table-column
