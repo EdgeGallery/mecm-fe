@@ -118,7 +118,7 @@
           </el-form-item>
           <el-form-item label="Pod Status:">
             <span
-              v-if="detailData[0].pod_status === 'Running'"
+              v-if="item.podstatus === 'Running'"
               class="success"
             ><em class="el-icon-success" />{{ item.podstatus }}</span>
             <span
@@ -129,7 +129,7 @@
           <el-form-item
             label="Container Name:"
           >
-            <span>{{ item.containers.containername }}</span>
+            <span>{{ item.containers[0].containername }}</span>
           </el-form-item>
         </el-form>
         <span
@@ -251,10 +251,9 @@ export default {
     },
     checkDetail (rows) {
       app.getInstanceDetail(rows.appInstanceId).then(response => {
+        let data = JSON.parse(response.data.response)
+        this.detailData = data.pods
         this.dialogVisible = true
-        this.detailData = JSON.parse(response.data.response)
-        console.log(response.data.response)
-        console.log(JSON.parse(response.data.response))
       }).catch((error) => {
         this.$message.error(error.message)
       })

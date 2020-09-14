@@ -225,7 +225,9 @@ const en = {
     vendorTip: 'Vendor should not be empty',
     urlTip: 'Url should not be empty',
     affinityTip: 'Architecture should not be empty',
-    areaTip: 'Area should not be empty'
+    areaTip: 'Area should not be empty',
+    applcmNameTip: 'APPLCM should not be empty',
+    normalVerify: 'Style is not right'
   },
   tip: {
     getCommonListFailed: 'Get list failed',
