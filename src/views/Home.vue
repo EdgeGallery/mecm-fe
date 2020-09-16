@@ -60,11 +60,4 @@ export default {
 }
 </script>
 <style lang='less' scoped>
-.home-container{
-  height:calc(100% - 110px);
-}
-#container{
-  // padding:0 50px;
-  height: 100%;
-}
 </style>

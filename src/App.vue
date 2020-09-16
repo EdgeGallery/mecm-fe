@@ -41,8 +41,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-width: 988px;
-  height:100%;
   background: #f5f5f5;
   background-size:cover;
+  overflow: auto;
 }
 </style>

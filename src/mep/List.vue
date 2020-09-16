@@ -112,7 +112,7 @@ export default {
 <style lang='less' scoped>
 .mepList{
   margin: 0 5%;
-  height: calc(100% - 110px);
+  height: 100%;
   background: #fff;
   padding: 30px 60px;
   .tableDiv {

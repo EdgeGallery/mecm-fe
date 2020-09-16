@@ -54,59 +54,28 @@ const appData = function () {
 }
 
 const packageData = function () {
-  return [
-    {
-      affinity: 'x86',
-      appId: '3a1fcdff6b2249919028621dc1d1a1a7',
-      contact: null,
-      createTime: '2020-08-27 11:35:14.969237',
-      details: 'template_service↵===↵This repo is used for develop app based on osdt mep↵',
-      downloadCount: 2,
-      iconUrl: null,
-      industry: 'Smart Park',
-      name: 'testapp',
-      provider: 'Huawei',
-      score: 5,
-      shortDesc: 'test7',
-      type: 'Video Application',
-      userId: '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      userName: 'wenson'
-    },
-    {
-      affinity: 'x86',
-      appId: '3a1fcdff6b2249919028621dc1d1a1a8',
-      contact: null,
-      createTime: '2020-08-27 11:35:14.969237',
-      details: 'template_service↵===↵This repo is used for develop app based on osdt mep↵',
-      downloadCount: 2,
-      iconUrl: null,
-      industry: 'Smart Park',
-      name: 'testapp',
-      provider: 'Huawei',
-      score: 5,
-      shortDesc: 'test8',
-      type: 'Video Application',
-      userId: '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      userName: 'wenson'
-    },
-    {
-      affinity: 'x86',
-      appId: '3a1fcdff6b2249919028621dc1d1a1a9',
-      contact: null,
-      createTime: '2020-08-27 11:35:14.969237',
-      details: 'template_service↵===↵This repo is used for develop app based on osdt mep↵',
-      downloadCount: 2,
-      iconUrl: null,
-      industry: 'Smart Park',
-      name: 'testapp',
-      provider: 'Huawei',
-      score: 5,
-      shortDesc: 'test9',
-      type: 'Video Application',
-      userId: '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      userName: 'wenson'
-    }
-  ]
+  let arr = []
+  let data = {
+    affinity: 'x86',
+    appId: '3a1fcdff6b2249919028621dc1d1a1a7',
+    contact: null,
+    createTime: '2020-08-27 11:35:14.969237',
+    details: 'template_service↵===↵This repo is used for develop app based on osdt mep↵',
+    downloadCount: 2,
+    iconUrl: null,
+    industry: 'Smart Park',
+    name: 'testapp',
+    provider: 'Huawei',
+    score: 5,
+    shortDesc: 'test7',
+    type: 'Video Application',
+    userId: '7269638e-5637-4b8c-8178-b5112ba7b69b',
+    userName: 'wenson'
+  }
+  for (let i = 0; i < 20; i++) {
+    arr.push(data)
+  }
+  return arr
 }
 
 const distributionData = function () {

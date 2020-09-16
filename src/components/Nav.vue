@@ -67,12 +67,6 @@ export default {
   mounted () {
     this.jsonData = NavDataCn
     this.language = 'English'
-    user.getUserInfo().then(res => {
-      sessionStorage.setItem('userId', res.data.userId)
-      sessionStorage.setItem('access_token', res.data.accessToken)
-      sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
-      this.loginPage = res.data.loginPage
-    })
   },
   methods: {
     jumpTo (path) {
@@ -122,7 +116,7 @@ export default {
     },
     logout () {
       user.logout().then(res => {
-        window.location.href = this.loginPage + '&return_to=' + 'http://' + window.location.host
+        window.location.href = this.loginPage + '&return_to=' + 'https://' + window.location.host
       }).catch(error => {
         this.$message.error(error.message)
       })
