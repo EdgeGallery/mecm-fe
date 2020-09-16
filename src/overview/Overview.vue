@@ -189,7 +189,7 @@
 <script>
 import manageDialog from './ManageDialog.vue'
 import Map from './Map.vue'
-import { overview, app } from '../tools/request.js'
+import { user, overview, app } from '../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -304,7 +304,6 @@ export default {
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
-      console.log(msg)
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -398,7 +397,7 @@ export default {
     }
   },
   mounted () {
-
+    user.getUserInfo()
   },
   beforeMount () {
     this.$root.$on('refreshChart', this.getChartData)

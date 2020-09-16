@@ -104,6 +104,10 @@ export default {
         parentId = chinaId
         parentName = 'china'
         self.getChart(chinaId)
+        // 防止重复点击
+        if (myChart._$handlers.click) {
+          myChart._$handlers.click.length = 0
+        }
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data.ip)

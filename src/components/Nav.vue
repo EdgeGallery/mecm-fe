@@ -67,6 +67,12 @@ export default {
   mounted () {
     this.jsonData = NavDataCn
     this.language = 'English'
+    user.getUserInfo().then(res => {
+      sessionStorage.setItem('userId', res.data.userId)
+      sessionStorage.setItem('access_token', res.data.accessToken)
+      sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
+      this.loginPage = res.data.loginPage
+    })
   },
   methods: {
     jumpTo (path) {
