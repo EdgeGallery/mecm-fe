@@ -22,6 +22,10 @@
       :second="$t('nav.system')"
       :third="$t('nav.applcm')"
     />
+    <Search
+      :ip-item="true"
+      @getSearchData="getSearchData"
+    />
     <div class="sysLcm">
       <div class="tableDiv">
         <p class="btn-p">
@@ -279,7 +283,7 @@ export default {
 <style lang='less' scoped>
 .sysLcm{
   margin: 0 5%;
-  height: calc(100% - 110px);
+  height: 100%;
   background: #fff;
   padding: 30px 60px;
   .tableDiv{

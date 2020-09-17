@@ -16,12 +16,9 @@
 
 import Vue from 'vue'
 import App from './App.vue'
-// import VueAMap from 'vue-amap'
 import router from './router/router.js'
 import store from './store/store.js'
 import ElementUI from 'element-ui'
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
 import 'element-ui/lib/theme-chalk/index.css'
 import '../src/assets/css/common.css'
 import locale from 'element-ui/lib/locale/lang/en'
@@ -31,20 +28,11 @@ import { pcaa } from 'area-data-vue'
 import 'area-linkage-vue/dist/index.css'
 import AreaLinkageVue from 'area-linkage-vue'
 require('./mock.js')
-require('./dark.js')
-// Vue.prototype.VueAMap = VueAMap
-// VueAMap.initAMapApiLoader({
-//   key: '85daac944eb6dd5690d235151d0e5dc7',
-//   plugin: ['AMap.Geocoder', 'AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-//   v: '1.4.4'
-// })
+require('./assets/js/dark.js')
 Vue.prototype.$pcaa = pcaa
-
-// Vue.use(VueAMap)
 Vue.use(AreaLinkageVue)
 Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
-Vue.use(mavonEditor)
 Vue.config.productionTip = false
 
 new Vue({

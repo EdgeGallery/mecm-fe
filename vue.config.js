@@ -19,38 +19,6 @@ module.exports = {
   devServer: {
     disableHostCheck: true,
     proxy: {
-      '/sysApi': {
-        target: 'http://159.138.63.8:30105',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/sysApi': '/'
-        }
-      },
-      '/mecmApi': {
-        target: 'http://159.138.63.8:30107',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/mecmApi': '/'
-        }
-      },
-      '/meoApi': {
-        target: 'http://159.138.63.8:30108',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/meoApi': '/'
-        }
-      },
-      '/infoApi': {
-        target: 'http://159.138.63.8:30106',
-        ws: true,
-        changeOrigin: true,
-        pathRewrite: {
-          '^/infoApi': '/'
-        }
-      },
       '/mec-appstore': {
         target: 'http://mec-appstore',
         agent: new HttpProxyAgent('http://127.0.0.1:8082'),
