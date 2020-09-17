@@ -85,11 +85,15 @@ let user = {
     return axios.get('/auth/login-info')
   },
   logout () {
-    let header = {
-      'Content-Type': 'application/json',
-      'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-    }
-    return axios.post('/logout', '', { withCredentials: true, headers: header })
+    return axios({
+      method: 'POST',
+      url: '/logout',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    })
   }
 }
 
