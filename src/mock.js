@@ -15,8 +15,8 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      'ip': '119.8.125.174',
-      'hostname': '119.8.125.174',
+      'mechostIp': '119.8.125.174',
+      'mechostName': '119.8.125.174',
       'zipcode': '',
       'city': '北京市/北京市/东城区/景山街道',
       'address': 'Beijing',
@@ -24,13 +24,12 @@ const hostData = function () {
       'username': '',
       'password': '',
       'edgeName': null,
-      'edgeNexusIp': '119.8.125.174',
-      'edgeNexusPort': '119.8.125.174',
-      'edgeNexusUsername': '119.8.125.174',
-      'edgeNexusPassword': '119.8.125.174',
+      'edgerepoIp': '119.8.125.174',
+      'edgerepoPort': '119.8.125.174',
+      'edgerepoUsername': '119.8.125.174',
+      'edgerepoPassword': '119.8.125.174',
       'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      'appLcmIp': '119.8.125.174',
-      'k8sURL': ''
+      'applcmIp': '119.8.125.174'
     }
   ]
 }

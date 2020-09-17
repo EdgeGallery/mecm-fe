@@ -25,6 +25,7 @@
     <div class="sysk8s">
       <Search
         :status-item="false"
+        :affinity-item="false"
         :ip-item="true"
         @getSearchData="getSearchData"
       />
@@ -421,8 +422,10 @@ export default {
           if (data[key]) {
             reset = true
             let dataKey = key
-            if (key === 'name') {
-              dataKey = 'hostname'
+            if (key === 'ip') {
+              dataKey = 'mechostIp'
+            } else if (key === 'name') {
+              dataKey = 'mechostName'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }

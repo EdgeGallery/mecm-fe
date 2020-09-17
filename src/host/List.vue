@@ -174,10 +174,10 @@ export default {
           if (data[key]) {
             reset = true
             let dataKey = ''
-            if (key === 'mechostIp') {
-              dataKey = 'ip'
-            } else if (key === 'mechostName') {
-              dataKey = 'hostname'
+            if (key === 'ip') {
+              dataKey = 'mechostIp'
+            } else if (key === 'name') {
+              dataKey = 'mechostName'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }
