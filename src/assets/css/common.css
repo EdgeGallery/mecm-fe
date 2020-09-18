@@ -138,3 +138,12 @@ body .el-table th.gutter{
 .area-select>.area-selected-trigger{
   padding-top:0px !important;
 }
+
+
+.el-upload{
+  width:100% !important;
+}
+
+.el-upload-dragger{
+  width:100% !important;
+}

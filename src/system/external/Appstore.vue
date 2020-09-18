@@ -35,7 +35,7 @@
             <el-button
               id="newregBtn"
               type="primary"
-              disabled="true"
+              :disabled="true"
               @click="register"
             >{{ $t('system.appLcm.newReg') }}</el-button>
           </span>

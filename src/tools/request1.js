@@ -143,8 +143,8 @@ let system = {
     }
     return POST(inventory + '/tenant/' + getUserId() + url)
   },
-  getList (type, params) {
-    return axios.get('/mock' + inventoryUrl[type + 3])
+  getList (type) {
+    return axios.get('/mock' + inventoryUrl[1])
   },
   modify (type, params) {
     let url = ''
