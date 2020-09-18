@@ -49,24 +49,6 @@ const hostData = function () {
   ]
 }
 
-const appData = function () {
-  return [
-    {
-      'appInstanceId': '2781e05a-cf90-4c26-a88e-958e2c341ae9',
-      'appPackageId': 'd5a8f47c498f4a9bab8f07f3da592d64',
-      'tenant': '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      'appName': 'p1',
-      'appDescr': '',
-      'mecHost': '119.8.125.174',
-      'workLoadId': 'positioningservice',
-      'appLcmHost': '119.8.125.174',
-      'operationalStatus': 'Instantiated',
-      'info': 'Deployed',
-      'appId': '64734976e87048a98bbb9496bc70d686'
-    }
-  ]
-}
-
 const packageData = function () {
   let arr = []
   let data = {
@@ -115,6 +97,29 @@ const distributionData = function () {
       'appId': '3a1fcdff6b2249919028621dc1d1a1a9'
     }
   ]
+}
+
+const instanceData = function () {
+  let response = []
+  let obj =
+    {
+      appDescriptor: 'heheh',
+      appId: '069924b741724d31b86c8fdb9d1418ea',
+      appInstanceId: 'd02223aa-215d-4f4f-a534-71c39d8caf92',
+      appName: 'test',
+      appPackageId: 'cb6dd64b20a64ba6b7b1b6991f136545',
+      applcmHost: '159.138.30.89',
+      mecHost: '159.138.30.89',
+      operationInfo: '',
+      operationalStatus: 'Create failed'
+    }
+
+  for (let i = 0; i < 15; i++) {
+    response.push(obj)
+  }
+  return {
+    response
+  }
 }
 
 const applcmData = function () {
@@ -188,9 +193,9 @@ const alarmData = function () {
 
 Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
-Mock.mock('/mock/appInstanceList', appData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
+Mock.mock('/mock/appInstanceList', instanceData)
 Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/alarmData', alarmData)

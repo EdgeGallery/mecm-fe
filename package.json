@@ -28,6 +28,7 @@
     "v-charts": "^1.19.0",
     "vue": "^2.6.11",
     "vue-amap": "^0.5.10",
+    "vue-cookies": "^1.7.4",
     "vue-generate-component": "^2.1.1",
     "vue-i18n": "^8.17.7",
     "vue-router": "^3.2.0",

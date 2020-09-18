@@ -164,7 +164,7 @@
                   </el-radio>
                   <el-radio
                     label="2"
-                    disabled="true"
+                    :disabled="true"
                   >
                     OpenStack
                   </el-radio>
@@ -396,7 +396,6 @@ export default {
           { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
         ]
       },
-      affinity: [],
       title: '',
       editType: 1,
       isDisable: false,
@@ -452,9 +451,30 @@ export default {
       this.isDisable = true
       this.currForm = row
       this.selectedArea = row.city.split('/')
-      this.currForm.affinity = row.affinity.split(',')
+      if (row.affinity.length > 1) {
+        this.currForm.affinity = row.affinity.split(',')
+      } else {
+        this.currForm.affinity = row.affinity
+      }
       this.dialogVisible = true
-      this.clearValidate('currForm')
+    },
+    cancel (row) {
+      this.dialogVisible = false
+      this.isDisable = false
+      this.currForm = {
+        'address': '',
+        'affinity': [],
+        'applcmIp': '',
+        'city': '北京市/北京市/东城区/东华门街道',
+        'edgeName': '',
+        'edgerepoIp': '',
+        'edgerepoPort': '',
+        'edgerepoUsername': '',
+        'mechostIp': '',
+        'mechostName': '',
+        'userName': '',
+        'zipCode': ''
+      }
     },
     beforeDelete (row) {
       app.getInstanceList().then(res => {
@@ -572,13 +592,6 @@ export default {
           }
         }
       })
-    },
-    cancel () {
-      this.dialogVisible = false
-      this.isDisable = false
-    },
-    clearValidate (formName) {
-      this.$refs[formName].clearValidate()
     }
   }
 }
@@ -599,17 +612,6 @@ export default {
   .el-row-button {
     float: right;
   }
-  .el-upload{
-    width:100%;
-  }
-}
-
-.el-upload .el-upload--text{
-  width:100%;
-}
-
-.el-upload-dragger{
-  width:100%;
 }
 
 </style>
