@@ -15,6 +15,9 @@
  */
 
 import axios from 'axios'
+import Vue from 'vue'
+import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
 
 let api
 if (window.location.href.indexOf('30093') > -1) {

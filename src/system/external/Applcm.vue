@@ -102,6 +102,7 @@
               >
                 <el-input
                   id="ip"
+                  maxlength="20"
                   v-model="form.applcmName"
                 />
               </el-form-item>
