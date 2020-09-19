@@ -356,6 +356,7 @@ export default {
       })
     },
     async getNodeList (row) {
+      sessionStorage.setItem('appId', row.appId)
       app.getPackageList(row.appId).then(res => {
         this.options = res.data
         this.currentRowData.appId = row.appId
@@ -392,7 +393,6 @@ export default {
     },
     async confirm () {
       this.loading = true
-      sessionStorage.setItem('appId', this.currentRowData.appId)
       let selectedMecHost = []
       this.nodeSelection.forEach(data => {
         let obj = {}
