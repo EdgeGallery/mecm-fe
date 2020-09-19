@@ -24,6 +24,7 @@ let parentId = null
 let parentName = null
 let nodeData = []
 let myChart = null
+
 export default {
   name: 'ChinaMap',
   data () {
@@ -43,6 +44,7 @@ export default {
             let obj = {}
             obj.coord = item.city.split('/').join('')
             obj.ip = item.mechostIp
+            obj.city = item.city
             this.geoCode(obj)
           })
         }
@@ -114,6 +116,11 @@ export default {
             this.$emit('node', param.data.ip)
           } else {
             let cityId = CityMap[param.name]
+            nodeData.forEach((val, index) => {
+              if (val.city.indexOf(param.data.name) < 0) {
+                nodeData.splice(index, 1)
+              }
+            })
             this.$emit('area', param.data.name)
             if (cityId) {
               axios
@@ -130,6 +137,7 @@ export default {
                 })
               self.getChart(cityId)
             } else {
+              this.getNodeList()
               registerAndsetOption(myChart, chinaId, chinaName, chinaJson, false)
               mapStack = []
               parentId = chinaId

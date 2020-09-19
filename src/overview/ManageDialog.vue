@@ -139,38 +139,25 @@ export default {
     handleCurrentChange (row) {
     },
     containerChange (val) {
-      let cpu = this.serviceInfo.services[0].containers[val].cpuUsage
-      let mem = this.serviceInfo.services[0].containers[val].memUsage
-      let disk = this.serviceInfo.services[0].containers[val].diskUsage
-      this.cpuUsage = parseFloat((cpu.split('/')[0] / cpu.split('/')[1] * 100).toFixed(2))
-      this.memUsage = parseFloat((mem.split('/')[0] / mem.split('/')[1] * 100).toFixed(2))
-      this.diskUsage = parseFloat((disk.split('/')[0] / disk.split('/')[1] * 100).toFixed(2))
+      let data = this.serviceInfo.pods
+      let kpiInfo = data[0].containers[0].metricsusage
+      this.cpuUsage = (kpiInfo.cpuusage * 100).toFixed(2)
+      this.memUsage = (kpiInfo.memusage * 100).toFixed(2)
+      this.diskUsage = (kpiInfo.diskusage * 100).toFixed(2)
     }
   },
   mounted () {
     if (this.serviceInfo) {
-      this.serviceInfo.services.forEach(item => {
-        let serviceobj = {}
-        if (item.mepService) {
-          serviceobj.name = item.mepService.serName
-          serviceobj.status = item.mepService.state
-          serviceobj.version = item.mepService.version
-          this.searvicesData.push(serviceobj)
-        }
-        if (item.containers) {
-          item.containers.forEach(val => {
-            let containerobj = {}
-            containerobj.name = val.name.split(':')[1]
-            this.containerData.push(containerobj)
-          })
-          let cpu = this.serviceInfo.services[0].containers[0].cpuUsage
-          let mem = this.serviceInfo.services[0].containers[0].memUsage
-          let disk = this.serviceInfo.services[0].containers[0].diskUsage
-          this.cpuUsage = parseFloat((cpu.split('/')[0] / cpu.split('/')[1] * 100).toFixed(2))
-          this.memUsage = parseFloat((mem.split('/')[0] / mem.split('/')[1] * 100).toFixed(2))
-          this.diskUsage = parseFloat((disk.split('/')[0] / disk.split('/')[1] * 100).toFixed(2))
-        }
+      let data = this.serviceInfo.pods
+      data.forEach(item => {
+        let containerobj = {}
+        containerobj.name = item.containers[0].containername
+        this.containerData.push(containerobj)
       })
+      let kpiInfo = data[0].containers[0].metricsusage
+      this.cpuUsage = (kpiInfo.cpuusage * 100).toFixed(2)
+      this.memUsage = (kpiInfo.memusage * 100).toFixed(2)
+      this.diskUsage = (kpiInfo.diskusage * 100).toFixed(2)
     }
   }
 }

@@ -118,6 +118,7 @@
               >
                 <el-input
                   id="appstorename"
+                  maxlength="20"
                   v-model="form.appstoreName"
                 />
               </el-form-item>
@@ -127,6 +128,7 @@
               >
                 <el-input
                   id="producer"
+                  maxlength="20"
                   v-model="form.producer"
                 />
               </el-form-item>
@@ -136,6 +138,7 @@
               >
                 <el-input
                   id="url"
+                  maxlength="80"
                   v-model="form.uri"
                   :disabled="urlDisable"
                 />
@@ -146,6 +149,7 @@
               >
                 <el-input
                   id="username"
+                  maxlength="20"
                   v-model="form.userName"
                   auto-complete="new-username"
                 />

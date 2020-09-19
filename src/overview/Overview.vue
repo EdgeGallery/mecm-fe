@@ -362,7 +362,6 @@ export default {
     getNodeKpi (ip) {
       overview.getNodeKpi(ip).then(res => {
         if (res.data) {
-          console.log(res.data.response)
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
           this.chartDataCpu.rows[0].value = (this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total * 100).toFixed(2)
@@ -377,7 +376,7 @@ export default {
       if (this.appPackageList.length > 0) {
         this.loginBtnLoading = true
         overview.getServiceInfo(instanceId).then(res => {
-          this.serviceInfo = res.data
+          this.serviceInfo = JSON.parse(res.data.response)
           this.manageDialogStatus = true
           this.loginBtnLoading = false
         }).catch(() => {

@@ -176,6 +176,7 @@
               >
                 <el-input
                   id="hostname"
+                  maxlength="20"
                   v-model="currForm.mechostName"
                 />
               </el-form-item>
@@ -207,6 +208,7 @@
               >
                 <el-input
                   id="address"
+                  maxlength="80"
                   v-model="currForm.address"
                 />
               </el-form-item>
@@ -249,6 +251,7 @@
               >
                 <el-input
                   id="username"
+                  maxlength="20"
                   v-model="currForm.username"
                 />
               </el-form-item>
@@ -259,6 +262,7 @@
               >
                 <el-input
                   id="password"
+                  maxlength="30"
                   v-model="currForm.password"
                   type="password"
                 />
@@ -478,9 +482,9 @@ export default {
     },
     beforeDelete (row) {
       app.getInstanceList().then(res => {
-        if (res.data && res.data.length > 0) {
-          res.data.forEach(item => {
-            if (item.mecHost === row.ip) {
+        if (res.data && res.data.response.length > 0) {
+          res.data.response.forEach(item => {
+            if (item.mecHost === row.mechostIp) {
               this.$message.error(this.$t('tip.deleteAppBeforeDeleteNode'))
             } else {
               this.showWarningBox(row)
@@ -501,7 +505,7 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        this.handleDelete(row)
+        this.getInstanceList(row)
       })
     },
     handleDelete (row) {
