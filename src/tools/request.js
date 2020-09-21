@@ -19,6 +19,8 @@ import Vue from 'vue'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 
+axios.defaults.withCredentials = true
+
 let api
 if (window.location.href.indexOf('30093') > -1) {
   api = 'https://' + window.location.href.split('//')[1].split(':')[0]
@@ -80,7 +82,9 @@ function getCookie (name) {
   let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
   if (arr === document.cookie.match(reg)) {
     return (arr[2])
-  } else { return null }
+  } else {
+    return null
+  }
 }
 
 let user = {
