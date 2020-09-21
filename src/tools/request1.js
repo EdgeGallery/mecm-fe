@@ -18,38 +18,7 @@
 
 import axios from 'axios'
 
-let api
-if (window.location.href.indexOf('30093') > -1) {
-  api = 'http://' + window.location.href.split('//')[1].split(':')[0]
-} else {
-  api = 'http://' + window.location.host
-}
-
-let inventory = api + ':302030'
-let apm = api + ':30202'
-let appo = api + ':30201'
-
 let inventoryUrl = ['/applcms', '/mechosts', 'appstores']
-
-function GET (url) {
-  return axios.get(URL)
-}
-
-function POST (url) {
-  return axios.post(url)
-}
-
-function PUT (url) {
-  return axios.put(url)
-}
-
-function DELETE (url) {
-  return axios.delete(url)
-}
-
-function getUserId () {
-  return sessionStorage.getItem('userId')
-}
 
 let user = {
   getUserInfo () {
@@ -59,71 +28,39 @@ let user = {
 
 let overview = {
   getPackageInfo (item) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id
-    return GET(url)
+    return axios.get('/mock/packageInfo')
   },
   getAppInfo () {
-    return axios.get('/mock/appInstanceList')
+    return axios.get('/mock/instanceInfo')
   },
   getMepCap (host) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + host + '/mep-capabilities'
-    return GET(url)
+    return axios.get('/mock/mepInfo')
   },
   getNodeKpi (ip) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/hosts/' + ip
-    return GET(url)
+    return axios.get('/mock/kpiInfo')
   },
   getServiceInfo (instanceId) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + instanceId
-    return GET(url)
+    return axios.get('/mock/seviceInfo')
   },
   getChart (cityId) {
     return axios.get('/mock/alarmData')
   }
 }
 let app = {
-  confirmToDistribute (csarId, params) {
-    let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/' + csarId
-    return POST(url)
-  },
   getAppListFromAppStore (params) {
     return axios.get('/mock/appPackageList')
   },
   getPackageList (appId) {
     return axios.get('/mock/appPackageList')
   },
-  readFile (appId, packageId, params) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/files'
-    return POST(url)
-  },
   getDistributionList () {
     return axios.get('/mock/appDistributionList')
   },
-  confirmToDeploy (params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance'
-    return POST(url)
-  },
-  instantiateApp (instanceId, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + instanceId
-    return POST(url)
-  },
-  deletDistributionApp (type, hostIp, packageId) {
-    let url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/' + packageId + '/host/' + hostIp
-    if (type === 2) {
-      url = apm + '/mec/v1/mgmt/tenant/' + getUserId() + '/package/' + packageId
-    }
-    return DELETE(url)
-  },
   getInstanceList (params) {
-    return axios.get('/mock/appInstanceList')
+    return axios.get('/mock/instanceInfo')
   },
   getInstanceDetail (appInstanceId) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + appInstanceId
-    return GET(url)
-  },
-  deleteInstanceApp (appInstanceId, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/app_instance/' + appInstanceId
-    return DELETE(url)
+    return axios.get('/mock/instanceInfo')
   }
 }
 let edge = {
@@ -132,56 +69,12 @@ let edge = {
   }
 }
 let system = {
-  create (type, params) {
-    let url = ''
-    if (type === 1) {
-      url = '/applcm'
-    } else if (type === 2) {
-      url = '/host'
-    } else {
-      url = '/appstore'
-    }
-    return POST(inventory + '/tenant/' + getUserId() + url)
-  },
   getList (type) {
     return axios.get('/mock' + inventoryUrl[1])
-  },
-  modify (type, params) {
-    let url = ''
-    if (type === 1) {
-      url = '/applcm'
-    } else if (type === 2) {
-      url = '/host'
-    } else {
-      url = '/appstore'
-    }
-    return PUT(inventory + '/tenant/' + getUserId() + url)
-  },
-  delete (type, params) {
-    let url = ''
-    if (type === 3) {
-      url = '/appstores/appstore'
-      return DELETE(inventory + '/tenant/' + getUserId() + url)
-    } else {
-      if (type === 1) {
-        url = '/applcms/applcm/'
-      } else {
-        url = '/hosts/host/'
-      }
-      return DELETE(inventory + '/tenant/' + getUserId() + url + params)
-    }
-  },
-  uploadConfig (ip, params) {
-    let url = appo + '/mec/v1/mgmt/tenant/' + getUserId() + '/applcm/host/' + ip + '/k8sconfig'
-    return POST(url)
   }
 }
 
 export {
-  GET,
-  POST,
-  PUT,
-  DELETE,
   user,
   overview,
   app,
