@@ -1,5 +1,5 @@
 {
-  "name": "mec",
+  "name": "mecm",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,18 +9,18 @@
     "eslint": "eslint -f checkstyle --ext .js,.vue src -o eslint_result.xml"
   },
   "dependencies": {
-    "a": "^2.1.2",
+    "acorn": "^7.2.0",
+    "axios": "^0.19.0",
+    "core-js": "^3.6.2",
+    "dot-prop": "^4.2.1",
+    "echarts": "^4.2.1",
+    "element-ui": "^2.13.2",
+    "elliptic": "^6.5.3",
+    "showdown": "^1.9.1",
     "area-data": "^5.0.6",
     "area-data-vue": "^1.0.9",
     "area-linkage-vue": "^5.1.2",
-    "axios": "^0.19.1",
-    "core-js": "^3.6.5",
-    "echarts": "^4.2.1",
     "el-table-pagination": "^0.4.38",
-    "element-ui": "^2.13.2",
-    "elliptic": "^6.5.3",
-    "http-proxy": "^1.18.1",
-    "http-proxy-agent": "^4.0.1",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.20",
     "mavon-editor": "^2.9.0",
