@@ -19,6 +19,7 @@
     "el-table-pagination": "^0.4.38",
     "element-ui": "^2.13.2",
     "elliptic": "^6.5.3",
+    "http-proxy": "^1.18.1",
     "http-proxy-agent": "^4.0.1",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.20",
