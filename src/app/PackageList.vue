@@ -26,7 +26,7 @@
       <Search
         @getSearchData="getSearchData"
         :status-item="false"
-        :type-item="true"
+        :type-item="false"
       />
       <div class="tableDiv">
         <div class="el-row-button-input">
