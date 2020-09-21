@@ -17,12 +17,12 @@ const Mock = require('mockjs')
 const userData = function () {
   return [
     {
-      'userId': '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      'userName': 'wenson',
+      'userId': '######',
+      'userName': '******',
       'isSecureBackend': 'true',
-      'loginPage': 'https://daily.auth.edgegallery.org?enable_sms=true',
-      'accessToken': 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiI3MjY5NjM4ZS01NjM3LTRiOGMtODE3OC1iNTExMmJhN2I2OWIiLCJzY29wZSI6WyJhbGwiXSwiZXhwIjoxNTk5MDIwNzExLCJzc29TZXNzaW9uSWQiOiJBRjJDQTVBRTUyRUMxMjI3QUI0QTJBQjY4RkNGN0VCRCIsInVzZXJOYW1lIjoid2Vuc29uIiwidXNlcklkIjoiNzI2OTYzOGUtNTYzNy00YjhjLTgxNzgtYjUxMTJiYTdiNjliIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BUFBTVE9SRV9URU5BTlQiLCJST0xFX0RFVkVMT1BFUl9URU5BTlQiLCJST0xFX01FQ01fVEVOQU5UIl0sImp0aSI6IjY1ZWFlZWRjLWY2MTItNDBlMC04OTA0LWQ2YTc0OWFjOGI0NCIsImNsaWVudF9pZCI6ImFwcHN0b3JlLWZlIiwiZW5hYmxlU21zIjoidHJ1ZSJ9.leS1kcr8rPvLf_4sbCISTKHaPANAJK2o4-Kp6djcsnbscRC2jlo4jRIWLQzziEJtq1jtSLq3P6tfDk2dK12uLNw_I425N6flXUD9Ayi4MAuV4iHlyOpeWs3xc_Y7aaouu7MJtOoAveHiue6aS7Nkf6I8t-_PFr9mas0dJdt1-c9hkk6tRpYPaygng_5M1U60Y1WuymwIJJ81yj7X6v1YEHgFsIvmXepA8kx046A32YM7gIkXVik58yzxdR0xyG4qHfUya2s67WMNxHHliNjKGzo50R7NG2GiSYMcDzfPEvj4JxfpzEFmeNC_irAAmbXhkIVUFWdJPnXW-NLLRuBwVw',
-      'authorities': ['ROLE_APPSTORE_TENANT', 'ROLE_DEVELOPER_TENANT', 'ROLE_MECM_TENANT']
+      'loginPage': '',
+      'accessToken': '######',
+      'authorities': []
     }
   ]
 }
@@ -30,96 +30,100 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      'mechostIp': '119.8.125.174',
-      'mechostName': '119.8.125.174',
-      'zipcode': '',
-      'city': '北京市/北京市/东城区/景山街道',
-      'address': 'Beijing',
-      'affinity': 'X86',
-      'username': '',
-      'password': '',
-      'edgeName': null,
-      'edgerepoIp': '119.8.125.174',
-      'edgerepoPort': '119.8.125.174',
-      'edgerepoUsername': '119.8.125.174',
-      'edgerepoPassword': '119.8.125.174',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      'applcmIp': '119.8.125.174'
+      address: '78hao',
+      affinity: 'X86',
+      applcmIp: '119.8.53.3',
+      city: '北京市/北京市/东城区/东华门街道',
+      edgerepoIp: '119.8.53.3',
+      edgerepoName: null,
+      edgerepoPort: '8123',
+      edgerepoUsername: '',
+      mechostIp: '119.8.53.3',
+      mechostName: 'Node',
+      userName: '',
+      zipCode: ''
     }
   ]
 }
 
 const packageData = function () {
-  let arr = []
-  let data = {
-    affinity: 'x86',
-    appId: '3a1fcdff6b2249919028621dc1d1a1a7',
+  return [ {
+    affinity: 'GPU',
+    appId: '73b6f66992ab4798a55350f419a210af',
     contact: null,
-    createTime: '2020-08-27 11:35:14.969237',
-    details: 'template_service↵===↵This repo is used for develop app based on osdt mep↵',
-    downloadCount: 2,
+    createTime: '2020-09-14 20:00:57.29812',
+    details: '',
+    downloadCount: 25,
     iconUrl: null,
     industry: 'Smart Park',
-    name: 'testapp',
+    name: 'zone-swr-test1',
     provider: 'Huawei',
     score: 5,
-    shortDesc: 'test7',
+    shortDesc: 'for testing',
     type: 'Video Application',
-    userId: '7269638e-5637-4b8c-8178-b5112ba7b69b',
+    userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
     userName: 'wenson'
+  }]
+}
+
+const instanceInfo = function () {
+  return {
+    'response': [
+      {
+        'appInstanceId': '4b6944f1-655c-4f77-9e86-c0c4eb629c9c',
+        'appPackageId': '9eb381e222dd4a3898fc61f7182bba24',
+        'appName': 'zone',
+        'appId': '73b6f66992ab4798a55350f419a210af',
+        'appDescriptor': 'zone',
+        'mecHost': '119.8.53.3',
+        'applcmHost': '119.8.53.3',
+        'operationalStatus': 'Instantiated',
+        'operationInfo': 'success'
+      }
+    ]
   }
-  for (let i = 0; i < 20; i++) {
-    arr.push(data)
+}
+
+const kpiInfo = function () {
+  let data = { 'cpuusage': { 'total': 1600653686.904, 'used': '0.025' }, 'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' }, 'diskusage': { 'total': '0.0', 'used': '0.0' } }
+  return {
+    response: JSON.stringify(data)
   }
-  return arr
+}
+
+const packageInfo = function () {
+  return {
+    'csarId': '9eb381e222dd4a3898fc61f7182bba24',
+    'downloadUrl': '/home/appstore/7b002245635b4563a3d4dd4c96168556/7b002245635b4563a3d4dd4c96168556.csar',
+    'iconUrl': '/home/appstore/70d3278cbf654377beeb3d178ad01ff3/70d3278cbf654377beeb3d178ad01ff3.png',
+    'size': '0',
+    'createTime': '2020-09-14 20:00:57.29812',
+    'name': 'zone-swr-test1',
+    'version': '1.0',
+    'type': 'Video Application',
+    'details': '',
+    'affinity': 'GPU',
+    'industry': 'Smart Park',
+    'contact': null,
+    'appId': '73b6f66992ab4798a55350f419a210af'
+  }
 }
 
 const distributionData = function () {
-  return [
-    {
-      'appPackageId': '48237115a570445bab557de6ccad45c3',
-      'appPackageName': 'test9',
-      'appPackageDescription':
-       'SRS/3.0，[OuXuli][release3]，是一个流媒体集群，支持RTMP/HLS/WebRTC/SRT/GB28181，高效、稳定、易用，简单而快乐',
-      'appAffinity': 'x86',
-      'appDownloadUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/b5cd45ef5a3048cabaa79a979a34f5c9/packages/48237115a570445bab557de6ccad45c3/action/download',
-      'appIconUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/b5cd45ef5a3048cabaa79a979a34f5c9/packages/48237115a570445bab557de6ccad45c3/action/download',
-      'provider': 'opensource',
-      'appVersion': '3.0',
-      'createdTime': '',
-      'modifiedTime': '',
-      'mecHost': [
-        { hostIp: '159.138.140.246', status: 'Distributed' },
-        { hostIp: '159.138.140.247', status: 'Distributed' },
-        { hostIp: '159.138.140.248', status: 'Distributed' }
-      ],
-      'tenant': '7269638e-5637-4b8c-8178-b5112ba7b69b',
-      'appId': '3a1fcdff6b2249919028621dc1d1a1a9'
-    }
-  ]
-}
-
-const instanceData = function () {
-  let response = []
-  let obj =
-    {
-      appDescriptor: 'heheh',
-      appId: '069924b741724d31b86c8fdb9d1418ea',
-      appInstanceId: 'd02223aa-215d-4f4f-a534-71c39d8caf92',
-      appName: 'test',
-      appPackageId: 'cb6dd64b20a64ba6b7b1b6991f136545',
-      applcmHost: '159.138.30.89',
-      mecHost: '159.138.30.89',
-      operationInfo: '',
-      operationalStatus: 'Create failed'
-    }
-
-  for (let i = 0; i < 15; i++) {
-    response.push(obj)
-  }
-  return {
-    response
-  }
+  return [{
+    'appPkgId': '9eb381e222dd4a3898fc61f7182bba24',
+    'appPkgName': 'zone-swr-test1',
+    'appPkgVersion': '1.0',
+    'appPkgPath': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/packages/9eb381e222dd4a3898fc61f7182bba24/action/download',
+    'appProvider': 'Huawei',
+    'appPkgDesc': 'for testing',
+    'appPkgAffinity': 'GPU',
+    'appIconUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/icon',
+    'createdTime': '2020-09-19T07:31:33.267',
+    'modifiedTime': '2020-09-19T07:31:33.455',
+    'appId': '73b6f66992ab4798a55350f419a210af',
+    'mecHostInfo': [{ 'hostIp': '119.8.53.3', 'status': 'Distributed', 'error': '' }]
+  }]
 }
 
 const applcmData = function () {
@@ -153,6 +157,44 @@ const appstoreData = function () {
       'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
     }
   ]
+}
+
+const serviceInfoData = function () {
+  let data =
+  {
+    'pods':
+    [
+      {
+        'podstatus': 'Running',
+        'podname': 'zoon-minder-6c99b874-wc8zn',
+        'containers': [
+          { 'containername': 'zoonminder',
+            'metricsusage': {
+              'cpuusage': '83538/4000000',
+              'memusage': '167305216/16656244736',
+              'diskusage': '0/100276072165'
+            }
+          }
+        ]
+      }, {
+        'podstatus': 'Running',
+        'podname': 'zoon-minder-db-67dbdfcfc-2vlvz',
+        'containers': [
+          {
+            'containername': 'zoondb',
+            'metricsusage': {
+              'cpuusage': '340110/4000000',
+              'memusage': '270934016/16656244736',
+              'diskusage': '0/100276072165'
+            }
+          }
+        ]
+      }
+    ]
+  }
+
+  let res = { response: JSON.stringify(data) }
+  return res
 }
 
 const alarmData = function () {
@@ -195,7 +237,10 @@ Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
-Mock.mock('/mock/appInstanceList', instanceData)
 Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/alarmData', alarmData)
+Mock.mock('/mock/seviceInfo', serviceInfoData)
+Mock.mock('/mock/instanceInfo', instanceInfo)
+Mock.mock('/mock/packageInfo', packageInfo)
+Mock.mock('/mock/kpiInfo', kpiInfo)

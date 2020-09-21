@@ -17,7 +17,12 @@
 <template>
   <div class="edgeList">
     <Search
-      :status-item="false"
+      :type-item="false"
+      :name-item="false"
+      :affinity-item="false"
+      :ip-item="true"
+      :status-item="true"
+      :status="distributionStatus"
       @getSearchData="getSearchData"
     />
     <div class="tableDiv">
@@ -281,7 +286,9 @@ export default {
       packageData: [],
       interval: null,
       instanceId: '',
-      timer: null
+      timer: null,
+      distributionStatus: ['Distributed', 'Error'],
+      serchData: null
     }
   },
   mounted () {
@@ -309,18 +316,18 @@ export default {
     },
     // 根据搜索组件进行筛选
     getSearchData (data) {
+      this.serchData = data
       this.paginationData = this.tableData
-      // appPackageName appAffinity  后端对应的字段
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
         for (let key in data) {
           if (data[key]) {
             reset = true
             let dataKey = ''
-            if (key === 'name') {
-              dataKey = 'appPackageName'
-            } else if (key === 'affinity') {
-              dataKey = 'appAffinity'
+            if (key === 'status') {
+              dataKey = 'status'
+            } else if (key === 'ip') {
+              dataKey = 'hostIp'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }
@@ -360,6 +367,9 @@ export default {
           }
         })
         this.tableData = this.paginationData
+        if (this.serchData) {
+          this.getSearchData(this.serchData)
+        }
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false

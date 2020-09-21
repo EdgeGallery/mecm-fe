@@ -173,7 +173,8 @@ export default {
       detailForm: {
         podName: ''
       },
-      detailData: []
+      detailData: [],
+      serchData: null
     }
   },
   mounted () {
@@ -197,6 +198,7 @@ export default {
       })
     },
     getSearchData (data) {
+      this.serchData = data
       this.paginationData = this.tableData
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
@@ -231,6 +233,9 @@ export default {
     initList () {
       app.getInstanceList().then(res => {
         this.tableData = this.paginationData = res.data.response
+        if (this.serchData) {
+          this.getSearchData(this.serchData)
+        }
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
