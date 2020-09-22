@@ -246,6 +246,12 @@ export default {
   components: {
     Search, Pagination
   },
+  props: {
+    appid: {
+      required: true,
+      type: String
+    }
+  },
   data () {
     return {
       loading: false,
@@ -260,7 +266,6 @@ export default {
       appAffinity: '',
       provider: '',
       dialogVisible: false,
-      appId: sessionStorage.getItem('appId'),
       configForm: {
         podName: 'pod1',
         podKind: 'dployment',
@@ -271,7 +276,7 @@ export default {
         appName: '',
         appInstanceDescription: '',
         mecHost: '',
-        appId: sessionStorage.getItem('appId')
+        appId: this.appid
       },
       rules: {
         appName: [
@@ -357,7 +362,7 @@ export default {
       app.getDistributionList().then(res => {
         this.paginationData = []
         res.data.forEach(item => {
-          if (item.appId === this.appId) {
+          if (item.appId === this.appid) {
             this.appPackageId = item.appPkgId
             this.appPackageName = item.appPkgName
             this.appVersion = item.appPkgVersion
@@ -384,7 +389,7 @@ export default {
       this.configForm.status = row.status
       this.configForm.appPackageId = this.appPackageId
       this.configForm.mecHost = row.hostIp
-      this.configForm.appId = this.appId
+      this.configForm.appId = this.appid
       this.dialogVisible = true
     },
     confirmToDeploy (configForm) {
