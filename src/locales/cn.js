@@ -123,7 +123,8 @@ const cn = {
       podKind: 'Pod类型',
       podNameEspace: 'Pod命名空间',
       podSel: 'Pod选择器',
-      deploymentConf: '部署配置'
+      deploymentConf: '部署配置',
+      multipleDeploy: '批量部署'
     },
     instanceList: {
       operationStatus: '运行状态',

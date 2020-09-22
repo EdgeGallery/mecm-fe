@@ -150,14 +150,11 @@ export default {
     },
     getChart (id) {
       let chartData = {}
-      overview.getChart().then(res => {
-        if (res.data[id]) {
-          chartData = res.data[id]
-        }
-        this.$root.$emit('refreshChart', chartData)
-      }).catch(() => {
-        console.log('Failed to get chart data')
-      })
+      let res = overview.getChart()
+      if (res[id]) {
+        chartData = res[id]
+      }
+      this.$root.$emit('refreshChart', chartData)
     }
   }
 }

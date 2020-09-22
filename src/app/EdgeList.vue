@@ -27,8 +27,11 @@
     />
     <div class="tableDiv">
       <div class="btn-group rt">
-        <el-button type="primary">
-          批量部署
+        <el-button
+          type="primary"
+          :disabled="true"
+        >
+          {{ $t('app.distriList.multipleDeploy') }}
         </el-button>
       </div>
       <el-table
