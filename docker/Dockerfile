@@ -19,31 +19,26 @@ ENV APP_HOME /usr/app
 # Set umask
 
 
-# RUN sed -i "s|umask 022|umask 027|g" /etc/profile
-# ENV UID=166
-# ENV GID=166
-# ENV USER_NAME=eguser
-# ENV GROUP_NAME=eggroup
-# ENV ENV="/etc/profile"
+RUN sed -i "s|umask 022|umask 027|g" /etc/profile
+ENV UID=166
+ENV GID=166
+ENV USER_NAME=eguser
+ENV GROUP_NAME=eggroup
+ENV ENV="/etc/profile"
 
 # Create an app user so our program doesn't run as root.
-
-
-# RUN apk update &&\
-#     apk add shadow &&\
-#     groupadd -r -g $GID $GROUP_NAME &&\
-#     useradd -r -u $UID -g $GID -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
+RUN apk update &&\
+    apk add shadow &&\
+    groupadd -r -g $GID $GROUP_NAME &&\
+    useradd -r -u $UID -g $GID -d $APP_HOME -s /sbin/nologin -c "Docker image user" $USER_NAME
 
 # Set the working directory.
-
-
-# WORKDIR $APP_HOME
+WORKDIR $APP_HOME
 
 COPY dist/ $APP_HOME/configs/static/
 
-# RUN chmod 750 $APP_HOME &&\
-#     chown -R $USER_NAME:$GROUP_NAME $APP_HOME
+RUN chmod 750 $APP_HOME &&\
+    chown -R $USER_NAME:$GROUP_NAME $APP_HOME
 
 # Change to the app user.
-
-# USER $USER_NAME
+USER $USER_NAME

@@ -16,8 +16,6 @@
 
 import axios from 'axios'
 
-axios.defaults.withCredentials = true
-
 let api
 if (window.location.href.indexOf('30093') > -1) {
   api = 'https://' + window.location.href.split('//')[1].split(':')[0]
