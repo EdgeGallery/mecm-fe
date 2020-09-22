@@ -122,7 +122,9 @@ export default {
     },
     logout () {
       user.logout().then(res => {
-        window.location.href = this.loginPage + '&return_to=' + 'https://' + window.location.host
+        window.location.href = window.location.href.indexOf('https') > -1
+          ? this.loginPage + '&return_to=' + 'https://' + window.location.host
+          : this.loginPage + '&return_to=' + 'http://' + window.location.host
       }).catch(error => {
         this.$message.error(error.message)
       })
