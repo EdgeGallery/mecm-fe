@@ -62,10 +62,6 @@ export default {
         data.forEach(item => {
           this.tableData.push(item)
         })
-        // 0.9
-        // this.editDetails = this.source = data[0].details
-        // this.appDetailFileList = [JSON.parse(data[0].format)]
-        // this.packageId = data[0].csarId
       })
     },
     getParent (nodes) {

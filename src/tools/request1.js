@@ -17,6 +17,7 @@
 //  Mock Data
 
 import axios from 'axios'
+require('../mock.js')
 
 let inventoryUrl = ['/applcms', '/mechosts', 'appstores']
 
