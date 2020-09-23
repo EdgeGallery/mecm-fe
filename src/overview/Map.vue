@@ -35,7 +35,10 @@ export default {
   },
   methods: {
     async getNodeList () {
-      await user.getUserInfo()
+      await user.getUserInfo().then(response => {
+        sessionStorage.setItem('userId', response.data.userId)
+        sessionStorage.setItem('access_token', response.data.accessToken)
+      })
       edge.getNodeList().then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
