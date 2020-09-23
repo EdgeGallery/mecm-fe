@@ -360,7 +360,7 @@ export default {
       }).then(() => {
         let hostIp = rows.hostIp
         let type = 1
-        app.deletDistributionApp(type, hostIp, this.appPackageId).then(res => {
+        app.deleteDistributionApp(type, hostIp, this.appPackageId).then(res => {
           this.$message.success(this.$t('tip.deletePacFrmoHost'))
           this.initList()
         })
