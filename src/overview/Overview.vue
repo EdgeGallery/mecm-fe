@@ -380,7 +380,10 @@ export default {
           this.serviceInfo = JSON.parse(res.data.response)
           this.manageDialogStatus = true
           this.loginBtnLoading = false
-        }).catch(() => {
+        }).catch((error) => {
+          if (error.response.status === 412) {
+            this.$message.error(error.response.data.response)
+          }
           this.loginBtnLoading = false
           // this.$message.error(this.$t('tip.getServiceFailed'))
         })
