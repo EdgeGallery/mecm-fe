@@ -101,20 +101,16 @@ let user = {
 
 let overview = {
   getPackageInfo (item) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id
-    return GET(url)
+    return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
   },
   getMepCap (hostip) {
-    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities'
-    return GET(url, '')
+    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   },
   getNodeKpi (hostip) {
-    let url = appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi'
-    return GET(url, '')
+    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi')
   },
   getServiceInfo (instanceId) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return GET(url, '')
+    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
   getChart (cityId) {
     return {
@@ -153,26 +149,18 @@ let overview = {
 }
 let app = {
   confirmToDistribute (params) {
-    let url = apm + '/tenants/' + getUserId() + '/packages'
-    return POST(url, params)
+    return POST(apm + '/tenants/' + getUserId() + '/packages', params)
   },
-  getAppListFromAppStore (params) {
-    let url = '/mec-appstore/mec/appstore/v1/apps'
-    return GET(url)
+  getAppListFromAppStore () {
+    return GET('/mec-appstore/mec/appstore/v1/apps')
   },
   getPackageList (appId) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages'
-    return GET(url)
-  },
-  readFile (appId, packageId, params) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/files'
-    return POST(url, params)
+    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
   },
   downloadPackage (appId, packageId) {
-    let url = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/action/download'
     try {
       var elemIF = document.createElement('iframe')
-      elemIF.src = url
+      elemIF.src = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/action/download'
       elemIF.style.display = 'none'
       document.body.appendChild(elemIF)
       // 防止下载两次
@@ -184,26 +172,21 @@ let app = {
     }
   },
   getDistributionList () {
-    let url = apm + '/tenants/' + getUserId() + '/packages'
-    return GET(url)
+    return GET(apm + '/tenants/' + getUserId() + '/packages')
   },
   confirmToDeploy (params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances'
-    return POST(url, params)
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances', params)
   },
-  getInstanceList (params) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos'
-    return GET(url, '')
+  getInstanceList () {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos')
   },
   getInstanceInfo (instanceId) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId
-    return GET(url)
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
   },
   instantiateApp (instanceId) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return POST(url)
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
-  deletDistributionApp (type, hostIp, packageId) {
+  deleteDistributionApp (type, hostIp, packageId) {
     let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
     if (type === 2) {
       url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
@@ -211,25 +194,22 @@ let app = {
     return DELETE(url)
   },
   getInstanceDetail (appInstanceId) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId
-    return GET(url, '')
+    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
   },
   deleteInstanceApp (instanceId) {
-    let url = appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId
-    return DELETE(url)
+    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   }
 }
 let edge = {
   getNodeList () {
-    let url = inventory + '/tenants/' + getUserId() + '/mechosts'
-    return GET(url)
+    return GET(inventory + '/tenants/' + getUserId() + '/mechosts')
   }
 }
 let system = {
   create (type, params) {
     return POST(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
-  getList (type, params) {
+  getList (type) {
     return GET(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1])
   },
   modify (type, params, ip) {
@@ -239,8 +219,7 @@ let system = {
     return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
   },
   uploadConfig (ip, params) {
-    let url = inventory + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig'
-    return POST(url, params)
+    return POST(inventory + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
   }
 }
 
