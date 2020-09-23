@@ -216,16 +216,15 @@
                 :label="$t('app.packageList.affinity')"
                 prop="affinity"
               >
-                <el-checkbox-group
-                  v-model="currForm.affinity"
-                  id="affinity"
-                >
-                  <el-checkbox
+                <el-radio-group v-model="currForm.affinity">
+                  <el-radio
                     v-for="(item,index) in affinityList"
                     :key="index"
                     :label="item"
-                  />
-                </el-checkbox-group>
+                  >
+                    {{ item }}
+                  </el-radio>
+                </el-radio-group>
               </el-form-item>
               <el-form-item
                 label="APPLCM"
@@ -359,7 +358,7 @@ export default {
       selectedArea: ['北京市', '北京市', '东城区', '东华门街道'],
       currForm: {
         'address': '',
-        'affinity': [],
+        'affinity': '',
         'applcmIp': '',
         'city': '北京市/北京市/东城区/东华门街道',
         'edgeName': '',
@@ -403,7 +402,7 @@ export default {
       title: '',
       editType: 1,
       isDisable: false,
-      affinityList: ['X86', 'ARM64', 'ARM32', 'GPU', 'NPU']
+      affinityList: ['X86', 'ARM64', 'ARM32']
     }
   },
   mounted () {
@@ -455,19 +454,17 @@ export default {
       this.isDisable = true
       this.currForm = row
       this.selectedArea = row.city.split('/')
-      if (row.affinity.length > 1) {
-        this.currForm.affinity = row.affinity.split(',')
-      } else {
-        this.currForm.affinity = row.affinity
-      }
       this.dialogVisible = true
     },
     cancel (row) {
       this.dialogVisible = false
       this.isDisable = false
+      this.resetForm()
+    },
+    resetForm () {
       this.currForm = {
         'address': '',
-        'affinity': [],
+        'affinity': '',
         'applcmIp': '',
         'city': '北京市/北京市/东城区/东华门街道',
         'edgeName': '',
@@ -522,7 +519,7 @@ export default {
       this.isDisable = false
       this.dialogVisible = true
       this.$nextTick(() => {
-        this.reset('currForm')
+        this.resetForm()
       })
       system.getList(1).then(res => {
         this.applcmList = res.data
@@ -533,11 +530,6 @@ export default {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
-    },
-    reset (formName) {
-      this.$refs['currForm'].resetFields()
-      this.fileList = []
-      this.applcmList = []
     },
     async submitUpload (content) {
       let params = new FormData()
@@ -572,7 +564,6 @@ export default {
     confirm (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          this.currForm.affinity = this.currForm.affinity.join(',')
           this.currForm.city = this.selectedArea.join('/')
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
@@ -589,7 +580,7 @@ export default {
               this.getNodeListInPage()
               this.dialogVisible = false
               this.isDisable = false
-              this.reset('currForm')
+              this.resetForm()
             }).catch(() => {
               this.$message.error(this.$t('tip.failToModifyNode'))
             })
