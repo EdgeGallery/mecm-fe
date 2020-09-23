@@ -101,7 +101,7 @@
                 prop="applcmName"
               >
                 <el-input
-                  id="ip"
+                  id="name"
                   maxlength="20"
                   v-model="form.applcmName"
                 />
