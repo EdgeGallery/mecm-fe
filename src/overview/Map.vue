@@ -26,11 +26,9 @@ let nodeData = []
 let myChart = null
 
 export default {
-  name: 'ChinaMap',
+  name: 'Map',
   data () {
-    return {
-      // one: 1
-    }
+    return {}
   },
   mounted () {
     this.getNodeList()
@@ -82,7 +80,7 @@ export default {
           .get('./map/' + map.mapId + '.json', {})
           .then(response => {
             const mapJson = response.data
-            registerAndsetOption(
+            regAndSetOption(
               myChart,
               map.mapId,
               map.mapName,
@@ -100,10 +98,8 @@ export default {
         const mapJson = response.data
         chinaJson = mapJson
         myChart = echarts.init(document.getElementById(divid))
-        window.onresize = function () {
-          myChart.resize()
-        }
-        registerAndsetOption(myChart, chinaId, chinaName, mapJson, false)
+        window.onresize = myChart.resize
+        regAndSetOption(myChart, chinaId, chinaName, mapJson, false)
         parentId = chinaId
         parentName = 'china'
         self.getChart(chinaId)
@@ -127,7 +123,7 @@ export default {
                 .get('./map/' + cityId + '.json', {})
                 .then(res => {
                   const mapJson1 = res.data
-                  registerAndsetOption(
+                  regAndSetOption(
                     myChart,
                     cityId,
                     param.name,
@@ -138,7 +134,7 @@ export default {
               self.getChart(cityId)
             } else {
               this.getNodeList()
-              registerAndsetOption(myChart, chinaId, chinaName, chinaJson, false)
+              regAndSetOption(myChart, chinaId, chinaName, chinaJson, false)
               mapStack = []
               parentId = chinaId
               parentName = chinaName
@@ -150,31 +146,19 @@ export default {
     },
     getChart (id) {
       let chartData = {}
-      overview.getChart().then(res => {
-        if (res.data[id]) {
-          chartData = res.data[id]
-        }
-        this.$root.$emit('refreshChart', chartData)
-      }).catch(() => {
-        console.log('Failed to get chart data')
-      })
+      let res = overview.getChart()
+      if (res[id]) {
+        chartData = res[id]
+      }
+      this.$root.$emit('refreshChart', chartData)
     }
   }
 }
-function registerAndsetOption (myChart1, id, name, mapJson, flag) {
+function regAndSetOption (myChart1, id, name, mapJson, flag) {
   echarts.registerMap(name, mapJson)
   myChart1.setOption({
     visualMap: {
-      show: false,
-      min: 0,
-      max: 45000,
-      left: 'left',
-      top: 'bottom',
-      text: ['高', '低'],
-      calculable: true,
-      inRange: {
-        color: ['#42a8be', '#00a69c', '#95ea95'] // 上色范围
-      }
+      show: false
     },
     series: [
       {

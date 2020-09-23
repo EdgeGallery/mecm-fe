@@ -141,6 +141,9 @@ export default {
     containerChange (val) {
       let data = this.serviceInfo.pods
       let kpiInfo = data[val].containers[0].metricsusage
+      this.showKpiChart(kpiInfo)
+    },
+    showKpiChart (kpiInfo) {
       this.cpuUsage = parseFloat((kpiInfo.cpuusage.split('/')[0] / kpiInfo.cpuusage.split('/')[1] * 100).toFixed(2))
       this.memUsage = parseFloat((kpiInfo.memusage.split('/')[0] / kpiInfo.memusage.split('/')[1] * 100).toFixed(2))
       this.diskUsage = parseFloat((kpiInfo.diskusage.split('/')[0] / kpiInfo.diskusage.split('/')[1] * 100).toFixed(2))
@@ -155,9 +158,7 @@ export default {
         this.containerData.push(containerobj)
       })
       let kpiInfo = data[0].containers[0].metricsusage
-      this.cpuUsage = parseFloat((kpiInfo.cpuusage.split('/')[0] / kpiInfo.cpuusage.split('/')[1] * 100).toFixed(2))
-      this.memUsage = parseFloat((kpiInfo.memusage.split('/')[0] / kpiInfo.memusage.split('/')[1] * 100).toFixed(2))
-      this.diskUsage = parseFloat((kpiInfo.diskusage.split('/')[0] / kpiInfo.diskusage.split('/')[1] * 100).toFixed(2))
+      this.showKpiChart(kpiInfo)
     }
   }
 }

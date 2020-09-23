@@ -32,6 +32,7 @@
           >
             <el-input
               id="name"
+              maxlength="20"
               v-model="formData.name"
               :placeholder="$t('app.packageList.name')"
             />
@@ -113,6 +114,7 @@
           >
             <el-input
               id="ip"
+              maxlength="15"
               v-model="formData.ip"
               :placeholder="$t('app.packageList.ip')"
             />

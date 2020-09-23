@@ -27,8 +27,11 @@
     />
     <div class="tableDiv">
       <div class="btn-group rt">
-        <el-button type="primary">
-          批量部署
+        <el-button
+          type="primary"
+          :disabled="true"
+        >
+          {{ $t('app.distriList.multipleDeploy') }}
         </el-button>
       </div>
       <el-table
@@ -180,6 +183,7 @@
         >
           <el-input
             id="appname"
+            maxlength="20"
             v-model="configForm.appName"
           />
         </el-form-item>
@@ -189,6 +193,7 @@
         >
           <el-input
             id="appdesc"
+            maxlength="120"
             v-model="configForm.appInstanceDescription"
           />
         </el-form-item>
@@ -196,24 +201,28 @@
         <el-form-item :label="$t('app.distriList.podName')">
           <el-input
             id="podname"
+            maxlength="20"
             v-model="configForm.podName"
           />
         </el-form-item>
         <el-form-item :label="$t('app.distriList.podKind')">
           <el-input
             id="podkind"
+            maxlength="30"
             v-model="configForm.podKind"
           />
         </el-form-item>
         <el-form-item :label="$t('app.distriList.podNameEspace')">
           <el-input
             id="podnameespace"
+            maxlength="30"
             v-model="configForm.podNameEspace"
           />
         </el-form-item>
         <el-form-item :label="$t('app.distriList.podSel')">
           <el-input
             id="podsel"
+            maxlength="30"
             v-model="configForm.podSelector"
           />
         </el-form-item>

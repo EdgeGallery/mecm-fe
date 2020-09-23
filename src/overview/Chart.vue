@@ -11,7 +11,7 @@
 <script>
 import echarts from 'echarts'
 
-let myChart
+let myChart1
 export default {
   name: 'BarChart',
   props: {
@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      myChart: null,
+      myChart1: null,
       option: null,
       alarmData: [],
       alarmLabel: [
@@ -74,7 +74,6 @@ export default {
     setOptions () {
       this.option = {
         tooltip: {
-          // trigger: 'axis',
           axisPointer: {
             type: 'shadow'
           }
@@ -109,11 +108,11 @@ export default {
       }
     },
     mapChart () {
-      myChart = echarts.init(document.getElementById('barChart'), 'dark')
+      myChart1 = echarts.init(document.getElementById('barChart'), 'dark')
       window.onresize = function () {
-        myChart.resize()
+        myChart1.resize()
       }
-      myChart.setOption(this.option, true)
+      myChart1.setOption(this.option, true)
     }
   }
 }

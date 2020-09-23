@@ -123,7 +123,8 @@ const en = {
       podKind: 'Pod Kind',
       podNameEspace: 'Pod Name Espace',
       podSel: 'Pod Selector',
-      deploymentConf: 'Deployment Configuration'
+      deploymentConf: 'Deployment Configuration',
+      multipleDeploy: 'Batch Deployment'
     },
     instanceList: {
       operationStatus: 'Operational Status',
