@@ -2,19 +2,19 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker-image-update-daily-master%2F)
 
-#### 介绍
+#### Introduction
 repo for mecm fe
 
-#### 软件架构
+#### Architecture
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
-#### 安装教程
+#### Installation
 
 1. npm install
 
 
-#### 使用说明
+#### Instructions
 
 - Project setup  
 npm install
@@ -27,17 +27,18 @@ npm run test
 - Lints and fixes files  
 npm run lint
 
-#### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+#### Contribution
+
+1.  Fork Repo
+2.  New Feat_xxx Branch
+3.  Push Code
+4.  New Pull Request
 
 
-#### 链接
+#### Link
 
-1.  MECM访问地址：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
-2.  EdgeGallery官方网站：[http://www.edgegallery.org/](http://www.edgegallery.org/)
-3.  EdgeGallery社区地址：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
-4.  邮箱: contact@edgegallery.org
+1.  MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+2.  EdgeGallery：[http://www.edgegallery.org/](http://www.edgegallery.org/)
+3.  EdgeGallery Community：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+4.  E-mail: contact@edgegallery.org
