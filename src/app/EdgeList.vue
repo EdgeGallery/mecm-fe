@@ -289,7 +289,8 @@ export default {
       },
       rules: {
         appName: [
-          { required: true, message: 'App name can not be empty', trigger: 'blur' }
+          { required: true, message: 'App name can not be empty', trigger: 'blur' },
+          { pattern: /^[a-zA-Z][a-zA-Z0-9_-]{3,15}$/, message: this.$t('verify.hostNameVerify') }
         ],
         appInstanceDescription: [
           { required: true, message: 'App instance description can not be empty', trigger: 'blur' }

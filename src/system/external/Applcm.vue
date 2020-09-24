@@ -183,7 +183,8 @@ export default {
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
         applcmName: [
-          { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z][a-zA-Z0-9_-]{3,15}$/, message: this.$t('verify.hostNameVerify') }
         ]
       }
     }

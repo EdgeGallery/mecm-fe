@@ -229,7 +229,8 @@ const cn = {
     affinityTip: '架构不能为空。',
     areaTip: '请选择地域',
     applcmNameTip: 'applcm名称不能为空',
-    normalVerify: '输入的内容格式不正确'
+    normalVerify: '输入的内容格式不正确',
+    hostNameVerify: "只能是以字母开始的数字、字母和'_'组合"
   },
   tip: {
     getCommonListFailed: '获取列表失败',
@@ -248,7 +249,7 @@ const cn = {
     regAppStoreSuc: '你已成功注册App Store！',
     modAppStoreSuc: '你已成功编辑App Store',
     deleteAppStoreSuc: '你已经成功删除App Store！',
-    sucToDeleteNodes: '你已成功删除改node节点！',
+    sucToDeleteNodes: '你已成功删除node节点！',
     uploadSuc: '你已成功上传配置文件！',
     sucToRegNode: '你已成功注册Node节点！',
     sucToModNode: '你已成功编辑Node节点！',
