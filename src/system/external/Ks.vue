@@ -445,6 +445,7 @@ export default {
       this.currForm.city = val.toString()
     },
     uploadFile (row) {
+      this.fileList = []
       this.dialogVisibleUpload = true
       this.currForm = row
     },

@@ -329,7 +329,9 @@ export default {
     },
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
-      this.$router.push('/mecm/apac/detail')
+      this.$nextTick(
+        this.$router.push('/mecm/apac/detail')
+      )
     },
     distribute (row) {
       this.currentRowData = row
@@ -422,7 +424,10 @@ export default {
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(params).then(response => {
           this.$message.success(this.$t('tip.sucToDownload'))
-          this.$router.push('/mecm/apac/detail')
+          sessionStorage.setItem('appId', params.appId)
+          this.$nextTick(
+            this.$router.push('/mecm/apac/detail')
+          )
         }).catch(() => {
           this.loading = false
           this.$message.error(this.$t('tip.failedToDownload'))
