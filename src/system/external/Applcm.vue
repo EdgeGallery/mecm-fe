@@ -238,6 +238,11 @@ export default {
     register () {
       this.editType = 1
       this.title = this.$t('system.appLcm.applcmReg')
+      this.form = {
+        applcmIp: '',
+        applcmPort: '',
+        userName: ''
+      }
       this.dialogVisible = true
       this.ipDisable = false
     },
@@ -250,7 +255,11 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+                this.$message.error(error.response.data.details[0])
+              } else {
+                this.$message.error(error.message)
+              }
             })
           } else {
             system.modify(1, this.form, this.form.applcmIp).then(res => {

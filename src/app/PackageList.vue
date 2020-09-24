@@ -116,7 +116,7 @@
                     {{ $t('app.packageList.distribute') }}
                   </el-button>
                   <el-button
-                    id="detailBtn"
+                    id="deployBtn"
                     @click="checkDetail(scope.row)"
                     type="text"
                     size="small"

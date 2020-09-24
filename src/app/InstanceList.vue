@@ -137,7 +137,7 @@
           class="dialog-footer"
         >
           <el-button
-            id="canceleBtn"
+            id="cancelBtn"
             @click="dialogVisible = false"
           >{{ $t('common.cancel') }}</el-button>
           <el-button
