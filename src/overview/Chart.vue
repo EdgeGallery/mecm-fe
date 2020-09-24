@@ -109,9 +109,6 @@ export default {
     },
     mapChart () {
       myChart1 = echarts.init(document.getElementById('barChart'), 'dark')
-      window.onresize = function () {
-        myChart1.resize()
-      }
       myChart1.setOption(this.option, true)
     }
   }
