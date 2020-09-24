@@ -572,7 +572,11 @@ export default {
               this.dialogVisible = false
               this.isDisable = false
             }).catch((error) => {
-              this.$message.error(error.message)
+              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+                this.$message.error(error.response.data.details[0])
+              } else {
+                this.$message.error(error.message)
+              }
             })
           } else {
             system.modify(2, this.currForm, this.currForm.mechostIp).then(response => {

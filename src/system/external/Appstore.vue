@@ -204,18 +204,18 @@ export default {
       tableData: [],
       dataLoading: true,
       rules: {
-      //   appstoreName: [
-      //     { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
-      //   ],
-      //   producer: [
-      //     { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
-      //   ],
-      //   userName: [
-      //     { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
-      //   ],
-      //   uri: [
-      //     { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
-      //   ]
+        appstoreName: [
+          { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
+        ],
+        producer: [
+          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
+        ],
+        userName: [
+          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+        ],
+        uri: [
+          { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
+        ]
       }
     }
   },
@@ -277,7 +277,11 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+                this.$message.error(error.response.data.details[0])
+              } else {
+                this.$message.error(error.message)
+              }
             })
           } else {
             system.modify(3, this.form, this.form.appstoreIp).then(res => {
