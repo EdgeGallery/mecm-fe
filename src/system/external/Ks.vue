@@ -109,7 +109,7 @@
                   {{ $t('common.delete') }}
                 </el-button>
                 <el-button
-                  id="deleteBtn"
+                  id="uploadBtn"
                   @click.native.prevent="uploadFile(scope.row)"
                   type="text"
                   size="small"
