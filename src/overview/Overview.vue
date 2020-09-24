@@ -329,9 +329,10 @@ export default {
     getAppInfo (ip) {
       app.getInstanceList().then(res => {
         this.infoList = res.data.response
+        this.edgeAppList = []
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
-            if (item.mechostIp === this.ip) {
+            if (item.mecHost === ip) {
               let obj = {}
               obj.label = item.appName
               obj.value = item.appInstanceId

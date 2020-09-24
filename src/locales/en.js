@@ -228,7 +228,8 @@ const en = {
     affinityTip: 'Architecture should not be empty',
     areaTip: 'Area should not be empty',
     applcmNameTip: 'APPLCM should not be empty',
-    normalVerify: 'Style is not right'
+    normalVerify: 'Style is not right',
+    hostNameVerify: "Can only contain numbers, letters, '_'. starting with letters"
   },
   tip: {
     getCommonListFailed: 'Get list failed',
