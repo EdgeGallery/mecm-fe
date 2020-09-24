@@ -101,7 +101,9 @@ export default {
         const mapJson = response.data
         chinaJson = mapJson
         myChart = echarts.init(document.getElementById(divid))
-        window.onresize = myChart.resize
+        window.onresize = function () {
+          myChart.resize()
+        }
         regAndSetOption(myChart, chinaId, chinaName, mapJson, false)
         parentId = chinaId
         parentName = 'china'
