@@ -124,6 +124,8 @@ export default {
       this.$router.push('/')
     },
     logout () {
+      sessionStorage.removeItem('before_route')
+      sessionStorage.clear()
       user.logout().then(res => {
         window.location.href = window.location.href.indexOf('https') > -1
           ? this.loginPage + '&return_to=' + 'https://' + window.location.host
