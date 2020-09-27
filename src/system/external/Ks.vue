@@ -383,8 +383,7 @@ export default {
           { required: true, message: this.$t('verify.typeCity'), trigger: 'blur' }
         ],
         address: [
-          { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z][a-zA-Z0-9_-]{3,15}$/, message: this.$t('verify.hostNameVerify') }
+          { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
         ],
         edgerepoIp: [
           { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
