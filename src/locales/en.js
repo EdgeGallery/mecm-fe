@@ -229,7 +229,7 @@ const en = {
     areaTip: 'Area should not be empty',
     applcmNameTip: 'APPLCM should not be empty',
     normalVerify: 'Style is not right',
-    hostNameVerify: "Can only contain numbers, letters, '_'. starting with letters"
+    hostNameVerify: '4 to 16 digits (letters, numbers, underscores, minus signs)'
   },
   tip: {
     getCommonListFailed: 'Get list failed',
