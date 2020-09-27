@@ -230,7 +230,7 @@ const cn = {
     areaTip: '请选择地域',
     applcmNameTip: 'applcm名称不能为空',
     normalVerify: '输入的内容格式不正确',
-    hostNameVerify: "只能是以字母开始的数字、字母和'_'组合"
+    hostNameVerify: '4到16位（字母，数字，下划线，减号）'
   },
   tip: {
     getCommonListFailed: '获取列表失败',
