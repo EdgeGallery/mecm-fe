@@ -443,7 +443,7 @@ export default {
       this.op = !this.op
     },
     handleCityChange (val) {
-      this.currForm.city = val.toString()
+      this.currForm.city = val.join('/')
     },
     uploadFile (row) {
       this.fileList = []
@@ -478,6 +478,7 @@ export default {
         'userName': '',
         'zipCode': ''
       }
+      this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
     },
     beforeDelete (row) {
       app.getInstanceList().then(res => {
