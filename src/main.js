@@ -27,7 +27,6 @@ import VCharts from 'v-charts'
 import { pcaa } from 'area-data-vue'
 import 'area-linkage-vue/dist/index.css'
 import AreaLinkageVue from 'area-linkage-vue'
-// require('./mock.js')
 require('./assets/js/dark.js')
 Vue.prototype.$pcaa = pcaa
 Vue.use(AreaLinkageVue)

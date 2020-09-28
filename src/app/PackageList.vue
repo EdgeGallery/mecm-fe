@@ -164,7 +164,6 @@
               <el-input
                 id="nodesearch"
                 class="el-input-search"
-                clearable
                 v-model="edgeNodeSearchInput"
               >
                 <em
@@ -298,15 +297,17 @@ export default {
       return this.tableData.length
     },
     currPageEdgeNodeTableData: function () {
-      return this.edgeNodesData.filter(data => !this.edgeNodeSearchInput || data.ip.toLowerCase().includes(this.edgeNodeSearchInput.toLowerCase())).slice((this.edgeNodeCurrentPage - 1) * this.edgeNodePageSize, this.edgeNodeCurrentPage * this.edgeNodePageSize)
+      return this.edgeNodesData.filter(data => !this.edgeNodeSearchInput || data.mechostName.toLowerCase().includes(this.edgeNodeSearchInput.toLowerCase()))
     }
   },
   methods: {
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
-        let itemType = item[key].toLowerCase()
-        return itemType.indexOf(val) > -1
+        if (item[key] !== null) {
+          let itemType = item[key].toLowerCase()
+          return itemType.indexOf(val) > -1
+        }
       })
     },
     // 根据搜索组件进行筛选
