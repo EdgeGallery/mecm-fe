@@ -53,14 +53,6 @@ const AFFINITY = [
   {
     label: 'ARM32',
     value: 'ARM32'
-  },
-  {
-    label: 'GPU',
-    value: 'GPU'
-  },
-  {
-    label: 'NPU',
-    value: 'NPU'
   }
 ]
 
