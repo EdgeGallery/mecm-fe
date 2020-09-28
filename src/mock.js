@@ -63,23 +63,6 @@ const packageData = function () {
     type: 'Video Application',
     userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
     userName: 'wenson'
-  },
-  {
-    affinity: 'X86',
-    appId: '73b6f66992ab4798a55350f419a210af',
-    contact: null,
-    createTime: '2020-09-14 20:00:57.29812',
-    details: '',
-    downloadCount: 25,
-    iconUrl: null,
-    industry: 'Smart Park',
-    name: null,
-    provider: 'Huawei',
-    score: 5,
-    shortDesc: 'for testing',
-    type: 'Video Application',
-    userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
-    userName: 'wenson'
   }]
 }
 
