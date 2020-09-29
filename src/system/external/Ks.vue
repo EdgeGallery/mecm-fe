@@ -139,6 +139,7 @@
         :title="title"
         :visible.sync="dialogVisible"
         :close-on-click-modal="false"
+        :show-close="false"
         style="padding-right:30px;"
         width="40%"
       >
@@ -195,6 +196,7 @@
                 prop="city"
               >
                 <area-select
+                  v-if="area"
                   v-model="selectedArea"
                   :data="$pcaa"
                   :level="3"
@@ -355,6 +357,7 @@ export default {
       applcmList: [],
       op: false,
       radio: '1',
+      area: false,
       selectedArea: ['北京市', '北京市', '东城区', '东华门街道'],
       currForm: {
         'address': '',
@@ -380,7 +383,7 @@ export default {
           { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         city: [
-          { required: true, message: this.$t('verify.typeCity'), trigger: 'blur' }
+          { required: true, message: this.$t('tip.typeCity'), trigger: 'blur' }
         ],
         address: [
           { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
@@ -457,9 +460,12 @@ export default {
       this.currForm = row
       this.selectedArea = row.city.split('/')
       this.dialogVisible = true
+      this.area = true
     },
     cancel (row) {
       this.dialogVisible = false
+      this.area = false
+      this.area = false
       this.isDisable = false
       this.resetForm()
     },
@@ -519,11 +525,10 @@ export default {
     register () {
       this.editType = 1
       this.title = this.$t('system.edgeNodes.nodeReg')
+      this.resetForm()
       this.isDisable = false
       this.dialogVisible = true
-      this.$nextTick(() => {
-        this.resetForm()
-      })
+      this.area = true
       system.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {
@@ -573,6 +578,7 @@ export default {
               this.$message.success(this.$t('tip.sucToRegNode'))
               this.getNodeListInPage()
               this.dialogVisible = false
+              this.area = false
               this.isDisable = false
             }).catch((error) => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
@@ -586,6 +592,7 @@ export default {
               this.$message.success(this.$t('tip.sucToModNode'))
               this.getNodeListInPage()
               this.dialogVisible = false
+              this.area = false
               this.isDisable = false
               this.resetForm()
             }).catch(() => {
