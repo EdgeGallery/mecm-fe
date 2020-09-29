@@ -291,7 +291,8 @@ const en = {
     deleteAppBeforeDeleteNode: 'You need to delete the application installed on the node first',
     beforeDeleteApplcm: 'Are you sure to delete this App LCM?',
     beforeDeleteAppstore: 'Are you sure to delete this App Store?',
-    beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host?'
+    beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host?',
+    getStatusDelay: 'There is a delay in query details, please wait 30-40S after the deployment is completed!'
   },
   ...enLocale
 }

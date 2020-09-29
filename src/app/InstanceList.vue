@@ -260,7 +260,11 @@ export default {
         this.detailData = data.pods
         this.dialogVisible = true
       }).catch((error) => {
-        this.$message.error(error.message)
+        if (error.response.status === 404) {
+          this.$message.warning(this.$t('tip.getStatusDelay'))
+        } else {
+          this.$message.error('Network Error')
+        }
       })
     }
   }

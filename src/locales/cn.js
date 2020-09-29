@@ -292,7 +292,8 @@ const cn = {
     deleteAppBeforeDeleteNode: '你需要先删除安装在该节点上的应用',
     beforeDeleteApplcm: '确认要删除APPLCM？',
     beforeDeleteAppstore: '确认要删除App Store？',
-    beforeDeleteFromMechost: '确认要从该节点删除应用应用包？'
+    beforeDeleteFromMechost: '确认要从该节点删除应用应用包？',
+    getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！'
   },
   ...zhLocale
 }

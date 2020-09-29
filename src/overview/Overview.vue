@@ -384,6 +384,10 @@ export default {
         }).catch((error) => {
           if (error.response.status === 412) {
             this.$message.error(error.response.data.response)
+          } else if (error.response.status === 404) {
+            this.$message.warning(this.$t('tip.getStatusDelay'))
+          } else {
+            this.$message.error('Network Error')
           }
           this.loginBtnLoading = false
           // this.$message.error(this.$t('tip.getServiceFailed'))
