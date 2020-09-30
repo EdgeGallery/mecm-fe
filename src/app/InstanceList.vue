@@ -143,6 +143,7 @@
           <el-button
             id="confirmBtn"
             type="primary"
+            @click="dialogVisible = false"
           >{{ $t('common.confirm') }}</el-button>
         </span>
       </el-dialog>
