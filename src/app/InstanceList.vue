@@ -132,20 +132,6 @@
             <span>{{ item.containers[0].containername }}</span>
           </el-form-item>
         </el-form>
-        <span
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-button
-            id="cancelBtn"
-            @click="dialogVisible = false"
-          >{{ $t('common.cancel') }}</el-button>
-          <el-button
-            id="confirmBtn"
-            type="primary"
-            @click="dialogVisible = false"
-          >{{ $t('common.confirm') }}</el-button>
-        </span>
       </el-dialog>
     </div>
   </div>
