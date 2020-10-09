@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.system')"
       :third="$t('nav.appstore')"
+      :path="{ path: '/mecm/systems/external/applcm' }"
     />
     <div class="appstore">
       <Search

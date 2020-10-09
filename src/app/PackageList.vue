@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.appMana')"
       :third="$t('nav.packageMana')"
+      :path="{ path: '/mecm/apac/list' }"
     />
     <div class="apacList">
       <Search

@@ -17,10 +17,10 @@
 <template>
   <div class="breadcrumb">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/mecm/overview' }">
+      <el-breadcrumb-item :to="{ path: '/' }">
         {{ first }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+      <el-breadcrumb-item :to="jumpTo()">
         {{ second }}
       </el-breadcrumb-item>
       <el-breadcrumb-item>
@@ -48,13 +48,19 @@ export default {
     third: {
       required: true,
       type: String
+    },
+    path: {
+      required: true,
+      type: Object
     }
   },
   mounted () {
 
   },
   methods: {
-
+    jumpTo () {
+      return this.path
+    }
   }
 }
 </script>

@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.system')"
       :third="$t('nav.applcm')"
+      :path="{ path: '/mecm/systems/external/applcm' }"
     />
     <Search
       :ip-item="true"
