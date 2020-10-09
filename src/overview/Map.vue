@@ -46,6 +46,7 @@ export default {
             obj.coord = item.city.split('/').join('')
             obj.ip = item.mechostIp
             obj.city = item.city
+            obj.name = item.mechostName
             this.geoCode(obj)
           })
         }
@@ -114,7 +115,7 @@ export default {
         }
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            this.$emit('node', param.data.ip)
+            this.$emit('node', param.data)
           } else {
             let cityId = CityMap[param.name]
             nodeData.forEach((val, index) => {

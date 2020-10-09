@@ -39,6 +39,12 @@
             :gutter="40"
             style="margin-top:30px;"
           >
+            <label class="overviewLabel">节点信息</label>
+            <div class="nodeBasicInfo">
+              <p><span>节点名称：</span>{{ nodeBasicInfo.name }}</p>
+              <p><span>节点IP：</span>{{ nodeBasicInfo.ip }}</p>
+              <p><span>地址：</span>{{ nodeBasicInfo.city }}</p>
+            </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
               :span="8"
@@ -283,7 +289,8 @@ export default {
       appPackageList: [],
       kpiInfo: [],
       loginBtnLoading: false,
-      chartData: {}
+      chartData: {},
+      nodeBasicInfo: null
     }
   },
   methods: {
@@ -297,11 +304,12 @@ export default {
       this.edgeApp = ''
     },
     clickNode (val) {
+      this.nodeBasicInfo = val
       this.alarmStatus = 'nodeinfo'
       this.resetData()
-      this.getNodeKpi(val)
+      this.getNodeKpi(val.ip)
       // this.getMepCap(val)
-      this.getAppInfo(val)
+      this.getAppInfo(val.ip)
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
@@ -440,6 +448,20 @@ export default {
   }
   .el-table td, .el-table th{
     padding:5px 0;
+  }
+  .nodeBasicInfo{
+    color:#F5F5F5;
+    padding:15px 0;
+    p{
+      font-size: 14px;
+      line-height: 25px;
+      padding-left: 10px;
+      span{
+        display: inline-block;
+        // width: 70px;
+        // text-align: right;
+      }
+    }
   }
   .content-right {
     height: 100%;
