@@ -21,6 +21,7 @@
       @click="jumpLogoTo"
     >
       <img
+        class="cp"
         src="../assets/images/logo.png"
         alt=""
       >
@@ -155,7 +156,6 @@ export default {
       position: relative;
       top: 0px;
       width:150px;
-      cursor: pointer;
     }
     span{
       position: relative;

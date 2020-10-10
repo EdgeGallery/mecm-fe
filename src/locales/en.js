@@ -184,11 +184,11 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload'
     },
     appstore: {
-      appstoerName: 'App Store Name',
+      appstoreName: 'App Store Name',
       vendor: 'Vendor',
       username: 'Username',
       ipAddress: 'Ip Address',
-      modifyTime: 'Modified Time', // 上次更新时间
+      createTime: 'Created Time',
       url: 'URL',
       appStoreReg: 'App Store Registration',
       appStoreModify: 'App Store Modify'

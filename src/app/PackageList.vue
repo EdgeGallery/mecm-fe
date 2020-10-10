@@ -453,43 +453,6 @@ export default {
     height: 100%;
     background: #fff;
     padding: 30px 60px;
-  .appStore {
-    width: 100%;
-    height: 175px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-
-    .lt {
-      width: 30%;
-      padding: 15px;
-      text-align: center;
-      p {
-        padding-top: 20px;
-        text-align: center;
-      }
-    }
-    .rt {
-      width: 60%;
-      padding: 15px;
-      div {
-        float: left;
-        width: 46%;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        margin: 0 5px 10px 0;
-        text-align: center;
-        line-height: 30px;
-        font-size: 15px;
-        font-weight: bold;
-        p:first-child {
-          margin-top: 5px;
-        }
-        p:nth-child(2) {
-          color: green;
-        }
-      }
-    }
-  }
   .tableDiv {
     width: 100%;
   }

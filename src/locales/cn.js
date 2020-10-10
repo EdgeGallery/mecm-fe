@@ -185,11 +185,11 @@ const cn = {
       howToUpload: '拖拽文件到上传区域内，或者点击上传'
     },
     appstore: {
-      appstoerName: '应用市场名称',
+      appstoreName: '应用市场名称',
       vendor: '厂商',
       username: '用户名',
       ipAddress: 'IP地址',
-      modifyTime: '修改时间',
+      createTime: '创建时间',
       url: 'URL',
       appStoreReg: 'App Store 注册',
       appStoreModify: 'App Store 编辑'

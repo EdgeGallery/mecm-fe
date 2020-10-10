@@ -36,7 +36,7 @@
             :span="2"
             :offset="22"
           >
-            <div class="el-row-button">
+            <div class="el-row-button rt">
               <el-button
                 id="newregBtn"
                 type="primary"
@@ -618,9 +618,6 @@ export default {
   }
   .tableDiv {
     margin-top: 10px;
-  }
-  .el-row-button {
-    float: right;
   }
 }
 

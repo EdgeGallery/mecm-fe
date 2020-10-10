@@ -30,69 +30,64 @@
         :status-item="false"
         @getSearchData="getSearchData"
       />
-      <div class="func">
-        <p>
-          <span class="rt">
-            <el-button
-              id="newregBtn"
-              type="primary"
-              :disabled="true"
-              @click="register"
-            >{{ $t('system.appLcm.newReg') }}</el-button>
-          </span>
-        </p>
-      </div>
-      <div class="appstoreContainer">
-        <el-table
-          :data="currPageTableData"
-          v-loading="dataLoading"
-          border
-          style="width: 100%;"
+      <p class="btn-p">
+        <el-button
+          id="newregBtn"
+          type="primary"
+          :disabled="true"
+          @click="register"
+          class="rt"
         >
-          <el-table-column
-            prop="appstorename"
-            sortable
-            :label="$t('system.appstore.appstoerName')"
-          />
-          <el-table-column
-            prop="producer"
-            :label="$t('system.appstore.vendor')"
-          />
-          <el-table-column
-            prop="userName"
-            :label="$t('system.appLcm.userNmae')"
-          />
-          <el-table-column
-            prop="url"
-            :label="$t('app.packageList.ip')"
-          />
-          <el-table-column
-            prop="time"
-            :label="$t('system.appstore.modifyTime')"
-          />
-          <el-table-column
-            :label="$t('common.operation')"
+          {{ $t('system.appLcm.newReg') }}
+        </el-button>
+      </p>
+      <div class="">
+        <div class="appstoreList">
+          <div
+            v-for="(item,index) in currPageTableData"
+            :key="index"
+            class="content"
           >
-            <template slot-scope="scope">
-              <el-button
-                id="modifyBtn"
-                @click="handleEdit(scope.row)"
-                type="text"
-                size="small"
+            <div
+              class="list"
+            >
+              <el-form
+                label-width="80px"
               >
-                {{ $t('common.modify') }}
-              </el-button>
-              <el-button
-                id="deleteBtn"
-                @click.native.prevent="handleDelete(scope.row)"
-                type="text"
-                size="small"
-              >
-                {{ $t('common.delete') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+                <el-form-item :label="$t('system.appstore.appstoreName')">
+                  {{ item.appstoreName }}
+                </el-form-item>
+                <el-form-item :label="$t('system.appstore.url')">
+                  {{ item.url }}
+                </el-form-item>
+                <el-form-item :label="$t('system.appstore.username')">
+                  {{ item.userName }}
+                </el-form-item>
+                <el-form-item :label="$t('system.appstore.createTime')">
+                  {{ item.time }}
+                </el-form-item>
+                <el-form-item class="rt">
+                  <el-button
+                    type="text"
+                    class="button"
+                    id="modifyBtn"
+                    @click="handleEdit(item)"
+                  >
+                    {{ $t('common.modify') }}
+                  </el-button>
+                  <el-button
+                    type="text"
+                    class="button"
+                    id="deleteBtn"
+                    @click.native.prevent="handleDelete(item)"
+                  >
+                    {{ $t('common.delete') }}
+                  </el-button>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
+        </div>
         <div class="pageBar">
           <pagination
             :table-data="paginationData"
@@ -114,7 +109,7 @@
               :rules="rules"
             >
               <el-form-item
-                :label="$t('system.appstore.appstoerName')"
+                :label="$t('system.appstore.appstoreName')"
                 prop="appstorename"
               >
                 <el-input
@@ -241,7 +236,7 @@ export default {
             if (key === 'ip') {
               dataKey = 'url'
             } else if (key === 'name') {
-              dataKey = 'appstorename'
+              dataKey = 'appstoreName'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }
@@ -343,8 +338,9 @@ export default {
   height: 100%;
   background: #fff;
   padding: 30px 60px;
-  .func{
-    padding:25px 0;
+  .btn-p{
+    height: 40px;
+    padding:15px 0;
     .rt{
         margin-bottom:15px;
       }

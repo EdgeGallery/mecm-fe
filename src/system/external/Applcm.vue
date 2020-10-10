@@ -23,37 +23,47 @@
       :third="$t('nav.applcm')"
       :path="{ path: '/mecm/systems/external/applcm' }"
     />
-    <Search
-      :ip-item="true"
-      @getSearchData="getSearchData"
-    />
     <div class="sysLcm">
-      <div class="tableDiv">
+      <div class="applcmContainer">
+        <Search
+          :affinity-item="false"
+          :ip-item="true"
+          :name-item="false"
+          :status-item="false"
+          @getSearchData="getSearchData"
+        />
         <p class="btn-p">
-          <span class="rt">
-            <el-button
-              id="newregBtn"
-              type="primary"
-              @click="register"
-            >{{ $t('system.appLcm.newReg') }}</el-button>
-          </span>
+          <el-button
+            id="newregBtn"
+            type="primary"
+            @click="register"
+            class="rt"
+          >
+            {{ $t('system.appLcm.newReg') }}
+          </el-button>
         </p>
-        <el-row>
-          <el-col
-            :span="4"
-            :offset="1"
+        <div class="applcmList">
+          <div
             v-for="(item,index) in currPageTableData"
             :key="index"
+            class="content"
           >
-            <el-card :body-style="{ padding: '0px' }">
-              <div class="info-card">
-                <p class="name">
+            <div
+              class="list"
+            >
+              <el-form
+                label-width="80px"
+              >
+                <el-form-item :label="$t('app.packageList.name')">
                   APPLCM
-                </p>
-                <p class="info">
-                  <span>{{ item.applcmIp }}</span><span>&nbsp;/&nbsp;{{ item.applcmPort }}</span>
-                </p>
-                <div class="bottom clearfix rt">
+                </el-form-item>
+                <el-form-item :label="$t('app.packageList.ip')">
+                  {{ item.applcmIp }}
+                </el-form-item>
+                <el-form-item :label="$t('system.appLcm.port')">
+                  {{ item.applcmPort }}
+                </el-form-item>
+                <el-form-item class="rt">
                   <el-button
                     type="text"
                     class="button"
@@ -70,11 +80,11 @@
                   >
                     {{ $t('common.delete') }}
                   </el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+                </el-form-item>
+              </el-form>
+            </div>
+          </div>
+        </div>
         <div class="pageBar">
           <pagination
             :table-data="paginationData"
@@ -82,74 +92,75 @@
           />
         </div>
       </div>
-      <el-dialog
-        :title="title"
-        :visible.sync="dialogVisible"
-        width="40%"
-      >
-        <el-row>
-          <el-col
-            :span="16"
-          >
-            <el-form
-              label-width="150px"
-              :model="form"
-              ref="form"
-              :rules="rules"
-            >
-              <el-form-item
-                label="APPLCM 名称"
-                prop="applcmName"
-              >
-                <el-input
-                  id="name"
-                  maxlength="20"
-                  v-model="form.applcmName"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.ip')"
-                prop="applcmIp"
-              >
-                <el-input
-                  id="ip"
-                  v-model="form.applcmIp"
-                  :disabled="ipDisable"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.port')"
-                prop="applcmPort"
-              >
-                <el-input
-                  id="port"
-                  v-model="form.applcmPort"
-                />
-              </el-form-item>
-            </el-form>
-          </el-col>
-        </el-row>
-        <span
-          slot="footer"
-          class="dialog-footer"
-        >
-          <el-button
-            id="cancelBtn"
-            @click="dialogVisible = false"
-          >{{ $t('common.cancel') }}</el-button>
-          <el-button
-            id="confirmBtn"
-            type="primary"
-            @click="confirmToRegister('form')"
-          >{{ $t('common.confirm') }}</el-button>
-        </span>
-      </el-dialog>
     </div>
+    <el-dialog
+      :title="title"
+      :visible.sync="dialogVisible"
+      width="40%"
+    >
+      <el-row>
+        <el-col
+          :span="16"
+        >
+          <el-form
+            label-width="150px"
+            :model="form"
+            ref="form"
+            :rules="rules"
+          >
+            <el-form-item
+              label="APPLCM 名称"
+              prop="applcmName"
+            >
+              <el-input
+                id="name"
+                maxlength="20"
+                v-model="form.applcmName"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('app.packageList.ip')"
+              prop="applcmIp"
+            >
+              <el-input
+                id="ip"
+                v-model="form.applcmIp"
+                :disabled="ipDisable"
+              />
+            </el-form-item>
+            <el-form-item
+              :label="$t('system.appLcm.port')"
+              prop="applcmPort"
+            >
+              <el-input
+                id="port"
+                v-model="form.applcmPort"
+              />
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </el-row>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="cancelBtn"
+          @click="dialogVisible = false"
+        >{{ $t('common.cancel') }}</el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+          @click="confirmToRegister('form')"
+        >{{ $t('common.confirm') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { system } from '../../tools/request.js'
+import Search from '../../components/Search.vue'
 import pagination from '../../components/Pagination.vue'
 import Breadcrumb from '../../components/BreadCrumb'
 
@@ -157,7 +168,8 @@ export default {
   name: 'SysLcm',
   components: {
     pagination,
-    Breadcrumb
+    Breadcrumb,
+    Search
   },
   data () {
     return {
@@ -207,7 +219,11 @@ export default {
         for (let key in data) {
           if (data[key]) {
             reset = true
-            this.filterTableData(data[key].toLowerCase(), key)
+            let dataKey = key
+            if (key === 'ip') {
+              dataKey = 'applcmIp'
+            }
+            this.filterTableData(data[key].toLowerCase(), dataKey)
           }
         }
         if (!reset) this.paginationData = this.tableData
@@ -298,46 +314,12 @@ export default {
   height: 100%;
   background: #fff;
   padding: 30px 60px;
-  .tableDiv{
+  .applcmContainer{
     padding-top:25px;
-    p{
-      padding-bottom:5px;
-      .title{
-        position:relative;
-        top:15px;
-      }
-      span.title::before{
-        content:'';
-        display: inline-block;
-        height:15px;
-        width:4px;
-        background: #409EFF;
-        position: relative;
-        top:3px;
-        margin-right:3px;
-      }
-      .rt{
-        margin-bottom:15px;
-      }
+    .btn-p{
+      height:40px;
+      padding:15px 0;
     }
-  }
-  .el-form{
-    margin-top:36px;
-  }
-  .info-card{
-    line-height: 28px;
-    padding:15px;
-    .name{
-      text-align: center;
-      font-size:15px;
-      font-weight: bold;
-    }
-    .info{
-      text-align: center;
-    }
-  }
-  .btn-p{
-    height:50px;
   }
 }
 </style>
