@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="box">
+    <div class="content">
       <div
         id="mapChart"
         class="chart"
@@ -46,6 +46,7 @@ export default {
             obj.coord = item.city.split('/').join('')
             obj.ip = item.mechostIp
             obj.city = item.city
+            obj.name = item.mechostName
             this.geoCode(obj)
           })
         }
@@ -114,7 +115,7 @@ export default {
         }
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            this.$emit('node', param.data.ip)
+            this.$emit('node', param.data)
           } else {
             let cityId = CityMap[param.name]
             nodeData.forEach((val, index) => {
@@ -234,67 +235,16 @@ function initMapData (mapJson) {
 }
 </script>
 
-<style scoped>
-.title {
-  width: 100%;
-  height: 10vh;
-  text-align: center;
-  color: #fff;
-  font-size: 2em;
-  line-height: 10vh;
-}
-.box {
+<style lang='less' scoped>
+.content {
   width: 90%;
   height: 80vh;
   left: 5%;
   top: 10%;
-}
-
-.chart {
-  position: relative;
-  height: 90%;
-  top: 10%;
-}
-.backBtn {
-  position: absolute;
-  top: 0;
-  background-color: #00c298;
-  border: 0;
-  color: #fff;
-  height: 27px;
-  font-family: Microsoft Yahei,sans-serif;
-  font-size: 1em;
-  cursor: pointer;
-}
-.myBlog {
-  position: absolute;
-  top: 2px;
-  right: 5%;
-  display: block;
-  border: 2px solid #262a53;
-}
-.myBlog a {
-  text-decoration: none;
-  display: inline-block;
-  color: #fff;
-  padding: 5px;
-  font-size: 1em;
-}
-
-.myBlog a img {
-  vertical-align: middle;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  margin: -5px 5px auto auto;
-}
-.bottom {
-  position: absolute;
-  width: 100%;
-  height: 5%;
-  line-height: 100%;
-  left: 0;
-  bottom: 0%;
-  text-align: center;
+  .chart {
+    position: relative;
+    height: 90%;
+    top: 10%;
+  }
 }
 </style>

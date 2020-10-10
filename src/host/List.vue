@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.edgeNodes')"
       :third="$t('nav.nodeList')"
+      :path="{ path: '/mecm/node/list' }"
     />
     <div
       class="nodelist"

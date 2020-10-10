@@ -22,15 +22,9 @@ html,body,p,h1,h2,h3,h4,h5,h6,ul,li{
 #app,html,body{
   height:100%;
 }
-.el-main{
-  padding:20px 20px 60px 20px;
-}
 a{
   text-decoration: none;
   color:#fff;
-}
-li{
-  list-style: none;
 }
 .lt{
   float: left;
@@ -70,7 +64,7 @@ li{
 .h100{
   height: 100%;
 }
-.cp, .curp{
+.cp{
   cursor: pointer;
 }
 
@@ -110,6 +104,10 @@ li{
   color:#fff;
 }
 
+.el-message{
+  top: 65px !important;
+}
+
 /* navBar */
 .el-menu--horizontal>.el-submenu .el-submenu__icon-arrow{
   margin-top:3px;
@@ -119,19 +117,13 @@ li{
 }
 
 
-.el-message{
-  top: 65px !important;
-}
-
-body .el-table th.gutter{
-  display: table-cell !important;
-}
-
-
 /* 表格统一样式 */
 .el-table .has-gutter th{
   background: #F0F3FA;
   height:32px;
+}
+body .el-table th.gutter{
+  display: table-cell !important;
 }
 
 /* area-link样式 */
@@ -139,11 +131,54 @@ body .el-table th.gutter{
   padding-top:0px !important;
 }
 
-
+/* el-upload样式 */
 .el-upload{
   width:100% !important;
 }
 
 .el-upload-dragger{
   width:100% !important;
+}
+/* system form样式 */
+.appstoreList .el-form-item__content,.applcmList .el-form-item__content{
+    line-height: 25px;
+  }
+.appstoreList .el-form-item__label,.applcmList .el-form-item__label{
+  line-height:25px;
+  font-weight: bold;
+}
+
+.applcmList,.appstoreList{
+  padding:15px 0;
+  display:flex;
+  flex-wrap: wrap;
+  .content {
+    width: 25%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    .list {
+      padding: 15px;
+      border: 1px solid #e6e6e6;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      transition: transform 0.3s ease-in;
+      .el-form{
+      width:100%;
+      .el-form-item{
+        margin-bottom: 0;
+        .button:nth-child(2){
+          margin-right:15px;
+        }
+      }
+    }
+    }
+    .list:hover,appstores:hover{
+      transform: translate3d(0,-10px,0);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      background-color: #f5f5f5;
+    }
+  }
 }

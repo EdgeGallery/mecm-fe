@@ -129,19 +129,14 @@ const distributionData = function () {
 const applcmData = function () {
   return [
     {
-      'ip': '119.8.125.174',
-      'port': '30101',
-      'managedMecHost': null,
-      'username': 'wenson',
-      'password': '######',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
+      'applcmIp': '119.8.125.174',
+      'applcmPort': '30101',
+      'userName': 'wenson'
     },
-    { 'ip': '159.138.140.246',
-      'port': '30101',
-      'managedMecHost': null,
-      'username': '',
-      'password': '',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
+    {
+      'applcmIp': '119.8.125.175',
+      'applcmPort': '30102',
+      'userName': 'wenson'
     }
   ]
 }
@@ -149,12 +144,10 @@ const applcmData = function () {
 const appstoreData = function () {
   return [
     { 'url': 'https://appstore.edgegallery.com',
-      'username': 'wenson',
-      'password': '######',
-      'appstorename': 'huaweiappstore',
+      'userName': 'wenson',
+      'appstoreName': 'huaweiappstore',
       'producer': 'huawei',
-      'time': '01-09-2020 09:04:04',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
+      'time': '01-09-2020 09:04:04'
     }
   ]
 }
