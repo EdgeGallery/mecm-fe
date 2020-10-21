@@ -39,11 +39,11 @@
             :gutter="40"
             style="margin-top:30px;"
           >
-            <label class="overviewLabel">节点信息</label>
+            <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
             <div class="nodeBasicInfo">
-              <p><span>节点名称：</span>{{ nodeBasicInfo.name }}</p>
-              <p><span>节点IP：</span>{{ nodeBasicInfo.ip }}</p>
-              <p><span>地址：</span>{{ nodeBasicInfo.city }}</p>
+              <p><span>{{ $t('overview.nodeName') }}节点名称：</span>{{ nodeBasicInfo.name }}</p>
+              <p><span>{{ $t('overview.nodeIp') }}节点IP：</span>{{ nodeBasicInfo.ip }}</p>
+              <p><span>{{ $t('overview.nodeAddress') }}地址：</span>{{ nodeBasicInfo.city }}</p>
             </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
