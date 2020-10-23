@@ -49,12 +49,7 @@
               v-loading="dataLoading"
               :data="currPageTableData"
               border
-              @selection-change="handleSelectionChange"
             >
-              <el-table-column
-                type="selection"
-                width="55"
-              />
               <el-table-column
                 prop="name"
                 sortable
@@ -339,10 +334,6 @@ export default {
       this.currentRowData = row
       this.dialogVisible = true
       this.getNodeList(row)
-    },
-    handleSelectionChange (val) {
-      this.rowSelection = val
-      this.selectedNum = val.length
     },
     handleEdgeNodeSelectionChange (val) {
       this.nodeSelection = val

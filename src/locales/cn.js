@@ -87,7 +87,11 @@ const cn = {
     register: '注册',
     alarms: '告警',
     nodeinfo: '节点信息',
-    statistics: '统计表'
+    statistics: '统计表',
+    nodeIp: '节点IP',
+    nodeName: '节点名称',
+    nodeAddress: '节点地址',
+    nodeInfo: '节点信息'
   },
   app: {
     packageList: {

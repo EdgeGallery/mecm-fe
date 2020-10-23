@@ -88,7 +88,11 @@ const en = {
     register: 'Register',
     alarms: 'Alarms',
     nodeinfo: 'Node Info',
-    statistics: 'Statistics'
+    statistics: 'Statistics',
+    nodeIp: 'Node IP',
+    nodeName: 'Node Name',
+    nodeAddress: 'Node Address',
+    nodeInfo: 'Node Information'
   },
   app: {
     packageList: {

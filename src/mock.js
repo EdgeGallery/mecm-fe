@@ -85,7 +85,11 @@ const instanceInfo = function () {
 }
 
 const kpiInfo = function () {
-  let data = { 'cpuusage': { 'total': 1600653686.904, 'used': '0.025' }, 'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' }, 'diskusage': { 'total': '0.0', 'used': '0.0' } }
+  let data = {
+    'cpuusage': { 'total': 1600653686.904, 'used': '0.025' },
+    'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' },
+    'diskusage': { 'total': '0.0', 'used': '0.0' }
+  }
   return {
     response: JSON.stringify(data)
   }
