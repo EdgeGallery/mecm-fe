@@ -41,7 +41,8 @@ const hostData = function () {
       mechostIp: '119.8.53.3',
       mechostName: 'Node',
       userName: '',
-      zipCode: ''
+      zipCode: '',
+      capability: 'GPU'
     }
   ]
 }

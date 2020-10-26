@@ -41,9 +41,9 @@
           >
             <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
             <div class="nodeBasicInfo">
-              <p><span>{{ $t('overview.nodeName') }}节点名称：</span>{{ nodeBasicInfo.name }}</p>
-              <p><span>{{ $t('overview.nodeIp') }}节点IP：</span>{{ nodeBasicInfo.ip }}</p>
-              <p><span>{{ $t('overview.nodeAddress') }}地址：</span>{{ nodeBasicInfo.city }}</p>
+              <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.name }}</p>
+              <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.ip }}</p>
+              <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
             </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
@@ -340,7 +340,7 @@ export default {
         this.edgeAppList = []
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
-            if (item.mecHost === ip) {
+            if (item.mecHost === ip && item.operationalStatus === 'Instantiated') {
               let obj = {}
               obj.label = item.appName
               obj.value = item.appInstanceId
