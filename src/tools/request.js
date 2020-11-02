@@ -65,7 +65,13 @@ function DELETE (url, params) {
 }
 
 function getUserId () {
-  return sessionStorage.getItem('userId')
+  if (sessionStorage.getItem('userId')) {
+    return sessionStorage.getItem('userId')
+  } else {
+    user.getUserInfo.then(res => {
+      return res.data.userId
+    })
+  }
 }
 
 function getToken () {
@@ -103,7 +109,7 @@ let overview = {
   getPackageInfo (item) {
     return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
   },
-  getMepCap (hostip) {
+  getHmCapa (hostip) {
     return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   },
   getNodeKpi (hostip) {

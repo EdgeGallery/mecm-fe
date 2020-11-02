@@ -35,8 +35,8 @@ let overview = {
   getAppInfo () {
     return axios.get('/mock/instanceInfo')
   },
-  getMepCap () {
-    return axios.get('/mock/mepInfo')
+  getHmCapa () {
+    return axios.get('/mock/getHmCapability')
   },
   getNodeKpi () {
     return axios.get('/mock/kpiInfo')
