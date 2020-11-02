@@ -251,7 +251,7 @@
                 <el-input
                   id="vendor"
                   maxlength="20"
-                  v-model="currForm.username"
+                  v-model="vendor"
                   width="50%"
                 />
               </el-form-item>
@@ -435,7 +435,8 @@ export default {
       editType: 1,
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
-      capability: []
+      capability: [],
+      vendor: ''
     }
   },
   mounted () {
