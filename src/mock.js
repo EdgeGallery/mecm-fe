@@ -43,6 +43,21 @@ const hostData = function () {
       userName: '',
       zipCode: '',
       capability: 'GPU'
+    },
+    {
+      address: '78hao',
+      affinity: 'X86',
+      applcmIp: '119.8.53.3',
+      city: '北京市/北京市/朝阳区/义井街道',
+      edgerepoIp: '119.8.53.3',
+      edgerepoName: null,
+      edgerepoPort: '8123',
+      edgerepoUsername: '',
+      mechostIp: '119.8.53.3',
+      mechostName: 'Node',
+      userName: '',
+      zipCode: '',
+      capability: 'GPU'
     }
   ]
 }
@@ -63,11 +78,11 @@ const packageData = function () {
     shortDesc: 'for testing',
     type: 'Video Application',
     userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
-    userName: 'wenson'
+    userName: 'Xxx'
   }]
 }
 
-const instanceInfo = function () {
+const instanceList = function () {
   return {
     'response': [
       {
@@ -93,6 +108,22 @@ const kpiInfo = function () {
   }
   return {
     response: JSON.stringify(data)
+  }
+}
+
+const HMCapability = function () {
+  return {
+    'hwcapabilities': {
+      'type': 'GPU',
+      'vendor': 'testvendor',
+      'model': 'testmodel',
+      'specification': [
+        {
+          'spectype': 'noofcards',
+          'specvalue': '2'
+        }
+      ]
+    }
   }
 }
 
@@ -136,12 +167,12 @@ const applcmData = function () {
     {
       'applcmIp': '119.8.125.174',
       'applcmPort': '30101',
-      'userName': 'wenson'
+      'userName': 'Xxx'
     },
     {
       'applcmIp': '119.8.125.175',
       'applcmPort': '30102',
-      'userName': 'wenson'
+      'userName': 'Xxx'
     }
   ]
 }
@@ -149,7 +180,7 @@ const applcmData = function () {
 const appstoreData = function () {
   return [
     { 'url': 'https://appstore.edgegallery.com',
-      'userName': 'wenson',
+      'userName': 'Xxx',
       'appstoreName': 'huaweiappstore',
       'producer': 'huawei',
       'time': '01-09-2020 09:04:04'
@@ -208,6 +239,7 @@ Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/alarmData', alarmData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
-Mock.mock('/mock/instanceInfo', instanceInfo)
+Mock.mock('/mock/instanceList', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
+Mock.mock('/mock/getHmCapability', HMCapability)

@@ -74,8 +74,8 @@ const en = {
     disk: 'DISK',
     mepCapa: 'MEP Capabilities',
     capa: 'Capabilities',
-    numOfApp: 'used',
-    available: 'Status',
+    vendor: 'Vendor',
+    model: 'Model',
     desc: 'Description',
     app: 'App',
     manage: 'Manage',
@@ -89,9 +89,9 @@ const en = {
     alarms: 'Alarms',
     nodeinfo: 'Node Info',
     statistics: 'Statistics',
-    nodeIp: 'Node IP',
-    nodeName: 'Node Name',
-    nodeAddress: 'Node Address',
+    nodeIp: 'Node IP:',
+    nodeName: 'Node Name:',
+    nodeAddress: 'Node Address:',
     nodeInfo: 'Node Information'
   },
   app: {
@@ -114,7 +114,8 @@ const en = {
       createTime: 'Create Time',
       download: 'Download',
       auth: 'Author',
-      pacVersion: 'Package Version'
+      pacVersion: 'Package Version',
+      status: 'Status'
     },
     distriList: {
       mecHost: 'MEC Hosts',

@@ -233,6 +233,29 @@
                   </el-radio>
                 </el-radio-group>
               </el-form-item>
+
+              <el-form-item
+                label="HM Capability"
+                prop="affinity"
+              >
+                <el-checkbox-group v-model="capability">
+                  <el-checkbox label="CPU" />
+                  <el-checkbox label="GPU" />
+                  <el-checkbox label="NPU" />
+                </el-checkbox-group>
+              </el-form-item>
+
+              <el-form-item
+                label="Vendor & Model"
+              >
+                <el-input
+                  id="vendor"
+                  maxlength="20"
+                  v-model="currForm.username"
+                  width="50%"
+                />
+              </el-form-item>
+
               <el-form-item
                 label="APPLCM"
                 prop="applcmIp"
@@ -411,7 +434,8 @@ export default {
       title: '',
       editType: 1,
       isDisable: false,
-      affinityList: ['X86', 'ARM64', 'ARM32']
+      affinityList: ['X86', 'ARM64', 'ARM32'],
+      capability: []
     }
   },
   mounted () {

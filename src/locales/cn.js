@@ -73,8 +73,8 @@ const cn = {
     disk: 'DISK',
     mepCapa: 'MEP 能力',
     capa: '能力',
-    numOfApp: '已安装App',
-    available: '状态',
+    vendor: '提供商',
+    model: '品牌',
     desc: '描述',
     app: '应用',
     manage: '管理',
@@ -88,9 +88,9 @@ const cn = {
     alarms: '告警',
     nodeinfo: '节点信息',
     statistics: '统计表',
-    nodeIp: '节点IP',
-    nodeName: '节点名称',
-    nodeAddress: '节点地址',
+    nodeIp: '节点IP：',
+    nodeName: '节点名称：',
+    nodeAddress: '节点地址：',
     nodeInfo: '节点信息'
   },
   app: {
@@ -114,7 +114,8 @@ const cn = {
       download: '下载',
       fileNotSupport: '不支持的文件格式',
       auth: '作者',
-      pacVersion: '应用版本'
+      pacVersion: '应用版本',
+      status: '状态'
     },
     distriList: {
       mecHost: 'MEC 主机',

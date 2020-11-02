@@ -118,11 +118,13 @@ export default {
             this.$emit('node', param.data)
           } else {
             let cityId = CityMap[param.name]
+            let arr = []
             nodeData.forEach((val, index) => {
-              if (val.city.indexOf(param.data.name) < 0) {
-                nodeData.splice(index, 1)
+              if (val.city.indexOf(param.data.name) > -1) {
+                arr.push(val)
               }
             })
+            nodeData = arr
             this.$emit('area', param.data.name)
             if (cityId) {
               axios

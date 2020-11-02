@@ -36,6 +36,7 @@
             style="float:right;"
             type="primary"
             @click="getAppListFromAppStore()"
+            v-if="false"
           >
             {{ $t('app.packageList.synchronize') }}
           </el-button>

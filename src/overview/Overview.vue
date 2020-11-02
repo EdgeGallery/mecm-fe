@@ -92,20 +92,16 @@
             header-row-class-name="headerClassName"
           >
             <el-table-column
-              prop="capabilityName"
+              prop="type"
               :label="$t('overview.capa')"
             />
             <el-table-column
-              prop="consumers.length"
-              :label="$t('overview.numOfApp')"
+              prop="vendor"
+              :label="$t('overview.vendor')"
             />
             <el-table-column
-              prop="status"
-              :label="$t('overview.available')"
-            />
-            <el-table-column
-              prop="version"
-              :label="$t('app.packageList.version')"
+              prop="model"
+              :label="$t('overview.model')"
             />
           </el-table>
         </div>
@@ -161,8 +157,8 @@
                   :label="$t('overview.capa')"
                 />
                 <el-table-column
-                  prop="provider"
-                  :label="$t('app.packageList.vendor')"
+                  prop="status"
+                  :label="$t('app.packageList.status')"
                 />
                 <el-table-column
                   prop="version"
@@ -284,7 +280,6 @@ export default {
       },
       capabilitiesData: [],
       manageDialogStatus: false,
-      nodeList: [],
       infoList: [],
       appPackageList: [],
       kpiInfo: [],
@@ -308,11 +303,12 @@ export default {
       this.alarmStatus = 'nodeinfo'
       this.resetData()
       this.getNodeKpi(val.ip)
-      // this.getMepCap(val)
+      this.getHmCapa(val)
       this.getAppInfo(val.ip)
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
+      console.log(msg)
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -358,11 +354,12 @@ export default {
         // this.$message.error(this.$t('tip.getAppInfoFailed'))
       })
     },
-    getMepCap (host) {
-      overview.getMepCap(host).then(res => {
+    getHmCapa (host) {
+      overview.getHmCapa(host).then(res => {
         if (res && res.data) {
+          console.log(res.data)
           if (res.data.status !== 500) {
-            this.mepCapabilitiesData = res.data
+            this.mepCapabilitiesData.push(res.data.hwcapabilities)
           }
         }
       }).catch(() => {
@@ -374,9 +371,9 @@ export default {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
-          this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total * 100).toFixed(2))
-          this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total * 100).toFixed(2))
-          this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total * 100).toFixed(2))
+          this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used * 100).toFixed(2))
+          this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used * 100).toFixed(2))
+          this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getKpiFailed'))
