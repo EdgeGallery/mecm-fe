@@ -35,6 +35,7 @@
               maxlength="20"
               v-model="formData.name"
               :placeholder="$t('app.packageList.name')"
+              @keyup.enter.native="search"
             />
           </el-form-item>
         </el-col>
@@ -50,6 +51,7 @@
               id="affinity"
               v-model="formData.affinity"
               :placeholder="$t('app.packageList.affinity')"
+              @change="search"
             >
               <el-option
                 v-for="item in affinity"
@@ -72,6 +74,7 @@
               id="type"
               v-model="formData.type"
               :placeholder="$t('app.packageList.type')"
+              @change="search"
             >
               <el-option
                 v-for="item in types"
@@ -94,6 +97,7 @@
               id="status"
               v-model="formData.status"
               :placeholder="$t('app.distriList.status')"
+              @change="search"
             >
               <el-option
                 v-for="item in status"
@@ -117,6 +121,7 @@
               maxlength="15"
               v-model="formData.ip"
               :placeholder="$t('app.packageList.ip')"
+              @keyup.enter.native="search"
             />
           </el-form-item>
         </el-col>
