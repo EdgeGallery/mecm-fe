@@ -69,7 +69,7 @@ function getUserId () {
     return sessionStorage.getItem('userId')
   } else {
     user.getUserInfo().then(res => {
-      return res.data.userIdg
+      return res.data.userId
     })
   }
 }
