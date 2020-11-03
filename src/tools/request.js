@@ -65,11 +65,7 @@ function DELETE (url, params) {
 }
 
 function getUserId () {
-  if (sessionStorage.getItem('userId')) {
-    return sessionStorage.getItem('userId')
-  } else {
-    setTimeout(() => { getUserId() }, 200)
-  }
+  return sessionStorage.getItem('userId')
 }
 
 function getToken () {
