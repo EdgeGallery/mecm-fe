@@ -68,7 +68,12 @@ export default {
   mounted () {
     this.jsonData = NavDataCn
     this.language = 'English'
-    this.getUserInfo()
+    user.getUserInfo().then(res => {
+      sessionStorage.setItem('userId', res.data.userId)
+      sessionStorage.setItem('access_token', res.data.accessToken)
+      sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
+      this.loginPage = res.data.loginPage
+    })
   },
   methods: {
     jumpTo (path) {
@@ -103,14 +108,6 @@ export default {
           appDom.style.fontFamily = 'Microsoft YaHei, FZLTXHJW, Microsoft JhengHei, sans-serif'
         }
       }
-    },
-    async getUserInfo () {
-      await user.getUserInfo().then(res => {
-        sessionStorage.setItem('userId', res.data.userId)
-        sessionStorage.setItem('access_token', res.data.accessToken)
-        sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
-        this.loginPage = res.data.loginPage
-      })
     },
     beforeLogout () {
       this.$confirm(this.$t('nav.logoutTip'), this.$t('common.warning'), {

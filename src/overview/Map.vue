@@ -11,7 +11,7 @@
 
 <script>
 import CityMap from '../assets/js/CityMap'
-import { overview, edge, user } from '../tools/request'
+import { overview, edge } from '../tools/request'
 import echarts from 'echarts'
 import axios from 'axios'
 
@@ -34,11 +34,7 @@ export default {
     this.getNodeList()
   },
   methods: {
-    async getNodeList () {
-      await user.getUserInfo().then(response => {
-        sessionStorage.setItem('userId', response.data.userId)
-        sessionStorage.setItem('access_token', response.data.accessToken)
-      })
+    getNodeList () {
       edge.getNodeList().then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
