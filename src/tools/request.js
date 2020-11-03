@@ -68,9 +68,7 @@ function getUserId () {
   if (sessionStorage.getItem('userId')) {
     return sessionStorage.getItem('userId')
   } else {
-    user.getUserInfo().then(res => {
-      return res.data.userId
-    })
+    setTimeout(() => { getUserId() }, 200)
   }
 }
 
