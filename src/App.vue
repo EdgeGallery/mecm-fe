@@ -16,16 +16,34 @@
 
 <template>
   <div id="app">
-    <router-view />
+    <Navbar />
+    <div class="home-container">
+      <router-view id="container" />
+    </div>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Nav'
 export default {
   name: 'App',
   components: {
+    Navbar
   },
-  mounted () {},
+  mounted () {
+    let userAgent = navigator.userAgent
+    if (userAgent.indexOf('Chrome') > -1) {
+      // ok
+    } else {
+      this.$notify.warning({
+        title: 'warning',
+        message: this.$t('tip.browserAdvise'),
+        showClose: false,
+        duration: 0,
+        offset: 60
+      })
+    }
+  },
   methods: {},
   beforeCreate () {
     if (sessionStorage.getItem('before_route')) {
