@@ -55,7 +55,7 @@
                 label-width="80px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  APPLCM
+                  App LCM
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.applcmIp }}
@@ -109,7 +109,7 @@
             :rules="rules"
           >
             <el-form-item
-              label="APPLCM 名称"
+              label="$t('system.appLcm.name')"
               prop="applcmName"
             >
               <el-input

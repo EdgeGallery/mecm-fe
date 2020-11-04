@@ -80,7 +80,7 @@
           <el-table-column
             prop="edgerepoIp"
             sortable
-            label="Edge Repo Ip"
+            label="Edge RepoIP"
           />
           <el-table-column
             prop="edgerepoPort"
@@ -90,7 +90,7 @@
           <el-table-column
             prop="applcmIp"
             sortable
-            label="App Lcm Ip"
+            label="App LCM IP"
           />
           <el-table-column
             :label="$t('common.operation')"
