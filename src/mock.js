@@ -168,11 +168,6 @@ const applcmData = function () {
       'applcmIp': '119.8.125.174',
       'applcmPort': '30101',
       'userName': 'Xxx'
-    },
-    {
-      'applcmIp': '119.8.125.175',
-      'applcmPort': '30102',
-      'userName': 'Xxx'
     }
   ]
 }

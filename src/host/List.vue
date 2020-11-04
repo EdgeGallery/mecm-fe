@@ -74,13 +74,9 @@
             :label="$t('app.packageList.affinity')"
           />
           <el-table-column
-            prop="capability"
-            label="HM Capability"
-          />
-          <el-table-column
             prop="edgerepoIp"
             sortable
-            label="Edge Repo Ip"
+            label="Edge Repo IP"
           />
           <el-table-column
             prop="edgerepoPort"
@@ -90,7 +86,7 @@
           <el-table-column
             prop="applcmIp"
             sortable
-            label="App Lcm Ip"
+            label="App LCM IP"
           />
           <el-table-column
             :label="$t('common.operation')"

@@ -82,13 +82,9 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="capability"
-              label="HM Capability"
-            />
-            <el-table-column
               prop="edgerepoIp"
               sortable
-              label="Edge Repo Ip"
+              label="Edge Repo IP"
             />
             <el-table-column
               prop="edgerepoPort"
@@ -98,7 +94,7 @@
             <el-table-column
               prop="applcmIp"
               sortable
-              label="App Lcm Ip"
+              label="App LCM IP"
             />
             <el-table-column
               :label="$t('common.operation')"
@@ -233,31 +229,8 @@
                   </el-radio>
                 </el-radio-group>
               </el-form-item>
-
               <el-form-item
-                label="HM Capability"
-                prop="affinity"
-              >
-                <el-checkbox-group v-model="capability">
-                  <el-checkbox label="CPU" />
-                  <el-checkbox label="GPU" />
-                  <el-checkbox label="NPU" />
-                </el-checkbox-group>
-              </el-form-item>
-
-              <el-form-item
-                label="Vendor & Model"
-              >
-                <el-input
-                  id="vendor"
-                  maxlength="20"
-                  v-model="vendor"
-                  width="50%"
-                />
-              </el-form-item>
-
-              <el-form-item
-                label="APPLCM"
+                label="App LCM"
                 prop="applcmIp"
               >
                 <el-select
@@ -424,7 +397,7 @@ export default {
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appLcmIp: [
+        applcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
         ],
         affinity: [
