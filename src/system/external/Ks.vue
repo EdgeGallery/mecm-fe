@@ -236,7 +236,7 @@
 
               <el-form-item
                 label="HM Capability"
-                prop="affinity"
+                prop="capability"
               >
                 <el-checkbox-group v-model="capability">
                   <el-checkbox label="CPU" />
@@ -424,7 +424,7 @@ export default {
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appLcmIp: [
+        applcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
         ],
         affinity: [
