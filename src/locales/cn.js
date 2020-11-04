@@ -159,7 +159,8 @@ const cn = {
       password: '密码',
       newReg: '新增注册',
       applcmReg: 'App LCM 注册',
-      applcmModify: 'App LCM 编辑'
+      applcmModify: 'App LCM 编辑',
+      name: '名称'
     },
     edgeNodes: {
       systemPlatform: '系统',

@@ -158,7 +158,8 @@ const en = {
       password: 'Password',
       newReg: 'New Registration',
       applcmReg: 'App LCM Registration',
-      applcmModify: 'App LCM Modify'
+      applcmModify: 'App LCM Modify',
+      name: 'Name'
     },
     edgeNodes: {
       systemPlatform: 'System',
