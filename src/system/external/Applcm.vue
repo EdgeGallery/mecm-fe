@@ -109,7 +109,7 @@
             :rules="rules"
           >
             <el-form-item
-              :label="$t('app.applcm.name')"
+              :label="$t('system.appLcm.name')"
               prop="applcmName"
             >
               <el-input
