@@ -20,7 +20,7 @@
 import axios from 'axios'
 require('../mock.js')
 
-let inventoryUrl = ['/applcms', '/mechosts', 'appstores']
+let inventoryUrl = ['/applcms', '/mechosts', '/appstores']
 
 let user = {
   getUserInfo () {
@@ -35,8 +35,8 @@ let overview = {
   getAppInfo () {
     return axios.get('/mock/instanceInfo')
   },
-  getMepCap () {
-    return axios.get('/mock/mepInfo')
+  getHmCapa () {
+    return axios.get('/mock/getHmCapability')
   },
   getNodeKpi () {
     return axios.get('/mock/kpiInfo')
@@ -71,8 +71,8 @@ let edge = {
   }
 }
 let system = {
-  getList () {
-    return axios.get('/mock' + inventoryUrl[1])
+  getList (type) {
+    return axios.get('/mock' + inventoryUrl[type - 1])
   }
 }
 

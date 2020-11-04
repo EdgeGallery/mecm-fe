@@ -103,7 +103,7 @@ let overview = {
   getPackageInfo (item) {
     return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
   },
-  getMepCap (hostip) {
+  getHmCapa (hostip) {
     return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   },
   getNodeKpi (hostip) {

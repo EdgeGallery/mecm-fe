@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.appMana')"
       :third="$t('nav.packageMana')"
+      :path="{ path: '/mecm/apac/list' }"
     />
     <div class="apacList">
       <Search
@@ -35,6 +36,7 @@
             style="float:right;"
             type="primary"
             @click="getAppListFromAppStore()"
+            v-if="false"
           >
             {{ $t('app.packageList.synchronize') }}
           </el-button>
@@ -48,12 +50,7 @@
               v-loading="dataLoading"
               :data="currPageTableData"
               border
-              @selection-change="handleSelectionChange"
             >
-              <el-table-column
-                type="selection"
-                width="55"
-              />
               <el-table-column
                 prop="name"
                 sortable
@@ -339,10 +336,6 @@ export default {
       this.dialogVisible = true
       this.getNodeList(row)
     },
-    handleSelectionChange (val) {
-      this.rowSelection = val
-      this.selectedNum = val.length
-    },
     handleEdgeNodeSelectionChange (val) {
       this.nodeSelection = val
       this.selectedNodeNum = val.length
@@ -452,43 +445,6 @@ export default {
     height: 100%;
     background: #fff;
     padding: 30px 60px;
-  .appStore {
-    width: 100%;
-    height: 175px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-
-    .lt {
-      width: 30%;
-      padding: 15px;
-      text-align: center;
-      p {
-        padding-top: 20px;
-        text-align: center;
-      }
-    }
-    .rt {
-      width: 60%;
-      padding: 15px;
-      div {
-        float: left;
-        width: 46%;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        margin: 0 5px 10px 0;
-        text-align: center;
-        line-height: 30px;
-        font-size: 15px;
-        font-weight: bold;
-        p:first-child {
-          margin-top: 5px;
-        }
-        p:nth-child(2) {
-          color: green;
-        }
-      }
-    }
-  }
   .tableDiv {
     width: 100%;
   }

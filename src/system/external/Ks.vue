@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.system')"
       :third="$t('nav.edgeNode')"
+      :path="{ path: '/mecm/systems/external/applcm' }"
     />
     <div class="sysk8s">
       <Search
@@ -35,7 +36,7 @@
             :span="2"
             :offset="22"
           >
-            <div class="el-row-button">
+            <div class="el-row-button rt">
               <el-button
                 id="newregBtn"
                 type="primary"
@@ -83,7 +84,7 @@
             <el-table-column
               prop="edgerepoIp"
               sortable
-              label="Edge Repo Ip"
+              label="Edge Repo IP"
             />
             <el-table-column
               prop="edgerepoPort"
@@ -93,7 +94,7 @@
             <el-table-column
               prop="applcmIp"
               sortable
-              label="App Lcm Ip"
+              label="App LCM IP"
             />
             <el-table-column
               :label="$t('common.operation')"
@@ -229,7 +230,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item
-                label="APPLCM"
+                label="App LCM"
                 prop="applcmIp"
               >
                 <el-select
@@ -396,7 +397,7 @@ export default {
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appLcmIp: [
+        applcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
         ],
         affinity: [
@@ -406,7 +407,9 @@ export default {
       title: '',
       editType: 1,
       isDisable: false,
-      affinityList: ['X86', 'ARM64', 'ARM32']
+      affinityList: ['X86', 'ARM64', 'ARM32'],
+      capability: [],
+      vendor: ''
     }
   },
   mounted () {
@@ -617,9 +620,6 @@ export default {
   }
   .tableDiv {
     margin-top: 10px;
-  }
-  .el-row-button {
-    float: right;
   }
 }
 

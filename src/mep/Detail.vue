@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.mepList')"
       :third="$t('common.detail')"
+      :path="{ path: '/mecm/node/list' }"
     />
     <div class="mep">
       <el-table

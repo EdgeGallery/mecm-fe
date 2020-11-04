@@ -59,7 +59,7 @@ const cn = {
     mepList: 'MEP列表',
     system: '系统',
     externalSysMan: '外部系统管理',
-    applcm: 'APPLCM注册系统',
+    applcm: 'App LCM注册系统',
     edgeNode: '边缘节点注册系统',
     appstore: '应用市场注册系统',
     appDetail: '应用详情',
@@ -73,8 +73,8 @@ const cn = {
     disk: 'DISK',
     mepCapa: 'MEP 能力',
     capa: '能力',
-    numOfApp: '已安装App',
-    available: '状态',
+    vendor: '提供商',
+    model: '品牌',
     desc: '描述',
     app: '应用',
     manage: '管理',
@@ -87,7 +87,11 @@ const cn = {
     register: '注册',
     alarms: '告警',
     nodeinfo: '节点信息',
-    statistics: '统计表'
+    statistics: '统计表',
+    nodeIp: '节点IP：',
+    nodeName: '节点名称：',
+    nodeAddress: '节点地址：',
+    nodeInfo: '节点信息'
   },
   app: {
     packageList: {
@@ -110,7 +114,8 @@ const cn = {
       download: '下载',
       fileNotSupport: '不支持的文件格式',
       auth: '作者',
-      pacVersion: '应用版本'
+      pacVersion: '应用版本',
+      status: '状态'
     },
     distriList: {
       mecHost: 'MEC 主机',
@@ -141,7 +146,7 @@ const cn = {
     affinity: '架构',
     edgeNexusIp: 'Edge Repo IP地址',
     edgeNexusPort: 'Edge Repo 端口',
-    applcmIp: 'APPLCM地址',
+    applcmIp: 'App LCM IP',
     k8sUrl: 'K8S URL',
     monitor: '监控'
   },
@@ -164,7 +169,7 @@ const cn = {
       address: '地址',
       edgeNexusIp: '边缘仓库地址',
       edgeNexusPort: '边缘仓库端口',
-      applcmIp: 'APPLCM地址',
+      applcmIp: 'App LCM IP',
       k8sUrl: 'K8S URL',
       newReg: '新增注册',
       hostName: '主机名称',
@@ -185,11 +190,11 @@ const cn = {
       howToUpload: '拖拽文件到上传区域内，或者点击上传'
     },
     appstore: {
-      appstoerName: '应用市场名称',
+      appstoreName: '应用市场名称',
       vendor: '厂商',
       username: '用户名',
       ipAddress: 'IP地址',
-      modifyTime: '修改时间',
+      createTime: '创建时间',
       url: 'URL',
       appStoreReg: 'App Store 注册',
       appStoreModify: 'App Store 编辑'
@@ -219,7 +224,7 @@ const cn = {
     edgeNexusPortTip: 'Edge Repo port不能为空。',
     edgeNexusUsernameTip: 'Edge Repo user name不能为空。',
     edgeNexusPasswordTip: 'Edge Repo password不能为空。',
-    appLcmIpTip: 'AppLcm IP不能为空。',
+    appLcmIpTip: 'App LCM IP不能为空。',
     k8sURLTip: 'K8S URL不能为空。',
     portTip: '端口不能为空。',
     managedMecHostTip: '管理的MEC Host不能为空。',
@@ -228,7 +233,7 @@ const cn = {
     urlTip: 'Url不能为空。',
     affinityTip: '架构不能为空。',
     areaTip: '请选择地域',
-    applcmNameTip: 'applcm名称不能为空',
+    applcmNameTip: 'App LCM名称不能为空',
     normalVerify: '输入的内容格式不正确',
     hostNameVerify: '4到16位（字母，数字，下划线，减号）'
   },
@@ -290,7 +295,7 @@ const cn = {
     typeCity: '请选择部署区域',
     confirmToDeleteNode: '确认要删除该节点吗？',
     deleteAppBeforeDeleteNode: '你需要先删除安装在该节点上的应用',
-    beforeDeleteApplcm: '确认要删除APPLCM？',
+    beforeDeleteApplcm: '确认要删除App LCM？',
     beforeDeleteAppstore: '确认要删除App Store？',
     beforeDeleteFromMechost: '确认要从该节点删除应用应用包？',
     getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！'

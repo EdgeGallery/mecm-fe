@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="main-sidebar">
+  <div class="main-sidebar lt">
     <el-menu
       :default-active="indexName"
       :unique-opened="true"
@@ -147,7 +147,6 @@ export default {
   position: relative;
   top:6px;
   z-index: 0;
-  float: left;
   .el-menu.el-menu--horizontal{
   height: 50px;
   border:none!important;

@@ -39,6 +39,12 @@
             :gutter="40"
             style="margin-top:30px;"
           >
+            <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
+            <div class="nodeBasicInfo">
+              <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.name }}</p>
+              <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.ip }}</p>
+              <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
+            </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col
               :span="8"
@@ -86,20 +92,16 @@
             header-row-class-name="headerClassName"
           >
             <el-table-column
-              prop="capabilityName"
+              prop="type"
               :label="$t('overview.capa')"
             />
             <el-table-column
-              prop="consumers.length"
-              :label="$t('overview.numOfApp')"
+              prop="vendor"
+              :label="$t('overview.vendor')"
             />
             <el-table-column
-              prop="status"
-              :label="$t('overview.available')"
-            />
-            <el-table-column
-              prop="version"
-              :label="$t('app.packageList.version')"
+              prop="model"
+              :label="$t('overview.model')"
             />
           </el-table>
         </div>
@@ -155,8 +157,8 @@
                   :label="$t('overview.capa')"
                 />
                 <el-table-column
-                  prop="provider"
-                  :label="$t('app.packageList.vendor')"
+                  prop="status"
+                  :label="$t('app.packageList.status')"
                 />
                 <el-table-column
                   prop="version"
@@ -278,12 +280,12 @@ export default {
       },
       capabilitiesData: [],
       manageDialogStatus: false,
-      nodeList: [],
       infoList: [],
       appPackageList: [],
       kpiInfo: [],
       loginBtnLoading: false,
-      chartData: {}
+      chartData: {},
+      nodeBasicInfo: null
     }
   },
   methods: {
@@ -297,14 +299,16 @@ export default {
       this.edgeApp = ''
     },
     clickNode (val) {
+      this.nodeBasicInfo = val
       this.alarmStatus = 'nodeinfo'
       this.resetData()
-      this.getNodeKpi(val)
-      // this.getMepCap(val)
-      this.getAppInfo(val)
+      this.getNodeKpi(val.ip)
+      this.getHmCapa(val)
+      this.getAppInfo(val.ip)
     },
     clickMap (msg) {
       this.alarmStatus = 'alarms'
+      console.log(msg)
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -332,7 +336,7 @@ export default {
         this.edgeAppList = []
         if (this.infoList && this.infoList.length > 0) {
           this.infoList.forEach(item => {
-            if (item.mecHost === ip) {
+            if (item.mecHost === ip && item.operationalStatus === 'Instantiated') {
               let obj = {}
               obj.label = item.appName
               obj.value = item.appInstanceId
@@ -350,11 +354,12 @@ export default {
         // this.$message.error(this.$t('tip.getAppInfoFailed'))
       })
     },
-    getMepCap (host) {
-      overview.getMepCap(host).then(res => {
+    getHmCapa (host) {
+      overview.getHmCapa(host).then(res => {
         if (res && res.data) {
+          console.log(res.data)
           if (res.data.status !== 500) {
-            this.mepCapabilitiesData = res.data
+            this.mepCapabilitiesData.push(res.data.hwcapabilities)
           }
         }
       }).catch(() => {
@@ -366,9 +371,9 @@ export default {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
-          this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total * 100).toFixed(2))
-          this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total * 100).toFixed(2))
-          this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total * 100).toFixed(2))
+          this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used * 100).toFixed(2))
+          this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used * 100).toFixed(2))
+          this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getKpiFailed'))
@@ -440,6 +445,20 @@ export default {
   }
   .el-table td, .el-table th{
     padding:5px 0;
+  }
+  .nodeBasicInfo{
+    color:#F5F5F5;
+    padding:15px 0;
+    p{
+      font-size: 14px;
+      line-height: 25px;
+      padding-left: 10px;
+      span{
+        display: inline-block;
+        // width: 70px;
+        // text-align: right;
+      }
+    }
   }
   .content-right {
     height: 100%;

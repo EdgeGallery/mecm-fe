@@ -21,6 +21,7 @@
       :first="$t('nav.mecm')"
       :second="$t('nav.edgeNodes')"
       :third="$t('nav.nodeList')"
+      :path="{ path: '/mecm/node/list' }"
     />
     <div
       class="nodelist"
@@ -75,7 +76,7 @@
           <el-table-column
             prop="edgerepoIp"
             sortable
-            label="Edge Repo Ip"
+            label="Edge Repo IP"
           />
           <el-table-column
             prop="edgerepoPort"
@@ -85,7 +86,7 @@
           <el-table-column
             prop="applcmIp"
             sortable
-            label="App Lcm Ip"
+            label="App LCM IP"
           />
           <el-table-column
             :label="$t('common.operation')"

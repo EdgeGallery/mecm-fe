@@ -41,7 +41,23 @@ const hostData = function () {
       mechostIp: '119.8.53.3',
       mechostName: 'Node',
       userName: '',
-      zipCode: ''
+      zipCode: '',
+      capability: 'GPU'
+    },
+    {
+      address: '78hao',
+      affinity: 'X86',
+      applcmIp: '119.8.53.3',
+      city: '北京市/北京市/朝阳区/义井街道',
+      edgerepoIp: '119.8.53.3',
+      edgerepoName: null,
+      edgerepoPort: '8123',
+      edgerepoUsername: '',
+      mechostIp: '119.8.53.3',
+      mechostName: 'Node',
+      userName: '',
+      zipCode: '',
+      capability: 'GPU'
     }
   ]
 }
@@ -62,11 +78,11 @@ const packageData = function () {
     shortDesc: 'for testing',
     type: 'Video Application',
     userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
-    userName: 'wenson'
+    userName: 'Xxx'
   }]
 }
 
-const instanceInfo = function () {
+const instanceList = function () {
   return {
     'response': [
       {
@@ -85,9 +101,29 @@ const instanceInfo = function () {
 }
 
 const kpiInfo = function () {
-  let data = { 'cpuusage': { 'total': 1600653686.904, 'used': '0.025' }, 'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' }, 'diskusage': { 'total': '0.0', 'used': '0.0' } }
+  let data = {
+    'cpuusage': { 'total': 1600653686.904, 'used': '0.025' },
+    'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' },
+    'diskusage': { 'total': '0.0', 'used': '0.0' }
+  }
   return {
     response: JSON.stringify(data)
+  }
+}
+
+const HMCapability = function () {
+  return {
+    'hwcapabilities': {
+      'type': 'GPU',
+      'vendor': 'testvendor',
+      'model': 'testmodel',
+      'specification': [
+        {
+          'spectype': 'noofcards',
+          'specvalue': '2'
+        }
+      ]
+    }
   }
 }
 
@@ -129,19 +165,9 @@ const distributionData = function () {
 const applcmData = function () {
   return [
     {
-      'ip': '119.8.125.174',
-      'port': '30101',
-      'managedMecHost': null,
-      'username': 'wenson',
-      'password': '######',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
-    },
-    { 'ip': '159.138.140.246',
-      'port': '30101',
-      'managedMecHost': null,
-      'username': '',
-      'password': '',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
+      'applcmIp': '119.8.125.174',
+      'applcmPort': '30101',
+      'userName': 'Xxx'
     }
   ]
 }
@@ -149,12 +175,10 @@ const applcmData = function () {
 const appstoreData = function () {
   return [
     { 'url': 'https://appstore.edgegallery.com',
-      'username': 'wenson',
-      'password': '######',
-      'appstorename': 'huaweiappstore',
+      'userName': 'Xxx',
+      'appstoreName': 'huaweiappstore',
       'producer': 'huawei',
-      'time': '01-09-2020 09:04:04',
-      'tenantId': '7269638e-5637-4b8c-8178-b5112ba7b69b'
+      'time': '01-09-2020 09:04:04'
     }
   ]
 }
@@ -210,6 +234,7 @@ Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/alarmData', alarmData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
-Mock.mock('/mock/instanceInfo', instanceInfo)
+Mock.mock('/mock/instanceList', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
+Mock.mock('/mock/getHmCapability', HMCapability)

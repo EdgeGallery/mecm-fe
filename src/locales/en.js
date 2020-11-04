@@ -74,8 +74,8 @@ const en = {
     disk: 'DISK',
     mepCapa: 'MEP Capabilities',
     capa: 'Capabilities',
-    numOfApp: 'used',
-    available: 'Status',
+    vendor: 'Vendor',
+    model: 'Model',
     desc: 'Description',
     app: 'App',
     manage: 'Manage',
@@ -88,7 +88,11 @@ const en = {
     register: 'Register',
     alarms: 'Alarms',
     nodeinfo: 'Node Info',
-    statistics: 'Statistics'
+    statistics: 'Statistics',
+    nodeIp: 'Node IP: ',
+    nodeName: 'Node Name: ',
+    nodeAddress: 'Node Address: ',
+    nodeInfo: 'Node Information'
   },
   app: {
     packageList: {
@@ -110,11 +114,12 @@ const en = {
       createTime: 'Create Time',
       download: 'Download',
       auth: 'Author',
-      pacVersion: 'Package Version'
+      pacVersion: 'Package Version',
+      status: 'Status'
     },
     distriList: {
       mecHost: 'MEC Hosts',
-      hostIp: 'Host Ip',
+      hostIp: 'Host IP',
       status: 'Status',
       deploy: 'Deploy',
       appName: 'App Name',
@@ -138,9 +143,9 @@ const en = {
     city: 'City',
     address: 'Address',
     affinity: 'Architecture',
-    edgeNexusIp: 'Edge Repo Ip',
+    edgeNexusIp: 'Edge Repo IP',
     edgeNexusPort: 'Edge Repo Port',
-    applcmIp: 'App LCM Ip',
+    applcmIp: 'App LCM IP',
     k8sUrl: 'K8S URL',
     monitor: 'Monitor'
   },
@@ -161,9 +166,9 @@ const en = {
       city: 'City',
       affinity: 'Architecture',
       address: 'Address',
-      edgeNexusIp: 'Edge Repo Ip',
+      edgeNexusIp: 'Edge Repo IP',
       edgeNexusPort: 'Edge Repo Port',
-      applcmIp: 'App LCM Ip',
+      applcmIp: 'App LCM IP',
       k8sUrl: 'K8S URL',
       newReg: 'New Registration',
       hostName: 'Host Name',
@@ -184,11 +189,11 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload'
     },
     appstore: {
-      appstoerName: 'App Store Name',
+      appstoreName: 'App Store Name',
       vendor: 'Vendor',
       username: 'Username',
       ipAddress: 'Ip Address',
-      modifyTime: 'Modified Time', // 上次更新时间
+      createTime: 'Created Time',
       url: 'URL',
       appStoreReg: 'App Store Registration',
       appStoreModify: 'App Store Modify'
@@ -218,7 +223,7 @@ const en = {
     edgeNexusPortTip: 'Edge Repo port should not be empty',
     edgeNexusUsernameTip: 'Edge Repo user name should not be empty',
     edgeNexusPasswordTip: 'Edge Repo password should not be empty',
-    appLcmIpTip: 'AppLcm ip should not be empty',
+    appLcmIpTip: ' App LCM ip should not be empty',
     k8sURLTip: 'k8sURL should not be empty',
     portTip: 'Port should not be empty',
     managedMecHostTip: 'Managed Mec Host should not be empty',
@@ -227,7 +232,7 @@ const en = {
     urlTip: 'Url should not be empty',
     affinityTip: 'Architecture should not be empty',
     areaTip: 'Area should not be empty',
-    applcmNameTip: 'APPLCM should not be empty',
+    applcmNameTip: 'App LCM should not be empty',
     normalVerify: 'Style is not right',
     hostNameVerify: '4 to 16 digits (letters, numbers, underscores, minus signs)'
   },
