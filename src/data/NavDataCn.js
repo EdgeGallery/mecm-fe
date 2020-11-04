@@ -69,7 +69,7 @@ const NavDataCn = [
         children: [
           {
             'id': '2.4.1.1',
-            'name': 'APPLCM注册系统',
+            'name': 'App LCM注册系统',
             'path': '/mecm/systems/external/applcm',
             'pageId': '2.0.3.1.1',
             'display': false
