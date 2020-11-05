@@ -194,7 +194,8 @@ export default {
     },
     handleMonitor (row) {
       this.src = 'https://' + row.mechostIp + ':30000/dashboards'
-      this.dialogVisible = true
+      window.open(this.src)
+      // this.dialogVisible = true
     },
     getNodeList (row) {
       edge.getNodeList().then(response => {
