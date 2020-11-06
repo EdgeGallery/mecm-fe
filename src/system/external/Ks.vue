@@ -82,13 +82,9 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="capability"
-              label="HM Capability"
-            />
-            <el-table-column
               prop="edgerepoIp"
               sortable
-              label="Edge RepoIP"
+              label="Edge Repo IP"
             />
             <el-table-column
               prop="edgerepoPort"
@@ -233,29 +229,6 @@
                   </el-radio>
                 </el-radio-group>
               </el-form-item>
-
-              <el-form-item
-                label="HM Capability"
-                prop="capability"
-              >
-                <el-checkbox-group v-model="capability">
-                  <el-checkbox label="CPU" />
-                  <el-checkbox label="GPU" />
-                  <el-checkbox label="NPU" />
-                </el-checkbox-group>
-              </el-form-item>
-
-              <el-form-item
-                label="Vendor & Model"
-              >
-                <el-input
-                  id="vendor"
-                  maxlength="20"
-                  v-model="vendor"
-                  width="50%"
-                />
-              </el-form-item>
-
               <el-form-item
                 label="App LCM"
                 prop="applcmIp"

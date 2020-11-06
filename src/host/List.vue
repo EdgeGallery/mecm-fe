@@ -74,13 +74,9 @@
             :label="$t('app.packageList.affinity')"
           />
           <el-table-column
-            prop="capability"
-            label="HM Capability"
-          />
-          <el-table-column
             prop="edgerepoIp"
             sortable
-            label="Edge RepoIP"
+            label="Edge Repo IP"
           />
           <el-table-column
             prop="edgerepoPort"
@@ -198,7 +194,8 @@ export default {
     },
     handleMonitor (row) {
       this.src = 'https://' + row.mechostIp + ':30000/dashboards'
-      this.dialogVisible = true
+      window.open(this.src)
+      // this.dialogVisible = true
     },
     getNodeList (row) {
       edge.getNodeList().then(response => {

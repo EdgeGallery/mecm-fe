@@ -16,21 +16,21 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-import App from '../App.vue'
+import Layout from '../pages/Layout.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'mec-overview',
+      component: () => import('../overview/Overview.vue')
+    },
+    {
       path: '',
-      name: 'app',
-      component: App,
+      name: 'layout',
+      component: Layout,
       children: [
-        {
-          path: '/',
-          name: 'mec-overview',
-          component: () => import('../overview/Overview.vue')
-        },
         {
           path: 'mecm/apac/list',
           name: 'apaclist',
