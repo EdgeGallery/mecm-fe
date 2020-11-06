@@ -17,9 +17,7 @@
 <template>
   <div id="app">
     <Navbar />
-    <div class="home-container">
-      <router-view id="container" />
-    </div>
+    <router-view />
   </div>
 </template>
 
