@@ -158,7 +158,11 @@ const distributionData = function () {
     'createdTime': '2020-09-19T07:31:33.267',
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
-    'mecHostInfo': [{ 'hostIp': '119.8.53.3', 'status': 'Distributed', 'error': '' }]
+    'mecHostInfo': [
+      { 'hostIp': '119.8.53.3', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '119.8.53.5', 'status': 'Distributed', 'error': '' }
+    ]
   }]
 }
 
@@ -234,7 +238,7 @@ Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/alarmData', alarmData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
-Mock.mock('/mock/instanceList', instanceList)
+Mock.mock('/mock/instanceInfo', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
 Mock.mock('/mock/getHmCapability', HMCapability)

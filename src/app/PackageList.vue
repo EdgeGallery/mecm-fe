@@ -328,7 +328,7 @@ export default {
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
       this.$nextTick(
-        this.$router.push('/mecm/apac/detail')
+        this.$router.push('/mecm/apac/detail?appId=' + row.appId)
       )
     },
     distribute (row) {
@@ -420,7 +420,7 @@ export default {
           this.$message.success(this.$t('tip.sucToDownload'))
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(
-            this.$router.push('/mecm/apac/detail')
+            this.$router.push('/mecm/apac/detail?appId=' + params.appId)
           )
         }).catch(() => {
           this.loading = false
