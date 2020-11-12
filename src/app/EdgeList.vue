@@ -429,11 +429,18 @@ export default {
         if (status === 'Created') {
           this.instaniateApp(res1)
         } else if (status === 'Create failed') {
-          this.$message.error('create instance error!')
+          // this.$message.error('create instance error!')
+          this.$message.error(res1.data.response.operationInfo)
           this.dialogVisible = false
           this.loading = false
         } else {
           this.queryInstanceStatus()
+        }
+      }).catch(err => {
+        if (err.name === 'Error' && err.message === 'Request failed with status code 404') {
+          setTimeout(() => { this.queryInstanceStatus() }, 1000)
+        } else {
+          throw err
         }
       })
     },
