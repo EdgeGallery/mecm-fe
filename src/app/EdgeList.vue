@@ -29,7 +29,7 @@
       <div class="btn-group rt">
         <el-button
           type="primary"
-          :disabled="true"
+          @click="multipleDeploy"
         >
           {{ $t('app.distriList.multipleDeploy') }}
         </el-button>
@@ -128,7 +128,7 @@
             </el-button>
             <el-button
               id="distributeBtn"
-              @click="deploy(scope.row)"
+              @click="deploy(scope.row,1)"
               :disabled="scope.row.status !=='Distributed'"
               type="text"
               size="small"
@@ -157,24 +157,28 @@
         ref="configForm"
         :rules="rules"
       >
-        <p>MEPM Information</p>
-        <el-form-item :label="$t('app.distriList.status')">
-          <span
-            v-if="configForm.status === 'Distributed'"
-            class="success"
-          ><em class="el-icon-success" />{{ configForm.status }}</span>
-          <span
-            v-else-if="configForm.status === 'Processing'"
-            class="primary"
-          ><em class="el-icon-loading" />{{ configForm.status }}</span>
-          <span
-            v-else
-            class="error"
-          ><em class="el-icon-error" />{{ configForm.status }}</span>
-        </el-form-item>
         <p>MEC Host</p>
         <el-form-item :label="$t('app.packageList.ip')">
-          <span class="primary">{{ configForm.mecHost }}</span>
+          <div
+            v-for="(item,index) in configForm.mecHost"
+            :key="index"
+          >
+            <span
+              class="hostip"
+            >{{ item.hostIp }}</span>
+            <span
+              v-if="item.status === 'Distributed'"
+              class="success"
+            ><em class="el-icon-success" />{{ item.status }}</span>
+            <span
+              v-else-if="item.status === 'Processing'"
+              class="primary"
+            ><em class="el-icon-loading" />{{ item.status }}</span>
+            <span
+              v-else
+              class="error"
+            ><em class="el-icon-error" />{{ item.status }}</span>
+          </div>
         </el-form-item>
         <p>APP Information</p>
         <el-form-item
@@ -268,6 +272,7 @@ export default {
       paginationData: [],
       searchVal: '',
       selectedNum: 0,
+      selectData: null,
       selectedData: [],
       appPackageId: '',
       appVersion: '',
@@ -284,7 +289,7 @@ export default {
         appPackageId: '',
         appName: '',
         appInstanceDescription: '',
-        mecHost: '',
+        mecHost: [],
         appId: this.appid
       },
       rules: {
@@ -353,6 +358,13 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
+    multipleDeploy () {
+      if (this.selectData !== null && this.selectData.length > 0) {
+        this.deploy(this.selectData, 2)
+      } else {
+        this.$message.warning('Please select one package at least!')
+      }
+    },
     beforeDelete (rows) {
       this.$confirm(this.$t('tip.beforeDeleteFromMechost'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
@@ -395,12 +407,17 @@ export default {
         }
       })
     },
-    deploy (row) {
-      this.configForm.status = row.status
+    deploy (row, type) {
+      console.log(row)
+      this.configForm.mecHost = []
       this.configForm.appPackageId = this.appPackageId
-      this.configForm.mecHost = row.hostIp
       this.configForm.appId = this.appid
       this.dialogVisible = true
+      if (type === 1) {
+        this.configForm.mecHost.push(row)
+      } else {
+        this.configForm.mecHost = row
+      }
     },
     confirmToDeploy (configForm) {
       this.loading = true
@@ -451,7 +468,7 @@ export default {
       })
     },
     handleSelectionChange (selection) {
-      this.selectedNum = selection.length
+      this.selectData = selection
     }
   }
 }
@@ -535,6 +552,9 @@ export default {
   }
   .el-form-item{
     margin-bottom: 20px!important;
+  }
+  .hostip{
+    margin-right:10px;
   }
 }
 .listItem{

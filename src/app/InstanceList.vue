@@ -85,6 +85,13 @@
                 {{ $t('common.delete') }}
               </el-button>
               <el-button
+                type="text"
+                @click="jump"
+                :loading="loading"
+              >
+                配置规则
+              </el-button>
+              <el-button
                 id="detailBtn"
                 @click="checkDetail(scope.row)"
                 :disabled="scope.row.operationalStatus !== 'Instantiated'"
@@ -151,6 +158,7 @@ export default {
   },
   data () {
     return {
+      loading: false,
       status: ['Instantiated', 'Created', 'Instantiation Failed'],
       currPageTableData: [],
       paginationData: [],
@@ -162,7 +170,7 @@ export default {
         podName: ''
       },
       detailData: [],
-      serchData: null
+      searchData: null
     }
   },
   mounted () {
@@ -175,6 +183,9 @@ export default {
     this.clearInterval()
   },
   methods: {
+    jump () {
+      this.$router.push('/mecm/ruleconfig')
+    },
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
@@ -186,7 +197,7 @@ export default {
       })
     },
     getSearchData (data) {
-      this.serchData = data
+      this.searchData = data
       this.paginationData = this.tableData
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
@@ -221,8 +232,8 @@ export default {
     initList () {
       app.getInstanceList().then(res => {
         this.tableData = this.paginationData = res.data.response
-        if (this.serchData) {
-          this.getSearchData(this.serchData)
+        if (this.searchData) {
+          this.getSearchData(this.searchData)
         }
         this.dataLoading = false
       }).catch((error) => {
