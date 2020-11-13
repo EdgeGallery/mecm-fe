@@ -20,7 +20,7 @@ let api
 if (window.location.href.indexOf('30093') > -1) {
   api = 'https://' + window.location.href.split('//')[1].split(':')[0]
 } else {
-  api = 'http://' + window.location.host
+  api = 'https://' + window.location.host
 }
 
 // applcm port:30204

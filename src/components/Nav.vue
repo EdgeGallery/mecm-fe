@@ -36,7 +36,7 @@
       </div>
       <div class="user rt">
         <span
-          @click="login()"
+          @click="logout()"
           v-if="ifGuest"
         >{{ $t('login.login') }}</span>
         <span
