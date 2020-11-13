@@ -230,6 +230,61 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item
+                label="硬件能力"
+              >
+                <el-checkbox-group
+                  v-model="capabilities"
+                >
+                  <el-checkbox
+                    v-for="(item,index) in capability"
+                    :key="index"
+                    :label="item"
+                  />
+                </el-checkbox-group>
+              </el-form-item>
+              <el-form-item
+                label="GPU Info"
+                v-if="capabilities.includes('GPU')"
+              >
+                <el-row :gutter="24">
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="gpuModel"
+                      placeholder="Model"
+                    />
+                  </el-col>
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="gpuVendor"
+                      placeholder="Vendor"
+                    />
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
+                label="NPU Info"
+                v-if="capabilities.includes('NPU')"
+              >
+                <el-row :gutter="24">
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="npuModel"
+                      placeholder="Model"
+                    />
+                  </el-col>
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="npuVendor"
+                      placeholder="Vendor"
+                    />
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
                 label="App LCM"
                 prop="applcmIp"
               >
@@ -404,12 +459,16 @@ export default {
           { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
         ]
       },
+      capabilities: [],
+      gpuModel: '',
+      gpuVendor: '',
+      npuModel: '',
+      npuVendor: '',
       title: '',
       editType: 1,
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
-      capability: [],
-      vendor: ''
+      capability: ['GPU', 'NPU']
     }
   },
   mounted () {
@@ -488,6 +547,7 @@ export default {
         'zipCode': ''
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
+      this.capabilities = []
     },
     beforeDelete (row) {
       app.getInstanceList().then(res => {
@@ -622,5 +682,7 @@ export default {
     margin-top: 10px;
   }
 }
-
+.el-col{
+  padding-left:0 !important;
+}
 </style>

@@ -36,7 +36,12 @@
       </div>
       <div class="user rt">
         <span
+          @click="login()"
+          v-if="ifGuest"
+        >{{ $t('login.login') }}</span>
+        <span
           @click="beforeLogout()"
+          v-else
         >{{ $t('login.logout') }}</span>
       </div>
     </div>
@@ -56,6 +61,7 @@ export default {
   data () {
     return {
       loginPage: '',
+      ifGuest: true,
       jsonData: [],
       language: 'English'
     }
@@ -73,6 +79,9 @@ export default {
       sessionStorage.setItem('access_token', res.data.accessToken)
       sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
       this.loginPage = res.data.loginPage
+      if (res.data.userName !== 'guest') {
+        this.ifGuest = false
+      }
     })
   },
   methods: {
@@ -198,8 +207,6 @@ export default {
     line-height: 50px;
     margin-right: 10px;
     span{
-      display: inline-block;
-      width:100%;
       height:24px;
       margin-right: 20px;
       position: relative;
