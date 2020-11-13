@@ -25,6 +25,10 @@ export default new Router({
       path: '/',
       name: 'mec-overview',
       component: () => import('../overview/Overview.vue')
+    }, {
+      path: '/index',
+      redirect: '/',
+      component: () => import('../overview/Overview.vue')
     },
     {
       path: '',
