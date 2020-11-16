@@ -63,22 +63,24 @@
                 <el-form-item :label="$t('system.appLcm.port')">
                   {{ item.applcmPort }}
                 </el-form-item>
-                <el-form-item class="rt">
+                <el-form-item class="rt btn-group">
                   <el-button
-                    type="text"
-                    class="button"
-                    id="modifyBtn"
-                    @click="handleEdit(item)"
-                  >
-                    {{ $t('common.modify') }}
-                  </el-button>
-                  <el-button
-                    type="text"
+                    type="warning"
+                    size="mini"
                     class="button"
                     id="deleteBtn"
                     @click.native.prevent="handleDelete(item)"
                   >
                     {{ $t('common.delete') }}
+                  </el-button>
+                  <el-button
+                    type="primary"
+                    size="mini"
+                    class="button"
+                    id="modifyBtn"
+                    @click="handleEdit(item)"
+                  >
+                    {{ $t('common.modify') }}
                   </el-button>
                 </el-form-item>
               </el-form>
@@ -96,14 +98,12 @@
     <el-dialog
       :title="title"
       :visible.sync="dialogVisible"
-      width="40%"
+      width="25%"
     >
       <el-row>
-        <el-col
-          :span="16"
-        >
+        <el-col>
           <el-form
-            label-width="150px"
+
             :model="form"
             ref="form"
             :rules="rules"
@@ -320,6 +320,9 @@ export default {
       height:40px;
       padding:15px 0;
     }
+  }
+  .btn-group{
+    margin:15px 0;
   }
 }
 </style>
