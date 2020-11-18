@@ -52,7 +52,7 @@
               class="list"
             >
               <el-form
-                label-width="80px"
+                label-width="90px"
               >
                 <el-form-item :label="$t('system.appstore.appstoreName')">
                   {{ item.appstoreName }}

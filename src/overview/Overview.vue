@@ -28,6 +28,12 @@
           class="edge-souces mt20"
           v-if="alarmStatus === 'alarms'"
         >
+          <label class="overviewLabel">总览</label>
+          <div class="nodeBasicInfo">
+            <p><span>{{ city }}计算节点：</span>{{ nodeNum }}</p>
+            <p><span>在线节点：</span>{{ nodeNum }}</p>
+            <p><span>离线节点：</span>0</p>
+          </div>
           <label class="overviewLabel">{{ $t('overview.alarms') }}</label>
           <Chart :chart-data="chartData" />
         </div>
@@ -285,7 +291,9 @@ export default {
       kpiInfo: [],
       loginBtnLoading: false,
       chartData: {},
-      nodeBasicInfo: null
+      nodeBasicInfo: null,
+      nodeNum: 0,
+      city: '全国'
     }
   },
   methods: {
@@ -306,9 +314,10 @@ export default {
       this.getHmCapa(val)
       this.getAppInfo(val.ip)
     },
-    clickMap (msg) {
+    clickMap (msg, city) {
       this.alarmStatus = 'alarms'
-      console.log(msg)
+      this.city = city
+      this.nodeNum = msg.length
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -449,6 +458,8 @@ export default {
   .nodeBasicInfo{
     color:#F5F5F5;
     padding:15px 0;
+    margin: 15px 15px 15px 0;
+    background: #2D4868;
     p{
       font-size: 14px;
       line-height: 25px;
@@ -548,5 +559,9 @@ export default {
   }
   .headerClassName{
     font-size: 12px;
+  }
+  .charts {
+    width:800px;
+    height:600px;
   }
 </style>

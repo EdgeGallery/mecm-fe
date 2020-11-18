@@ -45,6 +45,7 @@ export default {
             obj.name = item.mechostName
             this.geoCode(obj)
           })
+          this.$emit('area', res.data, '全国')
         }
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
@@ -113,6 +114,8 @@ export default {
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
+            console.log(param)
+            console.log(CityMap)
             let cityId = CityMap[param.name]
             let arr = []
             nodeData.forEach((val, index) => {
@@ -121,10 +124,10 @@ export default {
               }
             })
             nodeData = arr
-            this.$emit('area', param.data.name)
+            this.$emit('area', nodeData, param.name)
             if (cityId) {
               axios
-                .get('./map/' + cityId + '.json', {})
+                .get('../../node_modules/echarts/map/json/province/beijing.json', {})
                 .then(res => {
                   const mapJson1 = res.data
                   regAndSetOption(

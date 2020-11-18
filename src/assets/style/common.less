@@ -71,21 +71,6 @@ a{
   cursor: pointer;
 }
 
-
-/* 自适应
-@media screen and (min-width: 1201px) { 
-  .home-container {max-width: 1200px} 
-} 
-@media screen and (max-width: 1200px) { 
-  .home-container {max-width: 900px} 
-} 
-@media screen and (max-width: 901px) { 
-  .home-container {max-width: 800px;} 
-}
-.home-container{
-  margin:0 auto;
-} */
-
 @media screen and (min-width: 1201px) { 
   .monitor {max-width: 1200px} 
 } 
@@ -95,6 +80,7 @@ a{
 @media screen and (max-width: 901px) { 
   .monitor {max-width: 800px;} 
 }
+
 
 /* dialog */
 .el-dialog__body{
@@ -151,6 +137,10 @@ body .el-table th.gutter{
   font-weight: bold;
 }
 
+.el-form-item__label{
+  color:#827979;
+}
+
 .applcmList,.appstoreList{
   padding:15px 0;
   display:flex;
@@ -161,8 +151,9 @@ body .el-table th.gutter{
     box-sizing: border-box;
     margin-bottom: 20px;
     .list {
-      padding: 15px;
-      border: 1px solid #e6e6e6;
+      padding:15px 0;
+      border: 1px solid #67C23A;
+      border-left: 10px solid #67C23A;
       border-radius: 4px;
       display: flex;
       align-items: center;
