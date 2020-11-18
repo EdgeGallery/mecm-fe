@@ -16,35 +16,74 @@
 
 <template>
   <div class="navgation">
-    <div
-      class="logo lt"
-      @click="jumpLogoTo"
-    >
-      <img
-        class="cp"
-        src="../assets/images/logo.png"
-        alt=""
+    <el-row :gutter="10">
+      <el-col
+        :lg="7"
+        :md="12"
+        :sm="12"
+        :xs="12"
       >
-      <span>{{ $t('nav.mecm') }} V0.25</span>
-    </div>
-    <div>
-      <Topbar :json-data="jsonData" />
-    </div>
-    <div class="nav-tabs rt">
-      <div class="language rt">
-        <span @click="changeLang">{{ language }}</span>
+        <div
+          class="logo"
+          @click="jumpLogoTo"
+        >
+          <img
+            class="cp"
+            src="../assets/images/logo.png"
+            alt=""
+          >
+          <span class="hidden-sm-and-down">{{ $t('nav.mecm') }}</span>
+        </div>
+      </el-col>
+      <el-col
+        :lg="11"
+        class="hidden-lg-and-down"
+      >
+        <div>
+          <Topbar :json-data="jsonData" />
+        </div>
+      </el-col>
+      <el-col
+        :lg="6"
+        :md="12"
+        :sm="12"
+        :xs="12"
+      >
+        <div class="nav-tabs">
+          <div class="btn rt hidden-lg-and-up">
+            <em
+              class="el-icon-s-unfold"
+              @click="openNav"
+            />
+          </div>
+          <div class="language rt">
+            <span @click="changeLang">{{ language }}</span>
+          </div>
+          <div class="user rt">
+            <span
+              @click="logout()"
+              v-if="ifGuest"
+            >{{ $t('login.login') }}</span>
+            <span
+              @click="beforeLogout()"
+              v-else
+            >{{ $t('login.logout') }}</span>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+
+    <el-collapse-transition>
+      <div
+        v-show="smallMenu"
+        id="menu-div"
+      >
+        <Topbarsmall
+          :json-data="jsonData"
+          @closeMenu="closeMenu"
+        />
       </div>
-      <div class="user rt">
-        <span
-          @click="logout()"
-          v-if="ifGuest"
-        >{{ $t('login.login') }}</span>
-        <span
-          @click="beforeLogout()"
-          v-else
-        >{{ $t('login.logout') }}</span>
-      </div>
-    </div>
+    </el-collapse-transition>
   </div>
 </template>
 
@@ -52,18 +91,21 @@
 import NavData from '../data/NavData.js'
 import NavDataCn from '../data/NavDataCn.js'
 import { user } from '../tools/request.js'
-import Topbar from '../components/Topbar.vue'
+import Topbar from '../components/Topbar'
+import Topbarsmall from '../components/Topbarsmall'
 export default {
   name: 'Navgation',
   components: {
-    Topbar
+    Topbar,
+    Topbarsmall
   },
   data () {
     return {
       loginPage: '',
       ifGuest: true,
       jsonData: [],
-      language: 'English'
+      language: 'English',
+      smallMenu: false
     }
   },
   watch: {
@@ -94,6 +136,12 @@ export default {
         isWindows: /windows/.test(UserAgent),
         isMac: /mac/.test(UserAgent)
       }
+    },
+    openNav () {
+      this.smallMenu = !this.smallMenu
+    },
+    closeMenu (data) {
+      this.smallMenu = data
     },
     changeLang () {
       let language
@@ -208,7 +256,7 @@ export default {
     margin-right: 10px;
     span{
       height:24px;
-      margin-right: 20px;
+      margin-right: 5px;
       position: relative;
       top:8px;
       cursor:pointer;
@@ -217,17 +265,16 @@ export default {
     span.el-icon-user-solid.blue{
       color:#409EFF;
     }
-  .pop-txt{
-    font-size: 21px;
-    padding: 10%;
   }
-  .promt-actions{
-    text-align: center;
-    padding: 2%;
+  // 移动端
+  .el-icon-s-unfold{
+    color:#ffffff;
+    line-height: 65px;
+    top: 3px;
+    position: relative;
   }
-  .okbtn{
-    font-size: 20px;
-  }
+  .menu-div{
+    overflow-y: auto;
   }
 }
 </style>

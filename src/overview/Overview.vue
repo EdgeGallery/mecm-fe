@@ -21,7 +21,10 @@
       style="height: 100%;"
     >
       <el-col
-        :span="6"
+        :lg="6"
+        :md="12"
+        :sm="24"
+        :xs="24"
         class="content-right"
       >
         <div
@@ -176,9 +179,10 @@
         </div>
       </el-col>
       <el-col
-        :span="16"
-        :offset="2"
-        style="height: 100%;"
+        :lg="18"
+        :md="12"
+        :sm="24"
+        :xs="24"
       >
         <Map
           @node="clickNode"
@@ -428,14 +432,14 @@ export default {
 <style lang='less'>
 .mecm-overview {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 60px;
+  height: 100%;
+  width: 100%;
   overflow: auto;
-  background: url('../assets/images/overview-bg.png') center no-repeat;
-  margin-top: 60px;
+  background: url(/img/overview-bg.95d703ab.png) center no-repeat;
   padding: 0 30px;
+  background-size: cover;
+  box-sizing: border-box;
 }
   label.overviewLabel{
     opacity: 0.8;
@@ -466,13 +470,10 @@ export default {
       padding-left: 10px;
       span{
         display: inline-block;
-        // width: 70px;
-        // text-align: right;
       }
     }
   }
   .content-right {
-    height: 100%;
     padding:0!important;
     .my-title {
       color: white;
@@ -559,9 +560,5 @@ export default {
   }
   .headerClassName{
     font-size: 12px;
-  }
-  .charts {
-    width:800px;
-    height:600px;
   }
 </style>
