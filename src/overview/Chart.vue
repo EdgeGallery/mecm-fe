@@ -35,10 +35,9 @@ export default {
       option: null,
       alarmData: [],
       alarmLabel: [
-        { 'label': 'Overall', 'color': '#6b91fa' },
-        { 'label': 'Critical', 'color': '#FF3333' },
-        { 'label': 'Major', 'color': '#FF5733' },
-        { 'label': 'Minor', 'color': '#FFBB33' }
+        { 'label': 'Total', 'color': '#6b91fa' },
+        { 'label': 'Online', 'color': '#67C23A' },
+        { 'label': 'Offline', 'color': '#FF3333' }
       ]
     }
   },
@@ -117,7 +116,7 @@ export default {
 <style scoped>
 .box {
   width: 100%;
-  height: 20vh;
+  height: 25vh;
   left: 5%;
   top: 10%;
 }

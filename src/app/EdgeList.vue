@@ -237,7 +237,7 @@
       >
         <el-button
           id="cancelBtn"
-          @click="dialogVisible = false"
+          @click="dialogVisible = false,loading=false"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           id="confirmBtn"
@@ -408,7 +408,6 @@ export default {
       })
     },
     deploy (row, type) {
-      console.log(row)
       this.configForm.mecHost = []
       this.configForm.appPackageId = this.appPackageId
       this.configForm.appId = this.appid
@@ -420,7 +419,6 @@ export default {
       }
     },
     confirmToDeploy (configForm) {
-      this.loading = true
       this.$refs[configForm].validate((valid) => {
         if (valid) {
           let params = {
@@ -430,6 +428,7 @@ export default {
             appInstanceDescription: this.configForm.appInstanceDescription,
             mecHost: this.configForm.mecHost
           }
+          this.loading = true
           app.confirmToDeploy(params).then(res => {
             this.instanceId = res.data.response.app_instance_id
             this.timer = setTimeout(() => { this.queryInstanceStatus(this.instanceId) }, 1000)
@@ -446,7 +445,6 @@ export default {
         if (status === 'Created') {
           this.instaniateApp(res1)
         } else if (status === 'Create failed') {
-          // this.$message.error('create instance error!')
           this.$message.error(res1.data.response.operationInfo)
           this.dialogVisible = false
           this.loading = false

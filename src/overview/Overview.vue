@@ -21,14 +21,22 @@
       style="height: 100%;"
     >
       <el-col
-        :span="6"
+        :lg="6"
+        :md="12"
+        :sm="24"
+        :xs="24"
         class="content-right"
       >
         <div
           class="edge-souces mt20"
           v-if="alarmStatus === 'alarms'"
         >
-          <label class="overviewLabel">{{ $t('overview.alarms') }}</label>
+          <label class="overviewLabel">总览</label>
+          <div class="nodeBasicInfo">
+            <p><span>{{ city }}计算节点：</span>{{ nodeNum }}</p>
+            <p><span>在线节点：</span>{{ nodeNum }}</p>
+            <p><span>离线节点：</span>0</p>
+          </div>
           <Chart :chart-data="chartData" />
         </div>
         <div
@@ -170,9 +178,10 @@
         </div>
       </el-col>
       <el-col
-        :span="16"
-        :offset="2"
-        style="height: 100%;"
+        :lg="18"
+        :md="12"
+        :sm="24"
+        :xs="24"
       >
         <Map
           @node="clickNode"
@@ -285,7 +294,9 @@ export default {
       kpiInfo: [],
       loginBtnLoading: false,
       chartData: {},
-      nodeBasicInfo: null
+      nodeBasicInfo: null,
+      nodeNum: 0,
+      city: '全国'
     }
   },
   methods: {
@@ -306,9 +317,16 @@ export default {
       this.getHmCapa(val)
       this.getAppInfo(val.ip)
     },
-    clickMap (msg) {
+    clickMap (msg, city) {
       this.alarmStatus = 'alarms'
-      console.log(msg)
+      this.city = city
+      this.nodeNum = msg.length
+      this.chartData =
+        {
+          'Total': this.nodeNum,
+          'Online': this.nodeNum,
+          'Offline': 0
+        }
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -404,29 +422,21 @@ export default {
     },
     async checkServiceInfo () {
       await this.getServiceInfo(this.edgeApp)
-    },
-    getChartData (data) {
-      this.chartData = data
     }
-  },
-  mounted () {
-  },
-  beforeMount () {
-    this.$root.$on('refreshChart', this.getChartData)
   }
 }
 </script>
 <style lang='less'>
 .mecm-overview {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  top: 60px;
+  height: 100%;
+  width: 100%;
   overflow: auto;
-  background: url('../assets/images/overview-bg.png') center no-repeat;
-  margin-top: 60px;
+  background: url(/img/overview-bg.95d703ab.png) center no-repeat;
   padding: 0 30px;
+  background-size: cover;
+  box-sizing: border-box;
 }
   label.overviewLabel{
     opacity: 0.8;
@@ -449,19 +459,18 @@ export default {
   .nodeBasicInfo{
     color:#F5F5F5;
     padding:15px 0;
+    margin: 15px 15px 15px 0;
+    background: #2D4868;
     p{
       font-size: 14px;
       line-height: 25px;
       padding-left: 10px;
       span{
         display: inline-block;
-        // width: 70px;
-        // text-align: right;
       }
     }
   }
   .content-right {
-    height: 100%;
     padding:0!important;
     .my-title {
       color: white;
