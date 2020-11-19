@@ -11,24 +11,18 @@
 
 <script>
 import CityMap from '../assets/js/CityMap'
-import { overview, edge } from '../tools/request'
+import { edge } from '../tools/request'
 import echarts from 'echarts'
 import axios from 'axios'
-
-let chinaId = 100000
-let chinaName = 'china'
-let chinaJson = null
-
-let mapStack = []
-let parentId = null
-let parentName = null
-let nodeData = []
-let myChart = null
-
 export default {
   name: 'Map',
   data () {
-    return {}
+    return {
+      chinaId: 100000,
+      chinaName: 'china',
+      chinaJson: null,
+      nodeData: []
+    }
   },
   mounted () {
     this.getNodeList()
@@ -49,7 +43,7 @@ export default {
         }
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          nodeData = []
+          this.nodeData = []
           this.mapChart('mapChart')
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
@@ -67,45 +61,22 @@ export default {
           coord.push(lnglat.R)
           coord.push(lnglat.Q)
           obj.coord = coord
-          nodeData.push(obj)
+          this.nodeData.push(obj)
           this.mapChart('mapChart')
         } else {
           console.error('failed')
         }
       })
     },
-    back () {
-      if (mapStack.length !== 0) {
-        let map = mapStack.pop()
-        axios
-          .get('./map/' + map.mapId + '.json', {})
-          .then(response => {
-            const mapJson = response.data
-            regAndSetOption(
-              myChart,
-              map.mapId,
-              map.mapName,
-              mapJson,
-              false
-            )
-            parentId = map.mapId
-            parentName = map.mapName
-          })
-      }
-    },
     mapChart (divid) {
-      const self = this
-      axios.get('./map/' + chinaId + '.json', {}).then(response => {
+      axios.get('./map/' + this.chinaId + '.json', {}).then(response => {
         const mapJson = response.data
-        chinaJson = mapJson
-        myChart = echarts.init(document.getElementById(divid))
+        this.chinaJson = mapJson
+        let myChart = echarts.init(document.getElementById(divid))
         window.onresize = function () {
           myChart.resize()
         }
-        regAndSetOption(myChart, chinaId, chinaName, mapJson, false)
-        parentId = chinaId
-        parentName = 'china'
-        self.getChart(chinaId)
+        this.regAndSetOption(myChart, this.chinaName, mapJson, false)
         // 防止重复点击
         if (myChart._$handlers.click) {
           myChart._$handlers.click.length = 0
@@ -114,126 +85,102 @@ export default {
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
-            console.log(param)
-            console.log(CityMap)
             let cityId = CityMap[param.name]
             let arr = []
-            nodeData.forEach((val, index) => {
+            this.nodeData.forEach((val, index) => {
               if (val.city.indexOf(param.data.name) > -1) {
                 arr.push(val)
               }
             })
-            nodeData = arr
-            this.$emit('area', nodeData, param.name)
-            if (cityId) {
+            this.nodeData = arr
+            this.$emit('area', this.nodeData, param.name)
+            if (cityId && cityId !== '460200') {
               axios
-                .get('../../node_modules/echarts/map/json/province/beijing.json', {})
+                .get('./map/' + cityId + '.json', {})
                 .then(res => {
                   const mapJson1 = res.data
-                  regAndSetOption(
+                  this.regAndSetOption(
                     myChart,
-                    cityId,
                     param.name,
                     mapJson1,
                     true
                   )
                 })
-              self.getChart(cityId)
             } else {
               this.getNodeList()
-              regAndSetOption(myChart, chinaId, chinaName, chinaJson, false)
-              mapStack = []
-              parentId = chinaId
-              parentName = chinaName
-              self.getChart(chinaId)
+              this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
             }
           }
         })
       })
     },
-    getChart (id) {
-      let chartData = {}
-      let res = overview.getChart()
-      if (res[id]) {
-        chartData = res[id]
+    regAndSetOption (myChart1, name, mapJson, flag) {
+      echarts.registerMap(name, mapJson)
+      myChart1.setOption({
+        visualMap: {
+          show: false
+        },
+        series: [
+          {
+            type: 'map',
+            map: name,
+            zoom: 1.2,
+            aspectScale: 0.75,
+            label: {
+              normal: {
+                show: true,
+                color: '#eee'
+              },
+              emphasis: {
+                show: true,
+                color: '#eee'
+              }
+            },
+            itemStyle: {
+              normal: {
+                areaColor: '#6077BB',
+                borderColor: '#9BB6FF',
+                borderWidth: 1
+              },
+              emphasis: {
+                areaColor: '#7299FF',
+                color: '#eee'
+              }
+            },
+            regions: [],
+            data: this.initMapData(mapJson),
+            markPoint: {
+              symbol: 'pin',
+              symbolSize: [20, 20],
+              hoverable: false,
+              roam: true,
+              itemStyle: {
+                normal: {
+                  color: '#06EB00'
+                }
+              },
+              effect: {
+                show: true,
+                shadowBlur: 0
+              },
+              data: this.nodeData
+            }
+          }
+        ]
+      })
+    },
+    initMapData (mapJson) {
+      let mapData = []
+      for (let i = 0; i < mapJson.features.length; i++) {
+        mapData.push({
+          name: mapJson.features[i].properties.name
+        })
       }
-      this.$root.$emit('refreshChart', chartData)
+      return mapData
     }
   }
 }
-function regAndSetOption (myChart1, id, name, mapJson, flag) {
-  echarts.registerMap(name, mapJson)
-  myChart1.setOption({
-    visualMap: {
-      show: false
-    },
-    series: [
-      {
-        type: 'map',
-        map: name,
-        zoom: 1.2,
-        aspectScale: 0.75,
-        label: {
-          normal: {
-            show: true,
-            color: '#eee'
-          },
-          emphasis: {
-            show: true,
-            color: '#eee'
-          }
-        },
-        itemStyle: {
-          normal: {
-            areaColor: '#6077BB',
-            borderColor: '#9BB6FF',
-            borderWidth: 1
-          },
-          emphasis: {
-            areaColor: '#7299FF',
-            color: '#eee'
-          }
-        },
-        regions: [],
-        data: initMapData(mapJson),
-        markPoint: {
-          symbol: 'pin',
-          symbolSize: [20, 20],
-          hoverable: false,
-          roam: true,
-          itemStyle: {
-            normal: {
-              color: '#06EB00'
-            }
-          },
-          effect: {
-            show: true,
-            shadowBlur: 0
-          },
-          data: nodeData
-        }
-      }
-    ]
-  })
-  if (flag) {
-    mapStack.push({
-      mapId: parentId,
-      mapName: parentName
-    })
-    parentId = id
-    parentName = name
-  }
-}
 
-function initMapData (mapJson) {
-  let mapData = []
-  for (let i = 0; i < mapJson.features.length; i++) {
-    mapData.push({
-      name: mapJson.features[i].properties.name
-    })
-  }
-  return mapData
-}
 </script>
 
 <style lang='less' scoped>

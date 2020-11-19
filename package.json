@@ -9,7 +9,6 @@
     "eslint": "eslint -f checkstyle --ext .js,.vue src -o eslint_result.xml"
   },
   "dependencies": {
-    "area-data": "^5.0.6",
     "area-data-vue": "^1.0.9",
     "area-linkage-vue": "^5.1.2",
     "axios": "^0.19.0",

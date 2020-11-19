@@ -37,7 +37,6 @@
             <p><span>在线节点：</span>{{ nodeNum }}</p>
             <p><span>离线节点：</span>0</p>
           </div>
-          <label class="overviewLabel">{{ $t('overview.alarms') }}</label>
           <Chart :chart-data="chartData" />
         </div>
         <div
@@ -322,6 +321,12 @@ export default {
       this.alarmStatus = 'alarms'
       this.city = city
       this.nodeNum = msg.length
+      this.chartData =
+        {
+          'Total': this.nodeNum,
+          'Online': this.nodeNum,
+          'Offline': 0
+        }
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {
@@ -417,15 +422,7 @@ export default {
     },
     async checkServiceInfo () {
       await this.getServiceInfo(this.edgeApp)
-    },
-    getChartData (data) {
-      this.chartData = data
     }
-  },
-  mounted () {
-  },
-  beforeMount () {
-    this.$root.$on('refreshChart', this.getChartData)
   }
 }
 </script>

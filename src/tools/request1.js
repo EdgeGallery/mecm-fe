@@ -43,9 +43,6 @@ let overview = {
   },
   getServiceInfo () {
     return axios.get('/mock/seviceInfo')
-  },
-  getChart () {
-    return {}
   }
 }
 let app = {
