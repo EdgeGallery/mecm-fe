@@ -430,10 +430,10 @@ export default {
 .mecm-overview {
   position: absolute;
   top: 60px;
-  height: 100%;
+  height:calc(100% - 60px);
   width: 100%;
   overflow: auto;
-  background: url(/img/overview-bg.95d703ab.png) center no-repeat;
+  background: url('./../assets/images/overview-bg.png') center no-repeat;
   padding: 0 30px;
   background-size: cover;
   box-sizing: border-box;

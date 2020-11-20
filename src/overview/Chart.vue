@@ -45,6 +45,11 @@ export default {
     this.prepareData()
     this.setOptions()
     this.mapChart()
+    let self = this
+    this.echartInstance = echarts.init(document.getElementById('barChart', 'dark'))
+    window.addEventListener('resize', function () {
+      self.echartInstance.resize()
+    })
   },
   methods: {
     prepareData () {

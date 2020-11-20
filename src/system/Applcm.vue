@@ -159,10 +159,10 @@
 </template>
 
 <script>
-import { system } from '../../tools/request.js'
-import Search from '../../components/Search.vue'
-import pagination from '../../components/Pagination.vue'
-import Breadcrumb from '../../components/BreadCrumb'
+import { system } from '../tools/request.js'
+import Search from '../components/Search.vue'
+import pagination from '../components/Pagination.vue'
+import Breadcrumb from '../components/BreadCrumb'
 
 export default {
   name: 'SysLcm',
