@@ -28,21 +28,6 @@ export default {
   components: {
     Navbar
   },
-  mounted () {
-    let userAgent = navigator.userAgent
-    if (userAgent.indexOf('Chrome') > -1) {
-      // ok
-    } else {
-      this.$notify.warning({
-        title: 'warning',
-        message: this.$t('tip.browserAdvise'),
-        showClose: false,
-        duration: 0,
-        offset: 60
-      })
-    }
-  },
-  methods: {},
   beforeCreate () {
     if (sessionStorage.getItem('before_route')) {
       this.$router.push(sessionStorage.getItem('before_route'))

@@ -61,11 +61,6 @@ export default new Router({
           component: () => import('../app/InstanceList.vue')
         },
         {
-          path: 'mecm/mep/detail',
-          name: 'mepOverview2',
-          component: () => import('../mep/Detail.vue')
-        },
-        {
           path: 'mecm/node/list',
           name: 'hostOverview',
           component: () => import('../host/List.vue')
@@ -73,17 +68,17 @@ export default new Router({
         {
           path: 'mecm/systems/external/applcm',
           name: 'externalSystem1',
-          component: () => import('../system/external/Applcm.vue')
+          component: () => import('../system/Applcm.vue')
         },
         {
           path: 'mecm/systems/external/edgenodes',
           name: 'externalSystem2',
-          component: () => import('../system/external/Ks.vue')
+          component: () => import('../system/Ks.vue')
         },
         {
           path: 'mecm/systems/external/store',
           name: 'externalSystem3',
-          component: () => import('../system/external/Appstore.vue')
+          component: () => import('../system/Appstore.vue')
         }
       ]
     }

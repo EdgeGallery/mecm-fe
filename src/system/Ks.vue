@@ -392,10 +392,10 @@
 </template>
 
 <script>
-import { system, app } from '../../tools/request.js'
-import pagination from '../../components/Pagination.vue'
-import Search from '../../components/Search.vue'
-import Breadcrumb from '../../components/BreadCrumb'
+import { system, app } from '../tools/request.js'
+import pagination from '../components/Pagination.vue'
+import Search from '../components/Search.vue'
+import Breadcrumb from '../components/BreadCrumb'
 export default {
   name: 'Sysk8s',
   components: {
