@@ -63,7 +63,8 @@ const cn = {
     edgeNode: '边缘节点注册系统',
     appstore: '应用市场注册系统',
     appDetail: '应用详情',
-    logoutTip: '确认要离开吗？'
+    logoutTip: '确认要离开吗？',
+    ruleConfiguration: '规则配置'
   },
   overview: {
     regionEdge: '边缘节点',
@@ -135,7 +136,8 @@ const cn = {
       operationStatus: '运行状态',
       terminate: '中断',
       instanceDetail: '应用实例详情',
-      beforeDelete: '确定从host删除此应用吗？'
+      beforeDelete: '确定从host删除此应用吗？',
+      addRule: '添加规则'
 
     }
   },

@@ -20,8 +20,8 @@
       class="breadcrumb"
       :first="$t('nav.mecm')"
       :second="$t('nav.appMana')"
-      :third="$t('nav.appDetail')"
-      :path="{ path: '/mecm/apac/list' }"
+      :third="$t('nav.ruleConfiguration')"
+      :path="{ path: '/mecm/ains/list' }"
     />
     <div class="ruleconfigcontent">
       <el-tabs
@@ -36,7 +36,13 @@
             size="mini"
             @click="addDnsRule"
           >
-            添加规则
+            {{ $t('app.instanceList.addRule') }}
+          </el-button>
+          <el-button
+            size="mini"
+            @click="batchDelete"
+          >
+            批量删除
           </el-button>
           <el-table
             class="mt20"
@@ -74,6 +80,7 @@
                   id="deleteBtn"
                   type="text"
                   size="small"
+                  @click="editDnsRules"
                 >
                   修改
                 </el-button>
@@ -81,6 +88,7 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
+                  @click="copyDnsRules"
                 >
                   复制
                 </el-button>
@@ -88,6 +96,7 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
+                  @click="deleteDnsRules"
                 >
                   删除
                 </el-button>
@@ -103,7 +112,13 @@
             size="mini"
             @click="addTrafficRule"
           >
-            添加规则
+            {{ $t('app.instanceList.addRule') }}
+          </el-button>
+          <el-button
+            size="mini"
+            @click="batchDelete"
+          >
+            批量删除
           </el-button>
           <el-table
             class="mt20"
@@ -171,6 +186,7 @@
                   id="deleteBtn"
                   type="text"
                   size="small"
+                  @click="editTrafficRule"
                 >
                   修改
                 </el-button>
@@ -178,6 +194,7 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
+                  @click="copyTrafficRule"
                 >
                   复制
                 </el-button>
@@ -185,6 +202,7 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
+                  @click="deleteTrafficRule"
                 >
                   删除
                 </el-button>
