@@ -124,7 +124,7 @@ export default {
           {
             type: 'map',
             map: name,
-            zoom: 1,
+            zoom: 1.2,
             aspectScale: 0.75,
             label: {
               normal: {
