@@ -100,15 +100,15 @@
             header-row-class-name="headerClassName"
           >
             <el-table-column
-              prop="type"
+              prop="hwType"
               :label="$t('overview.capa')"
             />
             <el-table-column
-              prop="vendor"
+              prop="hwVendor"
               :label="$t('overview.vendor')"
             />
             <el-table-column
-              prop="model"
+              prop="hwModel"
               :label="$t('overview.model')"
             />
           </el-table>
@@ -314,7 +314,7 @@ export default {
       this.alarmStatus = 'nodeinfo'
       this.resetData()
       this.getNodeKpi(val.ip)
-      this.getHwCapa(val)
+      this.getHwCapa(val.ip)
       this.getAppInfo(val.ip)
     },
     clickMap (msg, city) {
@@ -375,13 +375,10 @@ export default {
     getHwCapa (host) {
       overview.getHwCapa(host).then(res => {
         if (res && res.data) {
-          console.log(res.data)
           if (res.data.status !== 500) {
-            this.mepCapabilitiesData.push(res.data.hwcapabilities)
+            this.mepCapabilitiesData = res.data.hwcapabilities
           }
         }
-      }).catch(() => {
-        // this.$message.error(this.$t('tip.getCapaFailed'))
       })
     },
     getNodeKpi (ip) {

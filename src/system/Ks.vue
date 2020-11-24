@@ -669,16 +669,16 @@ export default {
           if (this.capabilities.length > 0) {
             if (this.capabilities.includes('GPU')) {
               let obj = {}
-              obj.hmType = 'GPU'
-              obj.hmVendor = this.gpuVendor
-              obj.hmModel = this.gpuModel
+              obj.hwType = 'GPU'
+              obj.hwVendor = this.gpuVendor
+              obj.hwModel = this.gpuModel
               this.currForm.hwcapabilities.push(obj)
             }
             if (this.capabilities.includes('NPU')) {
               let obj = {}
-              obj.hmType = 'NPU'
-              obj.hmVendor = this.npuVendor
-              obj.hmModel = this.npuModel
+              obj.hwType = 'NPU'
+              obj.hwVendor = this.npuVendor
+              obj.hwModel = this.npuModel
               this.currForm.hwcapabilities.push(obj)
             }
           }

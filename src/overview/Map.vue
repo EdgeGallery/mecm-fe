@@ -94,7 +94,7 @@ export default {
             })
             this.nodeData = arr
             this.$emit('area', this.nodeData, param.name)
-            if (cityId && cityId !== '460200') {
+            if (cityId) {
               axios
                 .get('./map/' + cityId + '.json', {})
                 .then(res => {
