@@ -314,7 +314,7 @@ export default {
       this.alarmStatus = 'nodeinfo'
       this.resetData()
       this.getNodeKpi(val.ip)
-      this.getHmCapa(val)
+      this.getHwCapa(val)
       this.getAppInfo(val.ip)
     },
     clickMap (msg, city) {
@@ -372,8 +372,8 @@ export default {
         // this.$message.error(this.$t('tip.getAppInfoFailed'))
       })
     },
-    getHmCapa (host) {
-      overview.getHmCapa(host).then(res => {
+    getHwCapa (host) {
+      overview.getHwCapa(host).then(res => {
         if (res && res.data) {
           console.log(res.data)
           if (res.data.status !== 500) {

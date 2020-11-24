@@ -74,6 +74,19 @@
             :label="$t('app.packageList.affinity')"
           />
           <el-table-column
+            label="硬件能力"
+            width="200"
+          >
+            <template slot-scope="scope">
+              <span
+                v-for="(item,index) in scope.row.hwcapabilities"
+                :key="index"
+              >
+                {{ item.hwType }}
+              </span>
+            </template>
+          </el-table-column>
+          <el-table-column
             prop="edgerepoIp"
             sortable
             label="Edge Repo IP"
