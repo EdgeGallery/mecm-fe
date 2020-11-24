@@ -42,7 +42,17 @@ const hostData = function () {
       mechostName: 'Node',
       userName: '',
       zipCode: '',
-      capability: 'GPU'
+      capability: 'GPU',
+      hwcapabilities: [{
+        'hwType': 'GPU',
+        'hwVendor': 'gpu',
+        'hwModel': 'gpu'
+      },
+      {
+        'hwType': 'NPU',
+        'hwVendor': 'npu',
+        'hwModel': 'npu'
+      }]
     }
   ]
 }
@@ -96,19 +106,18 @@ const kpiInfo = function () {
   }
 }
 
-const HMCapability = function () {
+const HwCapability = function () {
   return {
-    'hwcapabilities': {
-      'type': 'GPU',
-      'vendor': 'testvendor',
-      'model': 'testmodel',
-      'specification': [
-        {
-          'spectype': 'noofcards',
-          'specvalue': '2'
-        }
-      ]
-    }
+    hwcapabilities: [{
+      'hwType': 'GPU',
+      'hwVendor': 'gpu',
+      'hwModel': 'gpu'
+    },
+    {
+      'hwType': 'NPU',
+      'hwVendor': 'npu',
+      'hwModel': 'npu'
+    }]
   }
 }
 
@@ -220,4 +229,4 @@ Mock.mock('/mock/seviceInfo', serviceInfoData)
 Mock.mock('/mock/instanceInfo', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
-Mock.mock('/mock/getHmCapability', HMCapability)
+Mock.mock('/mock/getHwCapability', HwCapability)

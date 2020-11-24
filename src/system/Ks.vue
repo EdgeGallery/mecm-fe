@@ -82,6 +82,19 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
+              label="硬件能力"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <span
+                  v-for="(item,index) in scope.row.hwcapabilities"
+                  :key="index"
+                >
+                  {{ item.hwType }}
+                </span>
+              </template>
+            </el-table-column>
+            <el-table-column
               prop="edgerepoIp"
               sortable
               label="Edge Repo IP"
@@ -524,6 +537,21 @@ export default {
       this.selectedArea = row.city.split('/')
       this.dialogVisible = true
       this.area = true
+      row.hwcapabilities.forEach(item => {
+        this.capabilities.push(item.hwType)
+      })
+      this.checkCapabilityInfo(row)
+    },
+    checkCapabilityInfo (row) {
+      row.hwcapabilities.forEach(item => {
+        if (item.hwType === 'GPU') {
+          this.gpuVendor = item.hwVendor
+          this.gpuModel = item.hwModel
+        } else {
+          this.npuVendor = item.hwVendor
+          this.npuModel = item.hwModel
+        }
+      })
     },
     cancel (row) {
       this.dialogVisible = false
