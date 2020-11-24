@@ -57,14 +57,17 @@
                 <el-form-item :label="$t('system.appstore.appstoreName')">
                   {{ item.appstoreName }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.url')">
-                  {{ item.url }}
+                <el-form-item label="厂商">
+                  {{ item.producer }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.username')">
+                <el-form-item label="用户名">
                   {{ item.userName }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.createTime')">
-                  {{ item.time }}
+                <el-form-item label="IP">
+                  {{ item.appstoreIp }}
+                </el-form-item>
+                <el-form-item label="端口">
+                  {{ item.appstorePort }}
                 </el-form-item>
                 <el-form-item class="rt btn-group">
                   <el-button
@@ -199,11 +202,10 @@ export default {
       urlDisable: 'false',
       dialogTitle: this.$t('system.appstore.appStoreReg'),
       form: {
-        appstoreIp: '1.1.1.1',
+        appstoreIp: '',
         appstoreName: '',
-        appstorePort: '1',
+        appstorePort: '',
         producer: '',
-        uri: '',
         userName: ''
       },
       currPageTableData: [],
