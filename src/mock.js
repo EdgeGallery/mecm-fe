@@ -33,7 +33,7 @@ const hostData = function () {
       address: '78hao',
       affinity: 'X86',
       applcmIp: '119.8.53.3',
-      city: '北京市/北京市/朝阳区/义井街道',
+      city: '北京市/北京市/朝阳区',
       edgerepoIp: '119.8.53.3',
       edgerepoName: null,
       edgerepoPort: '8123',

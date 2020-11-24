@@ -111,7 +111,7 @@
             >
               <el-form-item
                 :label="$t('system.appstore.appstoreName')"
-                prop="appstorename"
+                prop="appstoreName"
               >
                 <el-input
                   id="appstorename"
@@ -131,7 +131,7 @@
               </el-form-item>
               <el-form-item
                 label="URL"
-                prop="url"
+                prop="uri"
               >
                 <el-input
                   id="url"
@@ -201,7 +201,7 @@ export default {
       tableData: [],
       dataLoading: true,
       rules: {
-        appstorename: [
+        appstoreName: [
           { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
         ],
         producer: [
@@ -210,7 +210,7 @@ export default {
         userName: [
           { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
         ],
-        url: [
+        uri: [
           { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
         ]
       }
