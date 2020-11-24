@@ -64,7 +64,8 @@ const en = {
     appstore: 'App Store',
     appDetail: 'App Detail',
     fileNotSupport: 'File not support to read.',
-    logoutTip: 'Are you sure to log out?'
+    logoutTip: 'Are you sure to log out?',
+    ruleConfiguration: 'Rule Configuration'
   },
   overview: {
     regionEdge: 'Edge Nodes',
@@ -135,7 +136,8 @@ const en = {
       operationStatus: 'Operational Status',
       terminate: 'Terminate',
       instanceDetail: 'Instance Detail',
-      beforeDelete: 'Are you sure to delete this instance from the MEC host?'
+      beforeDelete: 'Are you sure to delete this instance from the MEC host?',
+      addRule: 'Add Rules'
     }
   },
   edgeNode: {

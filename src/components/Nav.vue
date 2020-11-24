@@ -37,7 +37,7 @@
       </el-col>
       <el-col
         :lg="11"
-        class="hidden-lg-and-down"
+        class="hidden-md-and-down"
       >
         <div>
           <Topbar :json-data="jsonData" />

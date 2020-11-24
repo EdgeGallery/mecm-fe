@@ -427,7 +427,8 @@ export default {
         'mechostIp': '',
         'mechostName': '',
         'userName': '',
-        'zipCode': ''
+        'zipCode': '',
+        'hwcapabilities': []
       },
       rules: {
         mechostIp: [
@@ -544,7 +545,8 @@ export default {
         'mechostIp': '',
         'mechostName': '',
         'userName': '',
-        'zipCode': ''
+        'zipCode': '',
+        'hwcapabilities': []
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
       this.capabilities = []
@@ -635,6 +637,23 @@ export default {
     confirm (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          this.currForm.hwcapabilities = []
+          if (this.capabilities.length > 0) {
+            if (this.capabilities.includes('GPU')) {
+              let obj = {}
+              obj.hmType = 'GPU'
+              obj.hmVendor = this.gpuVendor
+              obj.hmModel = this.gpuModel
+              this.currForm.hwcapabilities.push(obj)
+            }
+            if (this.capabilities.includes('NPU')) {
+              let obj = {}
+              obj.hmType = 'NPU'
+              obj.hmVendor = this.npuVendor
+              obj.hmModel = this.npuModel
+              this.currForm.hwcapabilities.push(obj)
+            }
+          }
           this.currForm.city = this.selectedArea.join('/')
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {

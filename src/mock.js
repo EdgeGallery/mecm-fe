@@ -33,52 +33,7 @@ const hostData = function () {
       address: '78hao',
       affinity: 'X86',
       applcmIp: '119.8.53.3',
-      city: '山西省/太原市/晋源区/义井街道',
-      edgerepoIp: '119.8.53.3',
-      edgerepoName: null,
-      edgerepoPort: '8123',
-      edgerepoUsername: '',
-      mechostIp: '119.8.53.3',
-      mechostName: 'Node',
-      userName: '',
-      zipCode: '',
-      capability: 'GPU'
-    },
-    {
-      address: '78hao',
-      affinity: 'X86',
-      applcmIp: '119.8.53.3',
-      city: '山西省/太原市/晋源区/义井街道',
-      edgerepoIp: '119.8.53.3',
-      edgerepoName: null,
-      edgerepoPort: '8123',
-      edgerepoUsername: '',
-      mechostIp: '119.8.53.3',
-      mechostName: 'Node',
-      userName: '',
-      zipCode: '',
-      capability: 'GPU'
-    },
-    {
-      address: '78hao',
-      affinity: 'X86',
-      applcmIp: '119.8.53.3',
       city: '北京市/北京市/朝阳区/义井街道',
-      edgerepoIp: '119.8.53.3',
-      edgerepoName: null,
-      edgerepoPort: '8123',
-      edgerepoUsername: '',
-      mechostIp: '119.8.53.3',
-      mechostName: 'Node',
-      userName: '',
-      zipCode: '',
-      capability: 'GPU'
-    },
-    {
-      address: '78hao',
-      affinity: 'X86',
-      applcmIp: '119.8.53.3',
-      city: '河北省/廊坊市/安次区',
       edgerepoIp: '119.8.53.3',
       edgerepoName: null,
       edgerepoPort: '8123',
@@ -255,18 +210,12 @@ const serviceInfoData = function () {
   return res
 }
 
-const alarmData = function () {
-  let alarm = {}
-  return alarm
-}
-
 Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
 Mock.mock('/mock/applcms', applcmData)
 Mock.mock('/mock/appstores', appstoreData)
-Mock.mock('/mock/alarmData', alarmData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
 Mock.mock('/mock/instanceInfo', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
