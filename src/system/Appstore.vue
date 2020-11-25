@@ -63,6 +63,9 @@
                 <el-form-item label="用户名">
                   {{ item.userName }}
                 </el-form-item>
+                <el-form-item label="URI">
+                  {{ item.uri }}
+                </el-form-item>
                 <el-form-item label="IP">
                   {{ item.appstoreIp }}
                 </el-form-item>
@@ -144,6 +147,16 @@
                 />
               </el-form-item>
               <el-form-item
+                label="URI"
+                prop="uri"
+              >
+                <el-input
+                  id="uri"
+                  maxlength="80"
+                  v-model="form.uri"
+                />
+              </el-form-item>
+              <el-form-item
                 label="IP"
                 prop="appstoreIp"
               >
@@ -206,7 +219,8 @@ export default {
         appstoreName: '',
         appstorePort: '',
         producer: '',
-        userName: ''
+        userName: '',
+        uri: ''
       },
       currPageTableData: [],
       paginationData: [],
@@ -222,11 +236,16 @@ export default {
         userName: [
           { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
         ],
+        uri: [
+          { required: true, message: this.$t('verify.uriTip'), trigger: 'blur' }
+        ],
         appstoreIp: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
         appstorePort: [
-          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ]
       }
     }

@@ -232,7 +232,7 @@ const en = {
     managedMecHostTip: 'Managed Mec Host should not be empty',
     appstorenameTip: 'App store name should not be empty',
     vendorTip: 'Vendor should not be empty',
-    urlTip: 'Url should not be empty',
+    uriTip: 'URI should not be empty',
     affinityTip: 'Architecture should not be empty',
     areaTip: 'Area should not be empty',
     applcmNameTip: 'App LCM should not be empty',
