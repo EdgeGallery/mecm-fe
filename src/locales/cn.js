@@ -233,7 +233,7 @@ const cn = {
     managedMecHostTip: '管理的MEC Host不能为空。',
     appstorenameTip: '应用市场名称不能为空。',
     vendorTip: '生产商不能为空。',
-    urlTip: 'Url不能为空。',
+    uriTip: 'URI不能为空。',
     affinityTip: '架构不能为空。',
     areaTip: '请选择地域',
     applcmNameTip: 'App LCM名称不能为空',
