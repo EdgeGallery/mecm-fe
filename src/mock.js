@@ -172,11 +172,12 @@ const applcmData = function () {
 
 const appstoreData = function () {
   return [
-    { 'url': 'https://appstore.edgegallery.com',
-      'userName': 'Xxx',
-      'appstoreName': 'huaweiappstore',
-      'producer': 'huawei',
-      'time': '01-09-2020 09:04:04'
+    { appstoreIp: '1.2.3.4',
+      appstoreName: 'appstore',
+      appstorePort: '1111',
+      producer: 'Huawei',
+      uri: 'https://1.1.1.1:1111',
+      userName: 'xxxx'
     }
   ]
 }

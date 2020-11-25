@@ -57,14 +57,17 @@
                 <el-form-item :label="$t('system.appstore.appstoreName')">
                   {{ item.appstoreName }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.url')">
-                  {{ item.url }}
+                <el-form-item label="厂商">
+                  {{ item.producer }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.username')">
+                <el-form-item label="用户名">
                   {{ item.userName }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.createTime')">
-                  {{ item.time }}
+                <el-form-item label="IP">
+                  {{ item.appstoreIp }}
+                </el-form-item>
+                <el-form-item label="端口">
+                  {{ item.appstorePort }}
                 </el-form-item>
                 <el-form-item class="rt btn-group">
                   <el-button
@@ -130,17 +133,6 @@
                 />
               </el-form-item>
               <el-form-item
-                label="URL"
-                prop="uri"
-              >
-                <el-input
-                  id="url"
-                  maxlength="80"
-                  v-model="form.uri"
-                  :disabled="urlDisable"
-                />
-              </el-form-item>
-              <el-form-item
                 :label="$t('system.appLcm.userNmae')"
                 prop="userName"
               >
@@ -149,6 +141,27 @@
                   maxlength="20"
                   v-model="form.userName"
                   auto-complete="new-username"
+                />
+              </el-form-item>
+              <el-form-item
+                label="IP"
+                prop="appstoreIp"
+              >
+                <el-input
+                  id="ip"
+                  maxlength="80"
+                  v-model="form.appstoreIp"
+                  :disabled="urlDisable"
+                />
+              </el-form-item>
+              <el-form-item
+                label="端口"
+                prop="appstorePort"
+              >
+                <el-input
+                  id="port"
+                  maxlength="80"
+                  v-model="form.appstorePort"
                 />
               </el-form-item>
             </el-form>
@@ -193,7 +206,6 @@ export default {
         appstoreName: '',
         appstorePort: '',
         producer: '',
-        uri: '',
         userName: ''
       },
       currPageTableData: [],
@@ -210,8 +222,11 @@ export default {
         userName: [
           { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
         ],
-        uri: [
-          { required: true, message: this.$t('verify.urlTip'), trigger: 'blur' }
+        appstoreIp: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
+        ],
+        appstorePort: [
+          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' }
         ]
       }
     }
