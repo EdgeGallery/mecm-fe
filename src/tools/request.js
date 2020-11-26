@@ -114,14 +114,11 @@ let overview = {
   }
 }
 let app = {
-  confirmToDistribute (params) {
-    return POST(apm + '/tenants/' + getUserId() + '/packages', params)
+  getPackageList (appId) {
+    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
   },
   getAppListFromAppStore () {
     return GET('/mec-appstore/mec/appstore/v1/apps')
-  },
-  getPackageList (appId) {
-    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
   },
   downloadPackage (appId, packageId) {
     try {
@@ -137,20 +134,11 @@ let app = {
       console.log(e)
     }
   },
+  confirmToDistribute (params) {
+    return POST(apm + '/tenants/' + getUserId() + '/packages', params)
+  },
   getDistributionList () {
     return GET(apm + '/tenants/' + getUserId() + '/packages')
-  },
-  confirmToDeploy (params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances', params)
-  },
-  getInstanceList () {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos')
-  },
-  getInstanceInfo (instanceId) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
-  },
-  instantiateApp (instanceId) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
   deleteDistributionApp (type, hostIp, packageId) {
     let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
@@ -159,11 +147,35 @@ let app = {
     }
     return DELETE(url)
   },
+  confirmToDeploy (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances', params)
+  },
+  confirmToBatchDeploy (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_create', params)
+  },
+  getInstanceInfo (instanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
+  },
+  getBatchInstanceInfo (instanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/appinstanceids?' + instanceId)
+  },
+  instantiateApp (instanceId) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  batchInstantiateApp (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
+  },
+  getInstanceList () {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos')
+  },
   getInstanceDetail (appInstanceId) {
     return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
   },
   deleteInstanceApp (instanceId) {
     return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  batchDeleteInstanceApp (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   }
 }
 let edge = {
