@@ -30,13 +30,27 @@
         :status="status"
         @getSearchData="getSearchData"
       />
+      <div class="btn-group rt">
+        <el-button
+          type="primary"
+          @click="beforeDelete(selectData,1)"
+        >
+          批量删除
+        </el-button>
+      </div>
       <div class="tableDiv">
         <el-table
           :data="currPageTableData"
           v-loading="dataLoading"
+          @selection-change="handleSelectionChange"
           border
           style="width: 100%;"
         >
+          <el-table-column
+            type="selection"
+            revers-selection
+            width="50"
+          />
           <el-table-column
             prop="appName"
             sortable
@@ -78,7 +92,7 @@
             <template slot-scope="scope">
               <el-button
                 id="deleteBtn"
-                @click="beforeDelete(scope.row)"
+                @click="beforeDelete(scope.row,2)"
                 type="text"
                 size="small"
               >
@@ -170,7 +184,8 @@ export default {
         podName: ''
       },
       detailData: [],
-      searchData: null
+      searchData: null,
+      selectData: []
     }
   },
   mounted () {
@@ -219,13 +234,24 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    beforeDelete (rows) {
+    handleSelectionChange (selection) {
+      this.selectData = selection
+    },
+    beforeDelete (rows, type) {
       this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        this.confirmDetlete(rows.appInstanceId)
+        if (type === 1) {
+          if (rows.length > 0) {
+            this.multipleDelete(rows)
+          } else {
+            this.$message.warning('Please select one package at least!')
+          }
+        } else {
+          this.confirmDetlete(rows.appInstanceId)
+        }
       }).catch(() => {
       })
     },
@@ -243,6 +269,21 @@ export default {
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
+      })
+    },
+    multipleDelete (rows) {
+      let obj = {
+        appInstanceIds: []
+      }
+      rows.forEach(item => {
+        obj.appInstanceIds.push(item.appInstanceId)
+      })
+      console.log(obj)
+      app.batchDeleteInstanceApp(obj).then(response => {
+        this.initList()
+        this.$message.success(this.$t('tip.deleteSuc'))
+      }).catch((error) => {
+        this.$message.error(error.message)
       })
     },
     confirmDetlete (appInstanceId) {
@@ -276,6 +317,9 @@ export default {
     height: 100%;
     background: #fff;
     padding: 30px 60px;
+    .btn-group{
+      margin:15px 0;
+    }
   .appStore{
     width:30%;
     height:185px;

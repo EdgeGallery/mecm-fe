@@ -127,7 +127,7 @@
               {{ $t('common.delete') }}
             </el-button>
             <el-button
-              id="distributeBtn"
+              id="deployBtn"
               @click="deploy(scope.row,1)"
               :disabled="scope.row.status !=='Distributed'"
               type="text"
@@ -160,7 +160,7 @@
         <p>MEC Host</p>
         <el-form-item :label="$t('app.packageList.ip')">
           <div
-            v-for="(item,index) in configForm.mecHost"
+            v-for="(item,index) in hostList"
             :key="index"
           >
             <span
@@ -289,7 +289,6 @@ export default {
         appPackageId: '',
         appName: '',
         appInstanceDescription: '',
-        mecHost: [],
         appId: this.appid
       },
       rules: {
@@ -308,7 +307,8 @@ export default {
       instanceId: '',
       timer: null,
       distributionStatus: ['Distributed', 'Error'],
-      serchData: null
+      serchData: null,
+      hostList: []
     }
   },
   mounted () {
@@ -408,14 +408,20 @@ export default {
       })
     },
     deploy (row, type) {
-      this.configForm.mecHost = []
+      this.hostList = []
       this.configForm.appPackageId = this.appPackageId
       this.configForm.appId = this.appid
       this.dialogVisible = true
-      if (type === 1) {
-        this.configForm.mecHost.push(row)
+      if (type === 2) {
+        let array = []
+        row.forEach(item => {
+          array.push(item.hostIp)
+        })
+        this.configForm.mecHost = array
+        this.hostList = row
       } else {
-        this.configForm.mecHost = row
+        this.configForm.mecHost = row.hostIp
+        this.hostList.push(row)
       }
     },
     confirmToDeploy (configForm) {
@@ -429,21 +435,31 @@ export default {
             mecHost: this.configForm.mecHost
           }
           this.loading = true
-          app.confirmToDeploy(params).then(res => {
-            this.instanceId = res.data.response.app_instance_id
-            this.timer = setTimeout(() => { this.queryInstanceStatus(this.instanceId) }, 1000)
-          }).catch(() => {
-            this.$message.error(this.$t('tip.deployFailed'))
-            this.dialogVisible = false
-          })
+          if (typeof (params.mecHost) === 'string') {
+            app.confirmToDeploy(params).then(res => {
+              let instanceId = res.data.response.app_instance_id
+              this.timer = setTimeout(() => { this.queryInstanceStatus(instanceId) }, 1000)
+            }).catch(() => {
+              this.$message.error(this.$t('tip.deployFailed'))
+              this.dialogVisible = false
+            })
+          } else {
+            app.confirmToBatchDeploy(params).then(res => {
+              let instanceIds = res.data.response
+              this.timer = setTimeout(() => { this.batchInstaniateApp(instanceIds) }, 1000)
+            }).catch(() => {
+              this.$message.error(this.$t('tip.deployFailed'))
+              this.dialogVisible = false
+            })
+          }
         }
       })
     },
-    queryInstanceStatus () {
-      app.getInstanceInfo(this.instanceId).then(res1 => {
+    queryInstanceStatus (instanceids) {
+      app.getInstanceInfo(instanceids).then(res1 => {
         let status = res1.data.response.operationalStatus
         if (status === 'Created') {
-          this.instaniateApp(res1)
+          this.instaniateApp(instanceids)
         } else if (status === 'Create failed') {
           this.$message.error(res1.data.response.operationInfo)
           this.dialogVisible = false
@@ -459,8 +475,27 @@ export default {
         }
       })
     },
-    instaniateApp (res1) {
-      app.instantiateApp(this.instanceId).then(response => {
+    instaniateApp (instanceId) {
+      app.instantiateApp(instanceId).then(response => {
+        this.loading = false
+        this.dialogVisible = false
+        this.$nextTick(() => {
+          this.$router.push('/mecm/ains/list')
+        })
+      }).catch(() => {
+        this.$message.error(this.$t('tip.deployFailed'))
+        this.dialogVisible = false
+        this.loading = false
+      })
+    },
+    batchInstaniateApp (instanceId) {
+      let obj = {
+        appInstaceIds: []
+      }
+      instanceId.forEach(item => {
+        obj.appInstanceIds.push(item.appInstanceId)
+      })
+      app.batchInstantiateApp(instanceId).then(response => {
         this.loading = false
         this.dialogVisible = false
         this.$nextTick(() => {

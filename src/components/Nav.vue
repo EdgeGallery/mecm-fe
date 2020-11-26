@@ -256,7 +256,7 @@ export default {
     margin-right: 10px;
     span{
       height:24px;
-      margin-right: 5px;
+      margin-right: 10px;
       position: relative;
       top:8px;
       cursor:pointer;
