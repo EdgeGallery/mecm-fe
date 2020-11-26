@@ -111,6 +111,9 @@ let overview = {
   },
   getServiceInfo (instanceId) {
     return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  getMepCapabilities (hostip) {
+    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   }
 }
 let app = {

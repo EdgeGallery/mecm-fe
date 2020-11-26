@@ -95,7 +95,7 @@
         >
           <label class="overviewLabel">{{ $t('overview.mepCapa') }}</label>
           <el-table
-            :data="mepCapabilitiesData"
+            :data="hwCapData"
             class="mt20"
             header-row-class-name="headerClassName"
           >
@@ -156,12 +156,12 @@
                 </el-button>
               </div>
               <el-table
-                :data="appPackageList"
+                :data="mepCapData"
                 style="width: 100%"
                 header-row-class-name="headerClassName"
               >
                 <el-table-column
-                  prop="affinity"
+                  prop="capabilityName"
                   :label="$t('overview.capa')"
                 />
                 <el-table-column
@@ -266,7 +266,8 @@ export default {
     return {
       serviceInfo: {},
       alarmStatus: 'alarms',
-      mepCapabilitiesData: [],
+      hwCapData: [],
+      mepCapData: [],
       edgeApp: '',
       edgeAppList: [],
       chartDataCpu: {
@@ -287,7 +288,6 @@ export default {
           { type: 'Usage', value: 0 }
         ]
       },
-      capabilitiesData: [],
       manageDialogStatus: false,
       infoList: [],
       appPackageList: [],
@@ -304,7 +304,7 @@ export default {
       this.chartDataCpu.rows[0].value = 0
       this.chartDataMem.rows[0].value = 0
       this.chartDataDisk.rows[0].value = 0
-      this.mepCapabilitiesData = []
+      this.hwCapData = []
       this.appPackageList = []
       this.edgeAppList = []
       this.edgeApp = ''
@@ -376,7 +376,16 @@ export default {
       overview.getHwCapa(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
-            this.mepCapabilitiesData = res.data.hwcapabilities
+            this.hwCapData = res.data.hwcapabilities
+          }
+        }
+      })
+    },
+    getMepCapa (host) {
+      overview.getMepCapabilities(host).then(res => {
+        if (res && res.data) {
+          if (res.data.status !== 500) {
+            this.mepCapData = res.data
           }
         }
       })

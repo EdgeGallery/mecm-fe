@@ -201,6 +201,22 @@
             v-model="configForm.appInstanceDescription"
           />
         </el-form-item>
+        <el-form-item
+          label="硬件能力"
+          prop="hwCapabilities"
+        >
+          <el-checkbox-group
+            v-model="configForm.hwCapabilities"
+          >
+            <el-checkbox
+              v-for="item in capabilities"
+              :label="item"
+              :key="item"
+            >
+              {{ item }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
         <p>POD Information</p>
         <el-form-item :label="$t('app.distriList.podName')">
           <el-input
@@ -289,7 +305,8 @@ export default {
         appPackageId: '',
         appName: '',
         appInstanceDescription: '',
-        appId: this.appid
+        appId: this.appid,
+        hwCapabilities: []
       },
       rules: {
         appName: [
@@ -308,14 +325,15 @@ export default {
       timer: null,
       distributionStatus: ['Distributed', 'Error'],
       serchData: null,
-      hostList: []
+      hostList: [],
+      capabilities: ['GPU', 'NPU']
     }
   },
   mounted () {
     this.initList()
     this.interval = setInterval(() => {
       this.initList()
-    }, 10000)
+    }, 15000)
   },
   beforeDestroy () {
     this.clearInterval()
@@ -432,7 +450,8 @@ export default {
             appPackageId: this.configForm.appPackageId,
             appName: this.configForm.appName,
             appInstanceDescription: this.configForm.appInstanceDescription,
-            mecHost: this.configForm.mecHost
+            mecHost: this.configForm.mecHost,
+            hwCapabilities: this.configForm.hwCapabilities
           }
           this.loading = true
           if (typeof (params.mecHost) === 'string') {
