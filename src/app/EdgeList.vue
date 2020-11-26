@@ -514,7 +514,7 @@ export default {
       instanceId.forEach(item => {
         obj.appInstanceIds.push(item.appInstanceId)
       })
-      app.batchInstantiateApp(instanceId).then(response => {
+      app.batchInstantiateApp(obj).then(response => {
         this.loading = false
         this.dialogVisible = false
         this.$nextTick(() => {
