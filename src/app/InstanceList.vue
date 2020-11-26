@@ -100,6 +100,7 @@
               </el-button>
               <el-button
                 type="text"
+                size="small"
                 @click="jump"
                 :loading="loading"
               >
@@ -278,9 +279,10 @@ export default {
       rows.forEach(item => {
         obj.appInstanceIds.push(item.appInstanceId)
       })
-      console.log(obj)
       app.batchDeleteInstanceApp(obj).then(response => {
-        this.initList()
+        setTimeout(() => {
+          this.initList()
+        })
         this.$message.success(this.$t('tip.deleteSuc'))
       }).catch((error) => {
         this.$message.error(error.message)
