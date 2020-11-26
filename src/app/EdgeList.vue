@@ -509,7 +509,7 @@ export default {
     },
     batchInstaniateApp (instanceId) {
       let obj = {
-        appInstaceIds: []
+        appInstanceIds: []
       }
       instanceId.forEach(item => {
         obj.appInstanceIds.push(item.appInstanceId)
