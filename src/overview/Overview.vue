@@ -315,6 +315,7 @@ export default {
       this.resetData()
       this.getNodeKpi(val.ip)
       this.getHwCapa(val.ip)
+      this.getMepCapa(val.ip)
       this.getAppInfo(val.ip)
     },
     clickMap (msg, city) {

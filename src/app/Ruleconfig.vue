@@ -213,9 +213,9 @@
       </el-tabs>
     </div>
     <el-dialog
-      :title="$t('app.distriList.deploymentConf')"
+      :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
-      width="50%"
+      width="38%"
     >
       <div class="dialogContent">
         <vue-json-editor
@@ -275,10 +275,11 @@ export default {
       dnsRulesData: [],
       trafficRulesData: [],
       dnsRules: {
-        dnsRuleRedirectRuleId: 'DNS11112525',
-        domainName: 'demo.edgegallery.org',
-        ipAddressType: 'IP_V4',
-        dnsServerIp: '119.25.142.25'
+        dnsRuleId: 'DNS Rule Identifier (Unique), value Range：1~63 bytes',
+        domainName: 'FQDN Domain name, value Range：1~63 bytes',
+        ipAddressType: 'IPAddress Type, IPv4 or IPv6.',
+        dnsServerIp: 'IP address.',
+        ttl: 'Validity period of DNS record resolution,default value is 86400.'
       },
       trafficRules: {
         action: 'DROP',
