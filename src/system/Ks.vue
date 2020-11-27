@@ -152,8 +152,6 @@
       <el-dialog
         :title="title"
         :visible.sync="dialogVisible"
-        :close-on-click-modal="false"
-        :show-close="false"
         style="padding-right:30px;"
         width="40%"
       >

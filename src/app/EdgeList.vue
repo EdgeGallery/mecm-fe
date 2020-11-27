@@ -377,8 +377,17 @@ export default {
       this.currPageTableData = data
     },
     multipleDeploy () {
+      console.log(this.selectData)
       if (this.selectData !== null && this.selectData.length > 0) {
-        this.deploy(this.selectData, 2)
+        let allStatus = []
+        this.selectData.forEach(item => {
+          allStatus.push(item.status)
+        })
+        if (!allStatus.includes('Error')) {
+          this.deploy(this.selectData, 2)
+        } else {
+          this.$message.error(this.$t('app.disriList.deleteError'))
+        }
       } else {
         this.$message.warning('Please select one package at least!')
       }

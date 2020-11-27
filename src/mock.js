@@ -157,6 +157,24 @@ const distributionData = function () {
       { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Distributed', 'error': '' }
     ]
+  },
+  {
+    'appPkgId': '9eb381e222dd4a3898fc61f7182bba24',
+    'appPkgName': 'zone-swr-test1',
+    'appPkgVersion': '1.0',
+    'appPkgPath': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/packages/9eb381e222dd4a3898fc61f7182bba24/action/download',
+    'appProvider': 'Huawei',
+    'appPkgDesc': 'for testing',
+    'appPkgAffinity': 'X86',
+    'appIconUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/icon',
+    'createdTime': '2020-09-19T07:31:33.267',
+    'modifiedTime': '2020-09-19T07:31:33.455',
+    'appId': '73b6f66992ab4798a55350f419a210af',
+    'mecHostInfo': [
+      { 'hostIp': '119.8.53.3', 'status': 'Error', 'error': '' },
+      { 'hostIp': '119.8.53.4', 'status': 'Error', 'error': '' },
+      { 'hostIp': '119.8.53.5', 'status': 'Error', 'error': '' }
+    ]
   }]
 }
 
