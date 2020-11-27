@@ -130,15 +130,19 @@ const cn = {
       podNameEspace: 'Pod命名空间',
       podSel: 'Pod选择器',
       deploymentConf: '部署配置',
-      multipleDeploy: '批量部署'
+      multipleDeploy: '批量部署',
+      deleteError: '请先删除分发状态为“Error”的应用'
     },
     instanceList: {
       operationStatus: '运行状态',
       terminate: '中断',
       instanceDetail: '应用实例详情',
       beforeDelete: '确定从host删除此应用吗？',
-      addRule: '添加规则'
-
+      addRule: '添加规则',
+      batchDeleteDnsRules: '批量删除DNS规则',
+      batchDeleteTrafficRules: '批量删除流量规则',
+      addDnsRules: '增加DNS规则',
+      addTrafficRules: '增加流量规则'
     }
   },
   edgeNode: {
@@ -213,7 +217,8 @@ const cn = {
     delete: '删除',
     detail: '详情',
     modify: '编辑',
-    warning: '提示'
+    warning: '提示',
+    copy: '复制'
   },
   verify: {
     ipTip: 'IP地址不能为空。',

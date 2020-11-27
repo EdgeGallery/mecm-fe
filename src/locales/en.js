@@ -130,14 +130,19 @@ const en = {
       podNameEspace: 'Pod Name Espace',
       podSel: 'Pod Selector',
       deploymentConf: 'Deployment Configuration',
-      multipleDeploy: 'Batch Deployment'
+      multipleDeploy: 'Batch Deployment',
+      deleteError: 'Please delete the error status applications'
     },
     instanceList: {
       operationStatus: 'Operational Status',
       terminate: 'Terminate',
       instanceDetail: 'Instance Detail',
       beforeDelete: 'Are you sure to delete this instance from the MEC host?',
-      addRule: 'Add Rules'
+      addRule: 'Add Rules',
+      batchDeleteDnsRules: 'Batch delete DNS ruls',
+      batchDeleteTrafficRules: 'Batch delete traffic ruls',
+      addDnsRules: 'Add DNS rules',
+      addTrafficRules: 'Add Traffic rules'
     }
   },
   edgeNode: {
@@ -212,7 +217,8 @@ const en = {
     delete: 'Delete',
     detail: 'Detail',
     modify: 'Modify',
-    warning: 'Promt'
+    warning: 'Promt',
+    copy: 'Copy'
   },
   verify: {
     ipTip: 'Ip should not be empty',

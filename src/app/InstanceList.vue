@@ -104,7 +104,7 @@
                 @click="jump"
                 :loading="loading"
               >
-                配置规则
+                {{ $t('nav.ruleConfiguration') }}
               </el-button>
               <el-button
                 id="detailBtn"

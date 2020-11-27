@@ -36,17 +36,17 @@
             size="mini"
             @click="addDnsRule"
           >
-            {{ $t('app.instanceList.addRule') }}
+            {{ $t('app.instanceList.addDnsRules') }}
           </el-button>
           <el-button
             size="mini"
-            @click="batchDelete"
+            @click="batchDeleteDns"
           >
-            批量删除
+            {{ $t('app.instanceList.batchDeleteDnsRules') }}
           </el-button>
           <el-table
             class="mt20"
-            :data="currPageTableData"
+            :data="dnsRulesData"
             border
             @selection-change="handleSelectionChange"
             style="width: 100%;"
@@ -82,7 +82,7 @@
                   size="small"
                   @click="editDnsRules"
                 >
-                  修改
+                  {{ $t('common.modify') }}
                 </el-button>
                 <el-button
                   id="distributeBtn"
@@ -90,7 +90,7 @@
                   size="small"
                   @click="copyDnsRules"
                 >
-                  复制
+                  {{ $t('common.copy') }}
                 </el-button>
                 <el-button
                   id="distributeBtn"
@@ -98,7 +98,7 @@
                   size="small"
                   @click="deleteDnsRules"
                 >
-                  删除
+                  {{ $t('common.delete') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -112,17 +112,17 @@
             size="mini"
             @click="addTrafficRule"
           >
-            {{ $t('app.instanceList.addRule') }}
+            {{ $t('app.instanceList.addTrafficRules') }}
           </el-button>
           <el-button
             size="mini"
-            @click="batchDelete"
+            @click="batchDeleteTraffic"
           >
-            批量删除
+            {{ $t('app.instanceList.batchDeleteTrafficRules') }}
           </el-button>
           <el-table
             class="mt20"
-            :data="trafficData"
+            :data="trafficRulesData"
             border
             @selection-change="handleSelectionChange"
             style="width: 100%;"
@@ -188,7 +188,7 @@
                   size="small"
                   @click="editTrafficRule"
                 >
-                  修改
+                  {{ $t('common.modify') }}
                 </el-button>
                 <el-button
                   id="distributeBtn"
@@ -196,7 +196,7 @@
                   size="small"
                   @click="copyTrafficRule"
                 >
-                  复制
+                  {{ $t('common.copy') }}
                 </el-button>
                 <el-button
                   id="distributeBtn"
@@ -204,7 +204,7 @@
                   size="small"
                   @click="deleteTrafficRule"
                 >
-                  删除
+                  {{ $t('common.delete') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -218,9 +218,19 @@
       width="50%"
     >
       <div class="dialogContent">
-        <Dnsrule v-if="dns" />
-        <Trafficrule
+        <vue-json-editor
+          v-if="dns"
+          v-model="dnsRules"
+          :show-btns="true"
+          :expanded-on-start="true"
+          @json-change="onDnsRulesJsonChange"
+        />
+        <vue-json-editor
           v-if="!dns"
+          v-model="trafficRules"
+          :show-btns="true"
+          :expanded-on-start="true"
+          @json-change="onTrafficRulesJsonChange"
         />
       </div>
       <span
@@ -235,6 +245,7 @@
         <el-button
           id="confirmBtn"
           type="primary"
+          @click="dns?addDnsRules():addTrafficRules()"
         >
           {{ $t('common.confirm') }}
         </el-button>
@@ -245,96 +256,68 @@
 
 <script>
 import Breadcrumb from '../components/BreadCrumb'
-import Dnsrule from './Dnsrule'
-import Trafficrule from './Trafficrule'
+import vueJsonEditor from 'vue-json-editor'
+// import Dnsrule from './Dnsrule'
+// import Trafficrule from './Trafficrule'
 export default {
   name: 'Ruleconfig',
   components: {
     Breadcrumb,
-    Dnsrule,
-    Trafficrule
+    vueJsonEditor
+    // Dnsrule,
+    // Trafficrule
   },
   data () {
     return {
       activeName: 'dns',
       dns: true,
       dialog: false,
-      currPageTableData: [
-        {
-          dnsRuleRedirectRuleId: 'DNS11112525',
-          domainName: 'demo.edgegallery.org',
+      dnsRulesData: [],
+      trafficRulesData: [],
+      dnsRules: {
+        dnsRuleRedirectRuleId: 'DNS11112525',
+        domainName: 'demo.edgegallery.org',
+        ipAddressType: 'IP_V4',
+        dnsServerIp: '119.25.142.25'
+      },
+      trafficRules: {
+        action: 'DROP',
+        filterType: 'FLOW',
+        priority: 125,
+        trafficFilter: {
           ipAddressType: 'IP_V4',
-          dnsServerIp: '119.25.142.25'
-        },
-        {
-          dnsRuleRedirectRuleId: 'DNS11112526',
-          domainName: 'demo.edgegallery.org',
-          ipAddressType: 'IP_V6',
-          dnsServerIp: '119.25.142.25'
-        },
-        {
-          dnsRuleRedirectRuleId: 'DNS11112527',
-          domainName: 'demo.edgegallery.org',
-          ipAddressType: 'IP_v4',
-          dnsServerIp: '119.25.142.25'
+          srcAddress: '172.30.2.0/28',
+          srcPort: '8080',
+          dstAddress: '118.9.25.452/28',
+          dstPort: '30000',
+          protocol: 'ANY',
+          qci: '1',
+          dscp: '0',
+          tc: '1'
         }
-      ],
-      trafficData: [
-        {
-          action: 'DROP',
-          filterType: 'FLOW',
-          priority: 125,
-          trafficFilter: {
-            ipAddressType: 'IP_V4',
-            srcAddress: '172.30.2.0/28',
-            srcPort: '8080',
-            dstAddress: '118.9.25.452/28',
-            dstPort: '30000',
-            protocol: 'ANY',
-            qci: '1',
-            dscp: '0',
-            tc: '1'
-          }
-        },
-        {
-          action: 'DROP',
-          filterType: 'FLOW',
-          priority: 125,
-          trafficFilter: {
-            ipAddressType: 'IP_V4',
-            srcAddress: '172.30.2.0/28',
-            srcPort: '8080',
-            dstAddress: '118.9.25.452/28',
-            dstPort: '30000',
-            protocol: 'ANY',
-            qci: '1',
-            dscp: '0',
-            tc: '1'
-          }
-        },
-        {
-          action: 'DROP',
-          filterType: 'FLOW',
-          priority: 125,
-          trafficFilter: {
-            ipAddressType: 'IP_V4',
-            srcAddress: '172.30.2.0/28',
-            srcPort: '8080',
-            dstAddress: '118.9.25.452/28',
-            dstPort: '30000',
-            protocol: 'ANY',
-            qci: '1',
-            dscp: '0',
-            tc: '1'
-          }
-        }
-      ]
+      }
     }
   },
   mounted () {
 
   },
   methods: {
+    onDnsRulesJsonChange (value) {
+      console.log('value:', value)
+    },
+    onTrafficRulesJsonChange (value) {
+      console.log('value:', value)
+    },
+    addTrafficRules () {
+      this.trafficRulesData.push(this.trafficRules)
+      this.$message.success('你已经成功添加一条流量规则')
+    },
+    addDnsRules () {
+      console.log(this.dnsRule)
+      this.dnsRulesData.push(this.dnsRules)
+      this.$message.success('你已经成功添加一条DNS规则')
+    },
+    handleClick () {},
     handleSelectionChange () {},
     addDnsRule () {
       this.dns = true
@@ -343,7 +326,15 @@ export default {
     addTrafficRule () {
       this.dns = false
       this.dialog = true
-    }
+    },
+    batchDeleteTraffic () {},
+    batchDeleteDns () {},
+    editTrafficRule () {},
+    copyTrafficRule () {},
+    deleteTrafficRule () {},
+    editDnsRules () {},
+    copyDnsRules () {},
+    deleteDnsRules () {}
   }
 }
 </script>
