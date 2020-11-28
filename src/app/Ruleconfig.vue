@@ -57,6 +57,11 @@
               width="50"
             />
             <el-table-column
+              prop="dnsRuleId"
+              label="DNS IP Address"
+              width="180"
+            />
+            <el-table-column
               prop="dnsServerIp"
               label="DNS IP Address"
               width="180"
@@ -70,6 +75,11 @@
               prop="domainName"
               label="Domain Name"
               width=""
+            />
+            <el-table-column
+              prop="ttl"
+              label="DNS IP Address"
+              width="180"
             />
             <el-table-column
               :label="$t('common.operation')"
@@ -215,23 +225,11 @@
     <el-dialog
       :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
-      width="38%"
+      width="45%"
     >
       <div class="dialogContent">
-        <vue-json-editor
-          v-if="dns"
-          v-model="dnsRules"
-          :show-btns="true"
-          :expanded-on-start="true"
-          @json-change="onDnsRulesJsonChange"
-        />
-        <vue-json-editor
-          v-if="!dns"
-          v-model="trafficRules"
-          :show-btns="true"
-          :expanded-on-start="true"
-          @json-change="onTrafficRulesJsonChange"
-        />
+        <Dnsrule v-if="dns" />
+        <Trafficrule v-if="!dns" />
       </div>
       <span
         slot="footer"
@@ -256,16 +254,14 @@
 
 <script>
 import Breadcrumb from '../components/BreadCrumb'
-import vueJsonEditor from 'vue-json-editor'
-// import Dnsrule from './Dnsrule'
-// import Trafficrule from './Trafficrule'
+import Dnsrule from './Dnsrule'
+import Trafficrule from './Trafficrule'
 export default {
   name: 'Ruleconfig',
   components: {
     Breadcrumb,
-    vueJsonEditor
-    // Dnsrule,
-    // Trafficrule
+    Dnsrule,
+    Trafficrule
   },
   data () {
     return {
@@ -275,11 +271,11 @@ export default {
       dnsRulesData: [],
       trafficRulesData: [],
       dnsRules: {
-        dnsRuleId: 'DNS Rule Identifier (Unique), value Range：1~63 bytes',
-        domainName: 'FQDN Domain name, value Range：1~63 bytes',
-        ipAddressType: 'IPAddress Type, IPv4 or IPv6.',
-        dnsServerIp: 'IP address.',
-        ttl: 'Validity period of DNS record resolution,default value is 86400.'
+        dnsRuleId: 'DNS132654',
+        domainName: 'edgegallery.org',
+        ipAddressType: 'IP_V4',
+        dnsServerIp: '1.2.3.4',
+        ttl: '86400'
       },
       trafficRules: {
         action: 'DROP',

@@ -23,12 +23,21 @@ if (window.location.href.indexOf('30093') > -1) {
   api = 'https://' + window.location.host
 }
 
-// applcm port:30204
 let inventory = api + ':30203' + '/inventory/v1'
 let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores']
+
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  if (error.response.status === 401) {
+    this.$message.error('登录状态已失效，请重新登录')
+  }
+  return Promise.reject(error)
+}
+)
 
 function GET (url, params) {
   let headers = {
@@ -98,7 +107,6 @@ let user = {
     })
   }
 }
-
 let overview = {
   getPackageInfo (item) {
     return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
