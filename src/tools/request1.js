@@ -38,6 +38,9 @@ let overview = {
   getHwCapa () {
     return axios.get('/mock/getHwCapability')
   },
+  getMepCapabilities () {
+    return axios.get('/mock/getSwCapability')
+  },
   getNodeKpi () {
     return axios.get('/mock/kpiInfo')
   },
