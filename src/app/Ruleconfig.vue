@@ -237,6 +237,7 @@
       >
         <el-button
           id="cancelBtn"
+          @click="dialog=false"
         >
           {{ $t('common.cancel') }}
         </el-button>
@@ -310,7 +311,6 @@ export default {
       this.$message.success('你已经成功添加一条流量规则')
     },
     addDnsRules () {
-      console.log(this.dnsRule)
       this.dnsRulesData.push(this.dnsRules)
       this.$message.success('你已经成功添加一条DNS规则')
     },

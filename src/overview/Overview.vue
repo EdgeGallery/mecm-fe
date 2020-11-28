@@ -386,7 +386,7 @@ export default {
       overview.getMepCapabilities(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
-            this.mepCapData = res.data
+            this.mepCapData = JSON.parse(res.data.response)
           }
         }
       })
