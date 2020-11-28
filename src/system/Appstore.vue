@@ -330,7 +330,8 @@ export default {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
       this.dialogVisible = true
       this.urlDisable = true
-      this.form = row
+      let middleData = JSON.parse(JSON.stringify(row))
+      this.form = middleData
       this.editType = 2
     },
     handleDelete (row) {

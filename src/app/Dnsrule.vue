@@ -5,13 +5,17 @@
       class="configForm"
     >
       <el-row :gutter="24">
-        <el-col :span="12">
+        <el-col :span="24">
           <el-form-item label="DNS Rule Id">
-            <span class="blue">DNS20201108</span>
+            <el-input
+              id=""
+              maxlength="30"
+              v-model="rule.dnsRule.dnsRuleId"
+            />
           </el-form-item>
           <el-form-item label="Domain Name">
             <el-input
-              id="podkind"
+              id=""
               maxlength="30"
               v-model="rule.dnsRule.domainName"
             />
@@ -33,9 +37,16 @@
           </el-form-item>
           <el-form-item label="DNS Server IP">
             <el-input
-              id="podkind"
+              id=""
               maxlength="30"
               v-model="rule.dnsRule.dnsServerIp"
+            />
+          </el-form-item>
+          <el-form-item label="TTL">
+            <el-input
+              id=""
+              maxlength="30"
+              v-model="rule.dnsRule.ttl"
             />
           </el-form-item>
         </el-col>

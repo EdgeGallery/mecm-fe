@@ -237,7 +237,8 @@ export default {
       this.title = this.$t('system.appLcm.applcmModify')
       this.dialogVisible = true
       this.ipDisable = true
-      this.form = row
+      let middleData = JSON.parse(JSON.stringify(row))
+      this.form = middleData
     },
     handleDelete (row) {
       this.$confirm(this.$t('tip.beforeDeleteApplcm'), this.$t('common.warning'), {

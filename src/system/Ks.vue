@@ -531,7 +531,8 @@ export default {
       this.editType = 2
       this.title = this.$t('system.edgeNodes.nodeModify')
       this.isDisable = true
-      this.currForm = row
+      let middleData = JSON.parse(JSON.stringify(row))
+      this.currForm = middleData
       this.selectedArea = row.city.split('/')
       this.dialogVisible = true
       this.area = true
