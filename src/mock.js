@@ -95,6 +95,10 @@ const instanceList = function () {
   }
 }
 
+const swCapability = function () {
+  return { 'response': '[{"capabilityId":"e56e5731576e243ecf62dcda9b7ba470","capabilityName":"ExampleService10","status":"ACTIVE","version":"1.0.1","consumers":[]}]\n' }
+}
+
 const kpiInfo = function () {
   let data = {
     'cpuusage': { 'total': 1600653686.904, 'used': '0.025' },
@@ -106,7 +110,7 @@ const kpiInfo = function () {
   }
 }
 
-const HwCapability = function () {
+const hwCapability = function () {
   return {
     hwcapabilities: [{
       'hwType': 'GPU',
@@ -248,4 +252,5 @@ Mock.mock('/mock/seviceInfo', serviceInfoData)
 Mock.mock('/mock/instanceInfo', instanceList)
 Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
-Mock.mock('/mock/getHwCapability', HwCapability)
+Mock.mock('/mock/getHwCapability', hwCapability)
+Mock.mock('/mock/getSwCapability', swCapability)
