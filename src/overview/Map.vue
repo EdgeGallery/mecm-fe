@@ -85,6 +85,7 @@ export default {
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
+            console.log(param.name)
             let cityId = CityMap[param.name]
             let arr = []
             this.nodeData.forEach((val, index) => {

@@ -61,7 +61,7 @@
             class="btn"
             @click="addNew()"
           >
-            新增Filter
+            {{ $t('app.instanceList.addFilter') }}
           </el-button>
         </el-button-group>
       </p>

@@ -31,11 +31,11 @@
           class="edge-souces mt20"
           v-if="alarmStatus === 'alarms'"
         >
-          <label class="overviewLabel">总览</label>
+          <label class="overviewLabel">{{ $t('overview.overview') }}</label>
           <div class="nodeBasicInfo">
-            <p><span>{{ city }}计算节点：</span>{{ nodeNum }}</p>
-            <p><span>在线节点：</span>{{ nodeNum }}</p>
-            <p><span>离线节点：</span>0</p>
+            <p><span>{{ city }} {{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
+            <p><span>{{ $t('overview.onlineNodes') }}：</span>{{ nodeNum }}</p>
+            <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
           </div>
           <Chart :chart-data="chartData" />
         </div>
@@ -199,6 +199,7 @@
 </template>
 
 <script>
+
 import manageDialog from './ManageDialog.vue'
 import Map from './Map.vue'
 import { overview, app } from '../tools/request.js'
@@ -320,7 +321,18 @@ export default {
     },
     clickMap (msg, city) {
       this.alarmStatus = 'alarms'
-      this.city = city
+      if (this.$i18n.locale === 'cn') {
+        this.city = city
+      } else {
+        if (city === '西藏') {
+          this.city = 'Xi Zang'
+        } else if (city === '全国') {
+          this.city = 'All'
+        } else {
+          let pinyin = require('pinyin')
+          this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join(' ').replace(/^\S/, s => s.toUpperCase())
+        }
+      }
       this.nodeNum = msg.length
       this.chartData =
         {

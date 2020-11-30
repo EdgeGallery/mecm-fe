@@ -92,7 +92,11 @@ const cn = {
     nodeIp: '节点IP：',
     nodeName: '节点名称：',
     nodeAddress: '节点地址：',
-    nodeInfo: '节点信息'
+    nodeInfo: '节点信息',
+    overview: '基础信息',
+    edgeNodes: '计算节点',
+    onlineNodes: '在线节点',
+    offlineNodes: '离线节点'
   },
   app: {
     packageList: {
@@ -142,7 +146,8 @@ const cn = {
       batchDeleteDnsRules: '批量删除DNS规则',
       batchDeleteTrafficRules: '批量删除流量规则',
       addDnsRules: '增加DNS规则',
-      addTrafficRules: '增加流量规则'
+      addTrafficRules: '增加流量规则',
+      addFilter: '新增流量过滤器'
     }
   },
   edgeNode: {
@@ -194,7 +199,8 @@ const cn = {
       nodeReg: 'Edge Node注册',
       nodeModify: 'Edge Node编辑',
       uploadFile: '上传配置文件',
-      howToUpload: '拖拽文件到上传区域内，或者点击上传'
+      howToUpload: '拖拽文件到上传区域内，或者点击上传',
+      hwCapability: '硬件能力'
     },
     appstore: {
       appstoreName: '应用市场',

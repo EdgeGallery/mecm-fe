@@ -85,7 +85,7 @@ const en = {
     services: 'Services',
     containers: 'Containers',
     containerUsage: 'Container Usage',
-    name: 'Name:',
+    name: 'Name: ',
     register: 'Register',
     alarms: 'Alarms',
     nodeinfo: 'Node Info',
@@ -93,7 +93,11 @@ const en = {
     nodeIp: 'Node IP: ',
     nodeName: 'Node Name: ',
     nodeAddress: 'Node Address: ',
-    nodeInfo: 'Node Information'
+    nodeInfo: 'Node Information',
+    overview: 'Overview',
+    edgeNodes: 'Edge Nodes',
+    onlineNodes: 'Online Nodes',
+    offlineNodes: 'Offline Nodes'
   },
   app: {
     packageList: {
@@ -142,7 +146,8 @@ const en = {
       batchDeleteDnsRules: 'Batch delete DNS ruls',
       batchDeleteTrafficRules: 'Batch delete traffic ruls',
       addDnsRules: 'Add DNS rules',
-      addTrafficRules: 'Add Traffic rules'
+      addTrafficRules: 'Add Traffic rules',
+      addFilter: 'Add Traffic Filter'
     }
   },
   edgeNode: {
@@ -194,7 +199,8 @@ const en = {
       nodeReg: 'Edge Node Registration',
       nodeModify: 'Edge Node Modify',
       uploadFile: 'Upload Config File',
-      howToUpload: 'Drag the file here，or click to upload'
+      howToUpload: 'Drag the file here，or click to upload',
+      hwCapability: 'Capabilities'
     },
     appstore: {
       appstoreName: 'App Store Name',

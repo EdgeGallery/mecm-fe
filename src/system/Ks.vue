@@ -82,7 +82,7 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              label="硬件能力"
+              :label="$t('system.edgeNodes.hwCapability')"
               width="200"
             >
               <template slot-scope="scope">
@@ -241,7 +241,7 @@
                 </el-radio-group>
               </el-form-item>
               <el-form-item
-                label="硬件能力"
+                :label="$t('system.edgeNodes.hwCapability')"
               >
                 <el-checkbox-group
                   v-model="capabilities"
