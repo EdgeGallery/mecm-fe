@@ -88,6 +88,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
+            align="center"
           >
             <template slot-scope="scope">
               <el-button

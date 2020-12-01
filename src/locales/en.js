@@ -148,6 +148,26 @@ const en = {
       addDnsRules: 'Add DNS rules',
       addTrafficRules: 'Add Traffic rules',
       addFilter: 'Add Traffic Filter'
+    },
+    ruleConfig: {
+      srcAddress: 'Src IP Address',
+      srcPort: 'Src Port',
+      dstAddress: 'Dst IP Address',
+      dstPort: 'Dst Port',
+      trafficRuleId: 'Traffic Rule Id',
+      filterType: 'Filter Type',
+      priority: 'Priority',
+      protocol: 'Protocol',
+      action: 'Action',
+      dnsRuleId: 'DNS Rule Id',
+      ipAddress: 'IP Address',
+      ipAddressType: 'IP Address Type',
+      domainName: 'DomainName',
+      ttl: 'TTL',
+      checkRules: 'Check Rules',
+      dnsRule: 'DNS Rules',
+      trafficRule: 'Traffic Rules',
+      trafficFilter: 'Traffic Filter'
     }
   },
   edgeNode: {
@@ -312,7 +332,9 @@ const en = {
     beforeDeleteApplcm: 'Are you sure to delete this App LCM?',
     beforeDeleteAppstore: 'Are you sure to delete this App Store?',
     beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host?',
-    getStatusDelay: 'There is a delay in query details, please wait 30-40S after the deployment is completed!'
+    getStatusDelay: 'There is a delay in query details, please wait 30-40S after the deployment is completed!',
+    pleaseSelect: 'Please selece',
+    successToAddRules: 'You have created one rule successfully.'
   },
   ...enLocale
 }

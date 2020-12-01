@@ -111,6 +111,7 @@
             />
             <el-table-column
               :label="$t('common.operation')"
+              align="center"
               width="200"
             >
               <template slot-scope="scope">

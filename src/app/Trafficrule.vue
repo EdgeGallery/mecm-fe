@@ -3,29 +3,29 @@
     <el-form label-width="120px">
       <el-row :gutter="24">
         <el-col :span="12">
-          <el-form-item label="Traffic Rule Id">
+          <el-form-item :label="$t('app.ruleConfig.trafficRuleId')">
             <el-input
               id=""
               maxlength="30"
               v-model="rule.trafficRuleId"
             />
           </el-form-item>
-          <el-form-item label="Priority">
+          <el-form-item :label="$t('app.ruleConfig.priority')">
             <el-input-number
               v-model="rule.priority"
               :min="1"
               :max="255"
-              label="描述文字"
+              label="1-255"
             />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item
-            label="Action"
+            :label="$t('app.ruleConfig.action')"
           >
             <el-select
               v-model="rule.action"
-              placeholder="请选择"
+              :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
                 v-for="item in action"
@@ -36,12 +36,12 @@
             </el-select>
           </el-form-item>
           <el-form-item
-            label="Filter Type"
+            :label="$t('app.ruleConfig.filterType')"
             v-model="rule.filterType"
           >
             <el-select
               v-model="rule.filterType"
-              placeholder="请选择"
+              :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
                 v-for="item in filterType"
@@ -54,7 +54,7 @@
         </el-col>
       </el-row>
       <p class="title">
-        Traffic Filter
+        {{ $t('app.ruleConfig.trafficFilter') }}
         <el-button-group class="rt">
           <el-button
             type="text"
@@ -74,25 +74,25 @@
       >
         <el-table-column
           prop="srcAddress"
-          label="SRC Address"
+          :label="$t('app.ruleConfig.srcAddress')"
           width="120px"
         />
         <el-table-column
           prop="srcPort"
-          label="SRC Port"
+          :label="$t('app.ruleConfig.srcPort')"
         />
         <el-table-column
           prop="dstAddress"
-          label="DST Address"
+          :label="$t('app.ruleConfig.dstAddress')"
           width="120px"
         />
         <el-table-column
           prop="dstPort"
-          label="DST Port"
+          :label="$t('app.ruleConfig.dstPort')"
         />
         <el-table-column
           prop="protocol"
-          label="Protocol"
+          :label="$t('app.ruleConfig.protocol')"
         />
         <el-table-column
           prop="qci"
@@ -135,7 +135,7 @@
     </el-form>
     <el-dialog
       width="35%"
-      title="Traffic Rule"
+      title="分流规则"
       :visible.sync="innerVisible"
       append-to-body
     >
@@ -143,11 +143,11 @@
         <el-form label-width="120px">
           <el-col :span="12">
             <el-form-item
-              label="IP Address Type"
+              label="IP 地址类型"
             >
               <el-select
                 v-model="trafficFilter.ipAddressType"
-                placeholder="请选择"
+                :placeholder="$t('tip.pleaseSelect')"
               >
                 <el-option
                   v-for="item in ipAddressType"
@@ -157,7 +157,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="Src Address">
+            <el-form-item :label="$t('app.ruleConfig.srcAddress')">
               <el-input
                 id=""
                 maxlength="30"
@@ -165,7 +165,7 @@
                 placeholder="多个IP请用','分割"
               />
             </el-form-item>
-            <el-form-item label="Src Port">
+            <el-form-item :label="$t('app.ruleConfig.srcPort')">
               <el-input
                 id=""
                 maxlength="30"
@@ -173,7 +173,7 @@
                 placeholder="多个端口请用','分割"
               />
             </el-form-item>
-            <el-form-item label="DST Address">
+            <el-form-item :label="$t('app.ruleConfig.dstAddress')">
               <el-input
                 id=""
                 maxlength="30"
@@ -181,7 +181,7 @@
                 placeholder="多个IP请用','分割"
               />
             </el-form-item>
-            <el-form-item label="DST Port">
+            <el-form-item :label="$t('app.ruleConfig.dstPort')">
               <el-input
                 id=""
                 maxlength="30"
@@ -191,7 +191,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="Protocol">
+            <el-form-item :label="$t('app.ruleConfig.protocol')">
               <el-input
                 id=""
                 maxlength="30"

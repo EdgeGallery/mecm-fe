@@ -29,17 +29,21 @@
         @tab-click="handleClick"
       >
         <el-tab-pane
-          label="DNS Rule"
+          :label="$t('app.ruleConfig.dnsRule')"
           name="dns"
         >
           <el-button
             size="mini"
+            id="addDnsRuleBtn"
+            class="btn"
             @click="addDnsRule"
           >
             {{ $t('app.instanceList.addDnsRules') }}
           </el-button>
           <el-button
             size="mini"
+            class="btn"
+            id="batchDeleteDnsBtn"
             @click="batchDeleteDns"
           >
             {{ $t('app.instanceList.batchDeleteDnsRules') }}
@@ -58,32 +62,27 @@
             />
             <el-table-column
               prop="dnsRuleId"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.dnsRuleId')"
             />
             <el-table-column
               prop="dnsServerIp"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.ipAddress')"
             />
             <el-table-column
               prop="ipAddressType"
-              label="IP Address Type"
-              width="180"
+              :label="$t('app.ruleConfig.ipAddress')"
             />
             <el-table-column
               prop="domainName"
-              label="Domain Name"
-              width=""
+              :label="$t('app.ruleConfig.domainName')"
             />
             <el-table-column
               prop="ttl"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.priority')"
             />
             <el-table-column
               :label="$t('common.operation')"
-              width="180"
+              align="center"
             >
               <template>
                 <el-button
@@ -115,17 +114,21 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane
-          label="Traffic Rule"
+          :label="$t('app.ruleConfig.trafficRule')"
           name="traffic"
         >
           <el-button
             size="mini"
+            class="btn"
+            id="addTrafficRuleBtn"
             @click="addTrafficRule"
           >
             {{ $t('app.instanceList.addTrafficRules') }}
           </el-button>
           <el-button
             size="mini"
+            class="btn"
+            id="batchDeleteTrafficBtn"
             @click="batchDeleteTraffic"
           >
             {{ $t('app.instanceList.batchDeleteTrafficRules') }}
@@ -143,57 +146,36 @@
               width="50"
             />
             <el-table-column
-              prop="trafficFilter.srcAddress"
-              label="SRC Address"
-              width="180"
+              prop="trafficRuleId"
+              :label="$t('app.ruleConfig.trafficRuleId')"
             />
             <el-table-column
-              prop="trafficFilter.srcPort"
-              label="SRC Port"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.dstAddress"
-              label="DST Address"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.dstPort"
-              label="DST Port"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.protocol"
-              label="Protocol"
-            />
-            <el-table-column
-              prop="trafficFilter.qci"
-              label="QCI"
-            />
-            <el-table-column
-              prop="trafficFilter.dscp"
-              label="DSCP"
-            />
-            <el-table-column
-              prop="trafficFilter.tc"
-              label="TC"
+              prop="filterType"
+              :label="$t('app.ruleConfig.filterType')"
             />
             <el-table-column
               prop="priority"
-              label="Priority"
-              width="180"
+              :label="$t('app.ruleConfig.priority')"
             />
             <el-table-column
               prop="action"
-              label="Action"
+              :label="$t('app.ruleConfig.action')"
             />
             <el-table-column
               :label="$t('common.operation')"
-              width="180"
+              align="center"
             >
-              <template>
+              <template slot-scope="scope">
                 <el-button
-                  id="deleteBtn"
+                  id=""
+                  type="text"
+                  size="small"
+                  @click="checkFilter(scope.row)"
+                >
+                  {{ $t('app.ruleConfig.checkRules') }}
+                </el-button>
+                <el-button
+                  id=""
                   type="text"
                   size="small"
                   @click="editTrafficRule"
@@ -201,7 +183,7 @@
                   {{ $t('common.modify') }}
                 </el-button>
                 <el-button
-                  id="distributeBtn"
+                  id=""
                   type="text"
                   size="small"
                   @click="copyTrafficRule"
@@ -209,7 +191,7 @@
                   {{ $t('common.copy') }}
                 </el-button>
                 <el-button
-                  id="distributeBtn"
+                  id=""
                   type="text"
                   size="small"
                   @click="deleteTrafficRule"
@@ -250,6 +232,50 @@
         </el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      :title="$t('app.ruleConfig.trafficFilter')"
+      :visible.sync="filterShow"
+      width="45%"
+    >
+      <div class="dialogContent">
+        <el-table :data="filterData">
+          <el-table-column
+            prop="srcAddress"
+            :label="$t('app.ruleConfig.srcAddress')"
+            width="120"
+          />
+          <el-table-column
+            prop="srcPort"
+            :label="$t('app.ruleConfig.srcPort')"
+          />
+          <el-table-column
+            prop="dstAddress"
+            :label="$t('app.ruleConfig.dstAddress')"
+            width="120"
+          />
+          <el-table-column
+            prop="dstPort"
+            :label="$t('app.ruleConfig.dstPort')"
+          />
+          <el-table-column
+            prop="protocol"
+            :label="$t('app.ruleConfig.protocol')"
+          />
+          <el-table-column
+            prop="qci"
+            label="QCI"
+          />
+          <el-table-column
+            prop="dscp"
+            label="DSCP"
+          />
+          <el-table-column
+            prop="tc"
+            label="TC"
+          />
+        </el-table>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -271,6 +297,8 @@ export default {
       dialog: false,
       dnsRulesData: [],
       trafficRulesData: [],
+      filterShow: false,
+      filterData: [],
       dnsRules: {
         dnsRuleId: 'DNS132654',
         domainName: 'edgegallery.org',
@@ -279,10 +307,11 @@ export default {
         ttl: '86400'
       },
       trafficRules: {
+        trafficRuleId: '111',
         action: 'DROP',
         filterType: 'FLOW',
         priority: 125,
-        trafficFilter: {
+        trafficFilter: [{
           ipAddressType: 'IP_V4',
           srcAddress: '172.30.2.0/28',
           srcPort: '8080',
@@ -292,7 +321,17 @@ export default {
           qci: '1',
           dscp: '0',
           tc: '1'
-        }
+        }, {
+          ipAddressType: 'IP_V4',
+          srcAddress: '172.30.2.0/28',
+          srcPort: '8080',
+          dstAddress: '118.9.25.452/28',
+          dstPort: '30000',
+          protocol: 'ANY',
+          qci: '1',
+          dscp: '0',
+          tc: '1'
+        }]
       }
     }
   },
@@ -307,12 +346,18 @@ export default {
       console.log('value:', value)
     },
     addTrafficRules () {
+      this.dialog = false
       this.trafficRulesData.push(this.trafficRules)
-      this.$message.success('你已经成功添加一条流量规则')
+      this.$message.success(this.$t('tip.successToAddRules'))
     },
     addDnsRules () {
+      this.dialog = false
       this.dnsRulesData.push(this.dnsRules)
-      this.$message.success('你已经成功添加一条DNS规则')
+      this.$message.success(this.$t('tip.successToAddRules'))
+    },
+    checkFilter (row) {
+      this.filterShow = true
+      this.filterData = row.trafficFilter
     },
     handleClick () {},
     handleSelectionChange () {},
@@ -342,5 +387,8 @@ export default {
     height: 100%;
     background: #fff;
     padding: 30px 60px;
+}
+.btn{
+  margin:15px 15px 15px 0;
 }
 </style>

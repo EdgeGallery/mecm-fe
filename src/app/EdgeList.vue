@@ -116,6 +116,7 @@
         <el-table-column
           prop="status"
           :label="$t('common.operation')"
+          align="center"
         >
           <template slot-scope="scope">
             <el-button

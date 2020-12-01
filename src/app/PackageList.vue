@@ -93,6 +93,7 @@
               </el-table-column>
               <el-table-column
                 :label="$t('common.operation')"
+                align="center"
                 width="180"
               >
                 <template slot-scope="scope">
