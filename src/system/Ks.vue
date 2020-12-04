@@ -51,7 +51,10 @@
           <el-table
             :data="currPageTableData"
             v-loading="dataLoading"
+            class="mt20"
             border
+            size="small"
+            style="width: 100%;"
           >
             <el-table-column
               prop="mechostName"
@@ -111,6 +114,7 @@
             />
             <el-table-column
               :label="$t('common.operation')"
+              align="center"
               width="200"
             >
               <template slot-scope="scope">

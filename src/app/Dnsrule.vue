@@ -6,14 +6,14 @@
     >
       <el-row :gutter="24">
         <el-col :span="24">
-          <el-form-item label="DNS Rule Id">
+          <el-form-item :label="$t('app.ruleConfig.dnsRuleId')">
             <el-input
               id=""
               maxlength="30"
               v-model="rule.dnsRule.dnsRuleId"
             />
           </el-form-item>
-          <el-form-item label="Domain Name">
+          <el-form-item :label="$t('app.ruleConfig.domainName')">
             <el-input
               id=""
               maxlength="30"
@@ -21,11 +21,11 @@
             />
           </el-form-item>
           <el-form-item
-            label="IP Address Type"
+            :label="$t('app.ruleConfig.ipAddressType')"
           >
             <el-select
               v-model="rule.dnsRule.ipAddressType"
-              placeholder="请选择"
+              :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
                 v-for="item in ipAddressType"
@@ -35,14 +35,14 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="DNS Server IP">
+          <el-form-item :label="$t('app.ruleConfig.ipAddress')">
             <el-input
               id=""
               maxlength="30"
               v-model="rule.dnsRule.dnsServerIp"
             />
           </el-form-item>
-          <el-form-item label="TTL">
+          <el-form-item :label="$t('app.ruleConfig.priority')">
             <el-input
               id=""
               maxlength="30"

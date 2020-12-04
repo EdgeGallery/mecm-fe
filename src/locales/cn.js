@@ -144,10 +144,30 @@ const cn = {
       beforeDelete: '确定从host删除此应用吗？',
       addRule: '添加规则',
       batchDeleteDnsRules: '批量删除DNS规则',
-      batchDeleteTrafficRules: '批量删除流量规则',
+      batchDeleteTrafficRules: '批量删除分流规则',
       addDnsRules: '增加DNS规则',
-      addTrafficRules: '增加流量规则',
-      addFilter: '新增流量过滤器'
+      addTrafficRules: '增加分流规则',
+      addFilter: '新增流过滤规则'
+    },
+    ruleConfig: {
+      srcAddress: '源IP地址',
+      srcPort: '源端口号',
+      dstAddress: '目的IP地址',
+      dstPort: '目的端口号',
+      trafficRuleId: '流规则标识',
+      filterType: '过滤类型',
+      priority: '优先级',
+      protocol: '协议类型',
+      action: '规则动作',
+      dnsRuleId: 'DNS规则标识',
+      ipAddress: 'IP地址',
+      ipAddressType: 'IP地址类型',
+      domainName: 'FQDN域名',
+      ttl: '有效时长',
+      checkRules: '查看详情',
+      dnsRule: 'DNS规则',
+      trafficRule: '分流规则',
+      trafficFilter: '流过滤规则'
     }
   },
   edgeNode: {
@@ -312,7 +332,9 @@ const cn = {
     beforeDeleteApplcm: '确认要删除App LCM？',
     beforeDeleteAppstore: '确认要删除App Store？',
     beforeDeleteFromMechost: '确认要从该节点删除应用应用包？',
-    getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！'
+    getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！',
+    pleaseSelect: '请选择',
+    successToAddRules: '你已经成功创建一条规则。'
   },
   ...zhLocale
 }

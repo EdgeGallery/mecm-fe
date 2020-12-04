@@ -297,7 +297,7 @@ export default {
       chartData: {},
       nodeBasicInfo: null,
       nodeNum: 0,
-      city: '全国'
+      city: ''
     }
   },
   methods: {

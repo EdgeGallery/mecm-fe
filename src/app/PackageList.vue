@@ -49,7 +49,10 @@
             <el-table
               v-loading="dataLoading"
               :data="currPageTableData"
+              class="mt20"
               border
+              size="small"
+              style="width: 100%;"
             >
               <el-table-column
                 prop="name"
@@ -93,6 +96,7 @@
               </el-table-column>
               <el-table-column
                 :label="$t('common.operation')"
+                align="center"
                 width="180"
               >
                 <template slot-scope="scope">
@@ -175,7 +179,10 @@
               <el-table
                 ref="multipleEdgeNodeTable"
                 :data="currPageEdgeNodeTableData"
+                class="mt20"
                 border
+                size="small"
+                style="width: 100%;"
                 @selection-change="handleEdgeNodeSelectionChange"
               >
                 <el-table-column

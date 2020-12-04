@@ -29,17 +29,21 @@
         @tab-click="handleClick"
       >
         <el-tab-pane
-          label="DNS Rule"
+          :label="$t('app.ruleConfig.dnsRule')"
           name="dns"
         >
           <el-button
             size="mini"
+            id="addDnsRuleBtn"
+            class="btn"
             @click="addDnsRule"
           >
             {{ $t('app.instanceList.addDnsRules') }}
           </el-button>
           <el-button
             size="mini"
+            class="btn"
+            id="batchDeleteDnsBtn"
             @click="batchDeleteDns"
           >
             {{ $t('app.instanceList.batchDeleteDnsRules') }}
@@ -58,32 +62,27 @@
             />
             <el-table-column
               prop="dnsRuleId"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.dnsRuleId')"
             />
             <el-table-column
               prop="dnsServerIp"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.ipAddress')"
             />
             <el-table-column
               prop="ipAddressType"
-              label="IP Address Type"
-              width="180"
+              :label="$t('app.ruleConfig.ipAddress')"
             />
             <el-table-column
               prop="domainName"
-              label="Domain Name"
-              width=""
+              :label="$t('app.ruleConfig.domainName')"
             />
             <el-table-column
               prop="ttl"
-              label="DNS IP Address"
-              width="180"
+              :label="$t('app.ruleConfig.priority')"
             />
             <el-table-column
               :label="$t('common.operation')"
-              width="180"
+              align="center"
             >
               <template>
                 <el-button
@@ -98,14 +97,6 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
-                  @click="copyDnsRules"
-                >
-                  {{ $t('common.copy') }}
-                </el-button>
-                <el-button
-                  id="distributeBtn"
-                  type="text"
-                  size="small"
                   @click="deleteDnsRules"
                 >
                   {{ $t('common.delete') }}
@@ -115,17 +106,21 @@
           </el-table>
         </el-tab-pane>
         <el-tab-pane
-          label="Traffic Rule"
+          :label="$t('app.ruleConfig.trafficRule')"
           name="traffic"
         >
           <el-button
             size="mini"
+            class="btn"
+            id="addTrafficRuleBtn"
             @click="addTrafficRule"
           >
             {{ $t('app.instanceList.addTrafficRules') }}
           </el-button>
           <el-button
             size="mini"
+            class="btn"
+            id="batchDeleteTrafficBtn"
             @click="batchDeleteTraffic"
           >
             {{ $t('app.instanceList.batchDeleteTrafficRules') }}
@@ -143,57 +138,36 @@
               width="50"
             />
             <el-table-column
-              prop="trafficFilter.srcAddress"
-              label="SRC Address"
-              width="180"
+              prop="trafficRuleId"
+              :label="$t('app.ruleConfig.trafficRuleId')"
             />
             <el-table-column
-              prop="trafficFilter.srcPort"
-              label="SRC Port"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.dstAddress"
-              label="DST Address"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.dstPort"
-              label="DST Port"
-              width="180"
-            />
-            <el-table-column
-              prop="trafficFilter.protocol"
-              label="Protocol"
-            />
-            <el-table-column
-              prop="trafficFilter.qci"
-              label="QCI"
-            />
-            <el-table-column
-              prop="trafficFilter.dscp"
-              label="DSCP"
-            />
-            <el-table-column
-              prop="trafficFilter.tc"
-              label="TC"
+              prop="filterType"
+              :label="$t('app.ruleConfig.filterType')"
             />
             <el-table-column
               prop="priority"
-              label="Priority"
-              width="180"
+              :label="$t('app.ruleConfig.priority')"
             />
             <el-table-column
               prop="action"
-              label="Action"
+              :label="$t('app.ruleConfig.action')"
             />
             <el-table-column
               :label="$t('common.operation')"
-              width="180"
+              align="center"
             >
-              <template>
+              <template slot-scope="scope">
                 <el-button
-                  id="deleteBtn"
+                  id=""
+                  type="text"
+                  size="small"
+                  @click="checkFilter(scope.row)"
+                >
+                  {{ $t('app.ruleConfig.checkRules') }}
+                </el-button>
+                <el-button
+                  id=""
                   type="text"
                   size="small"
                   @click="editTrafficRule"
@@ -201,15 +175,7 @@
                   {{ $t('common.modify') }}
                 </el-button>
                 <el-button
-                  id="distributeBtn"
-                  type="text"
-                  size="small"
-                  @click="copyTrafficRule"
-                >
-                  {{ $t('common.copy') }}
-                </el-button>
-                <el-button
-                  id="distributeBtn"
+                  id=""
                   type="text"
                   size="small"
                   @click="deleteTrafficRule"
@@ -225,7 +191,7 @@
     <el-dialog
       :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
-      width="45%"
+      width="75%"
     >
       <div class="dialogContent">
         <Dnsrule v-if="dns" />
@@ -250,6 +216,124 @@
         </el-button>
       </span>
     </el-dialog>
+    <el-dialog
+      title="详情"
+      :visible.sync="filterShow"
+      width="45%"
+    >
+      <div class="dialogContent">
+        <!-- 分流规则 -->
+        <p class="title">
+          {{ $t('app.ruleConfig.trafficFilter') }}
+        </p>
+        <el-table
+          class="mt20"
+          border
+          size="small"
+          style="width: 100%;"
+          :data="filterData"
+        >
+          <el-table-column
+            prop="srcAddress"
+            :label="$t('app.ruleConfig.srcAddress')"
+          />
+          <el-table-column
+            prop="srcPort"
+            :label="$t('app.ruleConfig.srcPort')"
+          />
+          <el-table-column
+            prop="dstAddress"
+            :label="$t('app.ruleConfig.dstAddress')"
+          />
+          <el-table-column
+            prop="dstPort"
+            :label="$t('app.ruleConfig.dstPort')"
+          />
+          <el-table-column
+            prop="protocol"
+            :label="$t('app.ruleConfig.protocol')"
+          />
+          <el-table-column
+            prop="dstTunnelAddress"
+            label="隧道目的地址"
+          />
+          <el-table-column
+            prop="dstTunnelPort"
+            label="隧道目的端口"
+          />
+          <el-table-column
+            prop="srcTunnelAddress"
+            label="隧道源地址"
+          />
+          <el-table-column
+            prop="srcTunnelPort"
+            label="隧道源端口"
+          />
+          <el-table-column
+            prop="tag"
+            label="Tag"
+          />
+          <el-table-column
+            prop="qci"
+            label="QCI"
+          />
+          <el-table-column
+            prop="dscp"
+            label="DSCP"
+          />
+          <el-table-column
+            prop="tc"
+            label="TC"
+          />
+        </el-table>
+
+        <!-- 接口信息 -->
+        <p class="title">
+          接口信息
+        </p>
+        <el-table
+          class="mt20"
+          :data="interfaceData"
+          border
+          size="small"
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="interfaceType"
+            label="接口类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelType"
+            label="隧道类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelDstAddress"
+            label="隧道目的地址"
+            width="120px"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSrcAddress"
+            label="隧道源地址"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSpecificData"
+            label="隧道指定参数"
+          />
+          <el-table-column
+            prop="dstMACAddress"
+            label="目的MAC地址"
+          />
+          <el-table-column
+            prop="srcMACAddress"
+            label="源MAC地址"
+          />
+          <el-table-column
+            prop="dstIPAddress"
+            label="目的IP地址"
+          />
+        </el-table>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -271,6 +355,9 @@ export default {
       dialog: false,
       dnsRulesData: [],
       trafficRulesData: [],
+      filterShow: false,
+      filterData: [],
+      interfaceData: [],
       dnsRules: {
         dnsRuleId: 'DNS132654',
         domainName: 'edgegallery.org',
@@ -279,10 +366,11 @@ export default {
         ttl: '86400'
       },
       trafficRules: {
+        trafficRuleId: '111',
         action: 'DROP',
         filterType: 'FLOW',
         priority: 125,
-        trafficFilter: {
+        trafficFilter: [{
           ipAddressType: 'IP_V4',
           srcAddress: '172.30.2.0/28',
           srcPort: '8080',
@@ -291,8 +379,25 @@ export default {
           protocol: 'ANY',
           qci: '1',
           dscp: '0',
-          tc: '1'
-        }
+          tc: '1',
+          tag: 'asfd',
+          srcTunnelAddress: 'sadf',
+          srcTunnelPort: 'afd',
+          dstTunnelAddress: 'asdf',
+          dstTunnelPort: 'asfd'
+        }],
+        dstInterface: [{
+          interfaceType: 'sadf',
+          tunnelInfo: {
+            tunnelType: 'GRE',
+            tunnelDstAddress: 'dd',
+            tunnelsrcAddress: 'ss',
+            tunnelSpecificData: 'dd'
+          },
+          srcMACAddress: 'ff',
+          dstMACAddress: 'ff',
+          dstIPAddress: 'gg'
+        }]
       }
     }
   },
@@ -300,19 +405,20 @@ export default {
 
   },
   methods: {
-    onDnsRulesJsonChange (value) {
-      console.log('value:', value)
-    },
-    onTrafficRulesJsonChange (value) {
-      console.log('value:', value)
-    },
     addTrafficRules () {
+      this.dialog = false
       this.trafficRulesData.push(this.trafficRules)
-      this.$message.success('你已经成功添加一条流量规则')
+      this.$message.success(this.$t('tip.successToAddRules'))
     },
     addDnsRules () {
+      this.dialog = false
       this.dnsRulesData.push(this.dnsRules)
-      this.$message.success('你已经成功添加一条DNS规则')
+      this.$message.success(this.$t('tip.successToAddRules'))
+    },
+    checkFilter (row) {
+      this.filterShow = true
+      this.filterData = row.trafficFilter
+      this.interfaceData = row.dstInterface
     },
     handleClick () {},
     handleSelectionChange () {},
@@ -323,15 +429,19 @@ export default {
     addTrafficRule () {
       this.dns = false
       this.dialog = true
+      // this.$router.push('/mecm/ruleconfig/addTrafficRules')
     },
     batchDeleteTraffic () {},
     batchDeleteDns () {},
-    editTrafficRule () {},
     copyTrafficRule () {},
     deleteTrafficRule () {},
-    editDnsRules () {},
-    copyDnsRules () {},
-    deleteDnsRules () {}
+    editDnsRules (row) {
+      this.dialog = true
+      let data = JSON.parse(JSON.stringify(row))
+      this.dnsRules = data
+    },
+    deleteDnsRules () {},
+    editTrafficRule () {}
   }
 }
 </script>
@@ -342,5 +452,22 @@ export default {
     height: 100%;
     background: #fff;
     padding: 30px 60px;
+}
+.btn{
+  margin:15px 15px 15px 0;
+}
+.title{
+  margin:15px 3px;
+  font-size:18px;
+}
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:17px;
+  margin-right:3px;
+  background: #409EFF;
+  position: relative;
+  top:2px;
 }
 </style>

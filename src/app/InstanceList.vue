@@ -40,11 +40,13 @@
       </div>
       <div class="tableDiv">
         <el-table
+          class="mt20"
+          border
+          size="small"
+          style="width: 100%;"
           :data="currPageTableData"
           v-loading="dataLoading"
           @selection-change="handleSelectionChange"
-          border
-          style="width: 100%;"
         >
           <el-table-column
             type="selection"
@@ -88,6 +90,7 @@
           </el-table-column>
           <el-table-column
             :label="$t('common.operation')"
+            align="center"
           >
             <template slot-scope="scope">
               <el-button
