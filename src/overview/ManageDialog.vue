@@ -26,8 +26,10 @@
         <label class="dialogLabel">{{ $t('overview.services') }}</label>
         <el-table
           :data="searvicesData"
+          class="mt20"
           border
-          style="width: 100%"
+          size="small"
+          style="width: 100%;"
         >
           <el-table-column
             prop="name"

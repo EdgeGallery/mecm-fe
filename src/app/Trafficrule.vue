@@ -1,5 +1,9 @@
 <template>
   <div id="rule">
+    <p class="title">
+      {{ $t('app.ruleConfig.trafficRule') }}
+    </p>
+
     <el-form label-width="120px">
       <el-row :gutter="24">
         <el-col :span="12">
@@ -53,18 +57,24 @@
           </el-form-item>
         </el-col>
       </el-row>
+    </el-form>
+
+    <!-- 新增Filter -->
+    <div>
       <p class="title">
         {{ $t('app.ruleConfig.trafficFilter') }}
         <el-button-group class="rt">
           <el-button
             type="text"
             class="btn"
-            @click="addNew()"
+            @click="addNewFilter()"
           >
             {{ $t('app.instanceList.addFilter') }}
           </el-button>
         </el-button-group>
       </p>
+
+      <!-- filter table -->
       <el-table
         class="mt20"
         :data="filterTableData"
@@ -91,8 +101,27 @@
           :label="$t('app.ruleConfig.dstPort')"
         />
         <el-table-column
-          prop="protocol"
-          :label="$t('app.ruleConfig.protocol')"
+          prop="dstTunnelAddress"
+          label="隧道目的地址"
+        />
+        <el-table-column
+          prop="dstTunnelPort"
+          label="隧道目的端口"
+          width="120px"
+        />
+        <el-table-column
+          prop="srcTunnelAddress"
+          label="隧道源地址"
+          width="120px"
+        />
+        <el-table-column
+          prop="srcTunnelPort"
+          label="隧道源端口"
+          width="120px"
+        />
+        <el-table-column
+          prop="tag"
+          label="Tag"
         />
         <el-table-column
           prop="qci"
@@ -117,7 +146,7 @@
               id=""
               type="text"
               size="small"
-              @click="modifyLines(scope.$index, scope.row)"
+              @click="modifyFilterLines(scope.$index, scope.row)"
             >
               {{ $t('common.modify') }}
             </el-button>
@@ -125,38 +154,111 @@
               id="deleteBtn"
               type="text"
               size="small"
-              @click="deleteLines(scope.$index, scope.row)"
+              @click="deleteFilterLines(scope.$index, scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-    </el-form>
+    </div>
+
+    <!-- 新增interface -->
+    <div v-if="rule.action==='FORWARD_DECAPSULATED'||rule.action==='FORWARD_AS_IS'">
+      <p class="title">
+        转发接口信息
+        <el-button-group class="rt">
+          <el-button
+            type="text"
+            class="btn"
+            @click="addNewInterface()"
+          >
+            新增接口信息
+          </el-button>
+        </el-button-group>
+      </p>
+
+      <!-- interface table -->
+      <div>
+        <el-table
+          class="mt20"
+          :data="interfaceTableData"
+          border
+          size="small"
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="interfaceType"
+            label="接口类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelType"
+            label="隧道类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelDstAddress"
+            label="隧道目的地址"
+            width="120px"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSrcAddress"
+            label="隧道源地址"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSpecificData"
+            label="隧道指定参数"
+          />
+          <el-table-column
+            prop="dstMACAddress"
+            label="目的MAC地址"
+          />
+          <el-table-column
+            prop="srcMACAddress"
+            label="源MAC地址"
+          />
+          <el-table-column
+            prop="dstIPAddress"
+            label="目的IP地址"
+          />
+          <el-table-column
+            :label="$t('common.operation')"
+            width="120"
+            fixed="right"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-button
+                id=""
+                type="text"
+                size="small"
+                @click="modifyInterfaceLines(scope.$index, scope.row)"
+              >
+                {{ $t('common.modify') }}
+              </el-button>
+              <el-button
+                id="deleteBtn"
+                type="text"
+                size="small"
+                @click="deleteInterfaceLines(scope.$index, scope.row)"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
+    </div>
+
+    <!-- Filter dialog -->
     <el-dialog
-      width="35%"
+      width="50%"
       title="分流规则"
-      :visible.sync="innerVisible"
+      :visible.sync="innerFilterVisible"
       append-to-body
     >
       <el-row>
-        <el-form label-width="120px">
+        <el-form label-width="125px">
           <el-col :span="12">
-            <el-form-item
-              label="IP 地址类型"
-            >
-              <el-select
-                v-model="trafficFilter.ipAddressType"
-                :placeholder="$t('tip.pleaseSelect')"
-              >
-                <el-option
-                  v-for="item in ipAddressType"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
             <el-form-item :label="$t('app.ruleConfig.srcAddress')">
               <el-input
                 id=""
@@ -189,8 +291,11 @@
                 placeholder="多个端口请用','分割"
               />
             </el-form-item>
-          </el-col>
-          <el-col :span="12">
+            <el-form-item label="标签">
+              <el-input
+                v-model="trafficFilter.tag"
+              />
+            </el-form-item>
             <el-form-item :label="$t('app.ruleConfig.protocol')">
               <el-input
                 id=""
@@ -205,6 +310,8 @@
                 v-model="trafficFilter.qci"
               />
             </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="DSCP">
               <el-input
                 id=""
@@ -219,6 +326,26 @@
                 v-model="trafficFilter.tc"
               />
             </el-form-item>
+            <el-form-item label="隧道目的地址">
+              <el-input
+                v-model="trafficFilter.dstTunnelAddress"
+              />
+            </el-form-item>
+            <el-form-item label="隧道目的端口">
+              <el-input
+                v-model="trafficFilter.dstTunnelPort"
+              />
+            </el-form-item>
+            <el-form-item label="隧道源地址">
+              <el-input
+                v-model="trafficFilter.srcTunnelAddress"
+              />
+            </el-form-item>
+            <el-form-item label="隧道源端口">
+              <el-input
+                v-model="trafficFilter.srcTunnelPort"
+              />
+            </el-form-item>
           </el-col>
         </el-form>
       </el-row>
@@ -226,12 +353,115 @@
         slot="footer"
         class="dialog-footer"
       >
-        <el-button @click="cancelEdit()">
+        <el-button @click="cancelEditFilter()">
           取 消
         </el-button>
         <el-button
           type="primary"
-          @click="confirmToAdd()"
+          @click="confirmToAddFilter()"
+        >
+          确认
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <!-- interface dialog -->
+    <el-dialog
+      width="30%"
+      title="接口信息"
+      :visible.sync="innerInterfaceVisible"
+      append-to-body
+    >
+      <el-row>
+        <el-form label-width="125px">
+          <p class="title">
+            接口信息
+          </p>
+          <el-form-item
+            label="interfaceType"
+          >
+            <el-select
+              v-model="dstInterface.interfaceType"
+              :placeholder="$t('tip.pleaseSelect')"
+            >
+              <el-option
+                v-for="item in interfaceType"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </el-form-item>
+          <div v-if="dstInterface.interfaceType==='TUNNEL'">
+            <p class="title">
+              隧道信息
+            </p>
+            <el-form-item label="隧道类型">
+              <el-select
+                v-model="dstInterface.tunnelInfo.tunnelType"
+                :placeholder="$t('tip.pleaseSelect')"
+              >
+                <el-option
+                  v-for="item in tunnelType"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="隧道源地址">
+              <el-input
+                v-model="dstInterface.tunnelInfo.tunnelSrcAddress"
+              />
+            </el-form-item>
+            <el-form-item label="隧道目的地址">
+              <el-input
+                v-model="dstInterface.tunnelInfo.tunnelDstAddress"
+              />
+            </el-form-item>
+            <el-form-item label="隧道指定参数">
+              <el-input
+                v-model="dstInterface.tunnelInfo.tunnelSpecificData"
+              />
+            </el-form-item>
+          </div>
+          <div v-if="dstInterface.interfaceType==='MAC'">
+            <p class="title">
+              MAC信息
+            </p>
+            <el-form-item label="源MAC地址">
+              <el-input
+                v-model="dstInterface.srcMACAddress"
+              />
+            </el-form-item>
+            <el-form-item label="目的MAC地址">
+              <el-input
+                v-model="dstInterface.dstMACAddress"
+              />
+            </el-form-item>
+          </div>
+          <div v-if="dstInterface.interfaceType==='IP'">
+            <p class="title">
+              IP信息
+            </p>
+            <el-form-item label="目的IP地址">
+              <el-input
+                v-model="dstInterface.dstIPAddress"
+              />
+            </el-form-item>
+          </div>
+        </el-form>
+      </el-row>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="cancelEditInterface()">
+          取 消
+        </el-button>
+        <el-button
+          type="primary"
+          @click="confirmToAddInterface()"
         >
           确认
         </el-button>
@@ -244,25 +474,14 @@
 export default {
   name: 'Rule',
   components: {
-
   },
   data () {
     return {
-      dialog: false,
-      innerVisible: false,
+      innerFilterVisible: false,
+      innerInterfaceVisible: false,
       activeName: 'dns',
       addType: 1,
       editIndex: 0,
-      ipAddressType: [
-        {
-          value: 'IP_V4',
-          label: 'IP_V4'
-        },
-        {
-          value: 'IP_V6',
-          label: 'IP_V6'
-        }
-      ],
       filterType: [
         {
           value: 'FLOW',
@@ -279,38 +498,100 @@ export default {
           label: 'DROP'
         },
         {
-          value: 'ALLOW',
-          label: 'ALLOW'
+          value: 'FORWARD_DECAPSULATED',
+          label: 'FORWARD_DECAPSULATED'
+        },
+        {
+          value: 'FORWARD_AS_IS',
+          label: 'FORWARD_AS_IS'
+        },
+        {
+          value: 'PASSTHROUGH',
+          label: 'PASSTHROUGH'
+        },
+        {
+          value: 'SUPLICATED_DECAPSULATED',
+          label: 'SUPLICATED_DECAPSULATED'
         }
 
       ],
-      rule: {
-        action: '',
-        filterType: '',
-        priority: 125,
-        trafficFilter: [],
-        dnsRule: {
-          dnsRuleRedirectRuleId: '',
-          domainName: '24',
-          ipAddressType: '',
-          dnsServerIp: ''
-        }
-      },
-      filterTableData: [
+      interfaceType: [
         {
-          ipAddressType: 'IP_V6',
-          srcAddress: 'a',
-          srcPort: 'b',
-          dstAddress: 'c',
-          dstPort: 'd',
-          protocol: 'ANY',
-          qci: '1',
-          dscp: '0',
-          tc: '1'
+          value: 'TUNNEL',
+          label: 'TUNNEL'
+        },
+        {
+          value: 'MAC',
+          label: 'MAC'
+        },
+        {
+          value: 'IP',
+          label: 'IP'
         }
       ],
+      tunnelType: [
+        {
+          value: 'GTP-U',
+          label: 'GTP-U'
+        },
+        {
+          value: 'GRE',
+          label: 'GRE'
+        }
+      ],
+      rule: {
+        trafficRule: [
+          {
+            action: '',
+            filterType: '',
+            priority: 125,
+            trafficRuleId: '',
+            trafficFilter: [
+              {
+                srcAddress: [],
+                srcPort: [],
+                dstAddress: [],
+                dstPort: [],
+                protocol: [],
+                qci: '1',
+                dscp: '0',
+                tc: '1',
+                srcTunnelAddress: '',
+                srcTunnelPort: '',
+                dstTunnelAddress: '',
+                dstTunnelPort: ''
+              }
+            ],
+            dstInterface: {
+              interfaceType: '',
+              tunnelInfo: {
+                tunnelType: '',
+                tunnelDstAddress: '',
+                tunnelsrcAddress: '',
+                tunnelSpecificData: ''
+              },
+              srcMACAddress: '',
+              dstMACAddress: '',
+              dstIPAddress: ''
+            }
+          }
+        ],
+        dnsRule: [
+          {
+            dnsRuleRedirectRuleId: '',
+            domainName: '24',
+            ipAddressType: '',
+            dnsServerIp: ''
+          }, {
+            dnsRuleRedirectRuleId: '',
+            domainName: '24',
+            ipAddressType: '',
+            dnsServerIp: ''
+          }
+        ]
+      },
+      filterTableData: [],
       trafficFilter: {
-        ipAddressType: '',
         srcAddress: '',
         srcPort: '',
         dstAddress: '',
@@ -318,7 +599,24 @@ export default {
         protocol: 'ANY',
         qci: '1',
         dscp: '0',
-        tc: '1'
+        tc: '1',
+        tag: '',
+        srcTunnelAddress: '',
+        srcTunnelPort: '',
+        dstTunnelAddress: '',
+        dstTunnelPort: ''
+      },
+      dstInterface: {
+        interfaceType: '',
+        tunnelInfo: {
+          tunnelType: '',
+          tunnelDstAddress: '',
+          tunnelsrcAddress: '',
+          tunnelSpecificData: ''
+        },
+        srcMACAddress: '',
+        dstMACAddress: '',
+        dstIPAddress: ''
       },
       middleData: {
         ipAddressType: '',
@@ -330,15 +628,46 @@ export default {
         qci: '1',
         dscp: '0',
         tc: '1'
-      }
+      },
+      interfaceTableData: []
     }
   },
   methods: {
-    addNew () {
-      this.innerVisible = true
+    addNewFilter () {
+      this.trafficFilter = {
+        srcAddress: '',
+        srcPort: '',
+        dstAddress: '',
+        dstPort: '',
+        protocol: 'ANY',
+        qci: '1',
+        dscp: '0',
+        tc: '1',
+        srcTunnelAddress: '',
+        srcTunnelPort: '',
+        dstTunnelAddress: '',
+        dstTunnelPort: ''
+      }
+      this.innerFilterVisible = true
       this.addType = 1
     },
-    confirmToAdd () {
+    addNewInterface () {
+      this.dstInterface = {
+        interfaceType: '',
+        tunnelInfo: {
+          tunnelType: '',
+          tunnelDstAddress: '',
+          tunnelsrcAddress: '',
+          tunnelSpecificData: ''
+        },
+        srcMACAddress: '',
+        dstMACAddress: '',
+        dstIPAddress: ''
+      }
+      this.innerInterfaceVisible = true
+      this.addType = 1
+    },
+    confirmToAddFilter () {
       let data = JSON.parse(JSON.stringify(this.trafficFilter))
       if (this.addType === 1) {
         this.filterTableData.push(data)
@@ -346,24 +675,48 @@ export default {
         this.filterTableData.splice(this.editIndex, 1)
         this.filterTableData.push(data)
       }
-      this.innerVisible = false
+      this.innerFilterVisible = false
     },
-    modifyLines (index, rows) {
+    confirmToAddInterface () {
+      let data = JSON.parse(JSON.stringify(this.dstInterface))
+      if (this.addType === 1) {
+        this.interfaceTableData.push(data)
+      } else {
+        this.interfaceTableData.splice(this.editIndex, 1)
+        this.interfaceTableData.push(data)
+      }
+      this.innerInterfaceVisible = false
+      console.log(this.interfaceTableData)
+    },
+    modifyFilterLines (index, rows) {
       this.addType = 2
       this.editIndex = index
-      this.innerVisible = true
+      this.innerFilterVisible = true
       this.middleData = JSON.parse(JSON.stringify(rows))
       this.trafficFilter = this.middleData
     },
-    deleteLines (index, rows) {
+    modifyInterfaceLines (index, rows) {
+      this.addType = 2
+      this.editIndex = index
+      this.innerInterfaceVisible = true
+      this.middleData = JSON.parse(JSON.stringify(rows))
+      this.dstInterface = this.middleData
+    },
+    deleteFilterLines (index, rows) {
       this.filterTableData.splice(index, 1)
     },
-    cancelEdit () {
-      this.innerVisible = false
+    deleteInterfaceLines (index, rows) {
+      this.interfaceTableData.splice(index, 1)
+    },
+    cancelEditFilter () {
+      this.innerFilterVisible = false
+    },
+    cancelEditInterface () {
+      this.innerInterfaceVisible = false
     }
   },
   mounted () {
-    this.dialog = true
+
   }
 }
 </script>

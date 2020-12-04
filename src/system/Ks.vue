@@ -51,7 +51,10 @@
           <el-table
             :data="currPageTableData"
             v-loading="dataLoading"
+            class="mt20"
             border
+            size="small"
+            style="width: 100%;"
           >
             <el-table-column
               prop="mechostName"

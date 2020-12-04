@@ -97,14 +97,6 @@
                   id="distributeBtn"
                   type="text"
                   size="small"
-                  @click="copyDnsRules"
-                >
-                  {{ $t('common.copy') }}
-                </el-button>
-                <el-button
-                  id="distributeBtn"
-                  type="text"
-                  size="small"
                   @click="deleteDnsRules"
                 >
                   {{ $t('common.delete') }}
@@ -186,14 +178,6 @@
                   id=""
                   type="text"
                   size="small"
-                  @click="copyTrafficRule"
-                >
-                  {{ $t('common.copy') }}
-                </el-button>
-                <el-button
-                  id=""
-                  type="text"
-                  size="small"
                   @click="deleteTrafficRule"
                 >
                   {{ $t('common.delete') }}
@@ -207,7 +191,7 @@
     <el-dialog
       :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
-      width="45%"
+      width="75%"
     >
       <div class="dialogContent">
         <Dnsrule v-if="dns" />
@@ -233,16 +217,25 @@
       </span>
     </el-dialog>
     <el-dialog
-      :title="$t('app.ruleConfig.trafficFilter')"
+      title="详情"
       :visible.sync="filterShow"
       width="45%"
     >
       <div class="dialogContent">
-        <el-table :data="filterData">
+        <!-- 分流规则 -->
+        <p class="title">
+          {{ $t('app.ruleConfig.trafficFilter') }}
+        </p>
+        <el-table
+          class="mt20"
+          border
+          size="small"
+          style="width: 100%;"
+          :data="filterData"
+        >
           <el-table-column
             prop="srcAddress"
             :label="$t('app.ruleConfig.srcAddress')"
-            width="120"
           />
           <el-table-column
             prop="srcPort"
@@ -251,7 +244,6 @@
           <el-table-column
             prop="dstAddress"
             :label="$t('app.ruleConfig.dstAddress')"
-            width="120"
           />
           <el-table-column
             prop="dstPort"
@@ -260,6 +252,26 @@
           <el-table-column
             prop="protocol"
             :label="$t('app.ruleConfig.protocol')"
+          />
+          <el-table-column
+            prop="dstTunnelAddress"
+            label="隧道目的地址"
+          />
+          <el-table-column
+            prop="dstTunnelPort"
+            label="隧道目的端口"
+          />
+          <el-table-column
+            prop="srcTunnelAddress"
+            label="隧道源地址"
+          />
+          <el-table-column
+            prop="srcTunnelPort"
+            label="隧道源端口"
+          />
+          <el-table-column
+            prop="tag"
+            label="Tag"
           />
           <el-table-column
             prop="qci"
@@ -272,6 +284,52 @@
           <el-table-column
             prop="tc"
             label="TC"
+          />
+        </el-table>
+
+        <!-- 接口信息 -->
+        <p class="title">
+          接口信息
+        </p>
+        <el-table
+          class="mt20"
+          :data="interfaceData"
+          border
+          size="small"
+          style="width: 100%;"
+        >
+          <el-table-column
+            prop="interfaceType"
+            label="接口类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelType"
+            label="隧道类型"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelDstAddress"
+            label="隧道目的地址"
+            width="120px"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSrcAddress"
+            label="隧道源地址"
+          />
+          <el-table-column
+            prop="tunnelInfo.tunnelSpecificData"
+            label="隧道指定参数"
+          />
+          <el-table-column
+            prop="dstMACAddress"
+            label="目的MAC地址"
+          />
+          <el-table-column
+            prop="srcMACAddress"
+            label="源MAC地址"
+          />
+          <el-table-column
+            prop="dstIPAddress"
+            label="目的IP地址"
           />
         </el-table>
       </div>
@@ -299,6 +357,7 @@ export default {
       trafficRulesData: [],
       filterShow: false,
       filterData: [],
+      interfaceData: [],
       dnsRules: {
         dnsRuleId: 'DNS132654',
         domainName: 'edgegallery.org',
@@ -320,17 +379,24 @@ export default {
           protocol: 'ANY',
           qci: '1',
           dscp: '0',
-          tc: '1'
-        }, {
-          ipAddressType: 'IP_V4',
-          srcAddress: '172.30.2.0/28',
-          srcPort: '8080',
-          dstAddress: '118.9.25.452/28',
-          dstPort: '30000',
-          protocol: 'ANY',
-          qci: '1',
-          dscp: '0',
-          tc: '1'
+          tc: '1',
+          tag: 'asfd',
+          srcTunnelAddress: 'sadf',
+          srcTunnelPort: 'afd',
+          dstTunnelAddress: 'asdf',
+          dstTunnelPort: 'asfd'
+        }],
+        dstInterface: [{
+          interfaceType: 'sadf',
+          tunnelInfo: {
+            tunnelType: 'GRE',
+            tunnelDstAddress: 'dd',
+            tunnelsrcAddress: 'ss',
+            tunnelSpecificData: 'dd'
+          },
+          srcMACAddress: 'ff',
+          dstMACAddress: 'ff',
+          dstIPAddress: 'gg'
         }]
       }
     }
@@ -339,12 +405,6 @@ export default {
 
   },
   methods: {
-    onDnsRulesJsonChange (value) {
-      console.log('value:', value)
-    },
-    onTrafficRulesJsonChange (value) {
-      console.log('value:', value)
-    },
     addTrafficRules () {
       this.dialog = false
       this.trafficRulesData.push(this.trafficRules)
@@ -358,6 +418,7 @@ export default {
     checkFilter (row) {
       this.filterShow = true
       this.filterData = row.trafficFilter
+      this.interfaceData = row.dstInterface
     },
     handleClick () {},
     handleSelectionChange () {},
@@ -368,15 +429,19 @@ export default {
     addTrafficRule () {
       this.dns = false
       this.dialog = true
+      // this.$router.push('/mecm/ruleconfig/addTrafficRules')
     },
     batchDeleteTraffic () {},
     batchDeleteDns () {},
-    editTrafficRule () {},
     copyTrafficRule () {},
     deleteTrafficRule () {},
-    editDnsRules () {},
-    copyDnsRules () {},
-    deleteDnsRules () {}
+    editDnsRules (row) {
+      this.dialog = true
+      let data = JSON.parse(JSON.stringify(row))
+      this.dnsRules = data
+    },
+    deleteDnsRules () {},
+    editTrafficRule () {}
   }
 }
 </script>
@@ -390,5 +455,19 @@ export default {
 }
 .btn{
   margin:15px 15px 15px 0;
+}
+.title{
+  margin:15px 3px;
+  font-size:18px;
+}
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:17px;
+  margin-right:3px;
+  background: #409EFF;
+  position: relative;
+  top:2px;
 }
 </style>

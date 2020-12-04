@@ -164,10 +164,10 @@ const cn = {
       ipAddressType: 'IP地址类型',
       domainName: 'FQDN域名',
       ttl: '有效时长',
-      checkRules: '查看规则',
+      checkRules: '查看详情',
       dnsRule: 'DNS规则',
       trafficRule: '分流规则',
-      trfficFilter: '流过滤规则'
+      trafficFilter: '流过滤规则'
     }
   },
   edgeNode: {

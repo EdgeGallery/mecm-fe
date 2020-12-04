@@ -60,6 +60,9 @@ export default {
   methods: {
     jumpTo () {
       return this.path
+    },
+    jumpToTo () {
+      return this.pathto
     }
   }
 }
