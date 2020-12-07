@@ -75,6 +75,13 @@ const NavData = [
             'display': false
           },
           {
+            'id': '2.14',
+            'name': 'App Rule',
+            'path': '/mecm/systems/external/apprule',
+            'pageId': '2.0.3.1.4',
+            'display': false
+          },
+          {
             'id': '2.12',
             'name': 'Edge Node',
             'path': '/mecm/systems/external/edgenodes',

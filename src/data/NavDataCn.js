@@ -75,6 +75,13 @@ const NavDataCn = [
             'display': false
           },
           {
+            'id': '2.4.1.4',
+            'name': '应用规则注册系统',
+            'path': '/mecm/systems/external/apprule',
+            'pageId': '2.0.3.1.4',
+            'display': false
+          },
+          {
             'id': '2.4.1.2',
             'name': '边缘节点注册系统',
             'path': '/mecm/systems/external/edgenodes',

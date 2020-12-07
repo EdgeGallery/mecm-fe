@@ -62,6 +62,7 @@ const cn = {
     applcm: 'App LCM注册系统',
     edgeNode: '边缘节点注册系统',
     appstore: '应用市场注册系统',
+    appRule: '应用规则注册系统',
     appDetail: '应用详情',
     logoutTip: '确认要离开吗？',
     ruleConfiguration: '规则配置'

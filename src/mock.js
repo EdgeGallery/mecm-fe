@@ -192,6 +192,16 @@ const applcmData = function () {
   ]
 }
 
+const apprulemanagersData = function () {
+  return [
+    {
+      'appRuleIp': '119.8.125.174',
+      'appRulePort': '30206',
+      'userName': 'Xxx'
+    }
+  ]
+}
+
 const appstoreData = function () {
   return [
     { appstoreIp: '1.2.3.4',
@@ -247,6 +257,7 @@ Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
 Mock.mock('/mock/applcms', applcmData)
+Mock.mock('/mock/apprulemanagers', apprulemanagersData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
 Mock.mock('/mock/instanceInfo', instanceList)

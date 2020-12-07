@@ -315,6 +315,22 @@
                     :value="item.applcmIp"
                   />
                 </el-select>
+              </el-form-item><el-form-item
+                label="App LCM"
+                prop="applcmIp"
+              >
+                <el-select
+                  id="applcmip"
+                  v-model="currForm.applcmIp"
+                  placeholder="应用规则IP"
+                >
+                  <el-option
+                    v-for="(item,index) in appRuleIpList"
+                    :key="index"
+                    :label="item.appRuleIp"
+                    :value="item.appRulemIp"
+                  />
+                </el-select>
               </el-form-item>
               <el-form-item
                 :label="$t('system.appLcm.userNmae')"
@@ -386,8 +402,10 @@
           drag
           action=""
           :http-request="submitUpload"
+          :before-upload="beforeUpload"
           :file-list="fileList"
-          multiple
+          :multiple="false"
+          accept=""
           :limit="1"
         >
           <em class="el-icon-upload" />
@@ -426,6 +444,7 @@ export default {
       dialogVisibleUpload: false,
       fileList: [],
       applcmList: [],
+      appRuleIpList: [],
       op: false,
       radio: '1',
       area: false,
@@ -484,7 +503,8 @@ export default {
       editType: 1,
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
-      capability: ['GPU', 'NPU']
+      capability: ['GPU', 'NPU'],
+      fileConfirm: true
     }
   },
   mounted () {
@@ -634,22 +654,40 @@ export default {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
+      system.getList(4).then(res => {
+        this.appRuleIpList = res.data
+      }, error => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
+      })
+    },
+    beforeUpload (file) {
+      if (file.type !== '' || file.name !== 'config') {
+        this.fileConfirm = false
+      }
     },
     async submitUpload (content) {
-      let params = new FormData()
-      params.append('file', content.file)
-      if (this.currForm.mechostIp) {
-        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
-          this.$message.success(this.$t('tip.uploadSuc'))
-          this.dialogVisibleUpload = false
-        }).catch((error) => {
-          console.log(error)
-          this.$message.error(this.$t('tip.faileToUpload'))
+      if (this.fileConfirm) {
+        let params = new FormData()
+        params.append('file', content.file)
+        if (this.currForm.mechostIp) {
+          system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+            this.$message.success(this.$t('tip.uploadSuc'))
+            this.dialogVisibleUpload = false
+          }).catch((error) => {
+            console.log(error)
+            this.$message.error("File shouldn't contain any extension or filename is larger than max size")
+            this.fileList = []
+          })
+        } else {
+          this.$message.error(this.$t('tip.typeApp'))
           this.fileList = []
-        })
+        }
       } else {
-        this.$message.error(this.$t('tip.typeApp'))
-        this.fileList = []
+        this.$message.error('请上传文件类型为"*"的配置文件')
       }
     },
     getNodeListInPage () {

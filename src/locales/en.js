@@ -63,6 +63,7 @@ const en = {
     edgeNode: 'Edge Node',
     appstore: 'App Store',
     appDetail: 'App Detail',
+    appRule: 'App Rules',
     fileNotSupport: 'File not support to read.',
     logoutTip: 'Are you sure to log out?',
     ruleConfiguration: 'Rule Configuration'
