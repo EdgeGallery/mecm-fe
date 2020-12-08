@@ -27,7 +27,7 @@ let inventory = api + ':30203' + '/inventory/v1'
 let apm = api + ':30202' + '/apm/v1'
 let appo = api + ':30201' + '/appo/v1'
 
-let inventoryUrl = ['/applcms', '/mechosts', '/appstores']
+let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
 axios.interceptors.response.use(function (response) {
   return response

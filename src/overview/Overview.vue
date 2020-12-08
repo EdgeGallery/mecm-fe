@@ -51,7 +51,7 @@
             <div class="nodeBasicInfo">
               <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.name }}</p>
               <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.ip }}</p>
-              <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
+              <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}/{{ nodeBasicInfo.address }}</p>
             </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
             <el-col

@@ -76,6 +76,11 @@ export default new Router({
           component: () => import('../system/Applcm.vue')
         },
         {
+          path: 'mecm/systems/external/apprule',
+          name: 'externalSystem4',
+          component: () => import('../system/Apprule.vue')
+        },
+        {
           path: 'mecm/systems/external/edgenodes',
           name: 'externalSystem2',
           component: () => import('../system/Ks.vue')

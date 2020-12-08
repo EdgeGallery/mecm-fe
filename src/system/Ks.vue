@@ -317,6 +317,23 @@
                 </el-select>
               </el-form-item>
               <el-form-item
+                label="App Rule MGR"
+                prop="appRuleManagerIp"
+              >
+                <el-select
+                  id="apprulemgrip"
+                  v-model="currForm.appRuleManagerIp"
+                  placeholder="App Rule MGR IP"
+                >
+                  <el-option
+                    v-for="(item,index) in appRuleIpList"
+                    :key="index"
+                    :label="item.appRuleIp"
+                    :value="item.appRulemIp"
+                  />
+                </el-select>
+              </el-form-item>
+              <el-form-item
                 :label="$t('system.appLcm.userNmae')"
                 prop="username"
                 v-if="op"
@@ -386,8 +403,10 @@
           drag
           action=""
           :http-request="submitUpload"
+          :before-upload="beforeUpload"
           :file-list="fileList"
-          multiple
+          :multiple="false"
+          accept=""
           :limit="1"
         >
           <em class="el-icon-upload" />
@@ -426,6 +445,7 @@ export default {
       dialogVisibleUpload: false,
       fileList: [],
       applcmList: [],
+      appRuleIpList: [],
       op: false,
       radio: '1',
       area: false,
@@ -443,7 +463,8 @@ export default {
         'mechostName': '',
         'userName': '',
         'zipCode': '',
-        'hwcapabilities': []
+        'hwcapabilities': [],
+        'appRuleManagerIp': ''
       },
       rules: {
         mechostIp: [
@@ -468,6 +489,9 @@ export default {
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
+        appRuleManagerIp: [
+          { required: true, message: '应用规则管理IP为必选项', trigger: 'blur' }
+        ],
         applcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
         ],
@@ -484,7 +508,8 @@ export default {
       editType: 1,
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
-      capability: ['GPU', 'NPU']
+      capability: ['GPU', 'NPU'],
+      fileConfirm: true
     }
   },
   mounted () {
@@ -577,7 +602,8 @@ export default {
         'mechostName': '',
         'userName': '',
         'zipCode': '',
-        'hwcapabilities': []
+        'hwcapabilities': [],
+        'appRuleManagerIp': ''
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
       this.capabilities = []
@@ -634,22 +660,40 @@ export default {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
+      system.getList(4).then(res => {
+        this.appRuleIpList = res.data
+      }, error => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
+      })
+    },
+    beforeUpload (file) {
+      if (file.type !== '' || file.name !== 'config') {
+        this.fileConfirm = false
+      }
     },
     async submitUpload (content) {
-      let params = new FormData()
-      params.append('file', content.file)
-      if (this.currForm.mechostIp) {
-        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
-          this.$message.success(this.$t('tip.uploadSuc'))
-          this.dialogVisibleUpload = false
-        }).catch((error) => {
-          console.log(error)
-          this.$message.error(this.$t('tip.faileToUpload'))
+      if (this.fileConfirm) {
+        let params = new FormData()
+        params.append('file', content.file)
+        if (this.currForm.mechostIp) {
+          system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+            this.$message.success(this.$t('tip.uploadSuc'))
+            this.dialogVisibleUpload = false
+          }).catch((error) => {
+            console.log(error)
+            this.$message.error("File shouldn't contain any extension or filename is larger than max size")
+            this.fileList = []
+          })
+        } else {
+          this.$message.error(this.$t('tip.typeApp'))
           this.fileList = []
-        })
+        }
       } else {
-        this.$message.error(this.$t('tip.typeApp'))
-        this.fileList = []
+        this.$message.error('请上传文件类型为"*"的配置文件')
       }
     },
     getNodeListInPage () {
