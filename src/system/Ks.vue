@@ -315,12 +315,13 @@
                     :value="item.applcmIp"
                   />
                 </el-select>
-              </el-form-item><el-form-item
-                label="App LCM"
-                prop="applcmIp"
+              </el-form-item>
+              <el-form-item
+                label="App Rule MGR"
+                prop="appRuleManagerIp"
               >
                 <el-select
-                  id="applcmip"
+                  id="apprulemgrip"
                   v-model="currForm.appRuleManagerIp"
                   placeholder="App Rule MGR IP"
                 >
@@ -487,6 +488,9 @@ export default {
         edgerepoPort: [
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        appRuleManagerIp: [
+          { required: true, message: '应用规则管理IP为必选项', trigger: 'blur' }
         ],
         applcmIp: [
           { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }

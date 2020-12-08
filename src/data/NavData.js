@@ -61,41 +61,32 @@ const NavData = [
     'display': false,
     'children': [
       {
-        'id': '2.10',
-        'name': 'External System Manager',
-        'path': '/mecm/systems/external',
-        'pageId': '2.0.3.1',
-        'display': false,
-        children: [
-          {
-            'id': '2.11',
-            'name': 'App LCM',
-            'path': '/mecm/systems/external/applcm',
-            'pageId': '2.0.3.1.1',
-            'display': false
-          },
-          {
-            'id': '2.14',
-            'name': 'App Rule',
-            'path': '/mecm/systems/external/apprule',
-            'pageId': '2.0.3.1.4',
-            'display': false
-          },
-          {
-            'id': '2.12',
-            'name': 'Edge Node',
-            'path': '/mecm/systems/external/edgenodes',
-            'pageId': '2.0.3.1.2',
-            'display': false
-          },
-          {
-            'id': '2.13',
-            'name': 'App Store',
-            'path': '/mecm/systems/external/store',
-            'pageId': '2.0.3.1.3',
-            'display': false
-          }
-        ]
+        'id': '2.11',
+        'name': 'App LCM',
+        'path': '/mecm/systems/external/applcm',
+        'pageId': '2.0.3.1.1',
+        'display': false
+      },
+      {
+        'id': '2.14',
+        'name': 'App Rule',
+        'path': '/mecm/systems/external/apprule',
+        'pageId': '2.0.3.1.4',
+        'display': false
+      },
+      {
+        'id': '2.12',
+        'name': 'Edge Node',
+        'path': '/mecm/systems/external/edgenodes',
+        'pageId': '2.0.3.1.2',
+        'display': false
+      },
+      {
+        'id': '2.13',
+        'name': 'App Store',
+        'path': '/mecm/systems/external/store',
+        'pageId': '2.0.3.1.3',
+        'display': false
       }
     ]
   }

@@ -14,69 +14,209 @@
  *  limitations under the License.
  */
 
-//  Mock Data
-//  本地调试时将request1.js改为request.js，即可使用mock api获取数据
-
 import axios from 'axios'
-require('../mock.js')
+
+let api
+if (window.location.href.indexOf('30093') > -1) {
+  api = 'https://' + window.location.href.split('//')[1].split(':')[0]
+} else {
+  api = 'https://' + window.location.host
+}
+
+let inventory = api + ':30203' + '/inventory/v1'
+let apm = api + ':30202' + '/apm/v1'
+let appo = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
-let user = {
-  getUserInfo () {
-    return axios.get('/mock/login')
+axios.interceptors.response.use(function (response) {
+  return response
+}, function (error) {
+  if (error.response.status === 401) {
+    this.$message.error('登录状态已失效，请重新登录')
+  }
+  return Promise.reject(error)
+}
+)
+
+function GET (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
+  return axios.get(url, {
+    params: params,
+    headers: headers
+  })
+}
+
+function POST (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
+  return axios.post(url, params, { headers: headers })
+}
+
+function PUT (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
+  return axios.put(url, params, { headers: headers })
+}
+
+function DELETE (url, params) {
+  let headers = {
+    'access_token': getToken()
+  }
+  return axios.delete(url, {
+    params: params,
+    headers: headers
+  })
+}
+
+function getUserId () {
+  return sessionStorage.getItem('userId')
+}
+
+function getToken () {
+  return sessionStorage.getItem('access_token')
+}
+
+function getCookie (name) {
+  let arr = []
+  let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
+  if (arr === document.cookie.match(reg)) {
+    return (arr[2])
+  } else {
+    return null
   }
 }
 
+let user = {
+  getUserInfo () {
+    return axios.get('/auth/login-info')
+  },
+  logout () {
+    return axios({
+      method: 'POST',
+      url: '/logout',
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
+      }
+    })
+  }
+}
 let overview = {
-  getPackageInfo () {
-    return axios.get('/mock/packageInfo')
+  getPackageInfo (item) {
+    return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
   },
-  getAppInfo () {
-    return axios.get('/mock/instanceInfo')
+  getHwCapa (hostip) {
+    return GET(inventory + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   },
-  getHwCapa () {
-    return axios.get('/mock/getHwCapability')
+  getNodeKpi (hostip) {
+    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi')
   },
-  getMepCapabilities () {
-    return axios.get('/mock/getSwCapability')
+  getServiceInfo (instanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
-  getNodeKpi () {
-    return axios.get('/mock/kpiInfo')
-  },
-  getServiceInfo () {
-    return axios.get('/mock/seviceInfo')
+  getMepCapabilities (hostip) {
+    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   }
 }
 let app = {
-  getAppListFromAppStore () {
-    return axios.get('/mock/appPackageList')
+  getPackageList (appId) {
+    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
   },
-  getPackageList () {
-    return axios.get('/mock/appPackageList')
+  getAppListFromAppStore () {
+    return GET('/mec-appstore/mec/appstore/v1/apps')
+  },
+  downloadPackage (appId, packageId) {
+    try {
+      var elemIF = document.createElement('iframe')
+      elemIF.src = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/action/download'
+      elemIF.style.display = 'none'
+      document.body.appendChild(elemIF)
+      // 防止下载两次
+      setTimeout(function () {
+        document.body.removeChild(elemIF)
+      }, 1000)
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  confirmToDistribute (params) {
+    return POST(apm + '/tenants/' + getUserId() + '/packages', params)
   },
   getDistributionList () {
-    return axios.get('/mock/appDistributionList')
+    return GET(apm + '/tenants/' + getUserId() + '/packages')
+  },
+  deleteDistributionApp (type, hostIp, packageId) {
+    let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
+    if (type === 2) {
+      url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
+    }
+    return DELETE(url)
+  },
+  confirmToDeploy (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances', params)
+  },
+  confirmToBatchDeploy (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_create', params)
+  },
+  getInstanceInfo (instanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
+  },
+  getBatchInstanceInfo (instanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/appinstanceids?' + instanceId)
+  },
+  instantiateApp (instanceId) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  batchInstantiateApp (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
   },
   getInstanceList () {
-    return axios.get('/mock/instanceInfo')
+    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos')
   },
-  getInstanceDetail () {
-    return axios.get('/mock/instanceInfo')
+  getInstanceDetail (appInstanceId) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
+  },
+  deleteInstanceApp (instanceId) {
+    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  batchDeleteInstanceApp (params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   }
 }
 let edge = {
   getNodeList () {
-    return axios.get('/mock/mechosts')
+    return GET(inventory + '/tenants/' + getUserId() + '/mechosts')
   }
 }
 let system = {
+  create (type, params) {
+    return POST(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+  },
   getList (type) {
-    return axios.get('/mock' + inventoryUrl[type - 1])
+    return GET(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1])
+  },
+  modify (type, params, ip) {
+    return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
+  },
+  delete (type, params) {
+    return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
+  },
+  uploadConfig (ip, params) {
+    return POST(inventory + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
   }
 }
 
 export {
+  GET,
+  POST,
+  PUT,
+  DELETE,
   user,
   overview,
   app,
