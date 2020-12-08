@@ -154,7 +154,7 @@
                   v-for="item in options"
                   :key="item.value"
                   :label="item.version"
-                  :value="item.csarId"
+                  :value="item.packageId"
                 />
               </el-select>
             </el-col>
@@ -377,7 +377,7 @@ export default {
         this.options = res.data
         this.currentRowData.appId = row.appId
         this.currentRowData.version = this.version = res.data[0].version
-        this.currentRowData.csarId = res.data[0].csarId
+        this.currentRowData.packageId = res.data[0].packageId
       })
       this.appId = row.appId
       await edge.getNodeList().then(response => {
@@ -392,7 +392,7 @@ export default {
       this.options.forEach(item => {
         if (item.version === val) {
           this.currentRowData.version = item.version
-          this.currentRowData.csarId = item.csarId
+          this.currentRowData.packageId = item.packageId
           this.currentRowData.size = item.size
         }
       })
@@ -422,13 +422,13 @@ export default {
         address = 'https'
       }
       let params = {
-        appPkgId: this.currentRowData.csarId,
+        appPkgId: this.currentRowData.packageId,
         appId: this.currentRowData.appId,
         appPkgName: this.currentRowData.name,
         appPkgVersion: this.currentRowData.version,
         appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
         appPkgAffinity: this.currentRowData.affinity,
-        appPkgPath: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.csarId + '/action/download',
+        appPkgPath: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
         appIconUrl: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
         appProvider: this.currentRowData.provider,
         mecHostInfo: selectedMecHost,

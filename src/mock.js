@@ -33,7 +33,32 @@ const hostData = function () {
       address: '78hao',
       affinity: 'X86',
       applcmIp: '119.8.53.3',
-      city: '北京市/北京市/朝阳区',
+      city: '广东省/深圳市/龙岗区/华为坂田基地',
+      edgerepoIp: '119.8.53.3',
+      edgerepoName: null,
+      edgerepoPort: '8123',
+      edgerepoUsername: '',
+      mechostIp: '119.8.53.3',
+      mechostName: 'Node',
+      userName: '',
+      zipCode: '',
+      capability: 'GPU',
+      hwcapabilities: [{
+        'hwType': 'GPU',
+        'hwVendor': 'gpu',
+        'hwModel': 'gpu'
+      },
+      {
+        'hwType': 'NPU',
+        'hwVendor': 'npu',
+        'hwModel': 'npu'
+      }]
+    },
+    {
+      address: '78hao',
+      affinity: 'X86',
+      applcmIp: '119.8.53.3',
+      city: '广东省/深圳市/福田区',
       edgerepoIp: '119.8.53.3',
       edgerepoName: null,
       edgerepoPort: '8123',
@@ -127,7 +152,7 @@ const hwCapability = function () {
 
 const packageInfo = function () {
   return {
-    'csarId': '9eb381e222dd4a3898fc61f7182bba24',
+    'packageId': '9eb381e222dd4a3898fc61f7182bba24',
     'downloadUrl': '/home/appstore/7b002245635b4563a3d4dd4c96168556/7b002245635b4563a3d4dd4c96168556.csar',
     'iconUrl': '/home/appstore/70d3278cbf654377beeb3d178ad01ff3/70d3278cbf654377beeb3d178ad01ff3.png',
     'size': '0',

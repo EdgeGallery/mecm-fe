@@ -321,8 +321,8 @@
               >
                 <el-select
                   id="applcmip"
-                  v-model="currForm.applcmIp"
-                  placeholder="应用规则IP"
+                  v-model="currForm.appRuleManagerIp"
+                  placeholder="App Rule MGR IP"
                 >
                   <el-option
                     v-for="(item,index) in appRuleIpList"
@@ -462,7 +462,8 @@ export default {
         'mechostName': '',
         'userName': '',
         'zipCode': '',
-        'hwcapabilities': []
+        'hwcapabilities': [],
+        'appRuleManagerIp': ''
       },
       rules: {
         mechostIp: [
@@ -597,7 +598,8 @@ export default {
         'mechostName': '',
         'userName': '',
         'zipCode': '',
-        'hwcapabilities': []
+        'hwcapabilities': [],
+        'appRuleManagerIp': ''
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
       this.capabilities = []

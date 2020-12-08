@@ -21,7 +21,8 @@ export default {
       chinaId: 100000,
       chinaName: 'china',
       chinaJson: null,
-      nodeData: []
+      nodeData: [],
+      continue: true
     }
   },
   mounted () {
@@ -36,6 +37,7 @@ export default {
             obj.coord = item.city.split('/').join('')
             obj.ip = item.mechostIp
             obj.city = item.city
+            obj.address = item.address
             obj.name = item.mechostName
             this.geoCode(obj)
           })
@@ -85,28 +87,8 @@ export default {
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
-            console.log(param.name)
-            let cityId = CityMap[param.name]
-            let arr = []
-            this.nodeData.forEach((val, index) => {
-              if (val.city.indexOf(param.data.name) > -1) {
-                arr.push(val)
-              }
-            })
-            this.nodeData = arr
-            this.$emit('area', this.nodeData, param.name)
-            if (cityId) {
-              axios
-                .get('./map/' + cityId + '.json', {})
-                .then(res => {
-                  const mapJson1 = res.data
-                  this.regAndSetOption(
-                    myChart,
-                    param.name,
-                    mapJson1,
-                    true
-                  )
-                })
+            if (this.continue) {
+              this.mapAreaClick(param, myChart)
             } else {
               this.getNodeList()
               this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
@@ -114,6 +96,46 @@ export default {
           }
         })
       })
+    },
+    mapAreaClick (param, myChart) {
+      let cityId = CityMap[param.name]
+      let arr = []
+      this.nodeData.forEach((val, index) => {
+        if (val.city.indexOf(param.data.name) > -1) {
+          arr.push(val)
+        }
+      })
+      this.nodeData = arr
+      this.$emit('area', this.nodeData, param.name)
+      axios
+        .get('./map/' + cityId + '.json', {})
+        .then(res => {
+          const mapJson1 = res.data
+          this.regAndSetOption(
+            myChart,
+            param.name,
+            mapJson1,
+            true
+          )
+        }).catch(err => {
+          console.log(err)
+          this.continue = false
+          var geocoder = new AMap.Geocoder({
+            city: ''
+          })
+          geocoder.getLocation(param.name, (status, result) => {
+            if (status === 'complete' && result.geocodes.length) {
+              var lnglat = result.geocodes[0].location
+              let coord = []
+              coord.push(lnglat.R)
+              coord.push(lnglat.Q)
+              console.log(this.nodeData)
+              this.mapDetails(coord, this.nodeData)
+            } else {
+              console.error('failed')
+            }
+          })
+        })
     },
     regAndSetOption (myChart1, name, mapJson, flag) {
       echarts.registerMap(name, mapJson)
@@ -178,6 +200,33 @@ export default {
         })
       }
       return mapData
+    },
+    mapDetails (coord, data) {
+      const _this = this
+      this.continue = false
+      var map = new AMap.Map('mapChart', {
+        zoom: 12,
+        center: coord,
+        viewMode: '3D'
+      })
+      let markers = []
+      data.forEach(item => {
+        let marker = new AMap.Marker({
+          position: item.coord,
+          icon: '../assets/images/cloudEdge.svg',
+          title: item.ip,
+          extData: item
+        })
+        markers.push(marker)
+      })
+
+      map.add(markers)
+
+      for (let i = 0; i < markers.length; i++) {
+        AMap.event.addListener(markers[i], 'click', function () {
+          _this.$emit('node', markers[i].getExtData())
+        })
+      }
     }
   }
 }
@@ -186,14 +235,13 @@ export default {
 
 <style lang='less' scoped>
 .content {
-  width: 90%;
-  height: 80vh;
-  left: 5%;
-  top: 10%;
+  width: 98%;
+  height: 90vh;
   .chart {
     position: relative;
     height: 90%;
-    top: 10%;
+    top: 7%;
+    left:2%
   }
 }
 </style>

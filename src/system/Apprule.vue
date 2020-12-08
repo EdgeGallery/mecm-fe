@@ -55,7 +55,7 @@
                 label-width="90px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  应用规则
+                  App Rule MGR
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.appRuleIp }}
@@ -179,7 +179,7 @@ export default {
       paginationData: [],
       dialogVisible: false,
       ipDisable: false,
-      title: '应用规则管理注册',
+      title: 'App Rule MGR 管理注册',
       form: {
         appRuleIp: '',
         appRulePort: '',
@@ -234,7 +234,7 @@ export default {
     },
     handleEdit (row) {
       this.editType = 2
-      this.title = '应用规则管理编辑'
+      this.title = 'App Rule MGR 管理编辑'
       this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
@@ -256,7 +256,7 @@ export default {
     },
     register () {
       this.editType = 1
-      this.title = '应用规则管理注册'
+      this.title = 'App Rule MGR 管理注册'
       this.form = {
         appRuleIp: '',
         appRulePort: '',

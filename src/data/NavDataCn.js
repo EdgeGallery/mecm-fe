@@ -76,7 +76,7 @@ const NavDataCn = [
           },
           {
             'id': '2.4.1.4',
-            'name': '应用规则注册系统',
+            'name': 'App Rule MGR 注册系统',
             'path': '/mecm/systems/external/apprule',
             'pageId': '2.0.3.1.4',
             'display': false
