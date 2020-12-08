@@ -207,13 +207,14 @@ export default {
       var map = new AMap.Map('mapChart', {
         zoom: 12,
         center: coord,
-        viewMode: '3D'
+        viewMode: '3D',
+        mapStyle: 'amap://styles/macaron'
       })
       let markers = []
       data.forEach(item => {
         let marker = new AMap.Marker({
           position: item.coord,
-          icon: '../assets/images/cloudEdge.svg',
+          icon: './cloudEdge.svg',
           title: item.ip,
           extData: item
         })
