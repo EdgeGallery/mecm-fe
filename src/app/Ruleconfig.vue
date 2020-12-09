@@ -191,7 +191,7 @@
     <el-dialog
       :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
-      width="75%"
+      :width="dns?'30%':'75%'"
     >
       <div class="dialogContent">
         <Dnsrule v-if="dns" />
@@ -353,8 +353,51 @@ export default {
       activeName: 'dns',
       dns: true,
       dialog: false,
-      dnsRulesData: [],
-      trafficRulesData: [],
+      dnsRulesData: [
+        {
+          dnsRuleId: 'DNS132654',
+          domainName: 'edgegallery.org',
+          ipAddressType: 'IP_V4',
+          dnsServerIp: '119.8.47.2',
+          ttl: '86400'
+        }
+      ],
+      trafficRulesData: [
+        {
+          trafficRuleId: '111',
+          action: 'DROP',
+          filterType: 'FLOW',
+          priority: 125,
+          trafficFilter: [{
+            ipAddressType: 'IP_V4',
+            srcAddress: '172.30.2.0/28',
+            srcPort: '8080',
+            dstAddress: '118.9.25.452/28',
+            dstPort: '30000',
+            protocol: 'ANY',
+            qci: '1',
+            dscp: '0',
+            tc: '1',
+            tag: 'asfd',
+            srcTunnelAddress: 'sadf',
+            srcTunnelPort: 'afd',
+            dstTunnelAddress: 'asdf',
+            dstTunnelPort: 'asfd'
+          }],
+          dstInterface: [{
+            interfaceType: 'sadf',
+            tunnelInfo: {
+              tunnelType: 'GRE',
+              tunnelDstAddress: 'dd',
+              tunnelsrcAddress: 'ss',
+              tunnelSpecificData: 'dd'
+            },
+            srcMACAddress: 'ff',
+            dstMACAddress: 'ff',
+            dstIPAddress: 'gg'
+          }]
+        }
+      ],
       filterShow: false,
       filterData: [],
       interfaceData: [],
@@ -362,7 +405,7 @@ export default {
         dnsRuleId: 'DNS132654',
         domainName: 'edgegallery.org',
         ipAddressType: 'IP_V4',
-        dnsServerIp: '1.2.3.4',
+        dnsServerIp: '119.8.47.2',
         ttl: '86400'
       },
       trafficRules: {

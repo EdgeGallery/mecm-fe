@@ -232,6 +232,17 @@
                 />
               </el-form-item>
               <el-form-item
+                :label="$t('system.edgeNodes.coordinates')"
+                prop="coordinates"
+              >
+                <el-input
+                  id="coordinates"
+                  maxlength="80"
+                  v-model="currForm.coordinates"
+                  placeholder="lon,lat"
+                />
+              </el-form-item>
+              <el-form-item
                 :label="$t('app.packageList.affinity')"
                 prop="affinity"
               >
@@ -465,7 +476,8 @@ export default {
         'userName': '',
         'zipCode': '',
         'hwcapabilities': [],
-        'appRuleManagerIp': ''
+        'appRuleManagerIp': '',
+        'coordinates': ''
       },
       rules: {
         mechostIp: [
@@ -481,6 +493,9 @@ export default {
         ],
         address: [
           { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
+        ],
+        coordinates: [
+          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
         ],
         edgerepoIp: [
           { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
@@ -604,7 +619,8 @@ export default {
         'userName': '',
         'zipCode': '',
         'hwcapabilities': [],
-        'appRuleManagerIp': ''
+        'appRuleManagerIp': '',
+        'coordinates': ''
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
       this.capabilities = []

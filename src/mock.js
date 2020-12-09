@@ -30,19 +30,19 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      address: '78hao',
+      address: '华为坂田基地',
       affinity: 'X86',
-      applcmIp: '1.2.3.4',
-      city: '广东省/深圳市/龙岗区/华为坂田基地',
-      edgerepoIp: '1.2.3.4',
+      applcmIp: '119.8.47.2',
+      city: '广东省/深圳市/龙岗区',
+      edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '1.2.3.4',
+      mechostIp: '119.8.47.2',
       mechostName: 'Node',
       userName: '',
       zipCode: '',
-      appRuleManagerIp: '1.2.3.4',
+      appRuleManagerIp: '119.8.47.2',
       capability: 'GPU',
       hwcapabilities: [{
         'hwType': 'GPU',
@@ -56,15 +56,15 @@ const hostData = function () {
       }]
     },
     {
-      address: '78hao',
+      address: '文苑路',
       affinity: 'X86',
-      applcmIp: '1.2.3.4',
-      city: '广东省/深圳市/福田区',
-      edgerepoIp: '1.2.3.4',
+      applcmIp: '119.8.47.2',
+      city: '江苏省/南京市/栖霞区',
+      edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '1.2.3.4',
+      mechostIp: '119.8.47.2',
       mechostName: 'Node',
       userName: '',
       zipCode: '',
@@ -112,8 +112,8 @@ const instanceList = function () {
         'appName': 'zone',
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
-        'mecHost': '1.2.3.4',
-        'applcmHost': '1.2.3.4',
+        'mecHost': '119.8.47.2',
+        'applcmHost': '119.8.47.2',
         'operationalStatus': 'Instantiated',
         'operationInfo': 'success'
       }
@@ -183,7 +183,7 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '1.2.3.4', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '119.8.47.2', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Distributed', 'error': '' }
     ]
@@ -201,7 +201,7 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '1.2.3.4', 'status': 'Error', 'error': '' },
+      { 'hostIp': '119.8.47.2', 'status': 'Error', 'error': '' },
       { 'hostIp': '119.8.53.4', 'status': 'Error', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Error', 'error': '' }
     ]
@@ -230,7 +230,7 @@ const apprulemanagersData = function () {
 
 const appstoreData = function () {
   return [
-    { appstoreIp: '1.2.3.4',
+    { appstoreIp: '119.8.47.2',
       appstoreName: 'appstore',
       appstorePort: '1111',
       producer: 'Huawei',

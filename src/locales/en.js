@@ -221,7 +221,8 @@ const en = {
       nodeModify: 'Edge Node Modify',
       uploadFile: 'Upload Config File',
       howToUpload: 'Drag the file here，or click to upload',
-      hwCapability: 'Capabilities'
+      hwCapability: 'Capabilities',
+      coordinates: 'Coordinates'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -270,7 +271,8 @@ const en = {
     areaTip: 'Area should not be empty',
     applcmNameTip: 'App LCM should not be empty',
     normalVerify: 'Style is not right',
-    hostNameVerify: '4 to 16 digits (letters, numbers, underscores, minus signs)'
+    hostNameVerify: '4 to 16 digits (letters, numbers, underscores, minus signs)',
+    coordinates: 'Coordinates should not be empty'
   },
   tip: {
     getCommonListFailed: 'Get list failed',
