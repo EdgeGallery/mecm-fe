@@ -4,6 +4,12 @@
       <div
         id="mapChart"
         class="chart"
+        v-show="abc"
+      />
+      <div
+        id="mapChart1"
+        class="chart1"
+        v-show="!abc"
       />
       <el-button
         type="primary"
@@ -22,6 +28,19 @@
 import CityMap from '../assets/js/CityMap'
 import { edge } from '../tools/request'
 import echarts from 'echarts'
+
+import 'ol/ol.css'
+import { Map, View } from 'ol'
+import TileLayer from 'ol/layer/Tile'
+import OSM from 'ol/source/OSM'
+import OlFeature from 'ol/Feature'
+import OlGeomPoint from 'ol/geom/Point'
+import OlLayerVector from 'ol/layer/Vector'
+import OlSourceVector from 'ol/source/Vector'
+import OlCluster from 'ol/source/Cluster'
+import Style from 'ol/style/Style'
+import Icon from 'ol/style/Icon'
+
 import axios from 'axios'
 export default {
   name: 'Map',
@@ -32,7 +51,9 @@ export default {
       chinaJson: null,
       nodeData: [],
       continue: true,
-      btnShow: false
+      btnShow: false,
+      map: null,
+      abc: true
     }
   },
   mounted () {
@@ -139,7 +160,10 @@ export default {
               let coord = []
               coord.push(lnglat.R)
               coord.push(lnglat.Q)
-              this.mapDetails(coord, this.nodeData)
+              this.abc = false
+              this.$nextTick(() => {
+                this.mapDetails(coord, this.nodeData)
+              })
             } else {
               console.error('failed')
             }
@@ -214,36 +238,75 @@ export default {
       let myChart = echarts.init(document.getElementById('mapChart'))
       this.getNodeList()
       this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
+      this.abc = true
       this.btnShow = false
     },
     mapDetails (coord, data) {
+      // 添加map
       this.btnShow = true
-      const _this = this
-      this.continue = false
-      var map = new AMap.Map('mapChart', {
-        zoom: 12,
-        center: coord,
-        viewMode: '3D',
-        mapStyle: 'amap://styles/macaron'
+      let _this = this
+      this.map = new Map({
+        target: 'mapChart1',
+        layers: [
+          new TileLayer({
+            source: new OSM()
+          })
+        ],
+        view: new View({
+          projection: 'EPSG:4326',
+          center: coord,
+          zoom: 12
+        })
       })
-      let markers = []
+
+      let lnglats = []
       data.forEach(item => {
-        let marker = new AMap.Marker({
-          position: item.coord,
-          icon: './cloudEdge.svg',
-          title: item.ip,
-          extData: item
-        })
-        markers.push(marker)
+        lnglats.push(item.coord)
       })
 
-      map.add(markers)
-
-      for (let i = 0; i < markers.length; i++) {
-        AMap.event.addListener(markers[i], 'click', function () {
-          _this.$emit('node', markers[i].getExtData())
-        })
+      // 创建Feature对象集合
+      var features = []
+      for (var i = 0; i < lnglats.length; i++) {
+        features.push(
+          new OlFeature({
+            type: 'icon',
+            geometry: new OlGeomPoint(lnglats[i]),
+            eventTarget_: data
+          })
+        )
       }
+      var source = new OlSourceVector({
+        features: features
+      })
+
+      var clusterSource = new OlCluster({
+        distance: 0,
+        source: source
+      })
+
+      var clusters = new OlLayerVector({
+        source: clusterSource,
+        style: new Style({
+          image: new Icon({
+            src: './cloud.svg'
+          })
+        }),
+        zIndex: 999
+      })
+
+      this.map.addLayer(clusters)
+
+      this.map.on('click', (e) => {
+      // 在点击时获取像素区域
+        var pixel = this.map.getEventPixel(e.originalEvent)
+        this.map.forEachFeatureAtPixel(pixel, function (feature) {
+          data.forEach(item => {
+            if (feature.geometryChangeKey_.target.extent_[0] === item.coord[0]) {
+              _this.$emit('node', item)
+            }
+          })
+        })
+      })
     }
   }
 }
