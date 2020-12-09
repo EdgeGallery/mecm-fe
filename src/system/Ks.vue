@@ -60,13 +60,11 @@
               prop="mechostName"
               sortable
               :label="$t('app.packageList.name')"
-              width="120"
             />
             <el-table-column
               prop="mechostIp"
               sortable
               :label="$t('app.packageList.ip')"
-              width="120"
             />
             <el-table-column
               prop="city"
@@ -77,7 +75,6 @@
               prop="address"
               sortable
               :label="$t('app.packageList.address')"
-              width="120"
             />
             <el-table-column
               prop="affinity"
@@ -85,8 +82,12 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
+              prop="appRuleManagerIp"
+              sortable
+              label="App Rule Manager IP"
+            />
+            <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
-              width="200"
             >
               <template slot-scope="scope">
                 <span
@@ -329,7 +330,7 @@
                     v-for="(item,index) in appRuleIpList"
                     :key="index"
                     :label="item.appRuleIp"
-                    :value="item.appRulemIp"
+                    :value="item.appRuleIp"
                   />
                 </el-select>
               </el-form-item>
@@ -710,6 +711,7 @@ export default {
       })
     },
     confirm (form) {
+      console.log(this.currForm)
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.currForm.hwcapabilities = []

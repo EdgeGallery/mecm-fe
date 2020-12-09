@@ -5,6 +5,15 @@
         id="mapChart"
         class="chart"
       />
+      <el-button
+        type="primary"
+        class="return"
+        size="small"
+        v-if="btnShow"
+        @click="returnOverviewModel"
+      >
+        返回主视图
+      </el-button>
     </div>
   </div>
 </template>
@@ -22,7 +31,8 @@ export default {
       chinaName: 'china',
       chinaJson: null,
       nodeData: [],
-      continue: true
+      continue: true,
+      btnShow: false
     }
   },
   mounted () {
@@ -129,7 +139,6 @@ export default {
               let coord = []
               coord.push(lnglat.R)
               coord.push(lnglat.Q)
-              console.log(this.nodeData)
               this.mapDetails(coord, this.nodeData)
             } else {
               console.error('failed')
@@ -201,19 +210,27 @@ export default {
       }
       return mapData
     },
+    returnOverviewModel () {
+      let myChart = echarts.init(document.getElementById('mapChart'))
+      this.getNodeList()
+      this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
+      this.btnShow = false
+    },
     mapDetails (coord, data) {
+      this.btnShow = true
       const _this = this
       this.continue = false
       var map = new AMap.Map('mapChart', {
         zoom: 12,
         center: coord,
-        viewMode: '3D'
+        viewMode: '3D',
+        mapStyle: 'amap://styles/macaron'
       })
       let markers = []
       data.forEach(item => {
         let marker = new AMap.Marker({
           position: item.coord,
-          icon: '../assets/images/cloudEdge.svg',
+          icon: './cloudEdge.svg',
           title: item.ip,
           extData: item
         })
@@ -237,11 +254,16 @@ export default {
 .content {
   width: 98%;
   height: 90vh;
-  .chart {
+  .chart,.chart1 {
     position: relative;
     height: 90%;
     top: 7%;
     left:2%
+  }
+  .return{
+    position: absolute;
+    top:10px;
+    right:0;
   }
 }
 </style>
