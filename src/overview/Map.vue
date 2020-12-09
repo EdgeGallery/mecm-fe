@@ -4,12 +4,12 @@
       <div
         id="mapChart"
         class="chart"
-        v-show="abc"
+        v-show="showMainView"
       />
       <div
         id="mapChart1"
         class="chart1"
-        v-show="!abc"
+        v-show="!showMainView"
       />
       <el-button
         type="primary"
@@ -53,7 +53,7 @@ export default {
       continue: true,
       btnShow: false,
       map: null,
-      abc: true
+      showMainView: true
     }
   },
   mounted () {
@@ -65,7 +65,7 @@ export default {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             let obj = {}
-            obj.coord = item.city.split('/').join('')
+            obj.coord = item.city.split('/').join('') + item.address
             obj.ip = item.mechostIp
             obj.city = item.city
             obj.address = item.address
@@ -160,7 +160,7 @@ export default {
               let coord = []
               coord.push(lnglat.R)
               coord.push(lnglat.Q)
-              this.abc = false
+              this.showMainView = false
               this.$nextTick(() => {
                 this.mapDetails(coord, this.nodeData)
               })
@@ -238,26 +238,35 @@ export default {
       let myChart = echarts.init(document.getElementById('mapChart'))
       this.getNodeList()
       this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
-      this.abc = true
+      this.showMainView = true
       this.btnShow = false
+      this.continue = true
     },
     mapDetails (coord, data) {
       // 添加map
       this.btnShow = true
       let _this = this
-      this.map = new Map({
-        target: 'mapChart1',
-        layers: [
-          new TileLayer({
-            source: new OSM()
-          })
-        ],
-        view: new View({
+      if (this.map) {
+        this.map.setView(new View({
           projection: 'EPSG:4326',
           center: coord,
           zoom: 12
+        }))
+      } else {
+        this.map = new Map({
+          target: 'mapChart1',
+          layers: [
+            new TileLayer({
+              source: new OSM()
+            })
+          ],
+          view: new View({
+            projection: 'EPSG:4326',
+            center: coord,
+            zoom: 12
+          })
         })
-      })
+      }
 
       let lnglats = []
       data.forEach(item => {
@@ -325,8 +334,8 @@ export default {
   }
   .return{
     position: absolute;
-    top:10px;
-    right:0;
+    top:15px;
+    right:10px;
   }
 }
 </style>
