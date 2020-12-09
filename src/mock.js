@@ -32,16 +32,17 @@ const hostData = function () {
     {
       address: '78hao',
       affinity: 'X86',
-      applcmIp: '119.8.53.3',
+      applcmIp: '1.2.3.4',
       city: '广东省/深圳市/龙岗区/华为坂田基地',
-      edgerepoIp: '119.8.53.3',
+      edgerepoIp: '1.2.3.4',
       edgerepoName: null,
-      edgerepoPort: '8123',
+      edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.53.3',
+      mechostIp: '1.2.3.4',
       mechostName: 'Node',
       userName: '',
       zipCode: '',
+      appRuleManagerIp: '1.2.3.4',
       capability: 'GPU',
       hwcapabilities: [{
         'hwType': 'GPU',
@@ -57,13 +58,13 @@ const hostData = function () {
     {
       address: '78hao',
       affinity: 'X86',
-      applcmIp: '119.8.53.3',
+      applcmIp: '1.2.3.4',
       city: '广东省/深圳市/福田区',
-      edgerepoIp: '119.8.53.3',
+      edgerepoIp: '1.2.3.4',
       edgerepoName: null,
-      edgerepoPort: '8123',
+      edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.53.3',
+      mechostIp: '1.2.3.4',
       mechostName: 'Node',
       userName: '',
       zipCode: '',
@@ -111,8 +112,8 @@ const instanceList = function () {
         'appName': 'zone',
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
-        'mecHost': '119.8.53.3',
-        'applcmHost': '119.8.53.3',
+        'mecHost': '1.2.3.4',
+        'applcmHost': '1.2.3.4',
         'operationalStatus': 'Instantiated',
         'operationInfo': 'success'
       }
@@ -182,7 +183,7 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '119.8.53.3', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '1.2.3.4', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Distributed', 'error': '' }
     ]
@@ -200,7 +201,7 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '119.8.53.3', 'status': 'Error', 'error': '' },
+      { 'hostIp': '1.2.3.4', 'status': 'Error', 'error': '' },
       { 'hostIp': '119.8.53.4', 'status': 'Error', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Error', 'error': '' }
     ]
