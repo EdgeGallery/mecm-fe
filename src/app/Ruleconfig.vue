@@ -50,7 +50,7 @@
           </el-button>
           <el-table
             class="mt20"
-            :data="dnsRulesData"
+            :data="dnsRuleData"
             border
             @selection-change="handleSelectionChange"
             style="width: 100%;"
@@ -127,7 +127,7 @@
           </el-button>
           <el-table
             class="mt20"
-            :data="trafficRulesData"
+            :data="trafficRuleData"
             border
             @selection-change="handleSelectionChange"
             style="width: 100%;"
@@ -194,8 +194,16 @@
       :width="dns?'30%':'75%'"
     >
       <div class="dialogContent">
-        <Dnsrule v-if="dns" />
-        <Trafficrule v-if="!dns" />
+        <Dnsrule
+          :dnsrule="dnsRule"
+          v-if="dns"
+        />
+        <Trafficrule
+          :trafficrule="trafficRule"
+          :trafficfilter="trafficRule.trafficFilter"
+          :dstinterface="trafficRule.dstInterface"
+          v-if="!dns"
+        />
       </div>
       <span
         slot="footer"
@@ -210,7 +218,7 @@
         <el-button
           id="confirmBtn"
           type="primary"
-          @click="dns?addDnsRules():addTrafficRules()"
+          @click="addRules"
         >
           {{ $t('common.confirm') }}
         </el-button>
@@ -341,6 +349,7 @@
 import Breadcrumb from '../components/BreadCrumb'
 import Dnsrule from './Dnsrule'
 import Trafficrule from './Trafficrule'
+import { app } from '../tools/request.js'
 export default {
   name: 'Ruleconfig',
   components: {
@@ -353,94 +362,31 @@ export default {
       activeName: 'dns',
       dns: true,
       dialog: false,
-      dnsRulesData: [
-        {
-          dnsRuleId: 'DNS132654',
-          domainName: 'edgegallery.org',
-          ipAddressType: 'IP_V4',
-          dnsServerIp: '119.8.47.2',
-          ttl: '86400'
-        }
-      ],
-      trafficRulesData: [
-        {
-          trafficRuleId: '111',
-          action: 'DROP',
-          filterType: 'FLOW',
-          priority: 125,
-          trafficFilter: [{
-            ipAddressType: 'IP_V4',
-            srcAddress: '172.30.2.0/28',
-            srcPort: '8080',
-            dstAddress: '118.9.25.452/28',
-            dstPort: '30000',
-            protocol: 'ANY',
-            qci: '1',
-            dscp: '0',
-            tc: '1',
-            tag: 'asfd',
-            srcTunnelAddress: 'sadf',
-            srcTunnelPort: 'afd',
-            dstTunnelAddress: 'asdf',
-            dstTunnelPort: 'asfd'
-          }],
-          dstInterface: [{
-            interfaceType: 'sadf',
-            tunnelInfo: {
-              tunnelType: 'GRE',
-              tunnelDstAddress: 'dd',
-              tunnelsrcAddress: 'ss',
-              tunnelSpecificData: 'dd'
-            },
-            srcMACAddress: 'ff',
-            dstMACAddress: 'ff',
-            dstIPAddress: 'gg'
-          }]
-        }
-      ],
+      dnsRuleData: [],
+      trafficRuleData: [],
       filterShow: false,
       filterData: [],
       interfaceData: [],
-      dnsRules: {
-        dnsRuleId: 'DNS132654',
-        domainName: 'edgegallery.org',
-        ipAddressType: 'IP_V4',
-        dnsServerIp: '119.8.47.2',
-        ttl: '86400'
+      rules: {
+        appTrafficRule: [],
+        appDNSRule: [],
+        appName: 'abc',
+        appSupportMp1: false
       },
-      trafficRules: {
-        trafficRuleId: '111',
-        action: 'DROP',
-        filterType: 'FLOW',
-        priority: 125,
-        trafficFilter: [{
-          ipAddressType: 'IP_V4',
-          srcAddress: '172.30.2.0/28',
-          srcPort: '8080',
-          dstAddress: '118.9.25.452/28',
-          dstPort: '30000',
-          protocol: 'ANY',
-          qci: '1',
-          dscp: '0',
-          tc: '1',
-          tag: 'asfd',
-          srcTunnelAddress: 'sadf',
-          srcTunnelPort: 'afd',
-          dstTunnelAddress: 'asdf',
-          dstTunnelPort: 'asfd'
-        }],
-        dstInterface: [{
-          interfaceType: 'sadf',
-          tunnelInfo: {
-            tunnelType: 'GRE',
-            tunnelDstAddress: 'dd',
-            tunnelsrcAddress: 'ss',
-            tunnelSpecificData: 'dd'
-          },
-          srcMACAddress: 'ff',
-          dstMACAddress: 'ff',
-          dstIPAddress: 'gg'
-        }]
+      dnsRule: {
+        dnsRuleId: '',
+        domainName: '',
+        ipAddressType: '',
+        dnsServerIp: '',
+        ttl: ''
+      },
+      trafficRule: {
+        trafficRuleId: '',
+        action: '',
+        filterType: '',
+        priority: 0,
+        trafficFilter: [],
+        dstInterface: []
       }
     }
   },
@@ -448,15 +394,28 @@ export default {
 
   },
   methods: {
-    addTrafficRules () {
-      this.dialog = false
-      this.trafficRulesData.push(this.trafficRules)
-      this.$message.success(this.$t('tip.successToAddRules'))
+    addConfigRules () {
+      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rules).then(res => {
+        this.$message.success(this.$t('tip.successToAddRules'))
+        this.getConfigRules()
+      }).catch(err => {
+        console.log(err)
+      })
     },
-    addDnsRules () {
+    getConfigRules () {
+      app.getConfigRules().then(res => {
+        this.trafficRuleData = res.data.appTrafficRule
+        this.dnsData = res.data.appDNSRule
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    addRules () {
+      this.rules.appTrafficRule.push(this.trafficRule)
+      this.rules.appDNSRule.push(this.dnsRule)
+      console.log(this.rules)
+      this.getConfigRules()
       this.dialog = false
-      this.dnsRulesData.push(this.dnsRules)
-      this.$message.success(this.$t('tip.successToAddRules'))
     },
     checkFilter (row) {
       this.filterShow = true
@@ -472,7 +431,6 @@ export default {
     addTrafficRule () {
       this.dns = false
       this.dialog = true
-      // this.$router.push('/mecm/ruleconfig/addTrafficRules')
     },
     batchDeleteTraffic () {},
     batchDeleteDns () {},
@@ -481,7 +439,7 @@ export default {
     editDnsRules (row) {
       this.dialog = true
       let data = JSON.parse(JSON.stringify(row))
-      this.dnsRules = data
+      this.dnsRule = data
     },
     deleteDnsRules () {},
     editTrafficRule () {}

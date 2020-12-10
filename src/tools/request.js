@@ -187,6 +187,9 @@ let app = {
   },
   batchDeleteInstanceApp (params) {
     return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
+  },
+  addConfigRules (id, params) {
+    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
   }
 }
 let edge = {
