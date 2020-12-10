@@ -127,6 +127,7 @@
         </div>
       </div>
       <el-dialog
+        :close-on-click-modal="false"
         :visible.sync="dialogVisible"
         width="75%"
         class="my-dialog"

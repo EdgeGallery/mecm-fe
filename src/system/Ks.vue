@@ -82,9 +82,24 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
+              prop="applcmIp"
+              sortable
+              label="App LCM IP"
+            />
+            <el-table-column
               prop="appRuleIp"
               sortable
-              label="App Rule Manager IP"
+              label="App Rule MGR IP"
+            />
+            <el-table-column
+              prop="edgerepoIp"
+              sortable
+              label="Edge Repo IP"
+            />
+            <el-table-column
+              prop="edgerepoPort"
+              sortable
+              label="Edge Repo Port"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
@@ -98,21 +113,6 @@
                 </span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="edgerepoIp"
-              sortable
-              label="Edge Repo IP"
-            />
-            <el-table-column
-              prop="edgerepoPort"
-              sortable
-              label="Edge Repo Port"
-            />
-            <el-table-column
-              prop="applcmIp"
-              sortable
-              label="App LCM IP"
-            />
             <el-table-column
               :label="$t('common.operation')"
               align="center"
@@ -155,6 +155,7 @@
         </div>
       </div>
       <el-dialog
+        :close-on-click-modal="false"
         :title="title"
         :visible.sync="dialogVisible"
         style="padding-right:30px;"
@@ -405,6 +406,7 @@
         </span>
       </el-dialog>
       <el-dialog
+        :close-on-click-modal="false"
         :title="$t('system.edgeNodes.uploadFile')"
         :visible.sync="dialogVisibleUpload"
         width="30%"
@@ -662,6 +664,9 @@ export default {
       })
     },
     register () {
+      this.$nextTick(() => {
+        this.$refs.currForm.resetFields()
+      })
       this.editType = 1
       this.title = this.$t('system.edgeNodes.nodeReg')
       this.resetForm()
@@ -753,7 +758,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {

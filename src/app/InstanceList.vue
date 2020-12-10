@@ -129,6 +129,7 @@
         </div>
       </div>
       <el-dialog
+        :close-on-click-modal="false"
         :title="$t('app.instanceList.instanceDetail')"
         :visible.sync="dialogVisible"
         width="40%"
@@ -289,7 +290,7 @@ export default {
         })
         this.$message.success(this.$t('tip.deleteSuc'))
       }).catch((error) => {
-        this.$message.error(error.message)
+        this.$message.error(error.response.data)
       })
     },
     confirmDetlete (appInstanceId) {
@@ -297,7 +298,7 @@ export default {
         this.initList()
         this.$message.success(this.$t('tip.deleteSuc'))
       }).catch((error) => {
-        this.$message.error(error.message)
+        this.$message.error(error.response.data)
       })
     },
     checkDetail (rows) {

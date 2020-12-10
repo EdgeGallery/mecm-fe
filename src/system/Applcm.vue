@@ -96,6 +96,7 @@
       </div>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="title"
       :visible.sync="dialogVisible"
       width="25%"
@@ -249,12 +250,14 @@ export default {
         system.delete(1, row.applcmIp).then(res => {
           this.initList()
         }, error => {
-          this.$message.error(error.message)
+          this.$message.error(error.response.data)
         })
-      }).catch(() => {
       })
     },
     register () {
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
       this.editType = 1
       this.title = this.$t('system.appLcm.applcmReg')
       this.form = {
@@ -277,7 +280,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {
@@ -286,7 +289,7 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              this.$message.error(error.response.data)
             })
           }
         }

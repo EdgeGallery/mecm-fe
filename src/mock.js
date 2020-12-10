@@ -203,8 +203,8 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '119.8.47.2', 'status': 'Error', 'error': '' },
-      { 'hostIp': '119.8.53.4', 'status': 'Error', 'error': '' },
+      { 'hostIp': '119.8.47.2', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '119.8.53.5', 'status': 'Error', 'error': '' }
     ]
   }]

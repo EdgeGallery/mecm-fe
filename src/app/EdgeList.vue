@@ -149,6 +149,7 @@
       </div>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="$t('app.distriList.deploymentConf')"
       :visible.sync="dialogVisible"
       width="40%"
@@ -380,7 +381,18 @@ export default {
       this.currPageTableData = data
     },
     multipleDeploy () {
-      console.log(this.selectData)
+      this.configForm = {
+        podName: 'pod1',
+        podKind: 'dployment',
+        podNameEspace: 'default',
+        podSelector: 'martchlabel',
+        status: '',
+        appPackageId: '',
+        appName: '',
+        appInstanceDescription: '',
+        appId: this.appid,
+        hwCapabilities: []
+      }
       if (this.selectData !== null && this.selectData.length > 0) {
         let allStatus = []
         this.selectData.forEach(item => {
@@ -438,6 +450,21 @@ export default {
       })
     },
     deploy (row, type) {
+      this.$nextTick(() => {
+        this.$refs.configForm.resetFields()
+      })
+      this.configForm = {
+        podName: 'pod1',
+        podKind: 'dployment',
+        podNameEspace: 'default',
+        podSelector: 'martchlabel',
+        status: '',
+        appPackageId: '',
+        appName: '',
+        appInstanceDescription: '',
+        appId: this.appid,
+        hwCapabilities: []
+      }
       this.hostList = []
       this.configForm.appPackageId = this.appPackageId
       this.configForm.appId = this.appid
