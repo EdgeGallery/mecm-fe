@@ -450,9 +450,6 @@ export default {
       })
     },
     deploy (row, type) {
-      this.$nextTick(() => {
-        this.$refs.configForm.resetFields()
-      })
       this.configForm = {
         podName: 'pod1',
         podKind: 'dployment',
@@ -469,6 +466,9 @@ export default {
       this.configForm.appPackageId = this.appPackageId
       this.configForm.appId = this.appid
       this.dialogVisible = true
+      this.$nextTick(() => {
+        this.$refs.configForm.resetFields()
+      })
       if (type === 2) {
         let array = []
         row.forEach(item => {

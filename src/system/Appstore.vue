@@ -294,14 +294,14 @@ export default {
       }
     },
     register () {
-      this.$nextTick(() => {
-        this.$refs.form.resetFields()
-      })
       this.editType = 1
       this.dialogVisible = true
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
       this.resetForm()
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {

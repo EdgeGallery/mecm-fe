@@ -664,15 +664,15 @@ export default {
       })
     },
     register () {
-      this.$nextTick(() => {
-        this.$refs.currForm.resetFields()
-      })
       this.editType = 1
       this.title = this.$t('system.edgeNodes.nodeReg')
       this.resetForm()
       this.isDisable = false
       this.dialogVisible = true
       this.area = true
+      this.$nextTick(() => {
+        this.$refs.currForm.resetFields()
+      })
       system.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {

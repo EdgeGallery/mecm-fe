@@ -255,9 +255,6 @@ export default {
       })
     },
     register () {
-      this.$nextTick(() => {
-        this.$refs.form.resetFields()
-      })
       this.editType = 1
       this.title = this.$t('system.appLcm.applcmReg')
       this.form = {
@@ -267,6 +264,9 @@ export default {
       }
       this.dialogVisible = true
       this.ipDisable = false
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {
