@@ -49,8 +49,8 @@
           >
             <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
             <div class="nodeBasicInfo">
-              <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.name }}</p>
-              <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.ip }}</p>
+              <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}</p>
+              <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}</p>
               <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}/{{ nodeBasicInfo.address }}</p>
             </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
@@ -314,10 +314,10 @@ export default {
       this.nodeBasicInfo = val
       this.alarmStatus = 'nodeinfo'
       this.resetData()
-      this.getNodeKpi(val.ip)
-      this.getHwCapa(val.ip)
-      this.getMepCapa(val.ip)
-      this.getAppInfo(val.ip)
+      this.getNodeKpi(val.mechostIp)
+      this.getHwCapa(val.mechostIp)
+      this.getMepCapa(val.mechostIp)
+      this.getAppInfo(val.mechostIp)
     },
     clickMap (msg, city) {
       this.alarmStatus = 'alarms'

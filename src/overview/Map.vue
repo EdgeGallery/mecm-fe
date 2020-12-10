@@ -32,7 +32,7 @@ import echarts from 'echarts'
 import 'ol/ol.css'
 import { Map, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
+// import OSM from 'ol/source/OSM'
 import OlFeature from 'ol/Feature'
 import OlGeomPoint from 'ol/geom/Point'
 import OlLayerVector from 'ol/layer/Vector'
@@ -40,6 +40,7 @@ import OlSourceVector from 'ol/source/Vector'
 import OlCluster from 'ol/source/Cluster'
 import Style from 'ol/style/Style'
 import Icon from 'ol/style/Icon'
+import XYZ from 'ol/source/XYZ'
 
 import axios from 'axios'
 export default {
@@ -64,14 +65,10 @@ export default {
       edge.getNodeList().then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
-            let obj = {}
-            obj.coord = item.city.split('/').join('') + item.address
-            obj.ip = item.mechostIp
-            obj.city = item.city
-            obj.address = item.address
-            obj.name = item.mechostName
-            this.geoCode(obj)
+            item.coord = item.coord.split(',')
           })
+          this.nodeData = res.data
+          this.mapChart('mapChart')
           this.$emit('area', res.data, '全国')
         }
       }, error => {
@@ -83,22 +80,10 @@ export default {
         }
       })
     },
-    geoCode (obj) {
-      var geocoder = new AMap.Geocoder({
-        city: ''
-      })
-      geocoder.getLocation(obj.coord, (status, result) => {
-        if (status === 'complete' && result.geocodes.length) {
-          var lnglat = result.geocodes[0].location
-          let coord = []
-          coord.push(lnglat.R)
-          coord.push(lnglat.Q)
-          obj.coord = coord
-          this.nodeData.push(obj)
-          this.mapChart('mapChart')
-        } else {
-          console.error('failed')
-        }
+    showLayers (arr) {
+      this.showMainView = false
+      this.$nextTick(() => {
+        this.opneLayers(arr)
       })
     },
     mapChart (divid) {
@@ -121,7 +106,6 @@ export default {
             if (this.continue) {
               this.mapAreaClick(param, myChart)
             } else {
-              this.getNodeList()
               this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
             }
           }
@@ -136,8 +120,7 @@ export default {
           arr.push(val)
         }
       })
-      this.nodeData = arr
-      this.$emit('area', this.nodeData, param.name)
+      this.$emit('area', arr, param.name)
       axios
         .get('./map/' + cityId + '.json', {})
         .then(res => {
@@ -149,25 +132,10 @@ export default {
             true
           )
         }).catch(err => {
+          if (arr.length > 0) {
+            this.showLayers(arr)
+          }
           console.log(err)
-          this.continue = false
-          var geocoder = new AMap.Geocoder({
-            city: ''
-          })
-          geocoder.getLocation(param.name, (status, result) => {
-            if (status === 'complete' && result.geocodes.length) {
-              var lnglat = result.geocodes[0].location
-              let coord = []
-              coord.push(lnglat.R)
-              coord.push(lnglat.Q)
-              this.showMainView = false
-              this.$nextTick(() => {
-                this.mapDetails(coord, this.nodeData)
-              })
-            } else {
-              console.error('failed')
-            }
-          })
         })
     },
     regAndSetOption (myChart1, name, mapJson, flag) {
@@ -236,40 +204,41 @@ export default {
     },
     returnOverviewModel () {
       let myChart = echarts.init(document.getElementById('mapChart'))
-      this.getNodeList()
       this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
       this.showMainView = true
       this.btnShow = false
       this.continue = true
     },
-    mapDetails (coord, data) {
+    opneLayers (data) {
+      let _this = this
       // 添加map
       this.btnShow = true
-      let _this = this
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
-          center: coord,
-          zoom: 12
+          center: data[0].coord,
+          zoom: 13
         }))
       } else {
         this.map = new Map({
           target: 'mapChart1',
           layers: [
             new TileLayer({
-              source: new OSM()
+              source: new XYZ({
+                url: 'http://rt0.map.gtimg.com/realtimerender?z={z}&x={x}&y={-y}&type=vector&style=0'
+              })
+
             })
           ],
           view: new View({
             projection: 'EPSG:4326',
-            center: coord,
-            zoom: 12
+            center: data[0].coord,
+            zoom: 13
           })
         })
       }
-
       let lnglats = []
-      data.forEach(item => {
+      this.nodeData.forEach(item => {
         lnglats.push(item.coord)
       })
 
@@ -297,7 +266,7 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './cloud.svg'
+            src: './edge.png'
           })
         }),
         zIndex: 999
@@ -306,11 +275,11 @@ export default {
       this.map.addLayer(clusters)
 
       this.map.on('click', (e) => {
-      // 在点击时获取像素区域
+        // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
           data.forEach(item => {
-            if (feature.geometryChangeKey_.target.extent_[0] === item.coord[0]) {
+            if (feature.geometryChangeKey_.target.extent_[0] === parseFloat(item.coord[0])) {
               _this.$emit('node', item)
             }
           })

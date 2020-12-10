@@ -10,21 +10,21 @@
             <el-input
               id=""
               maxlength="30"
-              v-model="rule.dnsRule.dnsRuleId"
+              v-model="dnsrule.dnsRuleId"
             />
           </el-form-item>
           <el-form-item :label="$t('app.ruleConfig.domainName')">
             <el-input
               id=""
               maxlength="30"
-              v-model="rule.dnsRule.domainName"
+              v-model="dnsrule.domainName"
             />
           </el-form-item>
           <el-form-item
             :label="$t('app.ruleConfig.ipAddressType')"
           >
             <el-select
-              v-model="rule.dnsRule.ipAddressType"
+              v-model="dnsrule.ipAddressType"
               :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
@@ -39,14 +39,14 @@
             <el-input
               id=""
               maxlength="30"
-              v-model="rule.dnsRule.dnsServerIp"
+              v-model="dnsrule.dnsServerIp"
             />
           </el-form-item>
           <el-form-item :label="$t('app.ruleConfig.priority')">
             <el-input
               id=""
               maxlength="30"
-              v-model="rule.dnsRule.ttl"
+              v-model="dnsrule.ttl"
             />
           </el-form-item>
         </el-col>
@@ -58,8 +58,12 @@
 <script>
 export default {
   name: 'Rule',
-  components: {
-
+  components: {},
+  props: {
+    dnsrule: {
+      required: true,
+      type: Object
+    }
   },
   data () {
     return {
@@ -93,26 +97,46 @@ export default {
 
       ],
       rule: {
-        action: '',
-        filterType: '',
-        priority: 125,
-        trafficFilter: {
-          ipAddressType: '',
-          srcAddress: '',
-          srcPort: '',
-          dstAddress: '',
-          dstPort: '',
-          protocol: 'ANY',
-          qci: '1',
-          dscp: '0',
-          tc: '1'
-        },
-        dnsRule: {
-          dnsRuleRedirectRuleId: '',
-          domainName: '24',
-          ipAddressType: '',
-          dnsServerIp: ''
-        }
+        appSupportMp1: false,
+        appName: 'abc',
+        appTrafficRule: [
+          {
+            action: '',
+            filterType: '',
+            priority: 125,
+            trafficRuleId: '',
+            trafficFilter: [
+              {
+                srcAddress: [],
+                srcPort: [],
+                dstAddress: [],
+                dstPort: [],
+                protocol: [],
+                qci: '1',
+                dscp: '0',
+                tc: '1',
+                srcTunnelAddress: '',
+                srcTunnelPort: '',
+                dstTunnelAddress: '',
+                dstTunnelPort: ''
+              }
+            ],
+            dstInterface: [{
+              interfaceType: '',
+              tunnelInfo: {
+                tunnelType: '',
+                tunnelDstAddress: '',
+                tunnelsrcAddress: '',
+                tunnelSpecificData: ''
+              },
+              srcMACAddress: '',
+              dstMACAddress: '',
+              dstIPAddress: ''
+            }],
+            appDNSRule: [
+            ]
+          }
+        ]
       }
     }
   },

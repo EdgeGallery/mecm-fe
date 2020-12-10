@@ -104,7 +104,7 @@
               <el-button
                 type="text"
                 size="small"
-                @click="jump"
+                @click="jump(scope.row)"
                 :loading="loading"
               >
                 {{ $t('nav.ruleConfiguration') }}
@@ -202,7 +202,8 @@ export default {
     this.clearInterval()
   },
   methods: {
-    jump () {
+    jump (row) {
+      sessionStorage.setItem('instaceId', row.appInstanceId)
       this.$router.push('/mecm/ruleconfig')
     },
     clearInterval () {

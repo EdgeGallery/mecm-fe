@@ -11,12 +11,12 @@
             <el-input
               id=""
               maxlength="30"
-              v-model="rule.trafficRuleId"
+              v-model="trafficrule.trafficRuleId"
             />
           </el-form-item>
           <el-form-item :label="$t('app.ruleConfig.priority')">
             <el-input-number
-              v-model="rule.priority"
+              v-model="trafficrule.priority"
               :min="1"
               :max="255"
               label="1-255"
@@ -28,7 +28,7 @@
             :label="$t('app.ruleConfig.action')"
           >
             <el-select
-              v-model="rule.action"
+              v-model="trafficrule.action"
               :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
@@ -41,10 +41,9 @@
           </el-form-item>
           <el-form-item
             :label="$t('app.ruleConfig.filterType')"
-            v-model="rule.filterType"
           >
             <el-select
-              v-model="rule.filterType"
+              v-model="trafficrule.filterType"
               :placeholder="$t('tip.pleaseSelect')"
             >
               <el-option
@@ -77,7 +76,7 @@
       <!-- filter table -->
       <el-table
         class="mt20"
-        :data="filterTableData"
+        :data="trafficfilter"
         border
         size="small"
         style="width: 100%;"
@@ -164,7 +163,7 @@
     </div>
 
     <!-- 新增interface -->
-    <div v-if="rule.action==='FORWARD_DECAPSULATED'||rule.action==='FORWARD_AS_IS'">
+    <div v-if="trafficrule.action==='FORWARD_DECAPSULATED'||trafficrule.action==='FORWARD_AS_IS'">
       <p class="title">
         转发接口信息
         <el-button-group class="rt">
@@ -182,7 +181,7 @@
       <div>
         <el-table
           class="mt20"
-          :data="interfaceTableData"
+          :data="dstinterface"
           border
           size="small"
           style="width: 100%;"
@@ -473,7 +472,20 @@
 <script>
 export default {
   name: 'Rule',
-  components: {
+  components: {},
+  props: {
+    trafficrule: {
+      required: true,
+      type: Object
+    },
+    trafficfilter: {
+      required: true,
+      type: Array
+    },
+    dstinterface: {
+      required: true,
+      type: Array
+    }
   },
   data () {
     return {
@@ -540,7 +552,9 @@ export default {
         }
       ],
       rule: {
-        trafficRule: [
+        appSupportMp1: false,
+        appName: 'abc',
+        appTrafficRule: [
           {
             action: '',
             filterType: '',
@@ -562,35 +576,29 @@ export default {
                 dstTunnelPort: ''
               }
             ],
-            dstInterface: {
+            dstInterface: [{
               interfaceType: '',
               tunnelInfo: {
                 tunnelType: '',
                 tunnelDstAddress: '',
-                tunnelsrcAddress: '',
+                tunnelSrcAddress: '',
                 tunnelSpecificData: ''
               },
               srcMACAddress: '',
               dstMACAddress: '',
               dstIPAddress: ''
-            }
-          }
-        ],
-        dnsRule: [
-          {
-            dnsRuleRedirectRuleId: '',
-            domainName: '24',
-            ipAddressType: '',
-            dnsServerIp: ''
-          }, {
-            dnsRuleRedirectRuleId: '',
-            domainName: '24',
-            ipAddressType: '',
-            dnsServerIp: ''
+            }],
+            appDNSRule: [
+              {
+                dnsRuleRedirectRuleId: '',
+                domainName: '',
+                ipAddressType: '',
+                dnsServerIp: ''
+              }
+            ]
           }
         ]
       },
-      filterTableData: [],
       trafficFilter: {
         srcAddress: '',
         srcPort: '',
@@ -611,7 +619,7 @@ export default {
         tunnelInfo: {
           tunnelType: '',
           tunnelDstAddress: '',
-          tunnelsrcAddress: '',
+          tunnelSrcAddress: '',
           tunnelSpecificData: ''
         },
         srcMACAddress: '',
@@ -624,12 +632,11 @@ export default {
         srcPort: '',
         dstAddress: '',
         dstPort: '',
-        protocol: 'ANY',
-        qci: '1',
-        dscp: '0',
-        tc: '1'
-      },
-      interfaceTableData: []
+        protocol: '',
+        qci: '',
+        dscp: '',
+        tc: ''
+      }
     }
   },
   methods: {
@@ -639,10 +646,10 @@ export default {
         srcPort: '',
         dstAddress: '',
         dstPort: '',
-        protocol: 'ANY',
-        qci: '1',
-        dscp: '0',
-        tc: '1',
+        protocol: '',
+        qci: '',
+        dscp: '',
+        tc: '',
         srcTunnelAddress: '',
         srcTunnelPort: '',
         dstTunnelAddress: '',
@@ -657,7 +664,7 @@ export default {
         tunnelInfo: {
           tunnelType: '',
           tunnelDstAddress: '',
-          tunnelsrcAddress: '',
+          tunnelSrcAddress: '',
           tunnelSpecificData: ''
         },
         srcMACAddress: '',
@@ -670,23 +677,22 @@ export default {
     confirmToAddFilter () {
       let data = JSON.parse(JSON.stringify(this.trafficFilter))
       if (this.addType === 1) {
-        this.filterTableData.push(data)
+        this.trafficfilter.push(data)
       } else {
-        this.filterTableData.splice(this.editIndex, 1)
-        this.filterTableData.push(data)
+        this.trafficfilter.splice(this.editIndex, 1)
+        this.trafficfilter.push(data)
       }
       this.innerFilterVisible = false
     },
     confirmToAddInterface () {
       let data = JSON.parse(JSON.stringify(this.dstInterface))
       if (this.addType === 1) {
-        this.interfaceTableData.push(data)
+        this.dstinterface.push(data)
       } else {
-        this.interfaceTableData.splice(this.editIndex, 1)
-        this.interfaceTableData.push(data)
+        this.dstinterface.splice(this.editIndex, 1)
+        this.dstinterface.push(data)
       }
       this.innerInterfaceVisible = false
-      console.log(this.interfaceTableData)
     },
     modifyFilterLines (index, rows) {
       this.addType = 2
@@ -703,10 +709,10 @@ export default {
       this.dstInterface = this.middleData
     },
     deleteFilterLines (index, rows) {
-      this.filterTableData.splice(index, 1)
+      this.trafficfilter.splice(index, 1)
     },
     deleteInterfaceLines (index, rows) {
-      this.interfaceTableData.splice(index, 1)
+      this.dstinterface.splice(index, 1)
     },
     cancelEditFilter () {
       this.innerFilterVisible = false
