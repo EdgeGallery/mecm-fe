@@ -688,29 +688,23 @@ export default {
       })
     },
     beforeUpload (file) {
-      if (file.type !== '' || file.name !== 'config') {
-        this.fileConfirm = false
-      }
+      console.log(file)
     },
     async submitUpload (content) {
-      if (this.fileConfirm) {
-        let params = new FormData()
-        params.append('file', content.file)
-        if (this.currForm.mechostIp) {
-          system.uploadConfig(this.currForm.mechostIp, params).then(response => {
-            this.$message.success(this.$t('tip.uploadSuc'))
-            this.dialogVisibleUpload = false
-          }).catch((error) => {
-            console.log(error)
-            this.$message.error("File shouldn't contain any extension or filename is larger than max size")
-            this.fileList = []
-          })
-        } else {
-          this.$message.error(this.$t('tip.typeApp'))
+      let params = new FormData()
+      params.append('file', content.file)
+      if (this.currForm.mechostIp) {
+        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+          this.$message.success(this.$t('tip.uploadSuc'))
+          this.dialogVisibleUpload = false
+        }).catch((error) => {
+          console.log(error)
+          this.$message.error("File shouldn't contain any extension or filename is larger than max size")
           this.fileList = []
-        }
+        })
       } else {
-        this.$message.error('请上传文件类型为"*"的配置文件')
+        this.$message.error(this.$t('tip.typeApp'))
+        this.fileList = []
       }
     },
     getNodeListInPage () {
