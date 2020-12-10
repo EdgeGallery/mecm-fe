@@ -82,7 +82,7 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="appRuleManagerIp"
+              prop="appRuleIp"
               sortable
               label="App Rule Manager IP"
             />
@@ -330,11 +330,11 @@
               </el-form-item>
               <el-form-item
                 label="App Rule MGR"
-                prop="appRuleManagerIp"
+                prop="appRuleIp"
               >
                 <el-select
                   id="apprulemgrip"
-                  v-model="currForm.appRuleManagerIp"
+                  v-model="currForm.appRuleIp"
                   placeholder="App Rule MGR IP"
                 >
                   <el-option
@@ -476,7 +476,7 @@ export default {
         'userName': '',
         'zipCode': '',
         'hwcapabilities': [],
-        'appRuleManagerIp': '',
+        'appRuleIp': '',
         'coordinates': ''
       },
       rules: {
@@ -505,7 +505,7 @@ export default {
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleManagerIp: [
+        appRuleIp: [
           { required: true, message: '应用规则管理IP为必选项', trigger: 'blur' }
         ],
         applcmIp: [
@@ -619,7 +619,7 @@ export default {
         'userName': '',
         'zipCode': '',
         'hwcapabilities': [],
-        'appRuleManagerIp': '',
+        'appRuleIp': '',
         'coordinates': ''
       }
       this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
