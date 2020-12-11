@@ -89,7 +89,7 @@
             <el-table-column
               prop="appRuleIp"
               sortable
-              label="App Rule MGR IP"
+              label="App Rule MGR"
             />
             <el-table-column
               prop="edgerepoIp"
