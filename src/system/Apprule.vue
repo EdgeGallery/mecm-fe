@@ -111,7 +111,7 @@
           >
             <el-form-item
               :label="$t('system.appLcm.name')"
-              prop="appRuleName"
+              prop="appRuleManagerName"
             >
               <el-input
                 id="name"
@@ -197,8 +197,8 @@ export default {
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleName: [
-          { required: true, message: this.$t('verify.appRuleNameTip'), trigger: 'blur' }
+        appRuleManagerName: [
+          { required: true, message: 'App Rule MGR为必填项', trigger: 'blur' }
         ]
       }
     }
