@@ -189,6 +189,7 @@
       </el-tabs>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="$t('app.instanceList.addRule')"
       :visible.sync="dialog"
       :width="dns?'30%':'75%'"
@@ -225,6 +226,7 @@
       </span>
     </el-dialog>
     <el-dialog
+      :close-on-click-modal="false"
       title="详情"
       :visible.sync="filterShow"
       width="45%"

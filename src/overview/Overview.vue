@@ -162,7 +162,7 @@
               >
                 <el-table-column
                   prop="capabilityName"
-                  :label="$t('overview.capa')"
+                  :label="$t('overview.softwareCapa')"
                 />
                 <el-table-column
                   prop="status"

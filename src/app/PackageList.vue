@@ -136,6 +136,7 @@
           />
         </div>
         <el-dialog
+          :close-on-click-modal="false"
           :title="$t('app.packageList.slectEdgeNodes')"
           :visible.sync="dialogVisible"
           v-loading="loading"

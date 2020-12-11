@@ -186,7 +186,7 @@ export default {
           ? this.loginPage + '&return_to=' + 'https://' + window.location.host
           : this.loginPage + '&return_to=' + 'http://' + window.location.host
       }).catch(error => {
-        this.$message.error(error.message)
+        this.$message.error(error.response.data)
       })
     }
   }

@@ -104,6 +104,7 @@
         </div>
       </div>
       <el-dialog
+        :close-on-click-modal="false"
         :title="dialogTitle"
         :visible.sync="dialogVisible"
         width="25%"
@@ -269,7 +270,7 @@ export default {
             reset = true
             let dataKey = key
             if (key === 'ip') {
-              dataKey = 'url'
+              dataKey = 'appstoreIp'
             } else if (key === 'name') {
               dataKey = 'appstoreName'
             }
@@ -298,6 +299,9 @@ export default {
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
       this.resetForm()
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {
@@ -311,7 +315,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {
@@ -320,7 +324,7 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              this.$message.error(error.response.data)
             })
           }
         }
@@ -340,14 +344,11 @@ export default {
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
-        let data = {
-          url: row.appstoreIp
-        }
-        system.delete(3, data).then(res => {
+        system.delete(3, row.appstoreIp).then(res => {
           this.initList()
           this.$message.success(this.$t('tip.deleteAppStoreSuc'))
         }).catch(error => {
-          this.$message.error(error.message)
+          this.$message.error(error.response.data)
         })
       })
     },

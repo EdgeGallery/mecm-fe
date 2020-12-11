@@ -96,6 +96,7 @@
       </div>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="title"
       :visible.sync="dialogVisible"
       width="25%"
@@ -249,7 +250,7 @@ export default {
         system.delete(4, row.appRuleIp).then(res => {
           this.initList()
         }, error => {
-          this.$message.error(error.message)
+          this.$message.error(error.response.data)
         })
       }).catch(() => {
       })
@@ -264,6 +265,9 @@ export default {
       }
       this.dialogVisible = true
       this.ipDisable = false
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {
@@ -277,7 +281,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {
@@ -286,7 +290,7 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              this.$message.error(error.response.data)
             })
           }
         }

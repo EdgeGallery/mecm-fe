@@ -69,11 +69,12 @@ const cn = {
   },
   overview: {
     regionEdge: '边缘节点',
-    k8sResc: 'K8S 资源',
+    k8sResc: 'K8S资源',
     cpu: 'CPU',
     mem: 'MEM', // memory
     disk: 'DISK',
-    mepCapa: 'MEP 能力',
+    mepCapa: 'MEP硬件能力',
+    softwareCapa: '软件能力',
     capa: '能力',
     vendor: '提供商',
     model: '品牌',
@@ -177,7 +178,7 @@ const cn = {
     address: '详细地址',
     affinity: '架构',
     edgeNexusIp: 'Edge Repo IP地址',
-    edgeNexusPort: 'Edge Repo 端口',
+    edgeNexusPort: 'Edge Repo端口',
     applcmIp: 'App LCM IP',
     k8sUrl: 'K8S URL',
     monitor: '监控'
@@ -190,8 +191,8 @@ const cn = {
       userNmae: '用户名',
       password: '密码',
       newReg: '新增注册',
-      applcmReg: 'App LCM 注册',
-      applcmModify: 'App LCM 编辑',
+      applcmReg: 'App LCM注册',
+      applcmModify: 'App LCM编辑',
       name: '名称'
     },
     edgeNodes: {
@@ -231,8 +232,8 @@ const cn = {
       ipAddress: 'IP地址',
       createTime: '创建时间',
       url: 'URL',
-      appStoreReg: 'App Store 注册',
-      appStoreModify: 'App Store 编辑'
+      appStoreReg: 'App Store注册',
+      appStoreModify: 'App Store编辑'
     }
   },
   common: {

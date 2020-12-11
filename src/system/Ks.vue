@@ -82,9 +82,24 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
+              prop="applcmIp"
+              sortable
+              label="App LCM IP"
+            />
+            <el-table-column
               prop="appRuleIp"
               sortable
-              label="App Rule Manager IP"
+              label="App Rule MGR"
+            />
+            <el-table-column
+              prop="edgerepoIp"
+              sortable
+              label="Edge Repo IP"
+            />
+            <el-table-column
+              prop="edgerepoPort"
+              sortable
+              label="Edge Repo Port"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
@@ -98,21 +113,6 @@
                 </span>
               </template>
             </el-table-column>
-            <el-table-column
-              prop="edgerepoIp"
-              sortable
-              label="Edge Repo IP"
-            />
-            <el-table-column
-              prop="edgerepoPort"
-              sortable
-              label="Edge Repo Port"
-            />
-            <el-table-column
-              prop="applcmIp"
-              sortable
-              label="App LCM IP"
-            />
             <el-table-column
               :label="$t('common.operation')"
               align="center"
@@ -155,6 +155,7 @@
         </div>
       </div>
       <el-dialog
+        :close-on-click-modal="false"
         :title="title"
         :visible.sync="dialogVisible"
         style="padding-right:30px;"
@@ -405,6 +406,7 @@
         </span>
       </el-dialog>
       <el-dialog
+        :close-on-click-modal="false"
         :title="$t('system.edgeNodes.uploadFile')"
         :visible.sync="dialogVisibleUpload"
         width="30%"
@@ -668,6 +670,9 @@ export default {
       this.isDisable = false
       this.dialogVisible = true
       this.area = true
+      this.$nextTick(() => {
+        this.$refs.currForm.resetFields()
+      })
       system.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {
@@ -688,29 +693,23 @@ export default {
       })
     },
     beforeUpload (file) {
-      if (file.type !== '' || file.name !== 'config') {
-        this.fileConfirm = false
-      }
+      console.log(file)
     },
     async submitUpload (content) {
-      if (this.fileConfirm) {
-        let params = new FormData()
-        params.append('file', content.file)
-        if (this.currForm.mechostIp) {
-          system.uploadConfig(this.currForm.mechostIp, params).then(response => {
-            this.$message.success(this.$t('tip.uploadSuc'))
-            this.dialogVisibleUpload = false
-          }).catch((error) => {
-            console.log(error)
-            this.$message.error("File shouldn't contain any extension or filename is larger than max size")
-            this.fileList = []
-          })
-        } else {
-          this.$message.error(this.$t('tip.typeApp'))
+      let params = new FormData()
+      params.append('file', content.file)
+      if (this.currForm.mechostIp) {
+        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+          this.$message.success(this.$t('tip.uploadSuc'))
+          this.dialogVisibleUpload = false
+        }).catch((error) => {
+          console.log(error)
+          this.$message.error("File shouldn't contain any extension or filename is larger than max size")
           this.fileList = []
-        }
+        })
       } else {
-        this.$message.error('请上传文件类型为"*"的配置文件')
+        this.$message.error(this.$t('tip.typeApp'))
+        this.fileList = []
       }
     },
     getNodeListInPage () {
@@ -759,7 +758,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {

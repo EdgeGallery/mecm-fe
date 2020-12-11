@@ -17,6 +17,7 @@
 <template>
   <div class="manage-dialog">
     <el-dialog
+      :close-on-click-modal="false"
       :title="$t('overview.manage')"
       :visible.sync="dialogVisible"
       width="50%"

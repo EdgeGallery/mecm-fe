@@ -55,7 +55,7 @@
                 label-width="90px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  App LCM
+                  {{ item.applcmName }}
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.applcmIp }}
@@ -96,6 +96,7 @@
       </div>
     </div>
     <el-dialog
+      :close-on-click-modal="false"
       :title="title"
       :visible.sync="dialogVisible"
       width="25%"
@@ -249,9 +250,8 @@ export default {
         system.delete(1, row.applcmIp).then(res => {
           this.initList()
         }, error => {
-          this.$message.error(error.message)
+          this.$message.error(error.response.data)
         })
-      }).catch(() => {
       })
     },
     register () {
@@ -264,6 +264,9 @@ export default {
       }
       this.dialogVisible = true
       this.ipDisable = false
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
     },
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {
@@ -277,7 +280,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else {
-                this.$message.error(error.message)
+                this.$message.error(error.response.data)
               }
             })
           } else {
@@ -286,7 +289,7 @@ export default {
               this.initList()
               this.dialogVisible = false
             }, error => {
-              this.$message.error(error.message)
+              this.$message.error(error.response.data)
             })
           }
         }

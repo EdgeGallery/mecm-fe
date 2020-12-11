@@ -250,6 +250,7 @@
 
     <!-- Filter dialog -->
     <el-dialog
+      :close-on-click-modal="false"
       width="50%"
       title="分流规则"
       :visible.sync="innerFilterVisible"
@@ -366,6 +367,7 @@
 
     <!-- interface dialog -->
     <el-dialog
+      :close-on-click-modal="false"
       width="30%"
       title="接口信息"
       :visible.sync="innerInterfaceVisible"
