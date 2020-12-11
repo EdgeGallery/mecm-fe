@@ -116,7 +116,7 @@
               <el-input
                 id="name"
                 maxlength="20"
-                v-model="form.appRuleName"
+                v-model="form.appRuleManagerName"
               />
             </el-form-item>
             <el-form-item
@@ -184,7 +184,8 @@ export default {
       form: {
         appRuleIp: '',
         appRulePort: '',
-        userName: ''
+        userName: '',
+        appRuleManagerName: ''
       },
       editType: 1,
       rules: {
@@ -261,7 +262,8 @@ export default {
       this.form = {
         appRuleIp: '',
         appRulePort: '',
-        userName: ''
+        userName: '',
+        appRuleManagerName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false
