@@ -399,7 +399,7 @@ export default {
     addConfigRules () {
       app.addConfigRules(sessionStorage.getItem('instanceId'), this.rules).then(res => {
         this.$message.success(this.$t('tip.successToAddRules'))
-        this.getConfigRules()
+        this.getConfigRules(sessionStorage.getItem('instanceId'))
       }).catch(err => {
         console.log(err)
       })
@@ -416,7 +416,7 @@ export default {
       this.rules.appTrafficRule.push(this.trafficRule)
       this.rules.appDNSRule.push(this.dnsRule)
       console.log(this.rules)
-      this.getConfigRules()
+      this.addConfigRules()
       this.dialog = false
     },
     checkFilter (row) {
