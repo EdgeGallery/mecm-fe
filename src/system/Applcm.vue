@@ -184,7 +184,8 @@ export default {
       form: {
         applcmIp: '',
         applcmPort: '',
-        userName: ''
+        userName: '',
+        applcmName: ''
       },
       editType: 1,
       rules: {
@@ -260,7 +261,8 @@ export default {
       this.form = {
         applcmIp: '',
         applcmPort: '',
-        userName: ''
+        userName: '',
+        applcmName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false
