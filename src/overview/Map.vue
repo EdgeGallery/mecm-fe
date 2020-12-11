@@ -65,7 +65,7 @@ export default {
       edge.getNodeList().then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
-            item.coord = item.coord.split(',')
+            item.coordinates = item.coordinates.split(',')
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
@@ -139,6 +139,10 @@ export default {
         })
     },
     regAndSetOption (myChart1, name, mapJson, flag) {
+      let data = this.nodeData
+      data.forEach(item => {
+        item.coord = item.coordinates
+      })
       echarts.registerMap(name, mapJson)
       myChart1.setOption({
         visualMap: {
@@ -187,7 +191,7 @@ export default {
                 show: true,
                 shadowBlur: 0
               },
-              data: this.nodeData
+              data: data
             }
           }
         ]
@@ -210,13 +214,13 @@ export default {
       this.continue = true
     },
     opneLayers (data) {
+      console.log(data)
       let _this = this
-      // 添加map
       this.btnShow = true
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
-          center: data[0].coord,
+          center: data[0].coordinates,
           zoom: 13
         }))
       } else {
@@ -239,7 +243,7 @@ export default {
       }
       let lnglats = []
       this.nodeData.forEach(item => {
-        lnglats.push(item.coord)
+        lnglats.push(item.coordinates)
       })
 
       // 创建Feature对象集合
@@ -279,7 +283,7 @@ export default {
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
           data.forEach(item => {
-            if (feature.geometryChangeKey_.target.extent_[0] === parseFloat(item.coord[0])) {
+            if (feature.geometryChangeKey_.target.extent_[0] === parseFloat(item.coordinates[0])) {
               _this.$emit('node', item)
             }
           })

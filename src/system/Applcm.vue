@@ -55,7 +55,7 @@
                 label-width="90px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  App LCM
+                  {{ item.applcmName }}
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.applcmIp }}
