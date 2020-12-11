@@ -111,12 +111,12 @@
           >
             <el-form-item
               :label="$t('system.appLcm.name')"
-              prop="appRuleName"
+              prop="appRuleManagerName"
             >
               <el-input
                 id="name"
                 maxlength="20"
-                v-model="form.appRuleName"
+                v-model="form.appRuleManagerName"
               />
             </el-form-item>
             <el-form-item
@@ -184,7 +184,8 @@ export default {
       form: {
         appRuleIp: '',
         appRulePort: '',
-        userName: ''
+        userName: '',
+        appRuleManagerName: ''
       },
       editType: 1,
       rules: {
@@ -196,9 +197,8 @@ export default {
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleName: [
-          { required: true, message: this.$t('verify.appRuleNameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+        appRuleManagerName: [
+          { required: true, message: 'App Rule MGR为必填项', trigger: 'blur' }
         ]
       }
     }
@@ -261,7 +261,8 @@ export default {
       this.form = {
         appRuleIp: '',
         appRulePort: '',
-        userName: ''
+        userName: '',
+        appRuleManagerName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false

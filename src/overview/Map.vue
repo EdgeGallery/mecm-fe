@@ -212,9 +212,9 @@ export default {
       this.showMainView = true
       this.btnShow = false
       this.continue = true
+      this.$emit('area', this.nodeData, '')
     },
     opneLayers (data) {
-      console.log(data)
       let _this = this
       this.btnShow = true
       if (this.map) {
