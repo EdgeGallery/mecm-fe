@@ -190,6 +190,9 @@ let app = {
   },
   addConfigRules (id, params) {
     return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+  },
+  getConfigRules (id) {
+    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
   }
 }
 let edge = {
