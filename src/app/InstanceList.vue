@@ -204,7 +204,7 @@ export default {
   },
   methods: {
     jump (row) {
-      sessionStorage.setItem('instaceId', row.appInstanceId)
+      sessionStorage.setItem('instanceId', row.appInstanceId)
       this.$router.push('/mecm/ruleconfig')
     },
     clearInterval () {
