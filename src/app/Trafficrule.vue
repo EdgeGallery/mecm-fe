@@ -553,54 +553,6 @@ export default {
           label: 'GRE'
         }
       ],
-      rule: {
-        appSupportMp1: false,
-        appName: 'abc',
-        appTrafficRule: [
-          {
-            action: '',
-            filterType: '',
-            priority: 125,
-            trafficRuleId: '',
-            trafficFilter: [
-              {
-                srcAddress: [],
-                srcPort: [],
-                dstAddress: [],
-                dstPort: [],
-                protocol: [],
-                qci: '1',
-                dscp: '0',
-                tc: '1',
-                srcTunnelAddress: '',
-                srcTunnelPort: '',
-                dstTunnelAddress: '',
-                dstTunnelPort: ''
-              }
-            ],
-            dstInterface: [{
-              interfaceType: '',
-              tunnelInfo: {
-                tunnelType: '',
-                tunnelDstAddress: '',
-                tunnelSrcAddress: '',
-                tunnelSpecificData: ''
-              },
-              srcMACAddress: '',
-              dstMACAddress: '',
-              dstIPAddress: ''
-            }],
-            appDNSRule: [
-              {
-                dnsRuleRedirectRuleId: '',
-                domainName: '',
-                ipAddressType: '',
-                dnsServerIp: ''
-              }
-            ]
-          }
-        ]
-      },
       trafficFilter: {
         srcAddress: '',
         srcPort: '',

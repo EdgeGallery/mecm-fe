@@ -69,11 +69,6 @@
             <el-table-column
               prop="city"
               sortable
-              :label="$t('app.packageList.city')"
-            />
-            <el-table-column
-              prop="address"
-              sortable
               :label="$t('app.packageList.address')"
             />
             <el-table-column
@@ -213,35 +208,17 @@
                 :label="$t('system.edgeNodes.deployArea')"
                 prop="city"
               >
-                <area-select
-                  v-if="area"
+                <el-cascader
+                  :options="options"
                   v-model="selectedArea"
-                  :data="$pcaa"
-                  :level="3"
-                  type="text"
-                  @change="handleCityChange"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('app.packageList.address')"
-                prop="address"
-              >
-                <el-input
-                  id="address"
-                  maxlength="80"
-                  v-model="currForm.address"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.coordinates')"
-                prop="coordinates"
-              >
-                <el-input
-                  id="coordinates"
-                  maxlength="80"
-                  v-model="currForm.coordinates"
-                  placeholder="lon,lat"
-                />
+                  @change="onChanged"
+                  ref="myCascader"
+                >
+                  <template slot-scope="{ node, data }">
+                    <span>{{ data.label }}</span>
+                    <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
+                  </template>
+                </el-cascader>
               </el-form-item>
               <el-form-item
                 :label="$t('app.packageList.affinity')"
@@ -463,12 +440,12 @@ export default {
       op: false,
       radio: '1',
       area: false,
-      selectedArea: ['北京市', '北京市', '东城区', '东华门街道'],
+      selectedArea: [],
       currForm: {
         'address': '',
         'affinity': '',
         'applcmIp': '',
-        'city': '北京市/北京市/东城区/东华门街道',
+        'city': '',
         'edgeName': '',
         'edgerepoIp': '',
         'edgerepoPort': '',
@@ -492,9 +469,6 @@ export default {
         ],
         city: [
           { required: true, message: this.$t('tip.typeCity'), trigger: 'blur' }
-        ],
-        address: [
-          { required: true, message: this.$t('verify.addressTip'), trigger: 'blur' }
         ],
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
@@ -527,7 +501,73 @@ export default {
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
       capability: ['GPU', 'NPU'],
-      fileConfirm: true
+      fileConfirm: true,
+      options: [
+        {
+          value: '1',
+          label: '北京',
+          children: [{
+            value: '1.1',
+            label: '海淀区',
+            children: [{
+              value: '116.355989,39.980199',
+              label: '中国信通院'
+            }, {
+              value: '116.185087,40.054096',
+              label: '华为北京研究所'
+            }]
+          }]
+        }, {
+          value: '2',
+          label: '江苏省',
+          children: [{
+            value: '2.1',
+            label: '南京市',
+            children: [{
+              label: '紫金山实验室',
+              value: '118.822617,31.871027'
+            }]
+          }]
+        }, {
+          value: '3',
+          label: '上海市',
+          children: [{
+            value: '3.1',
+            label: '浦东新区',
+            children: [
+              {
+                label: '华为上海研究所',
+                value: '121.633202,31.26335'
+              }
+            ]
+          }]
+        }, {
+          value: '4',
+          label: '广东省',
+          children: [{
+            value: '4.1',
+            label: '深圳市',
+            children: [
+              {
+                label: '华为坂田基地',
+                value: '114.059803,22.650574'
+              },
+              {
+                label: '华为天安云谷',
+                value: '114.067714,22.658933'
+              },
+              {
+                label: 'Clab实验室',
+                value: '114.059448,22.653555'
+              },
+              {
+                label: '南方科技大学',
+                value: '113.999634,22.598776'
+              }
+            ]
+          }]
+        }
+      ]
     }
   },
   mounted () {
@@ -563,12 +603,17 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
+    onChanged (val) {
+      this.currForm.coordinates = this.$refs.myCascader.getCheckedNodes()[0].value
+      this.currForm.city = this.$refs.myCascader.getCheckedNodes()[0].pathLabels.join('/')
+      this.currForm.address = val.join(',')
+    },
     changeType () {
       this.op = !this.op
     },
-    handleCityChange (val) {
-      this.currForm.city = val.join('/')
-    },
+    // handleCityChange (val) {
+    //   this.currForm.city = val.join('/')
+    // },
     uploadFile (row) {
       this.fileList = []
       this.dialogVisibleUpload = true
@@ -580,7 +625,8 @@ export default {
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
       this.currForm = middleData
-      this.selectedArea = row.city.split('/')
+      console.log(row.address)
+      this.selectedArea = row.address.split('/')
       this.dialogVisible = true
       this.area = true
       row.hwcapabilities.forEach(item => {
@@ -611,7 +657,7 @@ export default {
         'address': '',
         'affinity': '',
         'applcmIp': '',
-        'city': '北京市/北京市/东城区/东华门街道',
+        'city': '',
         'edgeName': '',
         'edgerepoIp': '',
         'edgerepoPort': '',
@@ -624,7 +670,7 @@ export default {
         'appRuleIp': '',
         'coordinates': ''
       }
-      this.selectedArea = ['北京市', '北京市', '东城区', '东华门街道']
+      this.selectedArea = []
       this.capabilities = []
     },
     beforeDelete (row) {
@@ -726,7 +772,6 @@ export default {
       })
     },
     confirm (form) {
-      console.log(this.currForm)
       this.$refs[form].validate((valid) => {
         if (valid) {
           this.currForm.hwcapabilities = []
@@ -746,7 +791,7 @@ export default {
               this.currForm.hwcapabilities.push(obj)
             }
           }
-          this.currForm.city = this.selectedArea.join('/')
+          this.currForm.address = this.selectedArea.join('/')
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
               this.$message.success(this.$t('tip.sucToRegNode'))

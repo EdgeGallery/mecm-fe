@@ -124,6 +124,7 @@ export default {
       axios
         .get('./map/' + cityId + '.json', {})
         .then(res => {
+          this.btnShow = true
           const mapJson1 = res.data
           this.regAndSetOption(
             myChart,

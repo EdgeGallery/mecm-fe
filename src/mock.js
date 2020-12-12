@@ -30,10 +30,11 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      address: '华为Clab实验室',
+      address: '4/4.1/114.059448,22.653555',
       affinity: 'X86',
       applcmIp: '119.8.47.2',
-      city: '广东省/深圳市/龙岗区',
+      appRuleIp: '119.8.47.2',
+      city: '广东省/深圳市/Clab实验室',
       edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
@@ -57,10 +58,11 @@ const hostData = function () {
       }]
     },
     {
-      address: '紫金山实验室',
+      address: '2/2.1/118.822617,31.871027',
       affinity: 'X86',
       applcmIp: '119.8.47.2',
-      city: '江苏省/南京市/江宁区',
+      appRuleIp: '119.8.47.2',
+      city: '江苏省/南京市/紫金山实验室',
       edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',

@@ -373,7 +373,7 @@ export default {
         appTrafficRule: [],
         appDNSRule: [],
         appName: 'abc',
-        appSupportMp1: false
+        appSupportMp1: true
       },
       dnsRule: {
         dnsRuleId: '',

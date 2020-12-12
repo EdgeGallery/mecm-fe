@@ -95,49 +95,7 @@ export default {
           label: 'ALLOW'
         }
 
-      ],
-      rule: {
-        appSupportMp1: false,
-        appName: 'abc',
-        appTrafficRule: [
-          {
-            action: '',
-            filterType: '',
-            priority: 125,
-            trafficRuleId: '',
-            trafficFilter: [
-              {
-                srcAddress: [],
-                srcPort: [],
-                dstAddress: [],
-                dstPort: [],
-                protocol: [],
-                qci: '1',
-                dscp: '0',
-                tc: '1',
-                srcTunnelAddress: '',
-                srcTunnelPort: '',
-                dstTunnelAddress: '',
-                dstTunnelPort: ''
-              }
-            ],
-            dstInterface: [{
-              interfaceType: '',
-              tunnelInfo: {
-                tunnelType: '',
-                tunnelDstAddress: '',
-                tunnelsrcAddress: '',
-                tunnelSpecificData: ''
-              },
-              srcMACAddress: '',
-              dstMACAddress: '',
-              dstIPAddress: ''
-            }],
-            appDNSRule: [
-            ]
-          }
-        ]
-      }
+      ]
     }
   },
   methods: {},
