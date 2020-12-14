@@ -717,7 +717,7 @@ export default {
       this.operationDialog = true
     },
     getAppRules () {
-      app.getConfigRules().then(res => {
+      app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = res.data
           this.trafficRuleTableData = res.data.appTrafficRule

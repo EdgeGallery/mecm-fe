@@ -192,7 +192,7 @@ export default {
   },
   methods: {
     getAppRules () {
-      app.getConfigRules().then(res => {
+      app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = res.data
           this.dnsRuleTableData = res.data.appDNSRule
