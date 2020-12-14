@@ -576,7 +576,7 @@
       >
         <el-button
           id="cancelBtn"
-          @click="dialog=false"
+          @click="operationDialog=false"
         >
           {{ $t('common.cancel') }}
         </el-button>
@@ -606,10 +606,11 @@ export default {
       innerFilterVisible: false,
       innerInterfaceVisible: false,
       showDetail: false,
+      index: -1,
       rule: {
         appTrafficRule: [],
         appDNSRule: [],
-        appName: 'appname',
+        appName: sessionStorage.getItem('instanceName'),
         appSupportMp1: true
       },
       detail: {},
@@ -712,38 +713,69 @@ export default {
   },
   methods: {
     showDialog () {
+      this.index = -1
       this.operationDialog = true
     },
     getAppRules () {
       app.getConfigRules().then(res => {
         if (res.data) {
-          this.appRule = res.data
+          this.rule = res.data
           this.trafficRuleTableData = res.data.appTrafficRule
-        } else {
-          this.handleType = 1
+        }
+      })
+    },
+    addAppRules () {
+      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+        if (res.data) {
+          this.getAppRules()
         }
       })
     },
     confirmToAddTraRules () {
-      this.rule.appTrafficRule = this.trafficFilterData
-      this.rule.appDNSRule = this.dstInterfaceData
-      this.dialog = false
+      if (this.index !== -1) {
+        this.rule.appTrafficRule[this.index].trafficFilter = this.trafficFilterData
+        this.rule.appTrafficRule[this.index].dstInterface = this.dstInterfaceData
+      } else {
+        this.appTrafficRule.trafficFilter = this.trafficFilterData
+        this.appTrafficRule.dstInterface = this.dstInterfaceData
+        this.rule.appTrafficRule.push(this.appTrafficRule)
+      }
+      console.log(this.rule)
+      this.addAppRules()
+      this.operationDialog = false
     },
     checkDetail (row) {
       this.detail = row
       this.showDetail = true
     },
     editTraRule (index, row) {
-
+      this.index = index
+      this.operationDialog = true
+      this.appTrafficRule = row[index]
+      this.trafficFilterData = row[index].trafficFilter
+      this.dstInterfaceData = row[index].dstInterface
     },
     deleteTraRule (index, row) {
-
+      this.rule.appTrafficRule.splice(index, 1)
+      // this.addAppRules()
     },
     addNewFilter () {
       this.innerFilterVisible = true
     },
+    modifyFilterLines (row) {
+      this.trafficFilter = row
+    },
+    modifyInterfaceLines (row) {
+      this.dstInterface = row
+    },
     addNewInterface () {
       this.innerInterfaceVisible = true
+    },
+    deleteFilterLines (index, rows) {
+      this.trafficFilterData.splice(index, 1)
+    },
+    deleteInterfaceLines (index, rows) {
+      this.dstInterfaceData.splice(index, 1)
     },
     cancelEditFilter () {
       this.innerFilterVisible = false
