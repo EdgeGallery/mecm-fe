@@ -167,7 +167,7 @@ export default {
       rule: {
         'appTrafficRule': [],
         'appDNSRule': [],
-        'appName': 'appname',
+        'appName': sessionStorage.getItem('instanceName'),
         'appSupportMp1': true
       },
       dnsRuleTableData: [],
