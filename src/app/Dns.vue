@@ -163,6 +163,7 @@ export default {
   data () {
     return {
       dialog: false,
+      index: -1,
       rule: {
         'appTrafficRule': [],
         'appDNSRule': [],
@@ -193,7 +194,7 @@ export default {
     getAppRules () {
       app.getConfigRules().then(res => {
         if (res.data) {
-          this.appRule = res.data
+          this.rule = res.data
           this.dnsRuleTableData = res.data.appDNSRule
         } else {
           this.handleType = 1
@@ -201,15 +202,25 @@ export default {
       })
     },
     showDialog () {
+      this.index = -1
       this.dialog = true
     },
     confirmToAddDnsRules () {
+      if (this.index !== -1) {
+        this.rule.appDNSRule[this.index] = this.dnsRule
+      } else {
+        this.rule.appDNSRule.push(this.dnsRule)
+      }
+      console.log(this.rule)
+      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+        if (res.data) {
+          this.getAppRules()
+        }
+      })
       this.dialog = false
-      this.appRule.appDNSRule.push(this.dnsRule)
-      console.log(this.appRule)
     },
     editDnsRule (index, row) {
-      console.log(index)
+      this.index = index
       this.dialog = true
       let data = JSON.parse(JSON.stringify(row[index]))
       this.dnsRule = data
