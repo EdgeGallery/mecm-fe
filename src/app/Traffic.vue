@@ -724,6 +724,13 @@ export default {
         }
       })
     },
+    addAppRules () {
+      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+        if (res.data) {
+          this.getAppRules()
+        }
+      })
+    },
     confirmToAddTraRules () {
       if (this.index !== -1) {
         this.rule.appTrafficRule[this.index].trafficFilter = this.trafficFilterData
@@ -734,11 +741,7 @@ export default {
         this.rule.appTrafficRule.push(this.appTrafficRule)
       }
       console.log(this.rule)
-      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
-        if (res.data) {
-          this.getAppRules()
-        }
-      })
+      this.addAppRules()
       this.operationDialog = false
     },
     checkDetail (row) {
@@ -754,6 +757,7 @@ export default {
     },
     deleteTraRule (index, row) {
       this.rule.appTrafficRule.splice(index, 1)
+      // this.addAppRules()
     },
     addNewFilter () {
       this.innerFilterVisible = true

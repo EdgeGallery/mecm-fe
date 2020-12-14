@@ -201,6 +201,13 @@ export default {
         }
       })
     },
+    addAppRule () {
+      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+        if (res.data) {
+          this.getAppRules()
+        }
+      })
+    },
     showDialog () {
       this.index = -1
       this.dialog = true
@@ -212,11 +219,7 @@ export default {
         this.rule.appDNSRule.push(this.dnsRule)
       }
       console.log(this.rule)
-      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
-        if (res.data) {
-          this.getAppRules()
-        }
-      })
+      this.addAppRule()
       this.dialog = false
     },
     editDnsRule (index, row) {
@@ -226,7 +229,7 @@ export default {
       this.dnsRule = data
     },
     deleteDnsRule (index, row) {
-      this.dnsRuleTableData.splice(index, 1)
+      this.rule.appDNSRule.splice(index, 1)
     }
   },
   mounted () {
