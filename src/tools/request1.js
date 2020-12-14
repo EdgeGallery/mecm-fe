@@ -63,6 +63,9 @@ let app = {
   },
   getInstanceDetail () {
     return axios.get('/mock/instanceInfo')
+  },
+  getConfigRules () {
+    return axios.get('/mock/getConfigRules')
   }
 }
 let edge = {

@@ -212,6 +212,251 @@ const distributionData = function () {
   }]
 }
 
+const appRuleData = function () {
+  return {
+    'appTrafficRule': [
+      {
+        'trafficRuleId': 'TrafficRule1',
+        'filterType': 'FLOW',
+        'priority': 1,
+        'action': 'DROP',
+        'trafficFilter': [
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          },
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          }
+        ],
+        'dstInterface': [
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          },
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          }
+        ]
+      },
+      {
+        'trafficRuleId': 'TrafficRule1',
+        'filterType': 'FLOW',
+        'priority': 1,
+        'action': 'DROP',
+        'trafficFilter': [
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          },
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          }
+        ],
+        'dstInterface': [
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          },
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          }
+        ]
+      }
+    ],
+    'appDNSRule': [
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      },
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      }
+    ],
+    'appName': 'appname',
+    'appSupportMp1': true
+  }
+}
+
 const applcmData = function () {
   return [
     {
@@ -294,3 +539,4 @@ Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
 Mock.mock('/mock/getHwCapability', hwCapability)
 Mock.mock('/mock/getSwCapability', swCapability)
+Mock.mock('/mock/getConfigRules', appRuleData)

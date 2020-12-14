@@ -43,12 +43,7 @@ export default new Router({
         {
           path: 'mecm/ruleconfig',
           name: 'rule',
-          component: () => import('../app/Ruleconfig.vue')
-        },
-        {
-          path: 'mecm/ruleconfig/addTrafficRules',
-          name: 'rule',
-          component: () => import('../app/addTrafficRules.vue')
+          component: () => import('../app/RuleConfig.vue')
         },
         {
           path: 'mecm/edge/list',
