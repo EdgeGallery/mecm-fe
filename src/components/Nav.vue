@@ -40,7 +40,10 @@
         class="hidden-md-and-down"
       >
         <div>
-          <Topbar :json-data="jsonData" />
+          <Topbar
+            v-if="!smallMenu"
+            :json-data="jsonData"
+          />
         </div>
       </el-col>
       <el-col
@@ -75,7 +78,7 @@
 
     <el-collapse-transition>
       <div
-        v-show="smallMenu"
+        v-if="smallMenu"
         id="menu-div"
       >
         <Topbarsmall

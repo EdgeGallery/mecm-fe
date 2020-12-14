@@ -63,11 +63,6 @@
           <el-table-column
             prop="city"
             sortable
-            :label="$t('app.packageList.city')"
-          />
-          <el-table-column
-            prop="address"
-            sortable
             :label="$t('app.packageList.address')"
           />
           <el-table-column

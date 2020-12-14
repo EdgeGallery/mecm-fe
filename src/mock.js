@@ -30,10 +30,11 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      address: '华为Clab实验室',
+      address: '4/4.1/114.059448,22.653555',
       affinity: 'X86',
       applcmIp: '119.8.47.2',
-      city: '广东省/深圳市/龙岗区',
+      appRuleIp: '119.8.47.2',
+      city: '广东省/深圳市/Clab实验室',
       edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
@@ -57,10 +58,11 @@ const hostData = function () {
       }]
     },
     {
-      address: '紫金山实验室',
+      address: '2/2.1/118.822617,31.871027',
       affinity: 'X86',
       applcmIp: '119.8.47.2',
-      city: '江苏省/南京市/江宁区',
+      appRuleIp: '119.8.47.2',
+      city: '江苏省/南京市/紫金山实验室',
       edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
@@ -210,6 +212,251 @@ const distributionData = function () {
   }]
 }
 
+const appRuleData = function () {
+  return {
+    'appTrafficRule': [
+      {
+        'trafficRuleId': 'TrafficRule1',
+        'filterType': 'FLOW',
+        'priority': 1,
+        'action': 'DROP',
+        'trafficFilter': [
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          },
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          }
+        ],
+        'dstInterface': [
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          },
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          }
+        ]
+      },
+      {
+        'trafficRuleId': 'TrafficRule1',
+        'filterType': 'FLOW',
+        'priority': 1,
+        'action': 'DROP',
+        'trafficFilter': [
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          },
+          {
+            'srcAddress': [
+              '192.168.1.1',
+              '1.1.1.1'
+            ],
+            'srcPort': [
+              '8080',
+              '1234'
+            ],
+            'dstAddress': [
+              '192.168.1.1'
+            ],
+            'dstPort': [
+              '8080',
+              '1234'
+            ],
+            'protocol': [
+              'ICMP'
+            ],
+            'tag': [
+              'tag'
+            ],
+            'srcTunnelAddress': [
+              '1.1.1.1'
+            ],
+            'dstTunnelAddress': [
+              '2.2.2.2'
+            ],
+            'srcTunnelPort': [
+              '8080'
+            ],
+            'dstTunnelPort': [
+              '8080'
+            ],
+            'qCI': 1,
+            'dSCP': 0,
+            'tC': 1
+          }
+        ],
+        'dstInterface': [
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          },
+          {
+            'interfaceType': 'tunnel',
+            'tunnelInfo': {
+              'tunnelType': 'tunneltype',
+              'tunnelDstAddress': '1.1.1.1',
+              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelSpecificData': 'some data'
+            },
+            'srcMacAddress': 'da:07:39:28:e1:4f',
+            'dstMacAddress': 'da:07:39:28:e1:4f',
+            'dstIpAddress': '3.3.3.3'
+          }
+        ]
+      }
+    ],
+    'appDNSRule': [
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      },
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      }
+    ],
+    'appName': 'appname',
+    'appSupportMp1': true
+  }
+}
+
 const applcmData = function () {
   return [
     {
@@ -292,3 +539,4 @@ Mock.mock('/mock/packageInfo', packageInfo)
 Mock.mock('/mock/kpiInfo', kpiInfo)
 Mock.mock('/mock/getHwCapability', hwCapability)
 Mock.mock('/mock/getSwCapability', swCapability)
+Mock.mock('/mock/getConfigRules', appRuleData)

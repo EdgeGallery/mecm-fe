@@ -32,7 +32,6 @@ import echarts from 'echarts'
 import 'ol/ol.css'
 import { Map, View } from 'ol'
 import TileLayer from 'ol/layer/Tile'
-// import OSM from 'ol/source/OSM'
 import OlFeature from 'ol/Feature'
 import OlGeomPoint from 'ol/geom/Point'
 import OlLayerVector from 'ol/layer/Vector'
@@ -124,6 +123,7 @@ export default {
       axios
         .get('./map/' + cityId + '.json', {})
         .then(res => {
+          this.btnShow = true
           const mapJson1 = res.data
           this.regAndSetOption(
             myChart,
