@@ -33,19 +33,19 @@
       />
       <el-table-column
         prop="dstTunnelAddress"
-        label="隧道目的地址"
+        :label="$t('app.ruleConfig.dstTunnelAddress')"
       />
       <el-table-column
         prop="dstTunnelPort"
-        label="隧道目的端口"
+        :label="$t('app.ruleConfig.srcTunnelPort')"
       />
       <el-table-column
         prop="srcTunnelAddress"
-        label="隧道源地址"
+        :label="$t('app.ruleConfig.srcTunnelAddress')"
       />
       <el-table-column
         prop="srcTunnelPort"
-        label="隧道源端口"
+        :label="$t('app.ruleConfig.dstTunnelPort')"
       />
       <el-table-column
         prop="tag"
@@ -78,32 +78,32 @@
     >
       <el-table-column
         prop="interfaceType"
-        label="接口类型"
+        :label="$t('app.ruleConfig.interfaceType')"
       />
       <el-table-column
         prop="tunnelInfo.tunnelType"
-        label="隧道类型"
+        :label="$t('app.ruleConfig.tunnelType')"
       />
       <el-table-column
         prop="tunnelInfo.tunnelDstAddress"
-        label="隧道目的地址"
+        :label="$t('app.ruleConfig.dstTunnelAddress')"
         width="120px"
       />
       <el-table-column
         prop="tunnelInfo.tunnelSrcAddress"
-        label="隧道源地址"
+        :label="$t('app.ruleConfig.srcTunnelAddress')"
       />
       <el-table-column
         prop="tunnelInfo.tunnelSpecificData"
-        label="隧道指定参数"
+        :label="$t('app.ruleConfig.tunnelSpecificData')"
       />
       <el-table-column
         prop="dstMacAddress"
-        label="目的MAC地址"
+        :label="$t('app.ruleConfig.dstMacAddress')"
       />
       <el-table-column
         prop="srcMacAddress"
-        label="源MAC地址"
+        :label="$t('app.ruleConfig.srcMacAddress')"
       />
       <el-table-column
         prop="dstIpAddress"

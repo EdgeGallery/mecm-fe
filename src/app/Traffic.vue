@@ -71,7 +71,7 @@
               id=""
               type="text"
               size="small"
-              @click="deleteTraRule(scope.$index, trafficRuleTableData)"
+              @click="deleteTraRule(scope.$index, scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -82,7 +82,7 @@
     <!-- check Detail dialog-->
     <el-dialog
       :close-on-click-modal="false"
-      title="详情"
+      :title="$t('common.detail')"
       :visible.sync="showDetail"
       width="45%"
     >
@@ -202,21 +202,21 @@
             />
             <el-table-column
               prop="dstTunnelAddress"
-              label="隧道目的地址"
+              :label="$t('app.ruleConfig.dstTunnelAddress')"
             />
             <el-table-column
               prop="dstTunnelPort"
-              label="隧道目的端口"
+              :label="$t('app.ruleConfig.srcTunnelPort')"
               width="120px"
             />
             <el-table-column
               prop="srcTunnelAddress"
-              label="隧道源地址"
+              :label="$t('app.ruleConfig.srcTunnelAddress')"
               width="120px"
             />
             <el-table-column
               prop="srcTunnelPort"
-              label="隧道源端口"
+              :label="$t('app.ruleConfig.dstTunnelPort')"
               width="120px"
             />
             <el-table-column
@@ -266,14 +266,14 @@
         <!-- 新增interface -->
         <div>
           <p class="title">
-            转发接口信息
+            {{ $t('app.ruleConfig.interfaceDescriptor') }}
             <el-button-group class="rt">
               <el-button
                 type="text"
                 class="btn"
                 @click="addNewInterface()"
               >
-                新增接口信息
+                {{ $t('app.ruleConfig.addNewInterfaceInfo') }}
               </el-button>
             </el-button-group>
           </p>
@@ -289,36 +289,36 @@
             >
               <el-table-column
                 prop="interfaceType"
-                label="接口类型"
+                :label="$t('app.ruleConfig.interfaceType')"
               />
               <el-table-column
                 prop="tunnelInfo.tunnelType"
-                label="隧道类型"
+                :label="$t('app.ruleConfig.tunnelType')"
               />
               <el-table-column
                 prop="tunnelInfo.tunnelDstAddress"
-                label="隧道目的地址"
+                :label="$t('app.ruleConfig.dstTunnelAddress')"
                 width="120px"
               />
               <el-table-column
                 prop="tunnelInfo.tunnelSrcAddress"
-                label="隧道源地址"
+                :label="$t('app.ruleConfig.srcTunnelAddress')"
               />
               <el-table-column
                 prop="tunnelInfo.tunnelSpecificData"
-                label="隧道指定参数"
+                :label="$t('app.ruleConfig.tunnelSpecificData')"
               />
               <el-table-column
                 prop="dstMacAddress"
-                label="目的MAC地址"
+                :label="$t('app.ruleConfig.dstMacAddress')"
               />
               <el-table-column
                 prop="srcMacAddress"
-                label="源MAC地址"
+                :label="$t('app.ruleConfig.srcMacAddress')"
               />
               <el-table-column
                 prop="dstIpAddress"
-                label="目的IP地址"
+                :label="$t('app.ruleConfig.dstAddress')"
               />
               <el-table-column
                 :label="$t('common.operation')"
@@ -353,7 +353,7 @@
         <el-dialog
           :close-on-click-modal="false"
           width="50%"
-          title="分流规则"
+          :title="$t('app.ruleConfig.trafficRule')"
           :visible.sync="innerFilterVisible"
           append-to-body
         >
@@ -365,7 +365,7 @@
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.srcAddress"
-                    placeholder="多个IP请用','分割"
+                    :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
                 <el-form-item :label="$t('app.ruleConfig.srcPort')">
@@ -373,7 +373,7 @@
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.srcPort"
-                    placeholder="多个端口请用','分割"
+                    :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
                 <el-form-item :label="$t('app.ruleConfig.dstAddress')">
@@ -381,7 +381,7 @@
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.dstAddress"
-                    placeholder="多个IP请用','分割"
+                    :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
                 <el-form-item :label="$t('app.ruleConfig.dstPort')">
@@ -389,12 +389,13 @@
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.dstPort"
-                    placeholder="多个端口请用','分割"
+                    :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
-                <el-form-item label="标签">
+                <el-form-item :label="$t('app.ruleConfig.tag')">
                   <el-input
                     v-model="trafficFilter.tag"
+                    :placeholder="$t('app.ruleConfig.mutipleTag')"
                   />
                 </el-form-item>
                 <el-form-item :label="$t('app.ruleConfig.protocol')">
@@ -402,6 +403,7 @@
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.protocol"
+                    :placeholder="$t('app.ruleConfig.mutipleProtocol')"
                   />
                 </el-form-item>
                 <el-form-item label="QCI">
@@ -427,24 +429,28 @@
                     v-model="trafficFilter.tC"
                   />
                 </el-form-item>
-                <el-form-item label="隧道目的地址">
+                <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
                   <el-input
                     v-model="trafficFilter.dstTunnelAddress"
+                    :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item label="隧道目的端口">
+                <el-form-item :label="$t('app.ruleConfig.srcTunnelPort')">
                   <el-input
                     v-model="trafficFilter.dstTunnelPort"
+                    :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
-                <el-form-item label="隧道源地址">
+                <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
                   <el-input
                     v-model="trafficFilter.srcTunnelAddress"
+                    :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item label="隧道源端口">
+                <el-form-item :label="$t('app.ruleConfig.dstTunnelPort')">
                   <el-input
                     v-model="trafficFilter.srcTunnelPort"
+                    :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
               </el-col>
@@ -455,13 +461,13 @@
             class="dialog-footer"
           >
             <el-button @click="cancelEditFilter()">
-              取 消
+              {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
               @click="confirmToAddFilter()"
             >
-              确认
+              {{ $t('common.confirm') }}
             </el-button>
           </div>
         </el-dialog>
@@ -470,14 +476,14 @@
         <el-dialog
           :close-on-click-modal="false"
           width="30%"
-          title="接口信息"
+          :title="$t('app.ruleConfig.interfaceInfo')"
           :visible.sync="innerInterfaceVisible"
           append-to-body
         >
           <el-row>
             <el-form label-width="125px">
               <p class="title">
-                接口信息
+                {{ $t('app.ruleConfig.interfaceInfo') }}
               </p>
               <el-form-item
                 label="interfaceType"
@@ -496,9 +502,9 @@
               </el-form-item>
               <div v-if="dstInterface.interfaceType==='TUNNEL'">
                 <p class="title">
-                  隧道信息
+                  {{ $t('app.ruleConfig.tunnelInfo') }}
                 </p>
-                <el-form-item label="隧道类型">
+                <el-form-item :label="$t('app.ruleConfig.tunnelType')">
                   <el-select
                     v-model="dstInterface.tunnelInfo.tunnelType"
                     :placeholder="$t('tip.pleaseSelect')"
@@ -511,17 +517,17 @@
                     />
                   </el-select>
                 </el-form-item>
-                <el-form-item label="隧道源地址">
+                <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
                   <el-input
                     v-model="dstInterface.tunnelInfo.tunnelSrcAddress"
                   />
                 </el-form-item>
-                <el-form-item label="隧道目的地址">
+                <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
                   <el-input
                     v-model="dstInterface.tunnelInfo.tunnelDstAddress"
                   />
                 </el-form-item>
-                <el-form-item label="隧道指定参数">
+                <el-form-item :label="$t('app.ruleConfig.tunnelSpecificData')">
                   <el-input
                     v-model="dstInterface.tunnelInfo.tunnelSpecificData"
                   />
@@ -529,14 +535,14 @@
               </div>
               <div v-if="dstInterface.interfaceType==='MAC'">
                 <p class="title">
-                  MAC信息
+                  {{ $t('app.ruleConfig.macInfo') }}
                 </p>
-                <el-form-item label="源MAC地址">
+                <el-form-item :label="$t('app.ruleConfig.srcMacAddress')">
                   <el-input
                     v-model="dstInterface.srcMacAddress"
                   />
                 </el-form-item>
-                <el-form-item label="目的MAC地址">
+                <el-form-item :label="$t('app.ruleConfig.dstMacAddress')">
                   <el-input
                     v-model="dstInterface.dstMacAddress"
                   />
@@ -544,9 +550,9 @@
               </div>
               <div v-if="dstInterface.interfaceType==='IP'">
                 <p class="title">
-                  IP信息
+                  {{ $t('app.ruleConfig.ipInfo') }}
                 </p>
-                <el-form-item label="目的IP地址">
+                <el-form-item :label="$t('app.ruleConfig.dstAddress')">
                   <el-input
                     v-model="dstInterface.ddstIpAddress"
                   />
@@ -559,13 +565,13 @@
             class="dialog-footer"
           >
             <el-button @click="cancelEditInterface()">
-              取 消
+              {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
               @click="confirmToAddInterface()"
             >
-              确认
+              {{ $t('common.confirm') }}
             </el-button>
           </div>
         </el-dialog>
@@ -749,8 +755,15 @@ export default {
       })
     },
     addAppRules () {
-      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
         if (res.data) {
+          if (this.index === -1) {
+            this.$message.success('添加成功')
+          } else if (this.index === -2) {
+            this.$message.success('删除成功')
+          } else {
+            this.$message.success('编辑成功')
+          }
           this.getAppRules()
         }
       })
@@ -794,8 +807,22 @@ export default {
       this.dstInterfaceData = row[index].dstInterface
     },
     deleteTraRule (index, row) {
-      this.rule.appTrafficRule.splice(index, 1)
-      // this.addAppRules()
+      this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let data = JSON.parse(JSON.stringify(this.rule))
+        data.appTrafficRule.splice(index, 1)
+        this.index = -2
+        this.rule = data
+        this.addAppRules()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     addNewFilter () {
       this.filterIndex = -1

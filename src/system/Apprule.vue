@@ -55,7 +55,7 @@
                 label-width="90px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  App Rule MGR
+                  {{ item.appRuleName }}
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.appRuleIp }}
@@ -111,12 +111,12 @@
           >
             <el-form-item
               :label="$t('system.appLcm.name')"
-              prop="appRuleManagerName"
+              prop="appRuleName"
             >
               <el-input
                 id="name"
                 maxlength="20"
-                v-model="form.appRuleManagerName"
+                v-model="form.appRuleName"
               />
             </el-form-item>
             <el-form-item
@@ -180,12 +180,12 @@ export default {
       paginationData: [],
       dialogVisible: false,
       ipDisable: false,
-      title: 'App Rule MGR 管理注册',
+      title: this.$t('app.ruleConfig.appRuleManReg'),
       form: {
         appRuleIp: '',
         appRulePort: '',
         userName: '',
-        appRuleManagerName: ''
+        appRuleName: ''
       },
       editType: 1,
       rules: {
@@ -197,8 +197,8 @@ export default {
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleManagerName: [
-          { required: true, message: 'App Rule MGR为必填项', trigger: 'blur' }
+        appRuleName: [
+          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' }
         ]
       }
     }
@@ -235,7 +235,7 @@ export default {
     },
     handleEdit (row) {
       this.editType = 2
-      this.title = 'App Rule MGR 管理编辑'
+      this.title = this.$t('app.ruleConfig.appRuleManEdit')
       this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
@@ -257,12 +257,12 @@ export default {
     },
     register () {
       this.editType = 1
-      this.title = 'App Rule MGR 管理注册'
+      this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
         appRuleIp: '',
         appRulePort: '',
         userName: '',
-        appRuleManagerName: ''
+        appRuleName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false
@@ -271,11 +271,12 @@ export default {
       })
     },
     confirmToRegister (form) {
+      console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
             system.create(4, this.form).then(res => {
-              this.$message.success(this.$t('tip.regAppLcmSuc'))
+              this.$message.success(this.$t('tip.regAppManSuc'))
               this.initList()
               this.dialogVisible = false
             }, error => {
