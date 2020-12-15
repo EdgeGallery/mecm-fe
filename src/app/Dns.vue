@@ -46,7 +46,7 @@
         />
         <el-table-column
           prop="ttl"
-          :label="$t('app.ruleConfig.priority')"
+          label="ttl"
         />
         <el-table-column
           :label="$t('common.operation')"
@@ -124,7 +124,7 @@
                   v-model="dnsRule.ipAddress"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.priority')">
+              <el-form-item label="ttl">
                 <el-input
                   id=""
                   maxlength="30"
@@ -196,21 +196,30 @@ export default {
         if (res.data) {
           this.rule = res.data
           this.dnsRuleTableData = res.data.appDNSRule
-        } else {
-          this.handleType = 1
+        }
+        this.editType = 1
+      }).catch(err => {
+        if (err.response.status === 404) {
+          this.editType = 2
         }
       })
     },
     addAppRule () {
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.editType, sessionStorage.getItem('instanceId'), this.rule).then(res => {
         if (res.data) {
-          if (this.index === -1) {
-            this.$message.success('添加成功')
-          } else if (this.index === -2) {
-            this.$message.success('删除成功')
-          } else {
-            this.$message.success('编辑成功')
-          }
+          app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+            if (response.data.response.configResult === 'FAILURE') {
+              this.$message.error('调用MEP接口失败，请重新尝试。')
+            } else {
+              if (this.index === -1) {
+                this.$message.success('添加成功')
+              } else if (this.index === -2) {
+                this.$message.success('删除成功')
+              } else {
+                this.$message.success('编辑成功')
+              }
+            }
+          })
           this.getAppRules()
         }
       })

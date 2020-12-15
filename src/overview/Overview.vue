@@ -345,20 +345,7 @@ export default {
       this.edgeAppList.forEach(item => {
         if (item.value === val) {
           this.edgeApp = val
-          this.getPackageInfo(item)
         }
-      })
-    },
-    getPackageInfo (item) {
-      overview.getPackageInfo(item).then(res => {
-        this.appPackageList = []
-        let obj = {}
-        obj.affinity = res.data.affinity
-        obj.provider = res.data.provider
-        obj.version = res.data.version
-        this.appPackageList.push(obj)
-      }).catch(() => {
-        // this.$message.error(this.$t('tip.getPackageInfoFailed'))
       })
     },
     getAppInfo (ip) {
@@ -377,9 +364,6 @@ export default {
             }
           })
           this.edgeApp = this.edgeAppList[0].value
-          if (this.edgeAppList.length > 0) {
-            this.getPackageInfo(this.edgeAppList[0])
-          }
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getAppInfoFailed'))
@@ -396,7 +380,6 @@ export default {
     },
     getMepCapa (host) {
       overview.getMepCapabilities(host).then(res => {
-        console.log(res.data.response)
         if (res && res.data) {
           if (res.data.status !== 500) {
             this.mepCapData = JSON.parse(res.data.response)

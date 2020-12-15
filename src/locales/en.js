@@ -164,7 +164,7 @@ const en = {
       dnsRuleId: 'DNS Rule Id',
       ipAddress: 'IP Address',
       ipAddressType: 'IP Address Type',
-      domainName: 'DomainName',
+      domainName: 'Domain Name',
       ttl: 'TTL',
       checkRules: 'Check Rules',
       dnsRule: 'DNS Rules',
@@ -192,7 +192,11 @@ const en = {
       tunnelInfo: 'Tunnel Information',
       interfaceInfo: 'Interface Information',
       mutipleProtocol: 'Use "," to separate multiple protocols',
-      mutipleTag: 'Use "," to separate multiple tags'
+      mutipleTag: 'Use "," to separate multiple tags',
+      mepError: 'MEP error, please try again later.',
+      addRuleSuc: 'You have added rule successfully',
+      editRuleSuc: 'You have modified the rule successfully',
+      delRuleSuc: 'You have deleted the rule successfully'
     }
   },
   edgeNode: {

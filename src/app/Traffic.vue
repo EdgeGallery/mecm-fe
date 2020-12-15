@@ -716,7 +716,8 @@ export default {
         ddstIpAddress: ''
       },
       interfaceIndex: -1,
-      filterIndex: -1
+      filterIndex: -1,
+      editType: 2
     }
   },
   methods: {
@@ -734,6 +735,7 @@ export default {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           console.log(res.data)
+          this.editType = 1
           this.rule = JSON.parse(JSON.stringify(res.data))
           this.rule.appTrafficRule.forEach(val => {
             val.trafficFilter.forEach(item => {
@@ -752,18 +754,28 @@ export default {
           this.trafficRuleTableData = this.rule.appTrafficRule
           console.log(this.trafficRuleTableData)
         }
+      }).catch(err => {
+        if (err.response.status === 404) {
+          this.editType = 2
+        }
       })
     },
     addAppRules () {
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), this.rule).then(res => {
         if (res.data) {
-          if (this.index === -1) {
-            this.$message.success('添加成功')
-          } else if (this.index === -2) {
-            this.$message.success('删除成功')
-          } else {
-            this.$message.success('编辑成功')
-          }
+          app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+            if (response.data.response.configResult === 'FAILURE') {
+              this.$message.error(this.$('app.ruleConfig.mepError'))
+            } else {
+              if (this.index === -1) {
+                this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
+              } else if (this.index === -2) {
+                this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
+              } else {
+                this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
+              }
+            }
+          })
           this.getAppRules()
         }
       })
