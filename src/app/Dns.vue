@@ -202,8 +202,15 @@ export default {
       })
     },
     addAppRule () {
-      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
         if (res.data) {
+          if (this.index === -1) {
+            this.$message.success('添加成功')
+          } else if (this.index === -2) {
+            this.$message.success('删除成功')
+          } else {
+            this.$message.success('编辑成功')
+          }
           this.getAppRules()
         }
       })
@@ -229,7 +236,22 @@ export default {
       this.dnsRule = data
     },
     deleteDnsRule (index, row) {
-      this.rule.appDNSRule.splice(index, 1)
+      this.$confirm('此操作将永久删除该DNS规则, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let data = JSON.parse(JSON.stringify(this.rule))
+        data.appDNSRule.splice(index, 1)
+        this.index = -2
+        this.rule = data
+        this.addAppRule()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   },
   mounted () {

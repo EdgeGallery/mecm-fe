@@ -55,7 +55,7 @@
                 label-width="90px"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  App Rule MGR
+                  {{ item.appRuleName }}
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
                   {{ item.appRuleIp }}
@@ -111,12 +111,12 @@
           >
             <el-form-item
               :label="$t('system.appLcm.name')"
-              prop="appRuleManagerName"
+              prop="appRuleName"
             >
               <el-input
                 id="name"
                 maxlength="20"
-                v-model="form.appRuleManagerName"
+                v-model="form.appRuleName"
               />
             </el-form-item>
             <el-form-item
@@ -185,7 +185,7 @@ export default {
         appRuleIp: '',
         appRulePort: '',
         userName: '',
-        appRuleManagerName: ''
+        appRuleName: ''
       },
       editType: 1,
       rules: {
@@ -197,7 +197,7 @@ export default {
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleManagerName: [
+        appRuleName: [
           { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' }
         ]
       }
@@ -262,7 +262,7 @@ export default {
         appRuleIp: '',
         appRulePort: '',
         userName: '',
-        appRuleManagerName: ''
+        appRuleName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false
@@ -271,6 +271,7 @@ export default {
       })
     },
     confirmToRegister (form) {
+      console.log(this.form)
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {

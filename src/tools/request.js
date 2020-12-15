@@ -188,11 +188,21 @@ let app = {
   batchDeleteInstanceApp (params) {
     return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   },
-  addConfigRules (id, params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+  addConfigRules (index, id, params) {
+    if (index !== -1) {
+      return PUT(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+    } else {
+      return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+    }
+  },
+  deleteConfigRules (id) {
+    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
   },
   getConfigRules (id) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+    return GET(inventory + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+  },
+  getTaskStatus (id) {
+    return GET(appo + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
   }
 }
 let edge = {

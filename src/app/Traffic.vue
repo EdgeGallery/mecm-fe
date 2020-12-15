@@ -71,7 +71,7 @@
               id=""
               type="text"
               size="small"
-              @click="deleteTraRule(scope.$index, trafficRuleTableData)"
+              @click="deleteTraRule(scope.$index, scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -755,8 +755,15 @@ export default {
       })
     },
     addAppRules () {
-      app.addConfigRules(sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
         if (res.data) {
+          if (this.index === -1) {
+            this.$message.success('添加成功')
+          } else if (this.index === -2) {
+            this.$message.success('删除成功')
+          } else {
+            this.$message.success('编辑成功')
+          }
           this.getAppRules()
         }
       })
@@ -800,8 +807,22 @@ export default {
       this.dstInterfaceData = row[index].dstInterface
     },
     deleteTraRule (index, row) {
-      this.rule.appTrafficRule.splice(index, 1)
-      // this.addAppRules()
+      this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let data = JSON.parse(JSON.stringify(this.rule))
+        data.appTrafficRule.splice(index, 1)
+        this.index = -2
+        this.rule = data
+        this.addAppRules()
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     },
     addNewFilter () {
       this.filterIndex = -1
