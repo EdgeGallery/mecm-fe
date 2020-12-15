@@ -188,15 +188,15 @@ let app = {
   batchDeleteInstanceApp (params) {
     return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   },
-  addConfigRules (index, id, params) {
-    if (index !== -1) {
+  addConfigRules (type, id, params) {
+    if (type !== -1) {
       return PUT(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
     } else {
       return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
     }
   },
-  deleteConfigRules (id) {
-    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+  deleteConfigRules (id, params) {
+    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
   },
   getConfigRules (id) {
     return GET(inventory + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')

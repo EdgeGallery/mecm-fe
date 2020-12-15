@@ -14,6 +14,7 @@
         size="mini"
         class="btn"
         id="batchDeleteDnsBtn"
+        @click="batchDeleteDnsRule"
       >
         {{ $t('app.instanceList.batchDeleteDnsRules') }}
       </el-button>
@@ -22,6 +23,7 @@
         :data="dnsRuleTableData"
         border
         style="width: 100%;"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column
           type="selection"
@@ -46,7 +48,7 @@
         />
         <el-table-column
           prop="ttl"
-          :label="$t('app.ruleConfig.priority')"
+          label="ttl"
         />
         <el-table-column
           :label="$t('common.operation')"
@@ -65,7 +67,7 @@
               id="deleteBtn"
               type="text"
               size="small"
-              @click="deleteDnsRule(scope.$index, dnsRuleTableData)"
+              @click="deleteDnsRule(scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -124,7 +126,7 @@
                   v-model="dnsRule.ipAddress"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.priority')">
+              <el-form-item label="ttl">
                 <el-input
                   id=""
                   maxlength="30"
@@ -187,7 +189,8 @@ export default {
           value: 'IP_V6',
           label: 'IP_V6'
         }
-      ]
+      ],
+      selectedData: []
     }
   },
   methods: {
@@ -196,21 +199,24 @@ export default {
         if (res.data) {
           this.rule = res.data
           this.dnsRuleTableData = res.data.appDNSRule
-        } else {
-          this.handleType = 1
         }
       })
     },
     addAppRule () {
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.dnsRule).then(res => {
         if (res.data) {
-          if (this.index === -1) {
-            this.$message.success('添加成功')
-          } else if (this.index === -2) {
-            this.$message.success('删除成功')
-          } else {
-            this.$message.success('编辑成功')
-          }
+          app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+            if (response.data.response.configResult === 'FAILURE') {
+              this.$message.error(this.$('app.ruleConfig.mepError'))
+            } else {
+              this.dialog = false
+              if (this.index === -1) {
+                this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
+              } else {
+                this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
+              }
+            }
+          })
           this.getAppRules()
         }
       })
@@ -219,15 +225,11 @@ export default {
       this.index = -1
       this.dialog = true
     },
+    handleSelectionChange (selection) {
+      this.selectedData = selection
+    },
     confirmToAddDnsRules () {
-      if (this.index !== -1) {
-        this.rule.appDNSRule[this.index] = this.dnsRule
-      } else {
-        this.rule.appDNSRule.push(this.dnsRule)
-      }
-      console.log(this.rule)
       this.addAppRule()
-      this.dialog = false
     },
     editDnsRule (index, row) {
       this.index = index
@@ -235,23 +237,28 @@ export default {
       let data = JSON.parse(JSON.stringify(row[index]))
       this.dnsRule = data
     },
-    deleteDnsRule (index, row) {
+    deleteDnsRule (row) {
       this.$confirm('此操作将永久删除该DNS规则, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let data = JSON.parse(JSON.stringify(this.rule))
-        data.appDNSRule.splice(index, 1)
-        this.index = -2
-        this.rule = data
-        this.addAppRule()
+        app.deleteConfigRules(sessionStorage.getItem('instanceId'), row).then(res => {
+          this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
         })
       })
+    },
+    batchDeleteDnsRule () {
+      if (this.selectedData.length > 0) {
+        this.deleteDnsRule(this.selectedData)
+      } else {
+        this.$message.warning('请至少选择一条数据')
+      }
     }
   },
   mounted () {

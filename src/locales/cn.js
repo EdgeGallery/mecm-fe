@@ -192,7 +192,11 @@ const cn = {
       tunnelInfo: '隧道信息',
       interfaceInfo: '接口信息',
       mutipleProtocol: '多个协议请用","分割',
-      mutipleTag: '多个标签请用","分割'
+      mutipleTag: '多个标签请用","分割',
+      mepError: '调用MEP接口错误，请检查后重试。',
+      addRuleSuc: '添加规则成功',
+      editRuleSuc: '编辑规则成功',
+      delRuleSuc: '删除规则成功'
     }
   },
   edgeNode: {
