@@ -73,7 +73,7 @@
               id=""
               type="text"
               size="small"
-              @click="deleteTraRule(scope.row)"
+              @click="deleteTraRule(scope.$index,scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -719,7 +719,13 @@ export default {
       },
       interfaceIndex: -1,
       filterIndex: -1,
-      selectedData: []
+      selectedData: [],
+      originRule: {
+        appTrafficRule: [],
+        appDNSRule: [],
+        appName: sessionStorage.getItem('instanceName'),
+        appSupportMp1: true
+      }
     }
   },
   methods: {
@@ -740,6 +746,7 @@ export default {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = JSON.parse(JSON.stringify(res.data))
+          this.originRule = JSON.parse(JSON.stringify(res.data))
           this.rule.appTrafficRule.forEach(val => {
             val.trafficFilter.forEach(item => {
               item.srcAddress = this.changeAToS(item.srcAddress)
@@ -759,7 +766,13 @@ export default {
       })
     },
     addAppRules () {
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.appTrafficRule).then(res => {
+      let data = {
+        appTrafficRule: [],
+        appName: sessionStorage.getItem('instanceName'),
+        appSupportMp1: true
+      }
+      data.appTrafficRule.push(this.appTrafficRule)
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
@@ -808,15 +821,39 @@ export default {
       this.dstInterfaceData = row[index].dstInterface
     },
     batchDeleteTrafficRule () {
-      this.deleteTraRule(this.selectedData)
+      this.deleteTraRule(-1, this.selectedData)
     },
-    deleteTraRule (row) {
+    deleteTraRule (index, row) {
       this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        app.deleteConfigRules(sessionStorage.getItem('instanceId'), row).then(res => {
+        let data = {
+          appTrafficRule: [],
+          appName: sessionStorage.getItem('instanceName'),
+          appSupportMp1: true
+        }
+        if (index !== -1) {
+          data.appTrafficRule.push(row)
+        } else {
+          data.appTrafficRule = row
+        }
+        data.appTrafficRule.forEach(val => {
+          val.trafficFilter.forEach(item => {
+            item.srcAddress = this.changeSToA(item.srcAddress)
+            item.srcPort = this.changeSToA(item.srcPort)
+            item.dstAddress = this.changeSToA(item.dstAddress)
+            item.dstPort = this.changeSToA(item.dstPort)
+            item.protocol = this.changeSToA(item.protocol)
+            item.srcTunnelAddress = this.changeSToA(item.srcTunnelAddress)
+            item.dstTunnelAddress = this.changeSToA(item.dstTunnelAddress)
+            item.srcTunnelPort = this.changeSToA(item.srcTunnelPort)
+            item.dstTunnelPort = this.changeSToA(item.dstTunnelPort)
+            item.tag = this.changeSToA(item.tag)
+          })
+        })
+        app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
           this.getAppRules()
         })

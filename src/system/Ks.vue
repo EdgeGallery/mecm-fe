@@ -611,15 +611,13 @@ export default {
     changeType () {
       this.op = !this.op
     },
-    // handleCityChange (val) {
-    //   this.currForm.city = val.join('/')
-    // },
     uploadFile (row) {
       this.fileList = []
       this.dialogVisibleUpload = true
       this.currForm = row
     },
     handleModify (row) {
+      this.getList()
       this.editType = 2
       this.title = this.$t('system.edgeNodes.nodeModify')
       this.isDisable = true
@@ -719,11 +717,14 @@ export default {
       this.$nextTick(() => {
         this.$refs.currForm.resetFields()
       })
+      this.getList()
+    },
+    getList () {
       system.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
+          this.applcmList = []
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
@@ -732,7 +733,7 @@ export default {
         this.appRuleIpList = res.data
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
+          this.appRuleIpList = []
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }

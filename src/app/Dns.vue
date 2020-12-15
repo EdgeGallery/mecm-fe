@@ -203,7 +203,13 @@ export default {
       })
     },
     addAppRule () {
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.dnsRule).then(res => {
+      let data = {
+        appDNSRule: [],
+        appName: sessionStorage.getItem('instanceName'),
+        appSupportMp1: true
+      }
+      data.appDNSRule.push(this.dnsRule)
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
@@ -243,7 +249,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        app.deleteConfigRules(sessionStorage.getItem('instanceId'), row).then(res => {
+        let data = {
+          appDNSRule: [],
+          appName: sessionStorage.getItem('instanceName'),
+          appSupportMp1: true
+        }
+        data.appDNSRule.push(row)
+        app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
         })
       }).catch(() => {
