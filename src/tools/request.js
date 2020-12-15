@@ -33,7 +33,7 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   if (error.response.status === 401) {
-    this.$message.error('登录状态已失效，请重新登录')
+    this.$message.error('登录状态已失效，请刷新界面并重新登录。')
   }
   return Promise.reject(error)
 }

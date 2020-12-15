@@ -1,17 +1,17 @@
 /*
- *  Copyright 2020 Huawei Technologies Co., Ltd.
+ *  Copyright 2020 Huawei Technologies Co ., Ltd .
  *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
+ *  Licensed under the Apache License, Version 2 .0 (the "License");
+ *  you may not use this file except in compliance with the License .
  *  You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www .apache .org/licenses/LICENSE-2 .0
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied .
  *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ *  limitations under the License .
  */
 
 import enLocale from 'element-ui/lib/locale/lang/en'
@@ -22,7 +22,7 @@ const en = {
     login: 'Log In',
     logout: 'Log Out',
     register: 'Register',
-    wrongCaptcha: 'Invalid captcha, please recheck the Captcha.',
+    wrongCaptcha: 'Invalid captcha, please recheck the Captcha .',
     confirmPass: 'Confirm Password',
     contact: 'Contact Number',
     company: 'Company',
@@ -64,8 +64,8 @@ const en = {
     appstore: 'App Store',
     appDetail: 'App Detail',
     appRule: 'App Rules',
-    fileNotSupport: 'File not support to read.',
-    logoutTip: 'Are you sure to log out?',
+    fileNotSupport: 'File not support to read .',
+    logoutTip: 'Are you sure to log out ?',
     ruleConfiguration: 'Rule Configuration'
   },
   overview: {
@@ -143,7 +143,7 @@ const en = {
       operationStatus: 'Operational Status',
       terminate: 'Terminate',
       instanceDetail: 'Instance Detail',
-      beforeDelete: 'Are you sure to delete this instance from the MEC host?',
+      beforeDelete: 'Are you sure to delete this instance from the MEC host ?',
       addRule: 'Add Rules',
       batchDeleteDnsRules: 'Batch delete DNS ruls',
       batchDeleteTrafficRules: 'Batch delete traffic ruls',
@@ -169,7 +169,30 @@ const en = {
       checkRules: 'Check Rules',
       dnsRule: 'DNS Rules',
       trafficRule: 'Traffic Rules',
-      trafficFilter: 'Traffic Filter'
+      trafficFilter: 'Traffic Filter',
+      appRuleManReg: 'App Rule MGR Registration',
+      appRuleManEdit: 'App Rule MGR Editor',
+      appRuleMgrMust: 'App Rule MGR is must',
+      srcTunnelPort: 'Src Tunnel Port',
+      srcTunnelAddress: 'Src Tunnel Address',
+      dstTunnelPort: 'Dst Tunnel Port',
+      dstTunnelAddress: 'Dst Tunnel Address',
+      tag: 'Tag',
+      mutiplePort: 'Use "," to separate multiple ports',
+      mutipleIp: 'Use "," to separate multiple IPs',
+      srcMacAddress: 'Src MAC Address',
+      dstMacAddress: 'Dst MAC Address',
+      tunnelSpecificData: 'Tunnel Specific Data',
+      tunnelType: 'Tunnel Type',
+      interfaceType: 'Interface Type',
+      addNewInterfaceInfo: 'Add New Interface Info',
+      interfaceDescriptor: 'Interface Descriptor',
+      ipInfo: 'IP Information',
+      macInfo: 'MAC Information',
+      tunnelInfo: 'Tunnel Information',
+      interfaceInfo: 'Interface Information',
+      mutipleProtocol: 'Use "," to separate multiple protocols',
+      mutipleTag: 'Use "," to separate multiple tags'
     }
   },
   edgeNode: {
@@ -280,8 +303,8 @@ const en = {
     deletePacFrmoHost: 'You have deleted the package from the host successfully!',
     networkError: 'Error, please check your internet!',
     failedReg: 'Failed to register user, ',
-    wrongCaptcha: 'Invalid captcha, please recheck the Captcha.',
-    failedAuth: 'Authentication Failure, please recheck the User Name or Password.',
+    wrongCaptcha: 'Invalid captcha, please recheck the Captcha .',
+    failedAuth: 'Authentication Failure, please recheck the User Name or Password .',
     deploySuc: 'Deploy successfully!',
     deleteSuc: 'Delete successfully!',
     sucToDownload: 'Succeed to download package from app store!',
@@ -298,9 +321,9 @@ const en = {
     sucToModNode: 'Succeed to modify edge node!',
     regUserSuc: 'User is registered successfully!',
     fileFormatError: 'The file format does not support read or empty content!',
-    sessionOut: 'Your session is expired.',
+    sessionOut: 'Your session is expired .',
     sessionExp: 'Session Expired',
-    version: 'Please choose the package version first.',
+    version: 'Please choose the package version first .',
     noPackage: 'There is no package',
     warning: 'Warning',
     browserAdvise: 'For sure some functions work well, please use Chrome',
@@ -331,14 +354,15 @@ const en = {
     typeApp: 'Please type MEC host ip first!',
     uploadConf: 'Please upload config file first',
     typeCity: 'Please select deployment area',
-    confirmToDeleteNode: 'Are you sure to delete this node?',
+    confirmToDeleteNode: 'Are you sure to delete this node ?',
     deleteAppBeforeDeleteNode: 'You need to delete the application installed on the node first',
-    beforeDeleteApplcm: 'Are you sure to delete this App LCM?',
-    beforeDeleteAppstore: 'Are you sure to delete this App Store?',
-    beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host?',
+    beforeDeleteApplcm: 'Are you sure to delete this App LCM ?',
+    beforeDeleteAppstore: 'Are you sure to delete this App Store ?',
+    beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host ?',
     getStatusDelay: 'There is a delay in query details, please wait 30-40S after the deployment is completed!',
     pleaseSelect: 'Please selece',
-    successToAddRules: 'You have created one rule successfully.'
+    successToAddRules: 'You have created one rule successfully .',
+    regAppManSuc: 'You have created one app rule manager successfully .'
   },
   ...enLocale
 }

@@ -85,7 +85,11 @@
               <span
                 v-else
                 class="error"
-              ><em class="el-icon-error" />{{ scope.row.operationalStatus }}</span>
+              ><em class="el-icon-error" />
+                {{ scope.row.operationalStatus }}
+                <br>
+                {{ scope.row.operationInfo }}
+              </span>
             </template>
           </el-table-column>
           <el-table-column

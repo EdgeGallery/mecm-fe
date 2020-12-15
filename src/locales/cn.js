@@ -169,7 +169,30 @@ const cn = {
       checkRules: '查看详情',
       dnsRule: 'DNS规则',
       trafficRule: '分流规则',
-      trafficFilter: '流过滤规则'
+      trafficFilter: '流过滤规则',
+      appRuleManReg: 'App Rule MGR 注册',
+      appRuleManEdit: 'App Rule MGR 编辑',
+      appRuleMgrMust: 'App Rule MGR为必填项',
+      srcTunnelPort: '隧道源端口',
+      srcTunnelAddress: '隧道源地址',
+      dstTunnelPort: '隧道目的端口',
+      dstTunnelAddress: '隧道目的地址',
+      tag: '标签',
+      mutiplePort: '多个端口请用","分割',
+      mutipleIp: '多个IP请用","分割',
+      srcMacAddress: '源MAC地址',
+      dstMacAddress: '目的MAC地址',
+      tunnelSpecificData: '隧道指定参数',
+      tunnelType: '隧道类型',
+      interfaceType: '接口类型',
+      addNewInterfaceInfo: '新增接口信息',
+      interfaceDescriptor: '转发接口信息',
+      ipInfo: 'IP信息',
+      macInfo: 'MAC信息',
+      tunnelInfo: '隧道信息',
+      interfaceInfo: '接口信息',
+      mutipleProtocol: '多个协议请用","分割',
+      mutipleTag: '多个标签请用","分割'
     }
   },
   edgeNode: {
@@ -338,7 +361,8 @@ const cn = {
     beforeDeleteFromMechost: '确认要从该节点删除应用应用包？',
     getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！',
     pleaseSelect: '请选择',
-    successToAddRules: '你已经成功创建一条规则。'
+    successToAddRules: '你已经成功创建一条规则。',
+    regAppManSuc: '你已成功注册App Rule MGR'
   },
   ...zhLocale
 }

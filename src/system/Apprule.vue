@@ -180,7 +180,7 @@ export default {
       paginationData: [],
       dialogVisible: false,
       ipDisable: false,
-      title: 'App Rule MGR 管理注册',
+      title: this.$t('app.ruleConfig.appRuleManReg'),
       form: {
         appRuleIp: '',
         appRulePort: '',
@@ -198,7 +198,7 @@ export default {
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
         appRuleManagerName: [
-          { required: true, message: 'App Rule MGR为必填项', trigger: 'blur' }
+          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' }
         ]
       }
     }
@@ -235,7 +235,7 @@ export default {
     },
     handleEdit (row) {
       this.editType = 2
-      this.title = 'App Rule MGR 管理编辑'
+      this.title = this.$t('app.ruleConfig.appRuleManEdit')
       this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
@@ -257,7 +257,7 @@ export default {
     },
     register () {
       this.editType = 1
-      this.title = 'App Rule MGR 管理注册'
+      this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
         appRuleIp: '',
         appRulePort: '',
@@ -275,7 +275,7 @@ export default {
         if (valid) {
           if (this.editType === 1) {
             system.create(4, this.form).then(res => {
-              this.$message.success(this.$t('tip.regAppLcmSuc'))
+              this.$message.success(this.$t('tip.regAppManSuc'))
               this.initList()
               this.dialogVisible = false
             }, error => {

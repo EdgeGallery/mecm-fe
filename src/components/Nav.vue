@@ -32,7 +32,6 @@
             src="../assets/images/logo.png"
             alt=""
           >
-          <span class="hidden-sm-and-down">{{ $t('nav.mecm') }}</span>
         </div>
       </el-col>
       <el-col
