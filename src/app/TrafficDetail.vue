@@ -12,41 +12,21 @@
       :data="filterData"
     >
       <el-table-column
+        prop="srcAddress"
         :label="$t('app.ruleConfig.srcAddress')"
-      >
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.srcAddress.join(',') }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
+        prop="srcPort"
         :label="$t('app.ruleConfig.srcPort')"
-      >
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.srcPort.join(',') }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
+        prop="dstAddress"
         :label="$t('app.ruleConfig.dstAddress')"
-      >
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.dstAddress.join(',') }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
+        prop="dstPort"
         :label="$t('app.ruleConfig.dstPort')"
-      >
-        <template slot-scope="scope">
-          <span>
-            {{ scope.row.dstPort.join(',') }}
-          </span>
-        </template>
-      </el-table-column>
+      />
       <el-table-column
         prop="protocol"
         :label="$t('app.ruleConfig.protocol')"

@@ -246,7 +246,7 @@
                   id=""
                   type="text"
                   size="small"
-                  @click="modifyFilterLines(scope.$index, scope.row)"
+                  @click="modifyFilterLines(scope.$index,scope.row)"
                 >
                   {{ $t('common.modify') }}
                 </el-button>
@@ -331,7 +331,7 @@
                     id=""
                     type="text"
                     size="small"
-                    @click="modifyInterfaceLines(scope.$index, scope.row)"
+                    @click="modifyInterfaceLines(scope.$index,scope.row)"
                   >
                     {{ $t('common.modify') }}
                   </el-button>
@@ -708,7 +708,9 @@ export default {
         srcMacAddress: '',
         dstMacAddress: '',
         ddstIpAddress: ''
-      }
+      },
+      interfaceIndex: -1,
+      filterIndex: -1
     }
   },
   methods: {
@@ -716,11 +718,33 @@ export default {
       this.index = -1
       this.operationDialog = true
     },
+    changeSToA (str) {
+      return str.split(',')
+    },
+    changeAToS (arr) {
+      return arr.join(',')
+    },
     getAppRules () {
-      app.getConfigRules().then(res => {
+      app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
-          this.rule = res.data
-          this.trafficRuleTableData = res.data.appTrafficRule
+          console.log(res.data)
+          this.rule = JSON.parse(JSON.stringify(res.data))
+          this.rule.appTrafficRule.forEach(val => {
+            val.trafficFilter.forEach(item => {
+              item.srcAddress = this.changeAToS(item.srcAddress)
+              item.srcPort = this.changeAToS(item.srcPort)
+              item.dstAddress = this.changeAToS(item.dstAddress)
+              item.dstPort = this.changeAToS(item.dstPort)
+              item.protocol = this.changeAToS(item.protocol)
+              item.srcTunnelAddress = this.changeAToS(item.srcTunnelAddress)
+              item.dstTunnelAddress = this.changeAToS(item.dstTunnelAddress)
+              item.srcTunnelPort = this.changeAToS(item.srcTunnelPort)
+              item.dstTunnelPort = this.changeAToS(item.dstTunnelPort)
+              item.tag = this.changeAToS(item.tag)
+            })
+          })
+          this.trafficRuleTableData = this.rule.appTrafficRule
+          console.log(this.trafficRuleTableData)
         }
       })
     },
@@ -732,11 +756,24 @@ export default {
       })
     },
     confirmToAddTraRules () {
+      let data = JSON.parse(JSON.stringify(this.trafficFilterData))
+      data.forEach(item => {
+        item.srcAddress = this.changeSToA(item.srcAddress)
+        item.srcPort = this.changeSToA(item.srcPort)
+        item.dstAddress = this.changeSToA(item.dstAddress)
+        item.dstPort = this.changeSToA(item.dstPort)
+        item.protocol = this.changeSToA(item.protocol)
+        item.srcTunnelAddress = this.changeSToA(item.srcTunnelAddress)
+        item.dstTunnelAddress = this.changeSToA(item.dstTunnelAddress)
+        item.srcTunnelPort = this.changeSToA(item.srcTunnelPort)
+        item.dstTunnelPort = this.changeSToA(item.dstTunnelPort)
+        item.tag = this.changeSToA(item.tag)
+      })
       if (this.index !== -1) {
-        this.rule.appTrafficRule[this.index].trafficFilter = this.trafficFilterData
+        this.rule.appTrafficRule[this.index].trafficFilter = data
         this.rule.appTrafficRule[this.index].dstInterface = this.dstInterfaceData
       } else {
-        this.appTrafficRule.trafficFilter = this.trafficFilterData
+        this.appTrafficRule.trafficFilter = data
         this.appTrafficRule.dstInterface = this.dstInterfaceData
         this.rule.appTrafficRule.push(this.appTrafficRule)
       }
@@ -745,6 +782,7 @@ export default {
       this.operationDialog = false
     },
     checkDetail (row) {
+      console.log(row)
       this.detail = row
       this.showDetail = true
     },
@@ -760,15 +798,21 @@ export default {
       // this.addAppRules()
     },
     addNewFilter () {
+      this.filterIndex = -1
       this.innerFilterVisible = true
     },
-    modifyFilterLines (row) {
+    modifyFilterLines (index, row) {
+      this.filterIndex = index
       this.trafficFilter = row
+      this.innerFilterVisible = true
     },
-    modifyInterfaceLines (row) {
+    modifyInterfaceLines (index, row) {
+      this.interfaceIndex = index
       this.dstInterface = row
+      this.innerInterfaceVisible = true
     },
     addNewInterface () {
+      this.interfaceIndex = -1
       this.innerInterfaceVisible = true
     },
     deleteFilterLines (index, rows) {
@@ -784,11 +828,19 @@ export default {
       this.innerInterfaceVisible = false
     },
     confirmToAddFilter () {
-      this.trafficFilterData.push(this.trafficFilter)
+      if (this.filterIndex !== -1) {
+        this.trafficFilterData[this.filterIndex] = this.trafficFilter
+      } else {
+        this.trafficFilterData.push(this.trafficFilter)
+      }
       this.innerFilterVisible = false
     },
     confirmToAddInterface () {
-      this.dstInterfaceData.push(this.dstInterface)
+      if (this.filterIndex !== -1) {
+        this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
+      } else {
+        this.dstInterfaceData.push(this.dstInterface)
+      }
       this.innerInterfaceVisible = false
     }
   },
@@ -799,4 +851,21 @@ export default {
 
 </script>
 <style lang='less' scoped>
+.btn{
+  margin:15px 15px 15px 0;
+}
+.title{
+  margin:15px 3px;
+  font-size:18px;
+}
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:17px;
+  margin-right:3px;
+  background: #409EFF;
+  position: relative;
+  top:2px;
+}
 </style>
