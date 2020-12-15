@@ -14,6 +14,8 @@
         size="mini"
         class="btn"
         id="batchDeleteTrafficBtn"
+        @click="batchDeleteTrafficRule"
+        @selection-change="handleSelectionChange"
       >
         {{ $t('app.instanceList.batchDeleteTrafficRules') }}
       </el-button>
@@ -71,7 +73,7 @@
               id=""
               type="text"
               size="small"
-              @click="deleteTraRule(scope.$index, scope.row)"
+              @click="deleteTraRule(scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -717,7 +719,7 @@ export default {
       },
       interfaceIndex: -1,
       filterIndex: -1,
-      editType: 2
+      selectedData: []
     }
   },
   methods: {
@@ -731,11 +733,12 @@ export default {
     changeAToS (arr) {
       return arr.join(',')
     },
+    handleSelectionChange (selection) {
+      this.selectedData = selection
+    },
     getAppRules () {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
-          console.log(res.data)
-          this.editType = 1
           this.rule = JSON.parse(JSON.stringify(res.data))
           this.rule.appTrafficRule.forEach(val => {
             val.trafficFilter.forEach(item => {
@@ -752,16 +755,11 @@ export default {
             })
           })
           this.trafficRuleTableData = this.rule.appTrafficRule
-          console.log(this.trafficRuleTableData)
-        }
-      }).catch(err => {
-        if (err.response.status === 404) {
-          this.editType = 2
         }
       })
     },
     addAppRules () {
-      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), this.rule).then(res => {
+      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), this.appTrafficRule).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
@@ -769,8 +767,6 @@ export default {
             } else {
               if (this.index === -1) {
                 this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
-              } else if (this.index === -2) {
-                this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
               } else {
                 this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
               }
@@ -794,20 +790,13 @@ export default {
         item.dstTunnelPort = this.changeSToA(item.dstTunnelPort)
         item.tag = this.changeSToA(item.tag)
       })
-      if (this.index !== -1) {
-        this.rule.appTrafficRule[this.index].trafficFilter = data
-        this.rule.appTrafficRule[this.index].dstInterface = this.dstInterfaceData
-      } else {
-        this.appTrafficRule.trafficFilter = data
-        this.appTrafficRule.dstInterface = this.dstInterfaceData
-        this.rule.appTrafficRule.push(this.appTrafficRule)
-      }
-      console.log(this.rule)
+      this.appTrafficRule.trafficFilter = data
+      this.appTrafficRule.dstInterface = this.dstInterfaceData
+      console.log(this.appTrafficRule)
       this.addAppRules()
       this.operationDialog = false
     },
     checkDetail (row) {
-      console.log(row)
       this.detail = row
       this.showDetail = true
     },
@@ -818,17 +807,19 @@ export default {
       this.trafficFilterData = row[index].trafficFilter
       this.dstInterfaceData = row[index].dstInterface
     },
-    deleteTraRule (index, row) {
+    batchDeleteTrafficRule () {
+      this.deleteTraRule(this.selectedData)
+    },
+    deleteTraRule (row) {
       this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        let data = JSON.parse(JSON.stringify(this.rule))
-        data.appTrafficRule.splice(index, 1)
-        this.index = -2
-        this.rule = data
-        this.addAppRules()
+        app.deleteConfigRules(sessionStorage.getItem('instanceId'), row).then(res => {
+          this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
+          this.getAppRules()
+        })
       }).catch(() => {
         this.$message({
           type: 'info',

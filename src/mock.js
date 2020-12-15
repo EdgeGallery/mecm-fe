@@ -214,6 +214,22 @@ const distributionData = function () {
 
 const appRuleData = function () {
   return {
+    'appDNSRule': [
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      },
+      {
+        'dnsRuleId': 'DNS25841',
+        'domainName': 'domainname',
+        'ipAddressType': 'IPv4',
+        'ipAddress': '1.1.1.1',
+        'ttl': 86400
+      }
+    ],
     'appTrafficRule': [
       {
         'trafficRuleId': 'TrafficRule1',
@@ -434,22 +450,6 @@ const appRuleData = function () {
             'dstIpAddress': '3.3.3.3'
           }
         ]
-      }
-    ],
-    'appDNSRule': [
-      {
-        'dnsRuleId': 'DNS25841',
-        'domainName': 'domainname',
-        'ipAddressType': 'IPv4',
-        'ipAddress': '1.1.1.1',
-        'ttl': 86400
-      },
-      {
-        'dnsRuleId': 'DNS25841',
-        'domainName': 'domainname',
-        'ipAddressType': 'IPv4',
-        'ipAddress': '1.1.1.1',
-        'ttl': 86400
       }
     ],
     'appName': 'appname',
