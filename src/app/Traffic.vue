@@ -719,13 +719,7 @@ export default {
       },
       interfaceIndex: -1,
       filterIndex: -1,
-      selectedData: [],
-      originRule: {
-        appTrafficRule: [],
-        appDNSRule: [],
-        appName: sessionStorage.getItem('instanceName'),
-        appSupportMp1: true
-      }
+      selectedData: []
     }
   },
   methods: {
@@ -746,7 +740,6 @@ export default {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = JSON.parse(JSON.stringify(res.data))
-          this.originRule = JSON.parse(JSON.stringify(res.data))
           this.rule.appTrafficRule.forEach(val => {
             val.trafficFilter.forEach(item => {
               item.srcAddress = this.changeAToS(item.srcAddress)
