@@ -21,6 +21,7 @@
 
       <!-- trafficRuleTable -->
       <el-table
+        v-loading="loading"
         class="mt20"
         :data="trafficRuleTableData"
         border
@@ -488,7 +489,7 @@
                 {{ $t('app.ruleConfig.interfaceInfo') }}
               </p>
               <el-form-item
-                label="interfaceType"
+                :label="$t('app.ruleConfig.interfaceType')"
               >
                 <el-select
                   v-model="dstInterface.interfaceType"
@@ -502,64 +503,58 @@
                   />
                 </el-select>
               </el-form-item>
-              <div v-if="dstInterface.interfaceType==='TUNNEL'">
-                <p class="title">
-                  {{ $t('app.ruleConfig.tunnelInfo') }}
-                </p>
-                <el-form-item :label="$t('app.ruleConfig.tunnelType')">
-                  <el-select
-                    v-model="dstInterface.tunnelInfo.tunnelType"
-                    :placeholder="$t('tip.pleaseSelect')"
-                  >
-                    <el-option
-                      v-for="item in tunnelType"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    />
-                  </el-select>
-                </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
-                  <el-input
-                    v-model="dstInterface.tunnelInfo.tunnelSrcAddress"
+              <p class="title">
+                {{ $t('app.ruleConfig.tunnelInfo') }}
+              </p>
+              <el-form-item :label="$t('app.ruleConfig.tunnelType')">
+                <el-select
+                  v-model="dstInterface.tunnelInfo.tunnelType"
+                  :placeholder="$t('tip.pleaseSelect')"
+                >
+                  <el-option
+                    v-for="item in tunnelType"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
                   />
-                </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
-                  <el-input
-                    v-model="dstInterface.tunnelInfo.tunnelDstAddress"
-                  />
-                </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.tunnelSpecificData')">
-                  <el-input
-                    v-model="dstInterface.tunnelInfo.tunnelSpecificData"
-                  />
-                </el-form-item>
-              </div>
-              <div v-if="dstInterface.interfaceType==='MAC'">
-                <p class="title">
-                  {{ $t('app.ruleConfig.macInfo') }}
-                </p>
-                <el-form-item :label="$t('app.ruleConfig.srcMacAddress')">
-                  <el-input
-                    v-model="dstInterface.srcMacAddress"
-                  />
-                </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstMacAddress')">
-                  <el-input
-                    v-model="dstInterface.dstMacAddress"
-                  />
-                </el-form-item>
-              </div>
-              <div v-if="dstInterface.interfaceType==='IP'">
-                <p class="title">
-                  {{ $t('app.ruleConfig.ipInfo') }}
-                </p>
-                <el-form-item :label="$t('app.ruleConfig.dstAddress')">
-                  <el-input
-                    v-model="dstInterface.ddstIpAddress"
-                  />
-                </el-form-item>
-              </div>
+                </el-select>
+              </el-form-item>
+              <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
+                <el-input
+                  v-model="dstInterface.tunnelInfo.tunnelSrcAddress"
+                />
+              </el-form-item>
+              <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
+                <el-input
+                  v-model="dstInterface.tunnelInfo.tunnelDstAddress"
+                />
+              </el-form-item>
+              <el-form-item :label="$t('app.ruleConfig.tunnelSpecificData')">
+                <el-input
+                  v-model="dstInterface.tunnelInfo.tunnelSpecificData"
+                />
+              </el-form-item>
+              <p class="title">
+                {{ $t('app.ruleConfig.macInfo') }}
+              </p>
+              <el-form-item :label="$t('app.ruleConfig.srcMacAddress')">
+                <el-input
+                  v-model="dstInterface.srcMacAddress"
+                />
+              </el-form-item>
+              <el-form-item :label="$t('app.ruleConfig.dstMacAddress')">
+                <el-input
+                  v-model="dstInterface.dstMacAddress"
+                />
+              </el-form-item>
+              <p class="title">
+                {{ $t('app.ruleConfig.ipInfo') }}
+              </p>
+              <el-form-item :label="$t('app.ruleConfig.dstAddress')">
+                <el-input
+                  v-model="dstInterface.dstIpAddress"
+                />
+              </el-form-item>
             </el-form>
           </el-row>
           <div
@@ -611,6 +606,7 @@ export default {
     return {
       dialog: false,
       timer: null,
+      loading: false,
       operationDialog: false,
       innerFilterVisible: false,
       innerInterfaceVisible: false,
@@ -760,6 +756,7 @@ export default {
           this.trafficRuleTableData = this.rule.appTrafficRule
         }
       })
+      this.loading = false
     },
     addAppRules () {
       let data = {
@@ -782,7 +779,8 @@ export default {
               }
             }
           })
-          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
+          this.loading = true
+          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
         }
       })
     },
@@ -843,7 +841,8 @@ export default {
         }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
-          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
+          this.loading = true
+          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
         })
       })
     },
@@ -853,12 +852,12 @@ export default {
     },
     modifyFilterLines (index, row) {
       this.filterIndex = index
-      this.trafficFilter = row
+      this.trafficFilter = JSON.parse(JSON.stringify(row))
       this.innerFilterVisible = true
     },
     modifyInterfaceLines (index, row) {
       this.interfaceIndex = index
-      this.dstInterface = row
+      this.dstInterface = JSON.parse(JSON.stringify(row))
       this.innerInterfaceVisible = true
     },
     addNewInterface () {
@@ -886,7 +885,7 @@ export default {
       this.innerFilterVisible = false
     },
     confirmToAddInterface () {
-      if (this.filterIndex !== -1) {
+      if (this.interfaceIndex !== -1) {
         this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
       } else {
         this.dstInterfaceData.push(this.dstInterface)
