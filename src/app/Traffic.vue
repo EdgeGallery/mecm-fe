@@ -820,9 +820,9 @@ export default {
       this.deleteTraRule(-1, this.selectedData)
     },
     deleteTraRule (index, row) {
-      this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('tip.ifContinue'), '提示', {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
         let data = {
@@ -839,11 +839,6 @@ export default {
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
           this.getAppRules()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
         })
       })
     },
