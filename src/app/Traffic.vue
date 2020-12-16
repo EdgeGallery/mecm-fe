@@ -881,6 +881,7 @@ export default {
     confirmToAddFilter () {
       if (this.filterIndex !== -1) {
         this.trafficFilterData[this.filterIndex] = this.trafficFilter
+        this.$set(this.trafficFilterData, this.filterIndex, this.trafficFilter)
       } else {
         this.trafficFilterData.push(this.trafficFilter)
       }
@@ -889,6 +890,7 @@ export default {
     confirmToAddInterface () {
       if (this.interfaceIndex !== -1) {
         this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
+        this.$set(this.dstInterfaceData, this.interfaceIndex, this.dstInterface)
       } else {
         this.dstInterfaceData.push(this.dstInterface)
       }
