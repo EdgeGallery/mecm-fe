@@ -120,7 +120,8 @@ const cn = {
       batchDeleteTrafficRules: '批量删除分流规则',
       addDnsRules: '增加DNS规则',
       addTrafficRules: '增加分流规则',
-      addFilter: '新增流过滤规则'
+      addFilter: '新增流过滤规则',
+      batchDelete: '批量删除应用'
     },
     ruleConfig: {
       srcAddress: '源IP地址',
@@ -339,7 +340,7 @@ const cn = {
     successToAddRules: '你已经成功创建一条规则。',
     regAppManSuc: '你已成功注册App Rule MGR',
     ifContinue: '此操作将永久删除该分流规则, 是否继续?',
-    oneAtLeast: '请至少选择一条数据'
+    oneAtLeast: '请至少选择一条规则'
   },
   ...zhLocale
 }

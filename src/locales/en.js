@@ -120,7 +120,8 @@ const en = {
       batchDeleteTrafficRules: 'Batch delete traffic ruls',
       addDnsRules: 'Add DNS rules',
       addTrafficRules: 'Add Traffic rules',
-      addFilter: 'Add Traffic Filter'
+      addFilter: 'Add Traffic Filter',
+      batchDelete: 'Batch delete instances'
     },
     ruleConfig: {
       srcAddress: 'Src IP Address',
@@ -339,7 +340,7 @@ const en = {
     successToAddRules: 'You have created one rule successfully.',
     regAppManSuc: 'You have created one app rule manager successfully.',
     ifContinue: 'This operation will permanently delete the diversion rule, continue?',
-    oneAtLeast: 'Please choose one data at least'
+    oneAtLeast: 'Please select one rule at least'
   },
   ...enLocale
 }
