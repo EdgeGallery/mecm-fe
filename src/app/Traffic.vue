@@ -615,10 +615,11 @@ export default {
       innerInterfaceVisible: false,
       showDetail: false,
       index: -1,
+      appName: sessionStorage.getItem('instanceName'),
       rule: {
         appTrafficRule: [],
         appDNSRule: [],
-        appName: sessionStorage.getItem('instanceName'),
+        appName: '',
         appSupportMp1: true
       },
       detail: {},
@@ -740,6 +741,7 @@ export default {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = JSON.parse(JSON.stringify(res.data))
+          this.appName = res.data.appName
           this.rule.appTrafficRule.forEach(val => {
             val.trafficFilter.forEach(item => {
               item.srcAddress = this.changeAToS(item.srcAddress)
@@ -761,10 +763,11 @@ export default {
     addAppRules () {
       let data = {
         appTrafficRule: [],
-        appName: sessionStorage.getItem('instanceName'),
+        appName: this.appName,
         appSupportMp1: true
       }
       data.appTrafficRule.push(this.appTrafficRule)
+      console.log(data)
       app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
