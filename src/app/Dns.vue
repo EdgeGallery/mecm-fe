@@ -166,6 +166,7 @@ export default {
     return {
       dialog: false,
       index: -1,
+      timer: null,
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
@@ -266,6 +267,7 @@ export default {
         console.log(data)
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         })
       })
     },
@@ -279,6 +281,10 @@ export default {
   },
   mounted () {
     this.getAppRules()
+  },
+  beforeDestroy () {
+    this.timer = null
+    clearTimeout(this.timer)
   }
 }
 

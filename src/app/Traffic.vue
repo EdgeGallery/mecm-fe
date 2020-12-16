@@ -610,6 +610,7 @@ export default {
   data () {
     return {
       dialog: false,
+      timer: null,
       operationDialog: false,
       innerFilterVisible: false,
       innerInterfaceVisible: false,
@@ -781,7 +782,7 @@ export default {
               }
             }
           })
-          this.getAppRules()
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         }
       })
     },
@@ -842,7 +843,7 @@ export default {
         }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
-          this.getAppRules()
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         })
       })
     },
@@ -895,6 +896,10 @@ export default {
   },
   mounted () {
     this.getAppRules()
+  },
+  beforeDestroy () {
+    this.timer = null
+    clearTimeout(this.timer)
   }
 }
 
