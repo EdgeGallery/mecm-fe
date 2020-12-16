@@ -717,7 +717,8 @@ export default {
       },
       interfaceIndex: -1,
       filterIndex: -1,
-      selectedData: []
+      selectedData: [],
+      type: 1
     }
   },
   methods: {
@@ -737,6 +738,7 @@ export default {
     getAppRules () {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
+          this.type = 2
           this.rule = JSON.parse(JSON.stringify(res.data))
           this.appName = res.data.appName
           this.rule.appTrafficRule.forEach(val => {
@@ -766,7 +768,7 @@ export default {
       }
       data.appTrafficRule.push(this.appTrafficRule)
       console.log(data)
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
+      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
@@ -780,7 +782,7 @@ export default {
             }
           })
           this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
+          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         }
       })
     },
@@ -842,7 +844,7 @@ export default {
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
           this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
+          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         })
       })
     },

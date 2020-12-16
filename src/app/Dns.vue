@@ -169,6 +169,7 @@ export default {
       index: -1,
       timer: null,
       loading: false,
+      type: 1,
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
@@ -201,6 +202,7 @@ export default {
     getAppRules () {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
+          this.type = 2
           this.rule = res.data
           this.appName = this.rule.appName
           this.dnsRuleTableData = res.data.appDNSRule
@@ -231,7 +233,7 @@ export default {
             }
           })
           this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
+          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         }
       })
     },
@@ -271,7 +273,7 @@ export default {
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
           this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
+          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         })
       })
     },
