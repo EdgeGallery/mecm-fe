@@ -87,8 +87,6 @@
                 class="error"
               ><em class="el-icon-error" />
                 {{ scope.row.operationalStatus }}
-                <br>
-                {{ scope.row.operationInfo }}
               </span>
             </template>
           </el-table-column>
@@ -106,14 +104,6 @@
                 {{ $t('common.delete') }}
               </el-button>
               <el-button
-                type="text"
-                size="small"
-                @click="jump(scope.row)"
-                :loading="loading"
-              >
-                {{ $t('nav.ruleConfiguration') }}
-              </el-button>
-              <el-button
                 id="detailBtn"
                 @click="checkDetail(scope.row)"
                 :disabled="scope.row.operationalStatus !== 'Instantiated'"
@@ -121,6 +111,21 @@
                 size="small"
               >
                 {{ $t('common.detail') }}
+              </el-button>
+              <el-button
+                type="text"
+                size="small"
+                @click="showReason(scope.row)"
+                v-if="scope.row.operationalStatus !== 'Instantiated'"
+              >
+                操作信息
+              </el-button>
+              <el-button
+                type="text"
+                size="small"
+                @click="jump(scope.row)"
+              >
+                {{ $t('nav.ruleConfiguration') }}
               </el-button>
             </template>
           </el-table-column>
@@ -211,6 +216,9 @@ export default {
       sessionStorage.setItem('instanceId', row.appInstanceId)
       sessionStorage.setItem('instanceName', row.appName)
       this.$router.push('/mecm/ruleconfig')
+    },
+    showReason (row) {
+      this.$alert(row.operationInfo, 'Operation Info')
     },
     clearInterval () {
       clearTimeout(this.interval)

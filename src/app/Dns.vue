@@ -218,7 +218,7 @@ export default {
       }
       data.appDNSRule.push(this.dnsRule)
       console.log(data)
-      app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
+      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
