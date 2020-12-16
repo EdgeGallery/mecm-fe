@@ -189,7 +189,7 @@ let app = {
     return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   },
   addConfigRules (type, id, params) {
-    if (type !== -1) {
+    if (type === 2) {
       return PUT(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
     } else {
       return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
