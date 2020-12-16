@@ -772,12 +772,12 @@ export default {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
-              this.$message.error(this.$('app.ruleConfig.mepError'))
+              this.$message.error(this.$t('app.ruleConfig.mepError'))
             } else {
               if (this.index === -1) {
-                this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
               } else {
-                this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
               }
             }
           })
@@ -837,7 +837,7 @@ export default {
           })
         }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
-          this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
+          this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
           this.getAppRules()
         })
       }).catch(() => {
