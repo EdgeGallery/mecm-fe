@@ -68,8 +68,8 @@ function DELETE (url, params) {
     'access_token': getToken()
   }
   return axios.delete(url, {
-    params: params,
-    headers: headers
+    headers: headers,
+    data: params
   })
 }
 

@@ -166,12 +166,6 @@ export default {
     return {
       dialog: false,
       index: -1,
-      rule: {
-        'appTrafficRule': [],
-        'appDNSRule': [],
-        'appName': sessionStorage.getItem('instanceName'),
-        'appSupportMp1': true
-      },
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
@@ -190,7 +184,14 @@ export default {
           label: 'IP_V6'
         }
       ],
-      selectedData: []
+      selectedData: [],
+      appName: sessionStorage.getItem('instanceName'),
+      rule: {
+        'appTrafficRule': [],
+        'appDNSRule': [],
+        'appName': '',
+        'appSupportMp1': true
+      }
     }
   },
   methods: {
@@ -198,6 +199,7 @@ export default {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.rule = res.data
+          this.appName = this.rule.appName
           this.dnsRuleTableData = res.data.appDNSRule
         }
       })
@@ -205,7 +207,7 @@ export default {
     addAppRule () {
       let data = {
         appDNSRule: [],
-        appName: sessionStorage.getItem('instanceName'),
+        appName: this.appName,
         appSupportMp1: true
       }
       data.appDNSRule.push(this.dnsRule)
@@ -255,12 +257,13 @@ export default {
           appDNSRule: []
         }
         if (index !== -1) {
-          data.appDNSRule.push(row.trafficRuleId)
+          data.appDNSRule.push(row.dnsRuleId)
         } else {
           row.forEach(item => {
-            data.appDNSRule.push(item.trafficRuleId)
+            data.appDNSRule.push(item.dnsRuleId)
           })
         }
+        console.log(data)
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
         })
