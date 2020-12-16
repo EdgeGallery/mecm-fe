@@ -35,7 +35,7 @@
           type="primary"
           @click="beforeDelete(selectData,1)"
         >
-          批量删除
+          {{ this.$t('app.instanceList.batchDelete') }}
         </el-button>
       </div>
       <div class="tableDiv">

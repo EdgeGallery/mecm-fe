@@ -166,6 +166,7 @@ export default {
     return {
       dialog: false,
       index: -1,
+      timer: null,
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
@@ -216,13 +217,13 @@ export default {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
-              this.$message.error(this.$('app.ruleConfig.mepError'))
+              this.$message.error(this.$t('app.ruleConfig.mepError'))
             } else {
               this.dialog = false
               if (this.index === -1) {
-                this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
               } else {
-                this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
               }
             }
           })
@@ -247,9 +248,9 @@ export default {
       this.dnsRule = data
     },
     deleteDnsRule (index, row) {
-      this.$confirm('此操作将永久删除该DNS规则, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('tip.ifContinue'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
         let data = {
@@ -265,12 +266,8 @@ export default {
         }
         console.log(data)
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
-          this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
+          this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         })
       })
     },
@@ -278,12 +275,16 @@ export default {
       if (this.selectedData.length > 0) {
         this.deleteDnsRule(-1, this.selectedData)
       } else {
-        this.$message.warning('请至少选择一条数据')
+        this.$message.warning(this.$t('tip.oneAtLeast'))
       }
     }
   },
   mounted () {
     this.getAppRules()
+  },
+  beforeDestroy () {
+    this.timer = null
+    clearTimeout(this.timer)
   }
 }
 

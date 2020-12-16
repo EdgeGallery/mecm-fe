@@ -610,6 +610,7 @@ export default {
   data () {
     return {
       dialog: false,
+      timer: null,
       operationDialog: false,
       innerFilterVisible: false,
       innerInterfaceVisible: false,
@@ -772,16 +773,16 @@ export default {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
             if (response.data.response.configResult === 'FAILURE') {
-              this.$message.error(this.$('app.ruleConfig.mepError'))
+              this.$message.error(this.$t('app.ruleConfig.mepError'))
             } else {
               if (this.index === -1) {
-                this.$message.success(this.$('app.ruleConfig.addRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
               } else {
-                this.$message.success(this.$('app.ruleConfig.editRuleSuc'))
+                this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
               }
             }
           })
-          this.getAppRules()
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         }
       })
     },
@@ -817,12 +818,16 @@ export default {
       this.dstInterfaceData = row[index].dstInterface
     },
     batchDeleteTrafficRule () {
-      this.deleteTraRule(-1, this.selectedData)
+      if (this.selectedData.length > 0) {
+        this.deleteTraRule(-1, this.selectedData)
+      } else {
+        this.$message.warning(this.$t('tip.oneAtLeast'))
+      }
     },
     deleteTraRule (index, row) {
-      this.$confirm('此操作将永久删除该分流规则, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(this.$t('tip.ifContinue'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
       }).then(() => {
         let data = {
@@ -837,13 +842,8 @@ export default {
           })
         }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
-          this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
-          this.getAppRules()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
+          this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
+          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
         })
       })
     },
@@ -896,6 +896,10 @@ export default {
   },
   mounted () {
     this.getAppRules()
+  },
+  beforeDestroy () {
+    this.timer = null
+    clearTimeout(this.timer)
   }
 }
 

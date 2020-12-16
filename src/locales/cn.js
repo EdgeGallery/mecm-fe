@@ -16,38 +16,9 @@
 
 import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
 const cn = {
-  login: {
-    userName: '用户名',
-    password: '密码',
-    login: '登录',
-    register: '注册',
-    logout: '注销',
-    wrongCaptcha: '验证码错误，请重新输入验证码。',
-    confirmPass: '密码确认',
-    contact: '联系方式',
-    company: '工作单位',
-    gender: '性别',
-    male: '男',
-    female: '女',
-    namePla: '用户名/手机号',
-    pwdPla: '密码',
-    pwdConfPla: '密码确认',
-    compPla: '公司信息',
-    telPla: '电话号码',
-    getCap: '获取验证码',
-    capPla: '验证码',
-    newPwd: '新密码',
-    confirmNewPwd: '确认新密码',
-    forgotPwd: '忘记密码？',
-    modifyPwd: '修改密码',
-    loginWithUser: '账户登录',
-    welcome: '欢迎注册EdgeGallery平台',
-    freeSign: '免费注册',
-    getPwd: '找回密码',
-    verify: '点击按钮进行验证',
-    changeOne: '换一张'
-  },
   nav: {
+    login: '登录',
+    logout: '注销',
     mecm: '管理平台',
     overview: '概述',
     appMana: '应用管理',
@@ -149,7 +120,8 @@ const cn = {
       batchDeleteTrafficRules: '批量删除分流规则',
       addDnsRules: '增加DNS规则',
       addTrafficRules: '增加分流规则',
-      addFilter: '新增流过滤规则'
+      addFilter: '新增流过滤规则',
+      batchDelete: '批量删除应用'
     },
     ruleConfig: {
       srcAddress: '源IP地址',
@@ -366,7 +338,9 @@ const cn = {
     getStatusDelay: '查询详情存在延迟，请等待部署完成30-40S后查询！',
     pleaseSelect: '请选择',
     successToAddRules: '你已经成功创建一条规则。',
-    regAppManSuc: '你已成功注册App Rule MGR'
+    regAppManSuc: '你已成功注册App Rule MGR',
+    ifContinue: '此操作将永久删除该分流规则, 是否继续?',
+    oneAtLeast: '请至少选择一条规则'
   },
   ...zhLocale
 }

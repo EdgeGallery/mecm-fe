@@ -65,11 +65,11 @@
             <span
               @click="logout()"
               v-if="ifGuest"
-            >{{ $t('login.login') }}</span>
+            >{{ $t('nav.login') }}</span>
             <span
               @click="beforeLogout()"
               v-else
-            >{{ $t('login.logout') }}</span>
+            >{{ $t('nav.logout') }}</span>
           </div>
         </div>
       </el-col>
