@@ -21,6 +21,7 @@
       <el-table
         class="mt20"
         :data="dnsRuleTableData"
+        v-loading="loading"
         border
         style="width: 100%;"
         @selection-change="handleSelectionChange"
@@ -167,6 +168,7 @@ export default {
       dialog: false,
       index: -1,
       timer: null,
+      loading: false,
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
@@ -204,6 +206,7 @@ export default {
           this.dnsRuleTableData = res.data.appDNSRule
         }
       })
+      this.loading = false
     },
     addAppRule () {
       let data = {
@@ -227,7 +230,8 @@ export default {
               }
             }
           })
-          this.getAppRules()
+          this.loading = true
+          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
         }
       })
     },
@@ -264,10 +268,10 @@ export default {
             data.appDNSRule.push(item.dnsRuleId)
           })
         }
-        console.log(data)
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
-          this.timer = setTimeout(() => { this.getAppRules() }, 1000)
+          this.loading = true
+          this.timer = setTimeout(() => { this.getAppRules() }, 2000)
         })
       })
     },
