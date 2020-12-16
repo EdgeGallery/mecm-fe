@@ -689,31 +689,31 @@ export default {
       trafficFilterData: [],
       dstInterfaceData: [],
       trafficFilter: {
-        srcAddress: '',
-        srcPort: '',
-        dstAddress: '',
-        dstPort: '',
-        protocol: '',
-        qCI: '',
-        dSCP: '',
-        tC: '',
-        tag: '',
-        srcTunnelAddress: '',
-        srcTunnelPort: '',
-        dstTunnelAddress: '',
-        dstTunnelPort: ''
+        srcAddress: '192.168.1.1/32',
+        srcPort: '8080',
+        dstAddress: '192.168.1.1/32',
+        dstPort: '8080',
+        protocol: 'ANY',
+        qCI: '0',
+        dSCP: '0',
+        tC: '0',
+        tag: 'tag',
+        srcTunnelAddress: '1.1.1.1',
+        srcTunnelPort: '8080',
+        dstTunnelAddress: '2.2.2.2',
+        dstTunnelPort: '8080'
       },
       dstInterface: {
-        interfaceType: '',
+        interfaceType: 'TUNNEL',
         tunnelInfo: {
-          tunnelType: '',
-          tunnelDstAddress: '',
-          tunnelSrcAddress: '',
-          tunnelSpecificData: ''
+          tunnelType: 'GRE',
+          tunnelDstAddress: '3.3.3.3',
+          tunnelSrcAddress: '4.4.4.4',
+          tunnelSpecificData: 'any'
         },
-        srcMacAddress: '',
-        dstMacAddress: '',
-        ddstIpAddress: ''
+        srcMacAddress: '02-00-00-00-00-00',
+        dstMacAddress: '02-00-00-00-00-00',
+        dstIpAddress: '5.5.5.5'
       },
       interfaceIndex: -1,
       filterIndex: -1,
