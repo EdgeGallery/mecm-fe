@@ -67,7 +67,7 @@
               id="deleteBtn"
               type="text"
               size="small"
-              @click="deleteDnsRule(scope.row)"
+              @click="deleteDnsRule(scope.$index,scope.row)"
             >
               {{ $t('common.delete') }}
             </el-button>
@@ -209,6 +209,7 @@ export default {
         appSupportMp1: true
       }
       data.appDNSRule.push(this.dnsRule)
+      console.log(data)
       app.addConfigRules(this.index, sessionStorage.getItem('instanceId'), data).then(res => {
         if (res.data) {
           app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
@@ -243,18 +244,23 @@ export default {
       let data = JSON.parse(JSON.stringify(row[index]))
       this.dnsRule = data
     },
-    deleteDnsRule (row) {
+    deleteDnsRule (index, row) {
       this.$confirm('此操作将永久删除该DNS规则, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         let data = {
-          appDNSRule: [],
-          appName: sessionStorage.getItem('instanceName'),
-          appSupportMp1: true
+          appTrafficRule: [],
+          appDNSRule: []
         }
-        data.appDNSRule.push(row)
+        if (index !== -1) {
+          data.appDNSRule.push(row.trafficRuleId)
+        } else {
+          row.forEach(item => {
+            data.appDNSRule.push(item.trafficRuleId)
+          })
+        }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
         })
@@ -267,7 +273,7 @@ export default {
     },
     batchDeleteDnsRule () {
       if (this.selectedData.length > 0) {
-        this.deleteDnsRule(this.selectedData)
+        this.deleteDnsRule(-1, this.selectedData)
       } else {
         this.$message.warning('请至少选择一条数据')
       }
