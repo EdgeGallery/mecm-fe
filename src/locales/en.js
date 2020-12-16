@@ -338,7 +338,8 @@ const en = {
     pleaseSelect: 'Please selece',
     successToAddRules: 'You have created one rule successfully.',
     regAppManSuc: 'You have created one app rule manager successfully.',
-    ifContinue: 'This operation will permanently delete the diversion rule, continue?'
+    ifContinue: 'This operation will permanently delete the diversion rule, continue?',
+    oneAtLeast: 'Please choose one data at least'
   },
   ...enLocale
 }

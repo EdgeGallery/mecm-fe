@@ -817,10 +817,14 @@ export default {
       this.dstInterfaceData = row[index].dstInterface
     },
     batchDeleteTrafficRule () {
-      this.deleteTraRule(-1, this.selectedData)
+      if (this.selectedData.length > 0) {
+        this.deleteTraRule(-1, this.selectedData)
+      } else {
+        this.$message.warning(this.$t('tip.oneAtLeast'))
+      }
     },
     deleteTraRule (index, row) {
-      this.$confirm(this.$t('tip.ifContinue'), '提示', {
+      this.$confirm(this.$t('tip.ifContinue'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         type: 'warning'
