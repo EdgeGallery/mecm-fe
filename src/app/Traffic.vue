@@ -15,7 +15,6 @@
         class="btn"
         id="batchDeleteTrafficBtn"
         @click="batchDeleteTrafficRule"
-        @selection-change="handleSelectionChange"
       >
         {{ $t('app.instanceList.batchDeleteTrafficRules') }}
       </el-button>
@@ -26,6 +25,7 @@
         :data="trafficRuleTableData"
         border
         style="width: 100%;"
+        @selection-change="handleSelectionChange"
       >
         <el-table-column
           type="selection"
@@ -824,28 +824,15 @@ export default {
       }).then(() => {
         let data = {
           appTrafficRule: [],
-          appName: sessionStorage.getItem('instanceName'),
-          appSupportMp1: true
+          appDNSRule: []
         }
         if (index !== -1) {
-          data.appTrafficRule.push(row)
+          data.appTrafficRule.push(row.trafficRuleId)
         } else {
-          data.appTrafficRule = row
-        }
-        data.appTrafficRule.forEach(val => {
-          val.trafficFilter.forEach(item => {
-            item.srcAddress = this.changeSToA(item.srcAddress)
-            item.srcPort = this.changeSToA(item.srcPort)
-            item.dstAddress = this.changeSToA(item.dstAddress)
-            item.dstPort = this.changeSToA(item.dstPort)
-            item.protocol = this.changeSToA(item.protocol)
-            item.srcTunnelAddress = this.changeSToA(item.srcTunnelAddress)
-            item.dstTunnelAddress = this.changeSToA(item.dstTunnelAddress)
-            item.srcTunnelPort = this.changeSToA(item.srcTunnelPort)
-            item.dstTunnelPort = this.changeSToA(item.dstTunnelPort)
-            item.tag = this.changeSToA(item.tag)
+          row.forEach(item => {
+            data.appTrafficRule.push(item.trafficRuleId)
           })
-        })
+        }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.$message.success(this.$('app.ruleConfig.delRuleSuc'))
           this.getAppRules()
