@@ -187,7 +187,7 @@ export default {
   data () {
     return {
       loading: false,
-      status: ['Instantiated', 'Created', 'Instantiation Failed'],
+      status: ['Instantiated', 'Created failed', 'Instantiation failed'],
       currPageTableData: [],
       paginationData: [],
       dataLoading: true,

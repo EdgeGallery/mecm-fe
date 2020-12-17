@@ -33,7 +33,11 @@ axios.interceptors.response.use(function (response) {
   return response
 }, function (error) {
   if (error.response.status === 401) {
-    this.$message.error('登录状态已失效，请刷新界面并重新登录。')
+    this.$message.error(this.$t('tip.loginStatusFailed'))
+    let host = window.location.hostname
+    setTimeout(() => {
+      window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
+    }, 1500)
   }
   return Promise.reject(error)
 }
