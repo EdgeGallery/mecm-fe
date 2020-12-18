@@ -341,7 +341,8 @@ const en = {
     regAppManSuc: 'You have created one app rule manager successfully.',
     ifContinue: 'This operation will permanently delete the diversion rule, continue?',
     oneAtLeast: 'Please select one rule at least',
-    loginStatusFailed: 'The login status has expired, please refresh the interface and log in again.'
+    loginStatusFailed: 'The login status has expired, please refresh the interface and log in again.',
+    operationInfo: 'Operation Info'
   },
   ...enLocale
 }

@@ -38,6 +38,8 @@ axios.interceptors.response.use(function (response) {
     setTimeout(() => {
       window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
     }, 1500)
+  } else if (error.response.status === 403) {
+    this.$message.error(this.$t('tip.loginStatusFailed'))
   }
   return Promise.reject(error)
 }

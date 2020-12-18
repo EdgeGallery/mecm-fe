@@ -118,7 +118,7 @@
                 @click="showReason(scope.row)"
                 v-if="scope.row.operationalStatus !== 'Instantiated'"
               >
-                操作信息
+                {{ $t('tip.operationInfo') }}
               </el-button>
               <el-button
                 type="text"

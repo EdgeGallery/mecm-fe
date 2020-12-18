@@ -341,7 +341,8 @@ const cn = {
     regAppManSuc: '你已成功注册App Rule MGR',
     ifContinue: '此操作将永久删除该分流规则, 是否继续?',
     oneAtLeast: '请至少选择一条规则',
-    loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。'
+    loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。',
+    operationInfo: '操作信息'
   },
   ...zhLocale
 }
