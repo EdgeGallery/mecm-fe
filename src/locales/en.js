@@ -342,7 +342,11 @@ const en = {
     ifContinue: 'This operation will permanently delete the diversion rule, continue?',
     oneAtLeast: 'Please select one rule at least',
     loginStatusFailed: 'The login status has expired, please refresh the interface and log in again.',
-    operationInfo: 'Operation Info'
+    operationInfo: 'Operation Info',
+    ttl: 'Please type right ttl',
+    macMust: 'Please type right mac address',
+    idMust: 'Please type right rule ID',
+    domainMust: 'Please type right domain name'
   },
   ...enLocale
 }

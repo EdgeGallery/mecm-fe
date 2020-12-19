@@ -108,17 +108,28 @@
           {{ $t('app.ruleConfig.trafficRule') }}
         </p>
 
-        <el-form label-width="120px">
+        <el-form
+          label-width="120px"
+          :model="appTrafficRule"
+          status-icon
+          ref="appTrafficRule"
+          :rules="formRules"
+        >
           <el-row :gutter="24">
             <el-col :span="12">
-              <el-form-item :label="$t('app.ruleConfig.trafficRuleId')">
+              <el-form-item
+                :label="$t('app.ruleConfig.trafficRuleId')"
+                prop="trafficRuleId"
+              >
                 <el-input
                   id=""
                   maxlength="30"
                   v-model="appTrafficRule.trafficRuleId"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.priority')">
+              <el-form-item
+                :label="$t('app.ruleConfig.priority')"
+              >
                 <el-input-number
                   v-model="appTrafficRule.priority"
                   :min="1"
@@ -361,9 +372,18 @@
           append-to-body
         >
           <el-row>
-            <el-form label-width="125px">
+            <el-form
+              label-width="125px"
+              :model="trafficFilter"
+              status-icon
+              ref="trafficFilter"
+              :rules="formTrafficfilterRules"
+            >
               <el-col :span="12">
-                <el-form-item :label="$t('app.ruleConfig.srcAddress')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.srcAddress')"
+                  prop="srcAddress"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -371,7 +391,10 @@
                     :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.srcPort')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.srcPort')"
+                  prop="srcPort"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -379,7 +402,10 @@
                     :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstAddress')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.dstAddress')"
+                  prop="dstAddress"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -387,7 +413,10 @@
                     :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstPort')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.dstPort')"
+                  prop="dstPort"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -395,13 +424,19 @@
                     :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.tag')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.tag')"
+                  prop="tag"
+                >
                   <el-input
                     v-model="trafficFilter.tag"
                     :placeholder="$t('app.ruleConfig.mutipleTag')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.protocol')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.protocol')"
+                  prop="protocol"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -409,7 +444,10 @@
                     :placeholder="$t('app.ruleConfig.mutipleProtocol')"
                   />
                 </el-form-item>
-                <el-form-item label="QCI">
+                <el-form-item
+                  label="QCI"
+                  prop="qCI"
+                >
                   <el-input
                     id=""
                     maxlength="30"
@@ -418,39 +456,57 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="DSCP">
+                <el-form-item
+                  label="DSCP"
+                  prop="dSCP"
+                >
                   <el-input
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.dSCP"
                   />
                 </el-form-item>
-                <el-form-item label="TC">
+                <el-form-item
+                  label="TC"
+                  prop="tc"
+                >
                   <el-input
                     id=""
                     maxlength="30"
                     v-model="trafficFilter.tC"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.dstTunnelAddress')"
+                  prop="dstTunnelAddress"
+                >
                   <el-input
                     v-model="trafficFilter.dstTunnelAddress"
                     :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.srcTunnelPort')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.srcTunnelPort')"
+                  prop="dstTunnelPort"
+                >
                   <el-input
                     v-model="trafficFilter.dstTunnelPort"
                     :placeholder="$t('app.ruleConfig.mutiplePort')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.srcTunnelAddress')"
+                  prop="srcTunnelAddress"
+                >
                   <el-input
                     v-model="trafficFilter.srcTunnelAddress"
                     :placeholder="$t('app.ruleConfig.mutipleIp')"
                   />
                 </el-form-item>
-                <el-form-item :label="$t('app.ruleConfig.dstTunnelPort')">
+                <el-form-item
+                  :label="$t('app.ruleConfig.dstTunnelPort')"
+                  prop="srcTunnelPort"
+                >
                   <el-input
                     v-model="trafficFilter.srcTunnelPort"
                     :placeholder="$t('app.ruleConfig.mutiplePort')"
@@ -484,12 +540,19 @@
           append-to-body
         >
           <el-row>
-            <el-form label-width="125px">
+            <el-form
+              label-width="125px"
+              :model="dstInterface"
+              status-icon
+              ref="dstInterface"
+              :rules="formInterfaceRules"
+            >
               <p class="title">
                 {{ $t('app.ruleConfig.interfaceInfo') }}
               </p>
               <el-form-item
                 :label="$t('app.ruleConfig.interfaceType')"
+                prop="interfaceType"
               >
                 <el-select
                   v-model="dstInterface.interfaceType"
@@ -506,7 +569,10 @@
               <p class="title">
                 {{ $t('app.ruleConfig.tunnelInfo') }}
               </p>
-              <el-form-item :label="$t('app.ruleConfig.tunnelType')">
+              <el-form-item
+                :label="$t('app.ruleConfig.tunnelType')"
+                prop="tunnelType"
+              >
                 <el-select
                   v-model="dstInterface.tunnelInfo.tunnelType"
                   :placeholder="$t('tip.pleaseSelect')"
@@ -519,17 +585,26 @@
                   />
                 </el-select>
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.srcTunnelAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.srcTunnelAddress')"
+                prop="tunnelSrcAddress"
+              >
                 <el-input
                   v-model="dstInterface.tunnelInfo.tunnelSrcAddress"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.dstTunnelAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.dstTunnelAddress')"
+                prop="tunnelDstAddress"
+              >
                 <el-input
                   v-model="dstInterface.tunnelInfo.tunnelDstAddress"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.tunnelSpecificData')">
+              <el-form-item
+                :label="$t('app.ruleConfig.tunnelSpecificData')"
+                prop="tunnelSpecificData"
+              >
                 <el-input
                   v-model="dstInterface.tunnelInfo.tunnelSpecificData"
                 />
@@ -537,12 +612,18 @@
               <p class="title">
                 {{ $t('app.ruleConfig.macInfo') }}
               </p>
-              <el-form-item :label="$t('app.ruleConfig.srcMacAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.srcMacAddress')"
+                prop="srcMacAddress"
+              >
                 <el-input
                   v-model="dstInterface.srcMacAddress"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.dstMacAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.dstMacAddress')"
+                prop="dstMacAddress"
+              >
                 <el-input
                   v-model="dstInterface.dstMacAddress"
                 />
@@ -550,7 +631,10 @@
               <p class="title">
                 {{ $t('app.ruleConfig.ipInfo') }}
               </p>
-              <el-form-item :label="$t('app.ruleConfig.dstAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.dstAddress')"
+                prop="dstIpAddress"
+              >
                 <el-input
                   v-model="dstInterface.dstIpAddress"
                 />
@@ -579,7 +663,7 @@
       >
         <el-button
           id="cancelBtn"
-          @click="operationDialog=false"
+          @click="cancelAddRule"
         >
           {{ $t('common.cancel') }}
         </el-button>
@@ -680,8 +764,8 @@ export default {
       trafficRuleTableData: [],
       appTrafficRule: {
         trafficRuleId: '',
-        action: '',
-        filterType: '',
+        action: 'DROP',
+        filterType: 'FLOW',
         priority: 0,
         trafficFilter: [],
         dstInterface: []
@@ -718,7 +802,68 @@ export default {
       interfaceIndex: -1,
       filterIndex: -1,
       selectedData: [],
-      type: 1
+      type: 1,
+      formRules: {
+        trafficRuleId: [
+          { required: true, message: this.$t('idMust'), trigger: 'blur' }
+        ]
+      },
+      formTrafficfilterRules: {
+        srcAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\/[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        srcPort: [
+          { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\/[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstPort: [
+          { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        srcTunnelAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        srcTunnelPort: [
+          { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstTunnelAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstTunnelPort: [
+          { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ]
+      },
+      formInterfaceRules: {
+        tunnelDstAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        tunnelSrcAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        srcMacAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstMacAddress: [
+          { required: false, message: this.$t('tip.macMust'), trigger: 'blur' },
+          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstIpAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ]
+      }
     }
   },
   methods: {
@@ -734,6 +879,10 @@ export default {
     },
     handleSelectionChange (selection) {
       this.selectedData = selection
+    },
+    cancelAddRule () {
+      this.$refs.appTrafficRule.resetFields()
+      this.operationDialog = false
     },
     getAppRules () {
       app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
@@ -761,28 +910,33 @@ export default {
       this.loading = false
     },
     addAppRules () {
-      let data = {
-        appTrafficRule: [],
-        appName: this.appName,
-        appSupportMp1: true
-      }
-      data.appTrafficRule.push(this.appTrafficRule)
-      console.log(data)
-      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
-        if (res.data) {
-          app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
-            if (response.data.response.configResult === 'FAILURE') {
-              this.$message.error(this.$t('app.ruleConfig.mepError'))
-            } else {
-              if (this.index === -1) {
-                this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
-              } else {
-                this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
-              }
+      this.$refs.appTrafficRule.validate((valid) => {
+        if (valid) {
+          let data = {
+            appTrafficRule: [],
+            appName: this.appName,
+            appSupportMp1: true
+          }
+          this.operationDialog = false
+          data.appTrafficRule.push(this.appTrafficRule)
+          console.log(data)
+          app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
+            if (res.data) {
+              app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+                if (response.data.response.configResult === 'FAILURE') {
+                  this.$message.error(this.$t('app.ruleConfig.mepError'))
+                } else {
+                  if (this.index === -1) {
+                    this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
+                  } else {
+                    this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
+                  }
+                }
+              })
+              this.loading = true
+              this.timer = setTimeout(() => { this.getAppRules() }, 3000)
             }
           })
-          this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         }
       })
     },
@@ -804,7 +958,6 @@ export default {
       this.appTrafficRule.dstInterface = this.dstInterfaceData
       console.log(this.appTrafficRule)
       this.addAppRules()
-      this.operationDialog = false
     },
     checkDetail (row) {
       this.detail = row
@@ -874,27 +1027,37 @@ export default {
     },
     cancelEditFilter () {
       this.innerFilterVisible = false
+      this.$refs.trafficFilter.resetFields()
     },
     cancelEditInterface () {
       this.innerInterfaceVisible = false
+      this.$refs.trafficFilter.resetFields()
     },
     confirmToAddFilter () {
-      if (this.filterIndex !== -1) {
-        this.trafficFilterData[this.filterIndex] = this.trafficFilter
-        this.$set(this.trafficFilterData, this.filterIndex, this.trafficFilter)
-      } else {
-        this.trafficFilterData.push(this.trafficFilter)
-      }
-      this.innerFilterVisible = false
+      this.$refs.dstInterface.validate((valid) => {
+        if (valid) {
+          if (this.filterIndex !== -1) {
+            this.trafficFilterData[this.filterIndex] = this.trafficFilter
+            this.$set(this.trafficFilterData, this.filterIndex, this.trafficFilter)
+          } else {
+            this.trafficFilterData.push(this.trafficFilter)
+          }
+          this.innerFilterVisible = false
+        }
+      })
     },
     confirmToAddInterface () {
-      if (this.interfaceIndex !== -1) {
-        this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
-        this.$set(this.dstInterfaceData, this.interfaceIndex, this.dstInterface)
-      } else {
-        this.dstInterfaceData.push(this.dstInterface)
-      }
-      this.innerInterfaceVisible = false
+      this.$refs.dstInterface.validate((valid) => {
+        if (valid) {
+          if (this.interfaceIndex !== -1) {
+            this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
+            this.$set(this.dstInterfaceData, this.interfaceIndex, this.dstInterface)
+          } else {
+            this.dstInterfaceData.push(this.dstInterface)
+          }
+          this.innerInterfaceVisible = false
+        }
+      })
     }
   },
   mounted () {

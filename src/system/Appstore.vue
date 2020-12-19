@@ -113,6 +113,7 @@
           <el-col>
             <el-form
               :model="form"
+              status-iconstatus-icon
               ref="form"
               :rules="rules"
             >
