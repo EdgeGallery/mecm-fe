@@ -42,8 +42,9 @@ axios.interceptors.response.use(
       }, 1500)
     } else if (error.response.status === 403) {
       this.$message.error(this.$t('tip.loginStatusFailed'))
+    } else {
+      return Promise.reject(error)
     }
-    return Promise.reject(error)
   }
 )
 
