@@ -15,6 +15,9 @@
  */
 
 import axios from 'axios'
+import ElementUI from 'element-ui'
+import i18n from '../locales/i18n.js'
+import 'element-ui/lib/theme-chalk/index.css'
 
 let api
 if (window.location.href.indexOf('30093') > -1) {
@@ -35,13 +38,13 @@ axios.interceptors.response.use(
   },
   function (error) {
     if (error.response.status === 401) {
-      this.$message.error(this.$t('tip.loginStatusFailed'))
+      ElementUI.message.error(i18n.$t('tip.loginStatusFailed'))
       let host = window.location.hostname
       setTimeout(() => {
         window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
       }, 1500)
     } else if (error.response.status === 403) {
-      this.$message.error(this.$t('tip.loginStatusFailed'))
+      ElementUI.message.error(i18n.$t('tip.loginStatusFailed'))
     } else {
       return Promise.reject(error)
     }
