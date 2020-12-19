@@ -65,7 +65,21 @@ function POST (url, params) {
   let headers = {
     'access_token': getToken()
   }
-  return axios.post(url, params, { headers: headers })
+  axios.post(url, params, { headers: headers }).then(res => {
+    return res
+  }).catch(error => {
+    if (error.response.status === 401) {
+      ElementUI.Message.error(i18n.$t('tip.loginStatusFailed'))
+      let host = window.location.hostname
+      setTimeout(() => {
+        window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
+      }, 1500)
+    } else if (error.response.status === 403) {
+      ElementUI.Message.error(i18n.$t('tip.loginStatusFailed'))
+    } else {
+      return Promise.reject(error)
+    }
+  })
 }
 
 function PUT (url, params) {
