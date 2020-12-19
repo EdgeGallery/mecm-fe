@@ -160,6 +160,7 @@
           <el-row>
             <el-form
               label-width="120px"
+              status-icon
               :model="currForm"
               ref="currForm"
               :rules="rules"
@@ -468,7 +469,7 @@ export default {
           { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         city: [
-          { required: true, message: this.$t('tip.typeCity'), trigger: 'blur' }
+          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
         ],
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
@@ -482,13 +483,13 @@ export default {
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
         appRuleIp: [
-          { required: true, message: '应用规则管理IP为必选项', trigger: 'blur' }
+          { required: true, message: '应用规则管理IP为必选项', trigger: 'change' }
         ],
         applcmIp: [
-          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'change' }
         ],
         affinity: [
-          { required: true, message: this.$t('verify.affinityTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.affinityTip'), trigger: 'change' }
         ]
       },
       capabilities: [],

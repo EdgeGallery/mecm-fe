@@ -104,8 +104,8 @@
       <el-row>
         <el-col>
           <el-form
-
             :model="form"
+            status-icon
             ref="form"
             :rules="rules"
           >

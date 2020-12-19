@@ -158,6 +158,7 @@
         label-width="130px"
         class="configForm"
         :model="configForm"
+        status-icon
         ref="configForm"
         :rules="rules"
       >

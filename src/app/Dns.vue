@@ -88,17 +88,27 @@
         <el-form
           label-width="130px"
           class="configForm"
+          :model="dnsRule"
+          status-icon
+          ref="dnsRule"
+          :rules="formRules"
         >
           <el-row :gutter="24">
             <el-col :span="24">
-              <el-form-item :label="$t('app.ruleConfig.dnsRuleId')">
+              <el-form-item
+                :label="$t('app.ruleConfig.dnsRuleId')"
+                prop="dnsRuleId"
+              >
                 <el-input
                   id=""
                   maxlength="30"
                   v-model="dnsRule.dnsRuleId"
                 />
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.domainName')">
+              <el-form-item
+                :label="$t('app.ruleConfig.domainName')"
+                prop="domainName"
+              >
                 <el-input
                   id=""
                   maxlength="30"
@@ -107,6 +117,7 @@
               </el-form-item>
               <el-form-item
                 :label="$t('app.ruleConfig.ipAddressType')"
+                prop="ipAddressType"
               >
                 <el-select
                   v-model="dnsRule.ipAddressType"
@@ -120,14 +131,20 @@
                   />
                 </el-select>
               </el-form-item>
-              <el-form-item :label="$t('app.ruleConfig.ipAddress')">
+              <el-form-item
+                :label="$t('app.ruleConfig.ipAddress')"
+                prop="ipAddress"
+              >
                 <el-input
                   id=""
                   maxlength="30"
                   v-model="dnsRule.ipAddress"
                 />
               </el-form-item>
-              <el-form-item label="ttl">
+              <el-form-item
+                label="ttl"
+                prop="ttl"
+              >
                 <el-input
                   id=""
                   maxlength="30"
@@ -144,7 +161,7 @@
       >
         <el-button
           id="cancelBtn"
-          @click="dialog=false"
+          @click="resetForm('dnsRule')"
         >
           {{ $t('common.cancel') }}
         </el-button>
@@ -173,10 +190,10 @@ export default {
       dnsRuleTableData: [],
       dnsRule: {
         dnsRuleId: '',
-        domainName: '',
-        ipAddressType: '',
-        ipAddress: '',
-        ttl: ''
+        domainName: 'domainname',
+        ipAddressType: 'IP_V4',
+        ipAddress: '192.5.14.68',
+        ttl: '85000'
       },
       ipAddressType: [
         {
@@ -195,6 +212,21 @@ export default {
         'appDNSRule': [],
         'appName': '',
         'appSupportMp1': true
+      },
+      formRules: {
+        dnsRuleId: [
+          { required: true, message: this.$t('idMust'), trigger: 'blur' }
+        ],
+        domainName: [
+          { required: true, message: this.$t('domainMust'), trigger: 'blur' }
+        ],
+        ipAddress: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        ttl: [
+          { required: true, message: this.$t('tip.ttl'), trigger: 'blur' }
+        ]
       }
     }
   },
@@ -210,30 +242,38 @@ export default {
       })
       this.loading = false
     },
-    addAppRule () {
-      let data = {
-        appDNSRule: [],
-        appName: this.appName,
-        appSupportMp1: true
-      }
-      data.appDNSRule.push(this.dnsRule)
-      console.log(data)
-      app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
-        if (res.data) {
-          app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
-            if (response.data.response.configResult === 'FAILURE') {
-              this.$message.error(this.$t('app.ruleConfig.mepError'))
-            } else {
-              this.dialog = false
-              if (this.index === -1) {
-                this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
-              } else {
-                this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
-              }
+    resetForm (formName) {
+      this.dialog = false
+      this.$refs[formName].resetFields()
+    },
+    addAppRule (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let data = {
+            appDNSRule: [],
+            appName: this.appName,
+            appSupportMp1: true
+          }
+          data.appDNSRule.push(this.dnsRule)
+          console.log(data)
+          app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
+            if (res.data) {
+              app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+                if (response.data.response.configResult === 'FAILURE') {
+                  this.$message.error(this.$t('app.ruleConfig.mepError'))
+                } else {
+                  this.dialog = false
+                  if (this.index === -1) {
+                    this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
+                  } else {
+                    this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
+                  }
+                }
+              })
+              this.loading = true
+              this.timer = setTimeout(() => { this.getAppRules() }, 3000)
             }
           })
-          this.loading = true
-          this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         }
       })
     },
@@ -245,7 +285,7 @@ export default {
       this.selectedData = selection
     },
     confirmToAddDnsRules () {
-      this.addAppRule()
+      this.addAppRule('dnsRule')
     },
     editDnsRule (index, row) {
       this.index = index

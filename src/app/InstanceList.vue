@@ -118,7 +118,7 @@
                 @click="showReason(scope.row)"
                 v-if="scope.row.operationalStatus !== 'Instantiated'"
               >
-                操作信息
+                {{ $t('tip.operationInfo') }}
               </el-button>
               <el-button
                 type="text"
@@ -187,7 +187,7 @@ export default {
   data () {
     return {
       loading: false,
-      status: ['Instantiated', 'Created', 'Instantiation Failed'],
+      status: ['Instantiated', 'Create failed', 'Instantiation failed'],
       currPageTableData: [],
       paginationData: [],
       dataLoading: true,
@@ -218,7 +218,7 @@ export default {
       this.$router.push('/mecm/ruleconfig')
     },
     showReason (row) {
-      this.$alert(row.operationInfo, 'Operation Info')
+      this.$alert(row.operationInfo, this.$t('tip.operationInfo'))
     },
     clearInterval () {
       clearTimeout(this.interval)
