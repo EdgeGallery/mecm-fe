@@ -342,6 +342,7 @@ const cn = {
     ifContinue: '此操作将永久删除该分流规则, 是否继续?',
     oneAtLeast: '请至少选择一条规则',
     loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。',
+    loginOperation: '您当前没有登录，请登录后操作。',
     operationInfo: '操作信息',
     ttl: '请输入正确的ttl',
     macMust: '请填写正确的MAC地址',
