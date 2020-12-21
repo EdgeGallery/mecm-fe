@@ -281,8 +281,6 @@ export default {
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
-              } else if (error.response.status === 403) {
-                this.$message.error(this.$t('tip.loginStatusFailed'))
               } else {
                 this.$message.error(error.response.data)
               }
