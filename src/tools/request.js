@@ -43,8 +43,6 @@ axios.interceptors.response.use(
       setTimeout(() => {
         window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
       }, 1500)
-    } else if (error.response.status === 403) {
-      ElementUI.Message.error(i18n.t('tip.loginOperation'))
     }
     return Promise.reject(error)
   }
