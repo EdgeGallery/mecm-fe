@@ -75,9 +75,6 @@ a{
 .el-dialog__body{
   padding-top:15px!important;
 }
-.el-dialog__header{
-  background: #409EFF;
-}
 .el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close,.el-dialog__title,.el-icon-close,.el-dialog__headerbtn .el-dialog__close{
   color:#fff;
 }
@@ -87,6 +84,7 @@ a{
 }
 
 .el-dialog__header{
+  background: #409EFF;
   padding:12px 10px !important;
 }
 
@@ -96,6 +94,7 @@ a{
 
 .el-message{
   top: 65px !important;
+  z-index:10000 !important;
 }
 
 /* navBar */
@@ -175,11 +174,6 @@ body .el-table th.gutter{
       background-color: #f5f5f5;
     }
   }
-}
-
-
-.el-message{
-  z-index:10000 !important;
 }
 
 @media (min-width:0px){

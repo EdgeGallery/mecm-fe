@@ -249,6 +249,7 @@ export default {
         type: 'warning'
       }).then(() => {
         system.delete(4, row.appRuleIp).then(res => {
+          this.$message.success(this.$t('tip.deleteSuc'))
           this.initList()
         }, error => {
           this.$message.error(error.response.data)
@@ -283,6 +284,8 @@ export default {
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
+              } else if (error.response.status === 403) {
+                this.$Message.error(this.$t('tip.loginOperation'))
               } else {
                 this.$message.error(error.response.data)
               }
