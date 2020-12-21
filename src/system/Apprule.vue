@@ -285,7 +285,7 @@ export default {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else if (error.response.status === 403) {
-                this.$Message.error(this.$t('tip.loginOperation'))
+                this.$message.error(this.$t('tip.loginOperation'))
               } else {
                 this.$message.error(error.response.data)
               }
