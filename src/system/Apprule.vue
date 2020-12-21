@@ -198,7 +198,8 @@ export default {
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ],
         appRuleName: [
-          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' }
+          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ]
       }
     }
