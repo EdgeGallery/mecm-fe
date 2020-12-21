@@ -249,6 +249,7 @@ export default {
         type: 'warning'
       }).then(() => {
         system.delete(4, row.appRuleIp).then(res => {
+          this.$message.success(this.$t('tip.deleteSuc'))
           this.initList()
         }, error => {
           this.$message.error(error.response.data)
