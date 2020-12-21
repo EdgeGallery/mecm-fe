@@ -45,9 +45,8 @@ axios.interceptors.response.use(
       }, 1500)
     } else if (error.response.status === 403) {
       ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
-    } else {
-      return Promise.reject(error)
     }
+    return Promise.reject(error)
   }
 )
 
