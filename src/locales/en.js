@@ -271,7 +271,7 @@ const en = {
     areaTip: 'Area should not be empty',
     applcmNameTip: 'App LCM should not be empty',
     normalVerify: 'Style is not right',
-    hostNameVerify: '4 to 16 digits (letters, numbers, underscores, minus signs)',
+    hostNameVerify: '4 to 16 digits (letters, numbers)',
     coordinates: 'Coordinates should not be empty'
   },
   tip: {

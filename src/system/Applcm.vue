@@ -199,7 +199,7 @@ export default {
         ],
         applcmName: [
           { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ]
       }
     }

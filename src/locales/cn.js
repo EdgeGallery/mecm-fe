@@ -271,7 +271,7 @@ const cn = {
     areaTip: '请选择地域',
     applcmNameTip: 'App LCM名称不能为空',
     normalVerify: '输入的内容格式不正确',
-    hostNameVerify: '4到16位（字母，数字，下划线，减号）',
+    hostNameVerify: '4到16位（字母，数字）',
     coordinates: '坐标不能为空'
   },
   tip: {
