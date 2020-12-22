@@ -339,6 +339,7 @@ const en = {
     pleaseSelect: 'Please selece',
     successToAddRules: 'You have created one rule successfully.',
     regAppManSuc: 'You have created one app rule manager successfully.',
+    modAppRuleSuc: 'You have modified one app rule manager successfully.',
     ifContinue: 'This operation will permanently delete the diversion rule, continue?',
     oneAtLeast: 'Please select one rule at least',
     loginStatusFailed: 'The login status has expired, please refresh the page and log in again.',

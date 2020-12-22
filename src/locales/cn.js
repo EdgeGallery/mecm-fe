@@ -339,6 +339,7 @@ const cn = {
     pleaseSelect: '请选择',
     successToAddRules: '你已经成功创建一条规则。',
     regAppManSuc: '你已成功注册App Rule MGR',
+    modAppRuleSuc: '你已成功编辑App Rule MGR',
     ifContinue: '此操作将永久删除该分流规则, 是否继续?',
     oneAtLeast: '请至少选择一条规则',
     loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。',

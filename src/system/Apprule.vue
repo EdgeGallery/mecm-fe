@@ -292,7 +292,7 @@ export default {
             })
           } else {
             system.modify(4, this.form, this.form.appRuleIp).then(res => {
-              this.$message.success(this.$t('tip.modAppLcmSuc'))
+              this.$message.success(this.$t('tip.modAppRuleSuc'))
               this.initList()
               this.dialogVisible = false
             }, error => {
