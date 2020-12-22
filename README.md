@@ -1,4 +1,4 @@
-<p align="center">
+<p align="left">
 <img src="https://images.gitee.com/uploads/images/2020/1222/091155_70a1217a_7625361.png" width="200">
 </p>
 
