@@ -45,5 +45,5 @@ npm run lint
 
 1.  MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
 2.  EdgeGallery：[http://www.edgegallery.org/](http://www.edgegallery.org/)
-3.  EdgeGallery Community：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+3.  EdgeGallery Community：[https://gitee.com/edgegallery](https://gitee.com/edgegallery)
 4.  E-mail: contact@edgegallery.org
