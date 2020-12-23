@@ -702,7 +702,7 @@ export default {
     },
     handleDelete (row) {
       system.delete(2, row.mechostIp).then(response => {
-        this.$message.success(this.$t('tip.sucToDeleteNodes'))
+        this.showMessage('success', this.$t('tip.sucToDeleteNodes'), 1500)
         this.getNodeListInPage()
       }).catch(() => {
         this.$message.error(this.$t('tip.faileToDeleteNode'))
@@ -748,7 +748,7 @@ export default {
       params.append('file', content.file)
       if (this.currForm.mechostIp) {
         system.uploadConfig(this.currForm.mechostIp, params).then(response => {
-          this.$message.success(this.$t('tip.uploadSuc'))
+          this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
           this.dialogVisibleUpload = false
         }).catch((error) => {
           console.log(error)
@@ -796,7 +796,7 @@ export default {
           this.currForm.address = this.selectedArea.join('/')
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
-              this.$message.success(this.$t('tip.sucToRegNode'))
+              this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
               this.getNodeListInPage()
               this.dialogVisible = false
               this.area = false
@@ -812,7 +812,7 @@ export default {
             })
           } else {
             system.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
-              this.$message.success(this.$t('tip.sucToModNode'))
+              this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
               this.getNodeListInPage()
               this.dialogVisible = false
               this.area = false

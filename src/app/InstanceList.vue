@@ -301,7 +301,7 @@ export default {
         setTimeout(() => {
           this.initList()
         })
-        this.$message.success(this.$t('tip.deleteSuc'))
+        this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
       }).catch((error) => {
         this.$message.error(error.response.data)
       })
@@ -309,7 +309,7 @@ export default {
     confirmDetlete (appInstanceId) {
       app.deleteInstanceApp(appInstanceId).then(response => {
         this.initList()
-        this.$message.success(this.$t('tip.deleteSuc'))
+        this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
       }).catch((error) => {
         this.$message.error(error.response.data)
       })

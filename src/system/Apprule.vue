@@ -249,7 +249,7 @@ export default {
         type: 'warning'
       }).then(() => {
         system.delete(4, row.appRuleIp).then(res => {
-          this.$message.success(this.$t('tip.deleteSuc'))
+          this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
           this.initList()
         }, error => {
           this.$message.error(error.response.data)
@@ -278,7 +278,7 @@ export default {
         if (valid) {
           if (this.editType === 1) {
             system.create(4, this.form).then(res => {
-              this.$message.success(this.$t('tip.regAppManSuc'))
+              this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -292,7 +292,7 @@ export default {
             })
           } else {
             system.modify(4, this.form, this.form.appRuleIp).then(res => {
-              this.$message.success(this.$t('tip.modAppRuleSuc'))
+              this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
