@@ -205,17 +205,12 @@
                   :label="$t('app.packageList.city')"
                 />
                 <el-table-column
-                  prop="address"
-                  sortable
-                  :label="$t('app.packageList.address')"
-                />
-                <el-table-column
                   prop="affinity"
                   sortable
                   :label="$t('app.packageList.affinity')"
                 />
                 <el-table-column
-                  label="硬件能力"
+                  :label="$t('system.edgeNodes.hwCapability')"
                   width="200"
                 >
                   <template slot-scope="scope">
