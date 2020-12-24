@@ -280,6 +280,13 @@ export default {
     showDialog () {
       this.index = -1
       this.dialog = true
+      this.dnsRule = {
+        dnsRuleId: '',
+        domainName: 'domainname',
+        ipAddressType: 'IP_V4',
+        ipAddress: '192.5.14.68',
+        ttl: '85000'
+      }
     },
     handleSelectionChange (selection) {
       this.selectedData = selection
