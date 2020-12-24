@@ -172,6 +172,7 @@ export default {
       this.$confirm(this.$t('nav.logoutTip'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         this.logout()
@@ -188,7 +189,9 @@ export default {
           ? this.loginPage + '&return_to=' + 'https://' + window.location.host
           : this.loginPage + '&return_to=' + 'http://' + window.location.host
       }).catch(error => {
-        this.$message.error(error.response.data)
+        if (error.response.status === 401) {
+          location.reload()
+        }
       })
     }
   }

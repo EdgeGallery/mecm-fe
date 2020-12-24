@@ -210,6 +210,11 @@
                   :label="$t('app.packageList.affinity')"
                 />
                 <el-table-column
+                  prop="applcmIp"
+                  sortable
+                  :label="$t('system.edgeNodes.applcmIp')"
+                />
+                <el-table-column
                   :label="$t('system.edgeNodes.hwCapability')"
                   width="200"
                 >

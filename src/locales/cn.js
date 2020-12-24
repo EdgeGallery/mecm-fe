@@ -202,7 +202,7 @@ const cn = {
       address: '地址',
       edgeNexusIp: '边缘仓库地址',
       edgeNexusPort: '边缘仓库端口',
-      applcmIp: 'App LCM IP',
+      applcmIp: 'App LCM地址',
       k8sUrl: 'K8S URL',
       newReg: '新增注册',
       hostName: '主机名称',
@@ -272,7 +272,9 @@ const cn = {
     applcmNameTip: 'App LCM名称不能为空',
     normalVerify: '输入的内容格式不正确',
     hostNameVerify: '4到16位（字母，数字）',
-    coordinates: '坐标不能为空'
+    coordinates: '坐标不能为空',
+    uriVerify: '请填写正确的Uri',
+    descVerify: '描述信息不能为空'
   },
   tip: {
     getCommonListFailed: '获取列表失败',

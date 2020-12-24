@@ -316,10 +316,10 @@ export default {
       rules: {
         appName: [
           { required: true, message: 'App name can not be empty', trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         appInstanceDescription: [
-          { required: true, message: 'App instance description can not be empty', trigger: 'blur' }
+          { required: true, message: this.$t('verify.descVerify'), trigger: 'blur' }
         ]
       },
       dataLoading: true,
@@ -412,6 +412,7 @@ export default {
       this.$confirm(this.$t('tip.beforeDeleteFromMechost'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         let hostIp = rows.hostIp

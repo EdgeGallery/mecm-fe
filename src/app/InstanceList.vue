@@ -260,6 +260,7 @@ export default {
       this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         if (type === 1) {

@@ -280,6 +280,13 @@ export default {
     showDialog () {
       this.index = -1
       this.dialog = true
+      this.dnsRule = {
+        dnsRuleId: '',
+        domainName: 'domainname',
+        ipAddressType: 'IP_V4',
+        ipAddress: '192.5.14.68',
+        ttl: '85000'
+      }
     },
     handleSelectionChange (selection) {
       this.selectedData = selection
@@ -297,6 +304,7 @@ export default {
       this.$confirm(this.$t('tip.ifContinue'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         let data = {

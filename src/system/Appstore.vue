@@ -230,16 +230,20 @@ export default {
       dataLoading: true,
       rules: {
         appstoreName: [
-          { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         producer: [
-          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         userName: [
-          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ],
         uri: [
-          { required: true, message: this.$t('verify.uriTip'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.uriTip'), trigger: 'blur' },
+          { pattern: /^(https?:\/\/(([a-zA-Z0-9]+-?)+[a-zA-Z0-9]+\.)+[a-zA-Z]+)(:\d+)?(\/.*)?(\?.*)?(#.*)?$/, message: this.$t('verify.uriVerify') }
         ],
         appstoreIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -345,6 +349,7 @@ export default {
       this.$confirm(this.$t('tip.beforeDeleteAppstore'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         system.delete(3, row.appstoreIp).then(res => {
