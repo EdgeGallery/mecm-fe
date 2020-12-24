@@ -199,7 +199,7 @@ export default {
         ],
         applcmName: [
           { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ]
       }
     }
@@ -275,7 +275,7 @@ export default {
         if (valid) {
           if (this.editType === 1) {
             system.create(1, this.form).then(res => {
-              this.$message.success(this.$t('tip.regAppLcmSuc'))
+              this.showMessage('success', this.$t('tip.regAppLcmSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -289,7 +289,7 @@ export default {
             })
           } else {
             system.modify(1, this.form, this.form.applcmIp).then(res => {
-              this.$message.success(this.$t('tip.modAppLcmSuc'))
+              this.showMessage('success', this.$t('tip.modAppLcmSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {

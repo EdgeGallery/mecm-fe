@@ -309,7 +309,7 @@ export default {
         if (valid) {
           if (this.editType === 1) {
             system.create(3, this.form).then(res => {
-              this.$message.success(this.$t('tip.regAppStoreSuc'))
+              this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -323,7 +323,7 @@ export default {
             })
           } else {
             system.modify(3, this.form, this.form.appstoreIp).then(res => {
-              this.$message.success(this.$t('tip.regAppStoreSuc'))
+              this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -349,7 +349,7 @@ export default {
       }).then(() => {
         system.delete(3, row.appstoreIp).then(res => {
           this.initList()
-          this.$message.success(this.$t('tip.deleteAppStoreSuc'))
+          this.showMessage('success', this.$t('tip.deleteAppStoreSuc'), 1500)
         }).catch(error => {
           this.$message.error(error.response.data)
         })

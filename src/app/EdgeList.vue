@@ -417,7 +417,7 @@ export default {
         let hostIp = rows.hostIp
         let type = 1
         app.deleteDistributionApp(type, hostIp, this.appPackageId).then(res => {
-          this.$message.success(this.$t('tip.deletePacFrmoHost'))
+          this.showMessage('success', this.$t('tip.deletePacFrmoHost'), 1500)
           this.initList()
         })
       }).catch(() => {

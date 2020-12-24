@@ -28,6 +28,14 @@ import i18n from './locales/i18n.js'
 import VCharts from 'v-charts'
 import { pcaa } from 'area-data-vue'
 import AreaLinkageVue from 'area-linkage-vue'
+Vue.prototype.showMessage = function (type, msg, time) {
+  ElementUI.Message({
+    showClose: true,
+    type: type,
+    message: msg,
+    duration: time
+  })
+}
 require('./assets/js/dark.js')
 Vue.prototype.$pcaa = pcaa
 Vue.use(AreaLinkageVue)

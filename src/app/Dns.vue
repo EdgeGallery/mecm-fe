@@ -264,9 +264,9 @@ export default {
                 } else {
                   this.dialog = false
                   if (this.index === -1) {
-                    this.$message.success(this.$t('app.ruleConfig.addRuleSuc'))
+                    this.showMessage('success', this.$t('app.ruleConfig.addRuleSuc'), 1500)
                   } else {
-                    this.$message.success(this.$t('app.ruleConfig.editRuleSuc'))
+                    this.showMessage('success', this.$t('app.ruleConfig.editRuleSuc'), 1500)
                   }
                 }
               })
@@ -311,7 +311,7 @@ export default {
           })
         }
         app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
-          this.$message.success(this.$t('app.ruleConfig.delRuleSuc'))
+          this.showMessage('success', this.$t('app.ruleConfig.delRuleSuc'), 1500)
           this.loading = true
           this.timer = setTimeout(() => { this.getAppRules() }, 3000)
         })

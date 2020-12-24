@@ -271,7 +271,7 @@ const cn = {
     areaTip: '请选择地域',
     applcmNameTip: 'App LCM名称不能为空',
     normalVerify: '输入的内容格式不正确',
-    hostNameVerify: '4到16位（字母，数字，下划线，减号）',
+    hostNameVerify: '4到16位（字母，数字）',
     coordinates: '坐标不能为空'
   },
   tip: {
@@ -339,6 +339,7 @@ const cn = {
     pleaseSelect: '请选择',
     successToAddRules: '你已经成功创建一条规则。',
     regAppManSuc: '你已成功注册App Rule MGR',
+    modAppRuleSuc: '你已成功编辑App Rule MGR',
     ifContinue: '此操作将永久删除该分流规则, 是否继续?',
     oneAtLeast: '请至少选择一条规则',
     loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。',

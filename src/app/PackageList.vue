@@ -205,17 +205,12 @@
                   :label="$t('app.packageList.city')"
                 />
                 <el-table-column
-                  prop="address"
-                  sortable
-                  :label="$t('app.packageList.address')"
-                />
-                <el-table-column
                   prop="affinity"
                   sortable
                   :label="$t('app.packageList.affinity')"
                 />
                 <el-table-column
-                  label="硬件能力"
+                  :label="$t('system.edgeNodes.hwCapability')"
                   width="200"
                 >
                   <template slot-scope="scope">
@@ -438,14 +433,14 @@ export default {
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         app.confirmToDistribute(params).then(response => {
-          this.$message.success(this.$t('tip.sucToDownload'))
+          this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(
             this.$router.push('/mecm/apac/detail?appId=' + params.appId)
           )
         }).catch(() => {
           this.loading = false
-          this.$message.error(this.$t('tip.failedToDownload'))
+          this.$message.error(this.$t('tip.failedToDownload'), 3000)
         })
       } else {
         this.loading = false
