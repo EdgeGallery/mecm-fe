@@ -291,7 +291,6 @@ export default {
       },
       manageDialogStatus: false,
       infoList: [],
-      appPackageList: [],
       kpiInfo: [],
       loginBtnLoading: false,
       chartData: {},
@@ -306,7 +305,6 @@ export default {
       this.chartDataMem.rows[0].value = 0
       this.chartDataDisk.rows[0].value = 0
       this.hwCapData = []
-      this.appPackageList = []
       this.edgeAppList = []
       this.edgeApp = ''
     },
@@ -401,7 +399,7 @@ export default {
       })
     },
     getServiceInfo (instanceId) {
-      if (this.appPackageList.length > 0) {
+      if (this.edgeAppList.length > 0) {
         this.loginBtnLoading = true
         overview.getServiceInfo(instanceId).then(res => {
           this.serviceInfo = JSON.parse(res.data.response)

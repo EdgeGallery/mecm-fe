@@ -272,7 +272,9 @@ const en = {
     applcmNameTip: 'App LCM should not be empty',
     normalVerify: 'Style is not right',
     hostNameVerify: '4 to 16 digits (letters, numbers)',
-    coordinates: 'Coordinates should not be empty'
+    coordinates: 'Coordinates should not be empty',
+    uriVerify: 'Try to type right Uri.',
+    descVerify: 'Describtion can not be empty.'
   },
   tip: {
     getCommonListFailed: 'Get list failed',

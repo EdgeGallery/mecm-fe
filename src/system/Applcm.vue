@@ -246,6 +246,7 @@ export default {
       this.$confirm(this.$t('tip.beforeDeleteApplcm'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         system.delete(1, row.applcmIp).then(res => {

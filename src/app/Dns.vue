@@ -297,6 +297,7 @@ export default {
       this.$confirm(this.$t('tip.ifContinue'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
         let data = {
