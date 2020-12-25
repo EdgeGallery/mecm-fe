@@ -227,8 +227,16 @@ export default {
       currPageTableData: [],
       paginationData: [],
       tableData: [],
-      dataLoading: true,
-      rules: {
+      dataLoading: true
+
+    }
+  },
+  mounted () {
+    this.initList()
+  },
+  computed: {
+    rules () {
+      const rules = {
         appstoreName: [
           { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' },
           { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
@@ -254,10 +262,8 @@ export default {
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ]
       }
+      return rules
     }
-  },
-  mounted () {
-    this.initList()
   },
   methods: {
     filterTableData (val, key) {

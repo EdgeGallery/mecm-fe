@@ -33,7 +33,7 @@
         >
           <label class="overviewLabel">{{ $t('overview.overview') }}</label>
           <div class="nodeBasicInfo">
-            <p><span>{{ city }} {{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
+            <p><span>{{ city }}{{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
             <p><span>{{ $t('overview.onlineNodes') }}：</span>{{ nodeNum }}</p>
             <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
           </div>
@@ -297,6 +297,15 @@ export default {
       nodeBasicInfo: null,
       nodeNum: 0,
       city: ''
+    }
+  },
+  watch: {
+    '$i18n.locale': function (val) {
+      if (val === 'en') {
+        this.city = 'All '
+      } else {
+        this.city = '全国'
+      }
     }
   },
   methods: {

@@ -68,7 +68,12 @@ export default {
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
-          this.$emit('area', res.data, '全国')
+          console.log(this.$i18n.locale)
+          if (this.$i18n.locale === 'en') {
+            this.$emit('area', res.data, 'All')
+          } else {
+            this.$emit('area', res.data, '全国')
+          }
         }
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {

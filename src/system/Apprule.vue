@@ -187,8 +187,12 @@ export default {
         userName: '',
         appRuleName: ''
       },
-      editType: 1,
-      rules: {
+      editType: 1
+    }
+  },
+  computed: {
+    rules () {
+      const rules = {
         appRuleIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
@@ -202,6 +206,7 @@ export default {
           { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
         ]
       }
+      return rules
     }
   },
   mounted () {
