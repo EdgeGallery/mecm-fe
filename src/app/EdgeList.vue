@@ -313,15 +313,6 @@ export default {
         appId: this.appid,
         hwCapabilities: []
       },
-      rules: {
-        appName: [
-          { required: true, message: 'App name can not be empty', trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
-        ],
-        appInstanceDescription: [
-          { required: true, message: this.$t('verify.descVerify'), trigger: 'blur' }
-        ]
-      },
       dataLoading: true,
       tableData: [],
       packageData: [],
@@ -332,6 +323,20 @@ export default {
       serchData: null,
       hostList: [],
       capabilities: ['GPU', 'NPU']
+    }
+  },
+  computed: {
+    rules () {
+      let rules = {
+        appName: [
+          { required: true, message: this.$t('verify.appNameVerify'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+        ],
+        appInstanceDescription: [
+          { required: true, message: this.$t('verify.descVerify'), trigger: 'blur' }
+        ]
+      }
+      return rules
     }
   },
   mounted () {

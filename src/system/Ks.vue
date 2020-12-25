@@ -459,39 +459,7 @@ export default {
         'appRuleIp': '',
         'coordinates': ''
       },
-      rules: {
-        mechostIp: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        mechostName: [
-          { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
-        ],
-        city: [
-          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
-        ],
-        coordinates: [
-          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
-        ],
-        edgerepoIp: [
-          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        edgerepoPort: [
-          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
-        ],
-        appRuleIp: [
-          { required: true, message: '应用规则管理IP为必选项', trigger: 'change' }
-        ],
-        applcmIp: [
-          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'change' }
-        ],
-        affinity: [
-          { required: true, message: this.$t('verify.affinityTip'), trigger: 'change' }
-        ]
-      },
+
       capabilities: [],
       gpuModel: '',
       gpuVendor: '',
@@ -573,6 +541,44 @@ export default {
   },
   mounted () {
     this.getNodeListInPage()
+  },
+  computed: {
+    rules () {
+      const rules = {
+        mechostIp: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        mechostName: [
+          { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' },
+          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+        ],
+        city: [
+          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
+        ],
+        coordinates: [
+          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
+        ],
+        edgerepoIp: [
+          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        edgerepoPort: [
+          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
+          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+        ],
+        appRuleIp: [
+          { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
+        ],
+        applcmIp: [
+          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'change' }
+        ],
+        affinity: [
+          { required: true, message: this.$t('verify.affinityTip'), trigger: 'change' }
+        ]
+      }
+      return rules
+    }
   },
   methods: {
     filterTableData (val, key) {

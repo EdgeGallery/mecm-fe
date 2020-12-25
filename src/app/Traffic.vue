@@ -802,13 +802,46 @@ export default {
       interfaceIndex: -1,
       filterIndex: -1,
       selectedData: [],
-      type: 1,
-      formRules: {
+      type: 1
+    }
+  },
+
+  computed: {
+    formformInterfaceRulesRules () {
+      let formInterfaceRules = {
+        tunnelDstAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        tunnelSrcAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        srcMacAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstMacAddress: [
+          { required: false, message: this.$t('tip.macMust'), trigger: 'blur' },
+          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
+        ],
+        dstIpAddress: [
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ]
+      }
+      return formInterfaceRules
+    },
+    formRules () {
+      let formRules = {
         trafficRuleId: [
           { required: true, message: this.$t('idMust'), trigger: 'blur' }
         ]
-      },
-      formTrafficfilterRules: {
+      }
+      return formRules
+    },
+    formTrafficfilterRules () {
+      let formTrafficfilterRules = {
         srcAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\/[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
@@ -841,29 +874,8 @@ export default {
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
         ]
-      },
-      formInterfaceRules: {
-        tunnelDstAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        tunnelSrcAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        srcMacAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
-        ],
-        dstMacAddress: [
-          { required: false, message: this.$t('tip.macMust'), trigger: 'blur' },
-          { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
-        ],
-        dstIpAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ]
       }
+      return formTrafficfilterRules
     }
   },
   methods: {

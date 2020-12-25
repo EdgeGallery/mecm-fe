@@ -212,8 +212,12 @@ export default {
         'appDNSRule': [],
         'appName': '',
         'appSupportMp1': true
-      },
-      formRules: {
+      }
+    }
+  },
+  computed: {
+    formRules () {
+      let formRules = {
         dnsRuleId: [
           { required: true, message: this.$t('idMust'), trigger: 'blur' }
         ],
@@ -228,6 +232,7 @@ export default {
           { required: true, message: this.$t('tip.ttl'), trigger: 'blur' }
         ]
       }
+      return formRules
     }
   },
   methods: {

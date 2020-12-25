@@ -106,7 +106,7 @@ export default {
       loginPage: '',
       ifGuest: true,
       jsonData: [],
-      language: 'English',
+      language: 'en',
       smallMenu: false
     }
   },
@@ -117,7 +117,8 @@ export default {
   },
   mounted () {
     this.jsonData = NavDataCn
-    this.language = 'English'
+    this.language = localStorage.getItem('language') || 'en'
+    if (!localStorage.getItem('language')) { localStorage.setItem('language', 'en') }
     user.getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('access_token', res.data.accessToken)
@@ -146,19 +147,17 @@ export default {
       this.smallMenu = data
     },
     changeLang () {
-      let language
-      if (this.language === 'English') {
-        this.language = '简体中文'
-        language = 'en'
+      this.$i18n.locale = this.language
+      if (this.language === 'en') {
+        this.language = 'cn'
         this.jsonData = NavData
       } else {
-        this.language = 'English'
-        language = 'cn'
+        this.language = 'en'
         this.jsonData = NavDataCn
       }
-      this.$i18n.locale = language
+      localStorage.setItem('language', this.language)
       let appDom = document.getElementById('app')
-      if (language === 'en') {
+      if (this.language === 'en') {
         appDom.style.fontFamily = 'Huaweisans, Arial, Microsoft YaHei, FZLTXHJW, Microsoft JhengHei, sans-serif'
       } else {
         if (this.os.isMac) {

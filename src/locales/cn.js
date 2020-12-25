@@ -274,7 +274,9 @@ const cn = {
     hostNameVerify: '4到16位（字母，数字）',
     coordinates: '坐标不能为空',
     uriVerify: '请填写正确的Uri',
-    descVerify: '描述信息不能为空'
+    descVerify: '描述信息不能为空',
+    appNameVerify: '应用名称不能为空',
+    appRuleManaVerify: '应用规则管理IP为必选项'
   },
   tip: {
     getCommonListFailed: '获取列表失败',
