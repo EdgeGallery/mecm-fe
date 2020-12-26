@@ -116,7 +116,7 @@
                 type="text"
                 size="small"
                 @click="showReason(scope.row)"
-                v-if="scope.row.operationalStatus !== 'Instantiated'"
+                :disabled="scope.row.operationalStatus === 'Instantiated'"
               >
                 {{ $t('tip.operationInfo') }}
               </el-button>
@@ -124,6 +124,7 @@
                 type="text"
                 size="small"
                 @click="jump(scope.row)"
+                :disabled="scope.row.operationalStatus !== 'Instantiated'"
               >
                 {{ $t('nav.ruleConfiguration') }}
               </el-button>

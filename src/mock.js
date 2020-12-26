@@ -120,17 +120,6 @@ const instanceList = function () {
         'applcmHost': '119.8.47.2',
         'operationalStatus': 'Instantiated',
         'operationInfo': 'success'
-      },
-      {
-        'appInstanceId': '4b6944f1-655c-4f77-9e86-c0c4eb629c9c',
-        'appPackageId': '9eb381e222dd4a3898fc61f7182bba24',
-        'appName': 'zone',
-        'appId': '73b6f66992ab4798a55350f419a210af',
-        'appDescriptor': 'zone',
-        'mecHost': '119.8.47.2',
-        'applcmHost': '119.8.47.2',
-        'operationalStatus': 'Create failed',
-        'operationInfo': 'success'
       }
     ]
   }
