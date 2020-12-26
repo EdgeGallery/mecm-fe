@@ -59,7 +59,7 @@
             />
           </div>
           <div class="language rt">
-            <span @click="changeLang">{{ language }}</span>
+            <span @click="changeLang">{{ lang }}</span>
           </div>
           <div class="user rt">
             <span
@@ -107,6 +107,7 @@ export default {
       ifGuest: true,
       jsonData: [],
       language: 'en',
+      lang: '简体中文',
       smallMenu: false
     }
   },
@@ -118,6 +119,11 @@ export default {
   mounted () {
     this.jsonData = NavDataCn
     this.language = localStorage.getItem('language') || 'en'
+    if (this.language === 'en') {
+      this.lang = '简体中文'
+    } else {
+      this.lang = 'English'
+    }
     if (!localStorage.getItem('language')) { localStorage.setItem('language', 'en') }
     user.getUserInfo().then(res => {
       sessionStorage.setItem('userId', res.data.userId)
@@ -150,9 +156,11 @@ export default {
       this.$i18n.locale = this.language
       if (this.language === 'en') {
         this.language = 'cn'
+        this.lang = '简体中文'
         this.jsonData = NavData
       } else {
         this.language = 'en'
+        this.lang = 'English'
         this.jsonData = NavDataCn
       }
       localStorage.setItem('language', this.language)
