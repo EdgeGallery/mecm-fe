@@ -181,7 +181,7 @@
               <el-button
                 type="text"
                 class="btn"
-                @click="addNewFilter()"
+                @click="addNew(1)"
               >
                 {{ $t('app.instanceList.addFilter') }}
               </el-button>
@@ -260,7 +260,7 @@
                   id=""
                   type="text"
                   size="small"
-                  @click="modifyFilterLines(scope.$index,scope.row)"
+                  @click="modifyLines(scope.$index,scope.row,1)"
                 >
                   {{ $t('common.modify') }}
                 </el-button>
@@ -268,7 +268,7 @@
                   id="deleteBtn"
                   type="text"
                   size="small"
-                  @click="deleteFilterLines(scope.$index, scope.row)"
+                  @click="deleteLines(scope.$index, trafficFilterData)"
                 >
                   {{ $t('common.delete') }}
                 </el-button>
@@ -285,7 +285,7 @@
               <el-button
                 type="text"
                 class="btn"
-                @click="addNewInterface()"
+                @click="addNew(2)"
               >
                 {{ $t('app.ruleConfig.addNewInterfaceInfo') }}
               </el-button>
@@ -345,7 +345,7 @@
                     id=""
                     type="text"
                     size="small"
-                    @click="modifyInterfaceLines(scope.$index,scope.row)"
+                    @click="modifyLines(scope.$index,scope.row,2)"
                   >
                     {{ $t('common.modify') }}
                   </el-button>
@@ -353,7 +353,7 @@
                     id="deleteBtn"
                     type="text"
                     size="small"
-                    @click="deleteInterfaceLines(scope.$index, scope.row)"
+                    @click="deleteLines(scope.$index, dstInterfaceData)"
                   >
                     {{ $t('common.delete') }}
                   </el-button>
@@ -519,12 +519,12 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button @click="cancelEditFilter()">
+            <el-button @click="cancelEdit('trafficFilter')">
               {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
-              @click="confirmToAddFilter()"
+              @click="confirmToAdd('trafficFilter')"
             >
               {{ $t('common.confirm') }}
             </el-button>
@@ -645,12 +645,12 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button @click="cancelEditInterface()">
+            <el-button @click="cancelEdit('dstInterface')">
               {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
-              @click="confirmToAddInterface()"
+              @click="confirmToAdd('dstInterface')"
             >
               {{ $t('common.confirm') }}
             </el-button>
@@ -805,7 +805,6 @@ export default {
       type: 1
     }
   },
-
   computed: {
     formformInterfaceRulesRules () {
       let formInterfaceRules = {
@@ -1014,61 +1013,54 @@ export default {
         })
       })
     },
-    addNewFilter () {
-      this.filterIndex = -1
-      this.innerFilterVisible = true
+    modifyLines (index, row, type) {
+      if (type === 1) {
+        this.filterIndex = index
+        this.trafficFilter = JSON.parse(JSON.stringify(row))
+        this.innerFilterVisible = true
+      } else {
+        this.interfaceIndex = index
+        this.dstInterface = JSON.parse(JSON.stringify(row))
+        this.innerInterfaceVisible = true
+      }
     },
-    modifyFilterLines (index, row) {
-      this.filterIndex = index
-      this.trafficFilter = JSON.parse(JSON.stringify(row))
-      this.innerFilterVisible = true
+    addNew (type) {
+      if (type === 1) {
+        this.filterIndex = -1
+        this.innerFilterVisible = true
+      } else {
+        this.interfaceIndex = -1
+        this.innerInterfaceVisible = true
+      }
     },
-    modifyInterfaceLines (index, row) {
-      this.interfaceIndex = index
-      this.dstInterface = JSON.parse(JSON.stringify(row))
-      this.innerInterfaceVisible = true
+    deleteLines (index, rows) {
+      rows.splice(index, 1)
     },
-    addNewInterface () {
-      this.interfaceIndex = -1
-      this.innerInterfaceVisible = true
-    },
-    deleteFilterLines (index, rows) {
-      this.trafficFilterData.splice(index, 1)
-    },
-    deleteInterfaceLines (index, rows) {
-      this.dstInterfaceData.splice(index, 1)
-    },
-    cancelEditFilter () {
+    cancelEdit (form) {
       this.innerFilterVisible = false
-      this.$refs.trafficFilter.resetFields()
-    },
-    cancelEditInterface () {
       this.innerInterfaceVisible = false
-      this.$refs.trafficFilter.resetFields()
+      this.$refs[form].resetFields()
     },
-    confirmToAddFilter () {
-      this.$refs.trafficFilter.validate((valid) => {
+    confirmToAdd (form) {
+      this.$refs[form].validate((valid) => {
         if (valid) {
-          if (this.filterIndex !== -1) {
-            this.trafficFilterData[this.filterIndex] = this.trafficFilter
-            this.$set(this.trafficFilterData, this.filterIndex, this.trafficFilter)
+          if (form === 'trafficFilter') {
+            if (this.filterIndex !== -1) {
+              this.trafficFilterData[this.filterIndex] = this.trafficFilter
+              this.$set(this.trafficFilterData, this.filterIndex, this.trafficFilter)
+            } else {
+              this.trafficFilterData.push(this.trafficFilter)
+            }
+            this.innerFilterVisible = false
           } else {
-            this.trafficFilterData.push(this.trafficFilter)
+            if (this.interfaceIndex !== -1) {
+              this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
+              this.$set(this.dstInterfaceData, this.interfaceIndex, this.dstInterface)
+            } else {
+              this.dstInterfaceData.push(this.dstInterface)
+            }
+            this.innerInterfaceVisible = false
           }
-          this.innerFilterVisible = false
-        }
-      })
-    },
-    confirmToAddInterface () {
-      this.$refs.dstInterface.validate((valid) => {
-        if (valid) {
-          if (this.interfaceIndex !== -1) {
-            this.dstInterfaceData[this.interfaceIndex] = this.dstInterface
-            this.$set(this.dstInterfaceData, this.interfaceIndex, this.dstInterface)
-          } else {
-            this.dstInterfaceData.push(this.dstInterface)
-          }
-          this.innerInterfaceVisible = false
         }
       })
     }

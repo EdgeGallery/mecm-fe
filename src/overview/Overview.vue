@@ -141,6 +141,7 @@
                 <el-button
                   id="manageBtn"
                   type="primary"
+                  :disabled="!edgeAppList.length"
                   @click="checkServiceInfo()"
                   :loading="loginBtnLoading"
                 >
