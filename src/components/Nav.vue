@@ -107,7 +107,7 @@ export default {
       ifGuest: true,
       jsonData: [],
       language: 'en',
-      lang: '简体中文',
+      lang: 'English',
       smallMenu: false
     }
   },
