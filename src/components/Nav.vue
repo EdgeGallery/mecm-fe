@@ -120,9 +120,9 @@ export default {
     this.jsonData = NavDataCn
     this.language = localStorage.getItem('language') || 'en'
     if (this.language === 'en') {
-      this.lang = '简体中文'
-    } else {
       this.lang = 'English'
+    } else {
+      this.lang = '简体中文'
     }
     if (!localStorage.getItem('language')) { localStorage.setItem('language', 'en') }
     user.getUserInfo().then(res => {
