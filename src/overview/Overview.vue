@@ -432,7 +432,9 @@ export default {
       }
     },
     async checkServiceInfo () {
-      await this.getServiceInfo(this.edgeApp)
+      let ip = '159.138.129.53'
+      window.open('http://' + ip + ':30095')
+      // await this.getServiceInfo(this.edgeApp)
     }
   }
 }
