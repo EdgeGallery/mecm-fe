@@ -486,6 +486,21 @@ export default {
               label: '华为北京研究所'
             }]
           }]
+        },
+        {
+          value: '1',
+          label: '陕西省',
+          children: [{
+            value: '1.1',
+            label: '西安市',
+            children: [{
+              value: '108.839257,34.197356',
+              label: '华为西安研究所'
+            }, {
+              value: '108.916787,34.230834',
+              label: '西安电子科技大学'
+            }]
+          }]
         }, {
           value: '2',
           label: '江苏省',

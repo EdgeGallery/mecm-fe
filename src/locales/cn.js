@@ -352,7 +352,8 @@ const cn = {
     ttl: '请输入正确的ttl',
     macMust: '请填写正确的MAC地址',
     idMust: '请填写正确的规则标识',
-    domainMust: '请填写正确的域名'
+    domainMust: '请填写正确的域名',
+    beforeDeleteAppMgr: '确认要删除本条数据吗？'
   },
   ...zhLocale
 }

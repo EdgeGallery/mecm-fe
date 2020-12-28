@@ -352,7 +352,8 @@ const en = {
     ttl: 'Please type right ttl.',
     macMust: 'Please type right mac address.',
     idMust: 'Please type right rule ID.',
-    domainMust: 'Please type right domain name.'
+    domainMust: 'Please type right domain name.',
+    beforeDeleteAppMgr: 'Are you sure to delete this data?'
   },
   ...enLocale
 }
