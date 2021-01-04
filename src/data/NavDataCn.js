@@ -18,7 +18,7 @@ const NavDataCn = [
   {
     'id': '2.1',
     'icon': '',
-    'name': '概述',
+    'name': '概览',
     'path': '/',
     'pageId': '2.0',
     'display': false
