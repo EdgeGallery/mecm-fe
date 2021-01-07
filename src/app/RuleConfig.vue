@@ -18,7 +18,7 @@
   <div class="ruleconfig">
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.ruleConfiguration')"
       :path="{ path: '/mecm/ains/list' }"

@@ -125,7 +125,7 @@
         </p>
 
         <el-form
-          label-width="120px"
+          label-width="auto"
           :model="appTrafficRule"
           status-icon
           ref="appTrafficRule"
@@ -389,7 +389,7 @@
         >
           <el-row>
             <el-form
-              label-width="125px"
+              label-width="auto"
               :model="trafficFilter"
               status-icon
               ref="trafficFilter"
@@ -557,7 +557,7 @@
         >
           <el-row>
             <el-form
-              label-width="125px"
+              label-width="auto"
               :model="dstInterface"
               status-icon
               ref="dstInterface"

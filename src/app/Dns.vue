@@ -102,7 +102,7 @@
     >
       <div class="dialogContent">
         <el-form
-          label-width="130px"
+          label-width="auto"
           class="configForm"
           :model="dnsRule"
           status-icon

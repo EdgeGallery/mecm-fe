@@ -196,13 +196,27 @@ export default {
                 color: '#eee'
               }
             },
+            tooltip: {
+              show: true,
+              formatter: function (e) {
+                return 'hello'
+              },
+              position: [15, 10],
+              triggerOn: 'mousemove'
+            },
             regions: [],
             data: this.initMapData(mapJson),
             markPoint: {
               symbol: 'pin',
               symbolSize: [20, 20],
-              hoverable: false,
+              hoverable: true,
               roam: true,
+              label: {
+                position: [10, 10],
+                formatter: function () {
+                  return '123'
+                }
+              },
               itemStyle: {
                 normal: {
                   color: '#06EB00'
@@ -240,7 +254,7 @@ export default {
       this.btnShow = true
       if (this.map) {
         this.map.setView(new View({
-          projection: 'EPSG:4326',
+          projection: 'EPSG:3857',
           center: data[0].coordinates,
           zoom: 13
         }))
@@ -250,7 +264,7 @@ export default {
           layers: [
             new TileLayer({
               source: new XYZ({
-                url: 'http://rt0.map.gtimg.com/realtimerender?z={z}&x={x}&y={-y}&type=vector&style=0'
+                url: 'http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}'
               })
 
             })

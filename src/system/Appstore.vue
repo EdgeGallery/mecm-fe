@@ -18,7 +18,7 @@
   <div>
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.appstore')"
       :path="{ path: '/mecm/systems/external/applcm' }"
@@ -52,24 +52,24 @@
               class="list"
             >
               <el-form
-                label-width="90px"
+                label-width="auto"
               >
                 <el-form-item :label="$t('system.appstore.appstoreName')">
                   {{ item.appstoreName }}
                 </el-form-item>
-                <el-form-item label="厂商">
+                <el-form-item :label="$t('system.appstore.vendor')">
                   {{ item.producer }}
                 </el-form-item>
-                <el-form-item label="用户名">
+                <el-form-item :label="$t('system.appstore.username')">
                   {{ item.userName }}
                 </el-form-item>
                 <el-form-item label="URI">
                   {{ item.uri }}
                 </el-form-item>
-                <el-form-item label="IP">
+                <el-form-item :label="$t('system.appstore.ipAddress')">
                   {{ item.appstoreIp }}
                 </el-form-item>
-                <el-form-item label="端口">
+                <el-form-item :label="$t('system.appLcm.port')">
                   {{ item.appstorePort }}
                 </el-form-item>
                 <el-form-item class="rt btn-group">
@@ -112,8 +112,9 @@
         <el-row>
           <el-col>
             <el-form
+              label-width="auto"
               :model="form"
-              status-iconstatus-icon
+              status-icon
               ref="form"
               :rules="rules"
             >
@@ -170,7 +171,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="端口"
+                :label="$t('system.appLcm.port')"
                 prop="appstorePort"
               >
                 <el-input
@@ -239,11 +240,11 @@ export default {
       const rules = {
         appstoreName: [
           { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ],
         producer: [
           { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ],
         userName: [
           { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' },
@@ -251,7 +252,7 @@ export default {
         ],
         uri: [
           { required: true, message: this.$t('verify.uriTip'), trigger: 'blur' },
-          { pattern: /^(https?:\/\/(([a-zA-Z0-9]+-?)+[a-zA-Z0-9]+\.)+[a-zA-Z]+)(:\d+)?(\/.*)?(\?.*)?(#.*)?$/, message: this.$t('verify.uriVerify') }
+          { pattern: /^https?:\/\/.+/, message: this.$t('verify.uriVerify') }
         ],
         appstoreIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },

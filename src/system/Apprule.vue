@@ -18,10 +18,10 @@
   <div>
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.appRule')"
-      :path="{ path: '/mecm/systems/external/apprule' }"
+      :path="{ path: '/mecm/systems/external/applcm' }"
     />
     <div class="sysLcm">
       <div class="applcmContainer">
@@ -52,7 +52,7 @@
               class="list"
             >
               <el-form
-                label-width="90px"
+                label-width="auto"
               >
                 <el-form-item :label="$t('app.packageList.name')">
                   {{ item.appRuleName }}
@@ -104,6 +104,7 @@
       <el-row>
         <el-col>
           <el-form
+            label-width="auto"
             status-icon
             :model="form"
             ref="form"
