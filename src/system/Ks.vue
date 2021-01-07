@@ -18,7 +18,7 @@
   <div>
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.edgeNode')"
       :path="{ path: '/mecm/systems/external/applcm' }"
@@ -69,7 +69,7 @@
             <el-table-column
               prop="city"
               sortable
-              :label="$t('app.packageList.address')"
+              :label="$t('system.edgeNodes.deployArea')"
             />
             <el-table-column
               prop="affinity"
@@ -79,22 +79,22 @@
             <el-table-column
               prop="applcmIp"
               sortable
-              label="App LCM IP"
+              :label="$t('system.edgeNodes.applcmIp')"
             />
             <el-table-column
               prop="appRuleIp"
               sortable
-              label="App Rule MGR"
+              label="App Rule MGR IP"
             />
             <el-table-column
               prop="edgerepoIp"
               sortable
-              label="Edge Repo IP"
+              :label="$t('system.edgeNodes.edgeNexusIp')"
             />
             <el-table-column
               prop="edgerepoPort"
               sortable
-              label="Edge Repo Port"
+              :label="$t('system.edgeNodes.edgeNexusPort')"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
@@ -159,7 +159,7 @@
         <div class="k8s">
           <el-row>
             <el-form
-              label-width="120px"
+              label-width="auto"
               status-icon
               :model="currForm"
               ref="currForm"
@@ -459,7 +459,6 @@ export default {
         'appRuleIp': '',
         'coordinates': ''
       },
-
       capabilities: [],
       gpuModel: '',
       gpuVendor: '',
@@ -645,7 +644,6 @@ export default {
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(row))
       this.currForm = middleData
-      console.log(row.address)
       this.selectedArea = row.address.split('/')
       this.dialogVisible = true
       this.area = true

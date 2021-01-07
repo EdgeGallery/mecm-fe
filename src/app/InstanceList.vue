@@ -18,7 +18,7 @@
   <div>
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.appInstance')"
       :path="{ path: '/mecm/apac/list' }"
@@ -145,7 +145,7 @@
         width="40%"
       >
         <el-form
-          label-width="130px"
+          label-width="auto"
           class="detailForm"
           v-for="(item,index) in detailData"
           :key="index"
@@ -258,23 +258,29 @@ export default {
       this.selectData = selection
     },
     beforeDelete (rows, type) {
-      this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
-        confirmButtonText: this.$t('common.confirm'),
-        cancelButtonText: this.$t('common.cancel'),
-        closeOnClickModal: false,
-        type: 'warning'
-      }).then(() => {
-        if (type === 1) {
-          if (rows.length > 0) {
+      if (type === 1) {
+        if (rows.length > 0) {
+          this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
+            confirmButtonText: this.$t('common.confirm'),
+            cancelButtonText: this.$t('common.cancel'),
+            closeOnClickModal: false,
+            type: 'warning'
+          }).then(() => {
             this.multipleDelete(rows)
-          } else {
-            this.$message.warning('Please select one package at least!')
-          }
+          })
         } else {
-          this.confirmDetlete(rows.appInstanceId)
+          this.$message.warning('Please select one package at least!')
         }
-      }).catch(() => {
-      })
+      } else {
+        this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
+          confirmButtonText: this.$t('common.confirm'),
+          cancelButtonText: this.$t('common.cancel'),
+          closeOnClickModal: false,
+          type: 'warning'
+        }).then(() => {
+          this.confirmDetlete(rows.appInstanceId)
+        })
+      }
     },
     initList () {
       app.getInstanceList().then(res => {

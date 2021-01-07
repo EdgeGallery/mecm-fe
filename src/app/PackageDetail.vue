@@ -18,7 +18,7 @@
   <div>
     <Breadcrumb
       class="breadcrumb"
-      :first="$t('nav.mecm')"
+      :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.appDetail')"
       :path="{ path: '/mecm/apac/list' }"

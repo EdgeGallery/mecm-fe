@@ -16,138 +16,114 @@
 
 <template>
   <div class="search">
-    <el-row>
-      <el-form
-        :model="formData"
-        ref="formData"
-        label-width="120px"
+    <el-form
+      :model="formData"
+      ref="formData"
+      label-width="auto"
+    >
+      <el-form-item
+        :label="$t('app.packageList.name')"
+        prop="name"
+        v-if="nameItem"
       >
-        <el-col
-          :span="8"
-          v-if="nameItem"
+        <el-input
+          id="name"
+          maxlength="20"
+          v-model="formData.name"
+          :placeholder="$t('app.packageList.name')"
+          @keyup.enter.native="search"
+        />
+      </el-form-item>
+      <el-form-item
+        :label="$t('app.packageList.affinity')"
+        prop="affinity"
+        v-if="affinityItem"
+      >
+        <el-select
+          id="affinity"
+          v-model="formData.affinity"
+          :placeholder="$t('app.packageList.affinity')"
+          @change="search"
         >
-          <el-form-item
-            :label="$t('app.packageList.name')"
-            prop="name"
-          >
-            <el-input
-              id="name"
-              maxlength="20"
-              v-model="formData.name"
-              :placeholder="$t('app.packageList.name')"
-              @keyup.enter.native="search"
-            />
-          </el-form-item>
-        </el-col>
-        <el-col
-          :span="8"
-          v-if="affinityItem"
+          <el-option
+            v-for="item in affinity"
+            :label="item.label"
+            :value="item.value"
+            :key="item.label"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        :label="$t('app.packageList.type')"
+        prop="type"
+        v-if="typeItem"
+      >
+        <el-select
+          id="type"
+          v-model="formData.type"
+          :placeholder="$t('app.packageList.type')"
+          @change="search"
         >
-          <el-form-item
-            :label="$t('app.packageList.affinity')"
-            prop="affinity"
-          >
-            <el-select
-              id="affinity"
-              v-model="formData.affinity"
-              :placeholder="$t('app.packageList.affinity')"
-              @change="search"
-            >
-              <el-option
-                v-for="item in affinity"
-                :label="item.label"
-                :value="item.value"
-                :key="item.label"
-              />
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col
-          :span="8"
-          v-if="typeItem"
+          <el-option
+            v-for="item in types"
+            :label="item.label"
+            :value="item.value"
+            :key="item.label"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        :label="$t('app.distriList.status')"
+        prop="status"
+        v-if="statusItem"
+      >
+        <el-select
+          id="status"
+          v-model="formData.status"
+          :placeholder="$t('app.distriList.status')"
+          @change="search"
         >
-          <el-form-item
-            :label="$t('app.packageList.type')"
-            prop="type"
-          >
-            <el-select
-              id="type"
-              v-model="formData.type"
-              :placeholder="$t('app.packageList.type')"
-              @change="search"
-            >
-              <el-option
-                v-for="item in types"
-                :label="item.label"
-                :value="item.value"
-                :key="item.label"
-              />
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col
-          :span="8"
-          v-if="statusItem"
+          <el-option
+            v-for="item in status"
+            :label="item"
+            :value="item"
+            :key="item"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item
+        :label="$t('app.packageList.ip')"
+        prop="ip"
+        v-if="ipItem"
+      >
+        <el-input
+          id="ip"
+          maxlength="15"
+          v-model="formData.ip"
+          :placeholder="$t('app.packageList.ip')"
+          @keyup.enter.native="search"
+        />
+      </el-form-item>
+      <div
+        class="flex"
+        style="justify-content: center; align-items: center;"
+      >
+        <el-button
+          id="resetBtn"
+          @click="resetForm('formData')"
         >
-          <el-form-item
-            :label="$t('app.distriList.status')"
-            prop="status"
-          >
-            <el-select
-              id="status"
-              v-model="formData.status"
-              :placeholder="$t('app.distriList.status')"
-              @change="search"
-            >
-              <el-option
-                v-for="item in status"
-                :label="item"
-                :value="item"
-                :key="item"
-              />
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col
-          :span="8"
-          v-if="ipItem"
+          {{ $t('common.reset') }}
+        </el-button>
+        <el-button
+          id="searchBtn"
+          type="primary"
+          @click="search"
         >
-          <el-form-item
-            :label="$t('app.packageList.ip')"
-            prop="ip"
-          >
-            <el-input
-              id="ip"
-              maxlength="15"
-              v-model="formData.ip"
-              :placeholder="$t('app.packageList.ip')"
-              @keyup.enter.native="search"
-            />
-          </el-form-item>
-        </el-col>
-        <el-col :span="24">
-          <div
-            class="flex"
-            style="justify-content: center; align-items: center;"
-          >
-            <el-button
-              id="resetBtn"
-              @click="resetForm('formData')"
-            >
-              {{ $t('common.reset') }}
-            </el-button>
-            <el-button
-              id="searchBtn"
-              type="primary"
-              @click="search"
-            >
-              {{ $t('common.search') }}
-            </el-button>
-          </div>
-        </el-col>
-        <div class="clearfix" />
-      </el-form>
-    </el-row>
+          {{ $t('common.search') }}
+        </el-button>
+      </div>
+      <div class="clearfix" />
+    </el-form>
   </div>
 </template>
 

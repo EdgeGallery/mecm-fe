@@ -155,7 +155,7 @@
       width="40%"
     >
       <el-form
-        label-width="130px"
+        label-width="auto"
         class="configForm"
         :model="configForm"
         status-icon
