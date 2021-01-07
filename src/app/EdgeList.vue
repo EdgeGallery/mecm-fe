@@ -143,6 +143,7 @@
       </el-table>
       <div class="pageBar">
         <Pagination
+          :page-sizes="[10,15,20,25]"
           :table-data="paginationData"
           @getCurrentPageData="getCurrentPageData"
         />
@@ -158,7 +159,7 @@
         label-width="auto"
         class="configForm"
         :model="configForm"
-        status-icon
+
         ref="configForm"
         :rules="rules"
       >
@@ -207,7 +208,7 @@
           />
         </el-form-item>
         <el-form-item
-          label="硬件能力"
+          :label="$t('system.edgeNodes.hwCapability')"
           prop="hwCapabilities"
         >
           <el-checkbox-group
@@ -258,11 +259,13 @@
       >
         <el-button
           id="cancelBtn"
+          size="small"
           @click="dialogVisible = false,loading=false"
         >{{ $t('common.cancel') }}</el-button>
         <el-button
           id="confirmBtn"
           type="primary"
+          size="small"
           @click="confirmToDeploy('configForm')"
           :loading="loading"
         >{{ $t('common.confirm') }}</el-button>

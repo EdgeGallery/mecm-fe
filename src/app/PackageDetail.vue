@@ -16,13 +16,21 @@
 
 <template>
   <div>
-    <Breadcrumb
+    <el-breadcrumb
+      separator="/"
       class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.appDetail')"
-      :path="{ path: '/mecm/apac/list' }"
-    />
+    >
+      <el-breadcrumb-item :to="{ path: '/' }">
+        {{ $t('nav.overview') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+        {{ $t('nav.appMana') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+        {{ $t('nav.packageMana') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>
+    </el-breadcrumb>
     <div class="app-detail">
       <div>
         <Edge :appid="appId" />
@@ -31,12 +39,10 @@
   </div>
 </template>
 <script>
-import Breadcrumb from '../components/BreadCrumb'
 import Edge from './EdgeList'
 export default {
   components: {
-    Edge,
-    Breadcrumb
+    Edge
   },
   data () {
     return {

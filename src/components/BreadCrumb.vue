@@ -20,10 +20,10 @@
       <el-breadcrumb-item :to="{ path: '/' }">
         {{ first }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="jumpTo()">
+      <el-breadcrumb-item :to="jumpTo(path)">
         {{ second }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item>
+      <el-breadcrumb-item :to="jumpTo(path1)">
         {{ third }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -58,11 +58,8 @@ export default {
 
   },
   methods: {
-    jumpTo () {
-      return this.path
-    },
-    jumpToTo () {
-      return this.pathto
+    jumpTo (path) {
+      return path
     }
   }
 }

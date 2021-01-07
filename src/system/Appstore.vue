@@ -98,6 +98,7 @@
         </div>
         <div class="pageBar">
           <pagination
+            :page-sizes="[6,12,18,24]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />
@@ -114,7 +115,6 @@
             <el-form
               label-width="auto"
               :model="form"
-              status-icon
               ref="form"
               :rules="rules"
             >
@@ -189,11 +189,13 @@
         >
           <el-button
             id="cancelBtn"
+            size="small"
             @click="dialogVisible = false"
           >{{ $t('common.cancel') }}</el-button>
           <el-button
             id="confirmBtn"
             type="primary"
+            size="small"
             @click="confirmToRegister('form')"
           >{{ $t('common.confirm') }}</el-button>
         </span>

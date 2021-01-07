@@ -63,7 +63,7 @@
           <el-table-column
             prop="city"
             sortable
-            :label="$t('app.packageList.address')"
+            :label="$t('system.edgeNodes.deployArea')"
           />
           <el-table-column
             prop="affinity"
@@ -71,7 +71,7 @@
             :label="$t('app.packageList.affinity')"
           />
           <el-table-column
-            label="硬件能力"
+            :label="$t('system.edgeNodes.hwCapability')"
             width="200"
           >
             <template slot-scope="scope">
@@ -86,17 +86,17 @@
           <el-table-column
             prop="edgerepoIp"
             sortable
-            label="Edge Repo IP"
+            :label="$t('system.edgeNodes.edgeNexusIp')"
           />
           <el-table-column
             prop="edgerepoPort"
             sortable
-            label="Edge Repo Port"
+            :label="$t('system.edgeNodes.edgeNexusPort')"
           />
           <el-table-column
             prop="applcmIp"
             sortable
-            label="App LCM IP"
+            :label="$t('system.edgeNodes.applcmIp')"
           />
           <el-table-column
             :label="$t('common.operation')"
@@ -116,6 +116,7 @@
         </el-table>
         <div class="pageBar">
           <Pagination
+            :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />

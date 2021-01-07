@@ -70,7 +70,8 @@ const en = {
     overview: 'Overview',
     edgeNodes: 'Edge Nodes',
     onlineNodes: 'Online Nodes',
-    offlineNodes: 'Offline Nodes'
+    offlineNodes: 'Offline Nodes',
+    returnOverview: 'Back to main view'
   },
   app: {
     packageList: {
@@ -222,7 +223,8 @@ const en = {
       uploadFile: 'Upload Config File',
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
-      coordinates: 'Coordinates'
+      coordinates: 'Coordinates',
+      choseDeployArea: 'Please select deploy area'
     },
     appstore: {
       appstoreName: 'App Store Name',

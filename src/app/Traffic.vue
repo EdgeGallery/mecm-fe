@@ -127,7 +127,7 @@
         <el-form
           label-width="auto"
           :model="appTrafficRule"
-          status-icon
+
           ref="appTrafficRule"
           :rules="formRules"
         >
@@ -391,7 +391,6 @@
             <el-form
               label-width="auto"
               :model="trafficFilter"
-              status-icon
               ref="trafficFilter"
               :rules="formTrafficfilterRules"
             >
@@ -535,11 +534,15 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button @click="cancelEdit('trafficFilter')">
+            <el-button
+              @click="cancelEdit('trafficFilter')"
+              size="small"
+            >
               {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
+              size="small"
               @click="confirmToAdd('trafficFilter')"
             >
               {{ $t('common.confirm') }}
@@ -559,7 +562,6 @@
             <el-form
               label-width="auto"
               :model="dstInterface"
-              status-icon
               ref="dstInterface"
               :rules="formInterfaceRules"
             >
@@ -661,11 +663,15 @@
             slot="footer"
             class="dialog-footer"
           >
-            <el-button @click="cancelEdit('dstInterface')">
+            <el-button
+              @click="cancelEdit('dstInterface')"
+              size="small"
+            >
               {{ $t('common.cancel') }}
             </el-button>
             <el-button
               type="primary"
+              size="small"
               @click="confirmToAdd('dstInterface')"
             >
               {{ $t('common.confirm') }}
@@ -679,6 +685,7 @@
       >
         <el-button
           id="cancelBtn"
+          size="small"
           @click="cancelAddRule"
         >
           {{ $t('common.cancel') }}
@@ -686,6 +693,7 @@
         <el-button
           id="confirmBtn"
           type="primary"
+          size="small"
           @click="confirmToAddTraRules"
         >
           {{ $t('common.confirm') }}

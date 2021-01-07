@@ -111,7 +111,7 @@
             <el-table-column
               :label="$t('common.operation')"
               align="center"
-              width="200"
+              width="280"
             >
               <template slot-scope="scope">
                 <el-button
@@ -144,6 +144,7 @@
         </el-row>
         <div class="pageBar">
           <pagination
+            :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />
@@ -160,7 +161,6 @@
           <el-row>
             <el-form
               label-width="auto"
-              status-icon
               :model="currForm"
               ref="currForm"
               :rules="rules"
@@ -211,6 +211,7 @@
               >
                 <el-cascader
                   :options="options"
+                  :placeholder="$t('system.edgeNodes.choseDeployArea')"
                   v-model="selectedArea"
                   @change="onChanged"
                   ref="myCascader"
@@ -374,11 +375,13 @@
         >
           <el-button
             id="cancelBtn"
+            size="small"
             @click="cancel()"
           >{{ $t('common.cancel') }}</el-button>
           <el-button
             id="confirmBtn"
             type="primary"
+            size="small"
             @click="confirm('currForm')"
           >{{ $t('common.confirm') }}</el-button>
         </span>

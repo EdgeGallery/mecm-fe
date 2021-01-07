@@ -82,7 +82,6 @@
               <el-table-column
                 prop="shortDesc"
                 sortable
-                width="350"
                 :label="$t('app.packageList.desc')"
               >
                 <template slot-scope="scope">
@@ -97,7 +96,6 @@
               <el-table-column
                 :label="$t('common.operation')"
                 align="center"
-                width="180"
               >
                 <template slot-scope="scope">
                   <el-button
@@ -131,6 +129,7 @@
         </el-row>
         <div class="pageBar">
           <Pagination
+            :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />
@@ -249,6 +248,7 @@
           >
             <el-button
               id="cancelBtn"
+              size="small"
               @click="cancel()"
             >
               {{ $t('common.cancel') }}
@@ -256,6 +256,7 @@
             <el-button
               id="confirmBtn"
               type="primary"
+              size="small"
               @click="confirm()"
               :loading="loading"
             >
