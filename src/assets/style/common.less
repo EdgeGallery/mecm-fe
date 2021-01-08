@@ -81,11 +81,19 @@ a{
 
 .el-dialog__headerbtn .el-dialog__close{
   color:#fff !important;
+  position: relative;
+  top: -7px;
 }
 
 .el-dialog__header{
   background: #409EFF;
-  padding:12px 10px !important;
+  padding:10px!important;
+}
+
+.search .el-button--small,.search .el-button--small.is-round{
+  padding: 8px 15px !important;
+  position: relative !important;
+  top: -2px !important;
 }
 
 .el-dialog__title{
@@ -95,6 +103,10 @@ a{
 .el-message{
   top: 65px !important;
   z-index:10000 !important;
+}
+
+.el-table--mini, .el-table--small, .el-table__expand-icon{
+  font-size:14px!important;
 }
 
 /* navBar */
@@ -150,7 +162,7 @@ body .el-table th.gutter{
     box-sizing: border-box;
     margin-bottom: 20px;
     .list {
-      padding:15px 0;
+      padding:15px 0 15px 15px;
       border: 1px solid #67C23A;
       border-left: 10px solid #67C23A;
       border-radius: 4px;
@@ -174,6 +186,15 @@ body .el-table th.gutter{
       background-color: #f5f5f5;
     }
   }
+}
+
+
+.search .el-input__inner{
+  height: 32px !important;
+}
+
+.el-dialog__body{
+  padding:20px 20px 0 20px !important;
 }
 
 @media (min-width:0px){

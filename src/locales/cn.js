@@ -69,7 +69,8 @@ const cn = {
     overview: '基础信息',
     edgeNodes: '计算节点',
     onlineNodes: '在线节点',
-    offlineNodes: '离线节点'
+    offlineNodes: '离线节点',
+    returnOverview: '返回主视图'
   },
   app: {
     packageList: {
@@ -222,7 +223,8 @@ const cn = {
       uploadFile: '上传配置文件',
       howToUpload: '拖拽文件到上传区域内，或者点击上传',
       hwCapability: '硬件能力',
-      coordinates: '坐标'
+      coordinates: '坐标',
+      choseDeployArea: '选择部署区域'
     },
     appstore: {
       appstoreName: '应用市场',

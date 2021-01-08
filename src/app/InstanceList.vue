@@ -93,6 +93,7 @@
           <el-table-column
             :label="$t('common.operation')"
             align="center"
+            width="250"
           >
             <template slot-scope="scope">
               <el-button
@@ -133,6 +134,7 @@
         </el-table>
         <div class="pageBar">
           <Pagination
+            :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />

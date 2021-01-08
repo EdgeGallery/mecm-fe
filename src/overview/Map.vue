@@ -34,7 +34,7 @@
         v-if="btnShow"
         @click="returnOverviewModel"
       >
-        返回主视图
+        {{ $t('overview.returnOverview') }}
       </el-button>
     </div>
   </div>
@@ -341,9 +341,9 @@ export default {
     left:2%
   }
   .return{
-    position: absolute;
-    top:15px;
-    right:10px;
+    position: absolute !important;
+    top:15px !important;
+    right:10px !important;
   }
 }
 </style>

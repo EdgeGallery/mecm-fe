@@ -105,7 +105,7 @@
           label-width="auto"
           class="configForm"
           :model="dnsRule"
-          status-icon
+
           ref="dnsRule"
           :rules="formRules"
         >
@@ -177,6 +177,7 @@
       >
         <el-button
           id="cancelBtn"
+          size="small"
           @click="resetForm('dnsRule')"
         >
           {{ $t('common.cancel') }}
@@ -184,6 +185,7 @@
         <el-button
           id="confirmBtn"
           type="primary"
+          size="small"
           @click="confirmToAddDnsRules"
         >
           {{ $t('common.confirm') }}

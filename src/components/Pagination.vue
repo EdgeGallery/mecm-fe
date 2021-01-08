@@ -22,7 +22,7 @@
       @size-change="handlePageSizeChange"
       @current-change="handleCurrentPageChange"
       :current-page="currentPage"
-      :page-sizes="[10, 15, 20, 25]"
+      :page-sizes="pageSizes"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalNum"
@@ -35,6 +35,10 @@
 export default {
   props: {
     tableData: {
+      required: true,
+      type: Array
+    },
+    pageSizes: {
       required: true,
       type: Array
     }
