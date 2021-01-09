@@ -16,7 +16,7 @@
 
 <template>
   <div class="my-comp-title">
-    <div class="title">
+    <div class="title1">
       <span>{{ this.title }}</span>
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang='less' scoped>
 .my-comp-title{
-  .title{
+  .title1{
     border-left: 2px solid #29ABE0;
     span{
       margin-left: 5px;

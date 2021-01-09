@@ -28,7 +28,7 @@
         class="content-right"
       >
         <div
-          class="edge-souces mt20"
+          class="edge-souces"
           v-if="alarmStatus === 'alarms'"
         >
           <label class="overviewLabel">{{ $t('overview.overview') }}</label>
@@ -40,60 +40,31 @@
           <Chart :chart-data="chartData" />
         </div>
         <div
-          class="edge-souces ml20"
+          class="edge-souces"
           v-if="alarmStatus !== 'alarms'"
         >
           <el-row
-            :gutter="40"
-            style="margin-top:30px;"
+            :gutter="10"
           >
             <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
             <div class="nodeBasicInfo">
-              <p><span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}</p>
-              <p><span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}</p>
+              <p>
+                <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
+                <span style="margin-left:25px;">{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
+              </p>
               <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
             </div>
             <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
-            <el-col
-              :span="8"
-              class="mt20 progerss-item"
-            >
-              <ve-gauge
-                :data="chartDataCpu"
-                height="150px"
-                :settings="chartSettings"
-              />
-              <p>CPU</p>
-            </el-col>
-            <el-col
-              :span="8"
-              class="mt20 progerss-item"
-            >
-              <ve-gauge
-                :data="chartDataMem"
-                height="150px"
-                :settings="chartSettings"
-              />
-              <p>MEM</p>
-            </el-col>
-            <el-col
-              :span="8"
-              class="mt20 progerss-item"
-            >
-              <ve-gauge
-                :data="chartDataDisk"
-                height="150px"
-                :settings="chartSettings"
-              />
-              <p>DISK</p>
-            </el-col>
+            <div>
+              <Usage :kpi-info="kpiInfo" />
+            </div>
           </el-row>
         </div>
         <div
           class="edge-souces"
           v-if="alarmStatus !== 'alarms'"
         >
-          <label class="overviewLabel">{{ $t('overview.mepCapa') }}</label>
+          <label class="overviewLabel">{{ $t('overview.mepInfo') }}</label>
           <el-table
             :data="hwCapData"
             class="mt20"
@@ -101,7 +72,7 @@
           >
             <el-table-column
               prop="hwType"
-              :label="$t('overview.capa')"
+              :label="$t('overview.mepCapa')"
             />
             <el-table-column
               prop="hwVendor"
@@ -117,23 +88,23 @@
           class="edge-souces"
           v-if="alarmStatus !== 'alarms'"
         >
-          <label class="overviewLabel">{{ $t('overview.app') }}</label>
-          <el-select
-            class="mt20"
-            v-model="edgeApp"
-            style="width:100%;"
-            @change="appChange"
-          >
-            <el-option
-              v-for="item in edgeAppList"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-          <br>
-          <el-row :gutter="20">
-            <el-col :span="24">
+          <el-row>
+            <el-col :span="12">
+              <el-select
+                class="mt20"
+                v-model="edgeApp"
+                style="width:100%;"
+                @change="appChange"
+              >
+                <el-option
+                  v-for="item in edgeAppList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-col>
+            <el-col :span="12">
               <div
                 style="float:right;margin-bottom:15px;"
                 class="mt20"
@@ -156,6 +127,8 @@
                   {{ $t('overview.maintenance') }}
                 </el-button>
               </div>
+            </el-col>
+            <el-col :span="24">
               <el-table
                 :data="mepCapData"
                 style="width: 100%"
@@ -183,6 +156,7 @@
         :md="12"
         :sm="24"
         :xs="24"
+        style="height:100%;padding-left:0!important;"
       >
         <Map
           @node="clickNode"
@@ -202,6 +176,7 @@
 <script>
 
 import manageDialog from './ManageDialog.vue'
+import Usage from './Usage.vue'
 import Map from './Map.vue'
 import { overview, app } from '../tools/request.js'
 import Chart from './Chart.vue'
@@ -209,62 +184,10 @@ export default {
   components: {
     manageDialog,
     Map,
-    Chart
+    Chart,
+    Usage
   },
   data () {
-    this.chartSettings = {
-      dataName: {
-        'Usage': ''
-      },
-      seriesMap: {
-        'Usage': {
-          radius: '90%',
-          axisLine: {
-            lineStyle: {
-              color: [[1, '#6C92FA']],
-              width: 7
-            }
-          },
-          axisTick: {
-            length: 0,
-            show: false
-          },
-          axisLabel: {
-            show: false
-          },
-          splitLine: {
-            length: 0,
-            show: false,
-            lineStyle: {
-              width: 2,
-              color: '#fff'
-            }
-          },
-          pointer: {
-            length: '0%',
-            width: 0,
-            color: 'transparent'
-          },
-          detail: {
-            backgroundColor: 'transparent',
-            fontSize: 20,
-            offsetCenter: [0, '5%'],
-            formatter: (value) => {
-              let val = value + '%'
-              return val
-            }
-          },
-          title: {
-            offsetCenter: [0, '-40%'],
-            textStyle: {
-              fontSize: 20,
-              fontStyle: 'italic',
-              color: '#fff'
-            }
-          }
-        }
-      }
-    }
     return {
       serviceInfo: {},
       alarmStatus: 'alarms',
@@ -272,27 +195,9 @@ export default {
       mepCapData: [],
       edgeApp: '',
       edgeAppList: [],
-      chartDataCpu: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
-      },
-      chartDataMem: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
-      },
-      chartDataDisk: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
-      },
       manageDialogStatus: false,
       infoList: [],
-      kpiInfo: [],
+      kpiInfo: {},
       loginBtnLoading: false,
       chartData: {},
       nodeBasicInfo: null,
@@ -311,9 +216,6 @@ export default {
   },
   methods: {
     resetData () {
-      this.chartDataCpu.rows[0].value = 0
-      this.chartDataMem.rows[0].value = 0
-      this.chartDataDisk.rows[0].value = 0
       this.hwCapData = []
       this.edgeAppList = []
       this.edgeApp = ''
@@ -400,9 +302,7 @@ export default {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
-          this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used * 100).toFixed(2))
-          this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used * 100).toFixed(2))
-          this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))
+          console.log(this.kpiInfo)
         }
       }).catch(() => {
         // this.$message.error(this.$t('tip.getKpiFailed'))
@@ -440,12 +340,11 @@ export default {
 <style lang='less'>
 .mecm-overview {
   position: absolute;
-  top: 60px;
-  height:calc(100% - 60px);
+  top: 65px;
   width: 100%;
+  height:calc(100% - 65px);
   overflow: auto;
-  background: url('./../assets/images/overview-bg.png') center no-repeat;
-  padding: 0 30px;
+  background:#131111;
   background-size: cover;
   box-sizing: border-box;
 }
@@ -457,6 +356,7 @@ export default {
     letter-spacing: 0;
     line-height: 24px;
     display: block;
+    padding:8px 0;
   }
   .mt20 {
     margin-top: 20px;
@@ -469,25 +369,25 @@ export default {
   }
   .nodeBasicInfo{
     color:#F5F5F5;
-    padding:15px 0;
-    margin: 15px 15px 15px 0;
-    background: #2D4868;
+    padding: 15px 0;
     p{
-      font-size: 14px;
-      line-height: 25px;
-      padding-left: 10px;
+      font-size: 16px;
+      line-height: 32px;
+      padding: 0 10px 10px 10px;
       span{
         display: inline-block;
       }
     }
   }
   .content-right {
-    padding:0!important;
+      padding: 0!important;
+      background: #2f2d2d;
+      height: 100%;
     .my-title {
       color: white;
     }
     .edge-souces {
-      padding: 0 0 20px 20px;
+      padding: 15px 15px 0 15px;
       .el-table {
         border-color: #2395db !important;
         color: white;
@@ -567,6 +467,6 @@ export default {
     }
   }
   .headerClassName{
-    font-size: 12px;
+    font-size: 15px;
   }
 </style>

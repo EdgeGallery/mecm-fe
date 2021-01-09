@@ -209,18 +209,18 @@ export default {
       dnsRule: {
         dnsRuleId: '',
         domainName: 'domainname',
-        ipAddressType: 'IP_V4',
+        ipAddressType: 'IPv4',
         ipAddress: '192.5.14.68',
         ttl: '85000'
       },
       ipAddressType: [
         {
-          value: 'IP_V4',
-          label: 'IP_V4'
+          value: 'IPv4',
+          label: 'IPv4'
         },
         {
-          value: 'IP_V6',
-          label: 'IP_V6'
+          value: 'IPv6',
+          label: 'IPv6'
         }
       ],
       selectedData: [],
@@ -306,7 +306,7 @@ export default {
       this.dnsRule = {
         dnsRuleId: '',
         domainName: 'domainname',
-        ipAddressType: 'IP_V4',
+        ipAddressType: 'IPv4',
         ipAddress: '192.5.14.68',
         ttl: '85000'
       }
@@ -369,19 +369,5 @@ export default {
 <style lang='less' scoped>
 .btn{
   margin:15px 15px 15px 0;
-}
-.title{
-  margin:15px 3px;
-  font-size:18px;
-}
-.title::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:17px;
-  margin-right:3px;
-  background: #409EFF;
-  position: relative;
-  top:2px;
 }
 </style>

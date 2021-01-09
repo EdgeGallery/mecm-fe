@@ -187,7 +187,7 @@ export default {
       title: this.$t('app.ruleConfig.appRuleManReg'),
       form: {
         appRuleIp: '',
-        appRulePort: '',
+        appRulePort: '30206',
         userName: '',
         appRuleName: ''
       },
@@ -203,7 +203,7 @@ export default {
         ],
         appRulePort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^[1-9]$|(^[1-9][0-9]$)|(^[1-9][0-9][0-9]$)|(^[1-9][0-9][0-9][0-9]$)|(^[1-6][0-5][0-5][0-3][0-5]$)/, message: this.$t('verify.normalVerify') }
         ],
         appRuleName: [
           { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
@@ -272,7 +272,7 @@ export default {
       this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
         appRuleIp: '',
-        appRulePort: '',
+        appRulePort: '30206',
         userName: '',
         appRuleName: ''
       }

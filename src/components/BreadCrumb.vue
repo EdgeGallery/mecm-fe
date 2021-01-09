@@ -23,7 +23,7 @@
       <el-breadcrumb-item :to="jumpTo(path)">
         {{ second }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="jumpTo(path1)">
+      <el-breadcrumb-item>
         {{ third }}
       </el-breadcrumb-item>
     </el-breadcrumb>

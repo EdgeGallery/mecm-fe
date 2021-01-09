@@ -17,6 +17,7 @@
 html,body,p,h1,h2,h3,h4,h5,h6,ul,li{
   margin:0;
   padding:0;
+  font-size:15px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 #app,html,body{
@@ -71,6 +72,21 @@ a{
   cursor: pointer;
 }
 
+
+.title{
+  margin:15px 3px;
+  font-size:18px;
+}
+.title::before{
+  content:'';
+  display:inline-block;
+  width:3px;
+  height:17px;
+  margin-right:3px;
+  background: #409EFF;
+  position: relative;
+  top:2px;
+}
 /* dialog */
 .el-dialog__body{
   padding-top:15px!important;
@@ -93,7 +109,7 @@ a{
 .search .el-button--small,.search .el-button--small.is-round{
   padding: 8px 15px !important;
   position: relative !important;
-  top: -2px !important;
+  top: 0 !important;
 }
 
 .el-dialog__title{
@@ -105,8 +121,8 @@ a{
   z-index:10000 !important;
 }
 
-.el-table--mini, .el-table--small, .el-table__expand-icon{
-  font-size:14px!important;
+.el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
+  font-size:16px!important;
 }
 
 /* navBar */
@@ -152,6 +168,7 @@ body .el-table th.gutter{
   color:#827979;
 }
 
+
 .applcmList,.appstoreList{
   padding:15px 0;
   display:flex;
@@ -173,7 +190,7 @@ body .el-table th.gutter{
       .el-form{
       width:100%;
       .el-form-item{
-        margin-bottom: 0;
+        margin-bottom: 8px;
         .button:nth-child(2){
           margin-right:15px;
         }
@@ -189,8 +206,11 @@ body .el-table th.gutter{
 }
 
 
+.mecm-overview .el-row{
+  margin:0 !important;
+}
 .search .el-input__inner{
-  height: 32px !important;
+  height: 34px !important;
 }
 
 .el-dialog__body{

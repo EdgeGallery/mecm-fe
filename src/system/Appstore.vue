@@ -262,7 +262,7 @@ export default {
         ],
         appstorePort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^[1-9]$|(^[1-9][0-9]$)|(^[1-9][0-9][0-9]$)|(^[1-9][0-9][0-9][0-9]$)|(^[1-6][0-5][0-5][0-3][0-5]$)/, message: this.$t('verify.normalVerify') }
         ]
       }
       return rules
