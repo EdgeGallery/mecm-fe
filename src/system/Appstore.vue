@@ -392,13 +392,6 @@ export default {
   height: 100%;
   background: #fff;
   padding: 30px 60px;
-  .btn-p{
-    height: 40px;
-    padding:15px 0;
-    .rt{
-        margin-bottom:15px;
-      }
-  }
   .btn-group{
     margin:15px 0;
   }

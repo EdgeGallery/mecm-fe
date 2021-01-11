@@ -30,7 +30,7 @@
         :status="status"
         @getSearchData="getSearchData"
       />
-      <div class="btn-group rt">
+      <div class="btn-p rt">
         <el-button
           type="primary"
           @click="beforeDelete(selectData,1)"

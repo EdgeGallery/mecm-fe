@@ -337,10 +337,6 @@ export default {
   padding: 30px 60px;
   .applcmContainer{
     padding-top:25px;
-    .btn-p{
-      height:40px;
-      padding:15px 0;
-    }
   }
   .btn-group{
     margin:15px 0;

@@ -30,23 +30,16 @@
         :ip-item="true"
         @getSearchData="getSearchData"
       />
+      <p class="btn-p">
+        <el-button
+          id="newregBtn"
+          type="primary"
+          @click="register()"
+        >
+          {{ $t('system.appLcm.newReg') }}
+        </el-button>
+      </p>
       <div class="tableDiv">
-        <el-row>
-          <el-col
-            :span="2"
-            :offset="22"
-          >
-            <div class="el-row-button rt">
-              <el-button
-                id="newregBtn"
-                type="primary"
-                @click="register()"
-              >
-                {{ $t('system.appLcm.newReg') }}
-              </el-button>
-            </div>
-          </el-col>
-        </el-row>
         <el-row class="table">
           <el-table
             :data="currPageTableData"
