@@ -23,8 +23,8 @@
       width="50%"
       :before-close="handleClose"
     >
-      <div>
-        <label class="dialogLabel">{{ $t('overview.services') }}</label>
+      <div class="mt20">
+        <label class="title">{{ $t('overview.services') }}</label>
         <el-table
           :data="searvicesData"
           class="mt20"
@@ -46,61 +46,56 @@
           />
         </el-table>
       </div>
-      <el-row
-        :gutter="40"
-        class="mt20"
-      >
-        <el-col :span="24">
-          <label class="dialogLabel">{{ $t('overview.containers') }}</label>
-          <el-radio-group
-            v-model="radio"
-            @change="containerChange"
-          >
-            <el-radio
-              v-for="(item,index) in containerData"
-              :key="index"
-              :label="index"
-            >
-              {{ item.name }}
-            </el-radio>
-          </el-radio-group>
-        </el-col>
-        <el-col
-          :span="24"
-          class="mt20"
+      <div class="mt20">
+        <label class="title">{{ $t('overview.containers') }}</label>
+        <el-radio-group
+          v-model="radio"
+          @change="containerChange"
         >
-          <label class="dialogLabel">{{ $t('overview.containerUsage') }}</label>
-          <el-row
-            :gutter="40"
-            class="mt20 containers-usage"
+          <el-radio
+            v-for="(item,index) in containerData"
+            :key="index"
+            :label="index"
           >
-            <el-col :span="8">
-              <el-progress
-                type="dashboard"
-                :percentage="cpuUsage"
-                :width="100"
-              />
-              <p>CPU</p>
-            </el-col>
-            <el-col :span="8">
-              <el-progress
-                type="dashboard"
-                :percentage="memUsage"
-                :width="100"
-              />
-              <p>MEM</p>
-            </el-col>
-            <el-col :span="8">
-              <el-progress
-                type="dashboard"
-                :percentage="diskUsage"
-                :width="100"
-              />
-              <p>DISK</p>
-            </el-col>
-          </el-row>
-        </el-col>
-      </el-row>
+            {{ item.name }}
+          </el-radio>
+        </el-radio-group>
+      </div>
+      <div
+        class="mt20"
+        style="padding-bottom:25px;"
+      >
+        <label class="title">{{ $t('overview.containerUsage') }}</label>
+        <el-row
+          :gutter="40"
+          class="mt20 containers-usage"
+        >
+          <el-col :span="8">
+            <el-progress
+              type="dashboard"
+              :percentage="cpuUsage"
+              :width="100"
+            />
+            <p>CPU</p>
+          </el-col>
+          <el-col :span="8">
+            <el-progress
+              type="dashboard"
+              :percentage="memUsage"
+              :width="100"
+            />
+            <p>MEM</p>
+          </el-col>
+          <el-col :span="8">
+            <el-progress
+              type="dashboard"
+              :percentage="diskUsage"
+              :width="100"
+            />
+            <p>DISK</p>
+          </el-col>
+        </el-row>
+      </div>
     </el-dialog>
   </div>
 </template>

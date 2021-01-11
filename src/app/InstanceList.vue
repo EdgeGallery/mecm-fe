@@ -30,7 +30,7 @@
         :status="status"
         @getSearchData="getSearchData"
       />
-      <div class="btn-group rt">
+      <div class="btn-p rt">
         <el-button
           type="primary"
           @click="beforeDelete(selectData,1)"
@@ -307,18 +307,22 @@ export default {
       rows.forEach(item => {
         obj.appInstanceIds.push(item.appInstanceId)
       })
+      this.dataLoading = true
       app.batchDeleteInstanceApp(obj).then(response => {
         setTimeout(() => {
           this.initList()
-        })
+        }, 1500)
         this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
       }).catch((error) => {
         this.$message.error(error.response.data)
       })
     },
     confirmDetlete (appInstanceId) {
+      this.dataLoading = true
       app.deleteInstanceApp(appInstanceId).then(response => {
-        this.initList()
+        setTimeout(() => {
+          this.initList()
+        }, 1500)
         this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
       }).catch((error) => {
         this.$message.error(error.response.data)

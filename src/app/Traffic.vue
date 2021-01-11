@@ -830,7 +830,7 @@ export default {
     }
   },
   computed: {
-    formformInterfaceRulesRules () {
+    formInterfaceRules () {
       let formInterfaceRules = {
         tunnelDstAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -1102,19 +1102,5 @@ export default {
 <style lang='less' scoped>
 .btn{
   margin:15px 15px 15px 0;
-}
-.title{
-  margin:15px 3px;
-  font-size:18px;
-}
-.title::before{
-  content:'';
-  display:inline-block;
-  width:3px;
-  height:17px;
-  margin-right:3px;
-  background: #409EFF;
-  position: relative;
-  top:2px;
 }
 </style>

@@ -30,23 +30,16 @@
         :ip-item="true"
         @getSearchData="getSearchData"
       />
+      <p class="btn-p">
+        <el-button
+          id="newregBtn"
+          type="primary"
+          @click="register()"
+        >
+          {{ $t('system.appLcm.newReg') }}
+        </el-button>
+      </p>
       <div class="tableDiv">
-        <el-row>
-          <el-col
-            :span="2"
-            :offset="22"
-          >
-            <div class="el-row-button rt">
-              <el-button
-                id="newregBtn"
-                type="primary"
-                @click="register()"
-              >
-                {{ $t('system.appLcm.newReg') }}
-              </el-button>
-            </div>
-          </el-col>
-        </el-row>
         <el-row class="table">
           <el-table
             :data="currPageTableData"
@@ -155,7 +148,7 @@
         :title="title"
         :visible.sync="dialogVisible"
         style="padding-right:30px;"
-        width="40%"
+        width="30%"
       >
         <div class="k8s">
           <el-row>
@@ -582,7 +575,7 @@ export default {
         ],
         edgerepoPort: [
           { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^[1-9]$|(^[1-9][0-9]$)|(^[1-9][0-9][0-9]$)|(^[1-9][0-9][0-9][0-9]$)|(^[1-6][0-5][0-5][0-3][0-5]$)/, message: this.$t('verify.normalVerify') }
         ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }

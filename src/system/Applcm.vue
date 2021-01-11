@@ -187,7 +187,7 @@ export default {
       title: this.$t('system.appLcm.applcmReg'),
       form: {
         applcmIp: '',
-        applcmPort: '',
+        applcmPort: '30204',
         userName: '',
         applcmName: ''
       },
@@ -207,7 +207,7 @@ export default {
         ],
         applcmPort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^[1-9]$|(^[1-9][0-9]$)|(^[1-9][0-9][0-9]$)|(^[1-9][0-9][0-9][0-9]$)|(^[1-6][0-5][0-5][0-3][0-5]$)/, message: this.$t('verify.normalVerify') }
         ],
         applcmName: [
           { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' },
@@ -271,7 +271,7 @@ export default {
       this.title = this.$t('system.appLcm.applcmReg')
       this.form = {
         applcmIp: '',
-        applcmPort: '',
+        applcmPort: '30204',
         userName: '',
         applcmName: ''
       }
@@ -335,10 +335,6 @@ export default {
   padding: 30px 60px;
   .applcmContainer{
     padding-top:25px;
-    .btn-p{
-      height:40px;
-      padding:15px 0;
-    }
   }
   .btn-group{
     margin:15px 0;

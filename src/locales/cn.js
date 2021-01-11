@@ -45,7 +45,8 @@ const cn = {
     mem: 'MEM', // memory
     disk: 'DISK',
     mepCapa: 'MEP硬件能力',
-    softwareCapa: '软件能力',
+    mepInfo: 'MEP能力信息',
+    softwareCapa: 'MEP软件能力',
     capa: '能力',
     vendor: '提供商',
     model: '品牌',

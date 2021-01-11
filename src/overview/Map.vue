@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div>
+  <div style="height:100%;">
     <div class="content">
       <div
         id="mapChart"
@@ -115,11 +115,8 @@ export default {
           myChart.resize()
         }
         this.regAndSetOption(myChart, this.chinaName, mapJson, false)
-        // 防止重复点击
-        if (myChart._$handlers.click) {
-          myChart._$handlers.click.length = 0
-        }
         myChart.on('click', (param) => {
+          console.log(param)
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
@@ -129,6 +126,10 @@ export default {
               this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
             }
           }
+        })
+        myChart.on('dblclick', function (param) {
+          console.log(param)
+          this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
         })
       })
     },
@@ -175,56 +176,51 @@ export default {
             map: name,
             zoom: 1.2,
             aspectScale: 0.75,
+            animationDelayUpdate: 300,
             label: {
               normal: {
                 show: true,
-                color: '#eee'
+                color: '#000',
+                fontSize: 15
               },
               emphasis: {
                 show: true,
-                color: '#eee'
+                color: '#fff'
               }
             },
             itemStyle: {
               normal: {
-                areaColor: '#6077BB',
-                borderColor: '#9BB6FF',
-                borderWidth: 1
+                areaColor: '#ddd'
               },
               emphasis: {
-                areaColor: '#7299FF',
-                color: '#eee'
+                borderColor: '#D00D8E',
+                areaColor: '#8a2be2'
               }
             },
-            tooltip: {
-              show: true,
-              formatter: function (e) {
-                return 'hello'
-              },
-              position: [15, 10],
-              triggerOn: 'mousemove'
-            },
-            regions: [],
             data: this.initMapData(mapJson),
             markPoint: {
               symbol: 'pin',
-              symbolSize: [20, 20],
-              hoverable: true,
-              roam: true,
+              symbolSize: [50, 50],
               label: {
-                position: [10, 10],
-                formatter: function () {
-                  return '123'
+                normal: {
+                  show: true,
+                  textStyle: {
+                    color: '#fff',
+                    fontSize: 8
+                  },
+                  formatter (value) {
+                    return value.data.mechostName
+                  }
                 }
               },
               itemStyle: {
                 normal: {
-                  color: '#06EB00'
+                  color: '#d81e06'
                 }
               },
               effect: {
                 show: true,
-                shadowBlur: 0
+                shadowBlur: 1
               },
               data: data
             }
@@ -252,11 +248,12 @@ export default {
     opneLayers (data) {
       let _this = this
       this.btnShow = true
+      console.log(data)
       if (this.map) {
         this.map.setView(new View({
-          projection: 'EPSG:3857',
-          center: data[0].coordinates,
-          zoom: 13
+          projection: 'EPSG:4326',
+          center: data[0].coord,
+          zoom: 16
         }))
       } else {
         this.map = new Map({
@@ -264,7 +261,7 @@ export default {
           layers: [
             new TileLayer({
               source: new XYZ({
-                url: 'http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}'
+                url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               })
 
             })
@@ -272,7 +269,7 @@ export default {
           view: new View({
             projection: 'EPSG:4326',
             center: data[0].coord,
-            zoom: 13
+            zoom: 16
           })
         })
       }
@@ -305,7 +302,7 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './edge.png'
+            src: './server.svg'
           })
         }),
         zIndex: 999
@@ -332,18 +329,15 @@ export default {
 
 <style lang='less' scoped>
 .content {
-  width: 98%;
-  height: 90vh;
+  width: 100%;
+  height: 100%;
   .chart,.chart1 {
-    position: relative;
-    height: 90%;
-    top: 7%;
-    left:2%
+    height: 100%;
   }
   .return{
     position: absolute !important;
     top:15px !important;
-    right:10px !important;
+    left:27% !important;
   }
 }
 </style>
