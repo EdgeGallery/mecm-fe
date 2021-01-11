@@ -112,7 +112,6 @@
                 <el-button
                   id="manageBtn"
                   type="primary"
-                  :disabled="!edgeAppList.length"
                   @click="checkServiceInfo()"
                   :loading="loginBtnLoading"
                 >
@@ -202,7 +201,8 @@ export default {
       chartData: {},
       nodeBasicInfo: null,
       nodeNum: 0,
-      city: ''
+      city: '',
+      edgeIp: ''
     }
   },
   watch: {
@@ -219,6 +219,7 @@ export default {
       this.hwCapData = []
       this.edgeAppList = []
       this.edgeApp = ''
+      this.edgeIp = ''
     },
     clickNode (val) {
       this.nodeBasicInfo = val
@@ -228,6 +229,7 @@ export default {
       this.getHwCapa(val.mechostIp)
       this.getMepCapa(val.mechostIp)
       this.getAppInfo(val.mechostIp)
+      this.edgeIp = val.mechostIp
     },
     clickMap (msg, city) {
       this.alarmStatus = 'alarms'
@@ -332,7 +334,9 @@ export default {
       }
     },
     async checkServiceInfo () {
-      await this.getServiceInfo(this.edgeApp)
+      // await this.getServiceInfo(this.edgeApp)
+      // 跳转到mep
+      window.open('http://' + this.edgeIp + ':30095')
     }
   }
 }

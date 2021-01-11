@@ -207,7 +207,7 @@ export default {
         ],
         appRuleName: [
           { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
       return rules

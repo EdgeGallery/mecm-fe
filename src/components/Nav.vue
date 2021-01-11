@@ -18,7 +18,7 @@
   <div class="navgation">
     <el-row :gutter="10">
       <el-col
-        :lg="7"
+        :lg="6"
         :md="12"
         :sm="12"
         :xs="12"
@@ -35,7 +35,7 @@
         </div>
       </el-col>
       <el-col
-        :lg="11"
+        :lg="12"
         class="hidden-md-and-down"
       >
         <div>
