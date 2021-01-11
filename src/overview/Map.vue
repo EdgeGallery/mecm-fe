@@ -127,10 +127,6 @@ export default {
             }
           }
         })
-        myChart.on('dblclick', function (param) {
-          console.log(param)
-          this.regAndSetOption(myChart, this.chinaName, this.chinaJson, false)
-        })
       })
     },
     mapAreaClick (param, myChart) {
@@ -141,7 +137,6 @@ export default {
           arr.push(val)
         }
       })
-      this.$emit('area', arr, param.name)
       axios
         .get('./map/' + cityId + '.json', {})
         .then(res => {
@@ -153,6 +148,7 @@ export default {
             mapJson1,
             true
           )
+          this.$emit('area', arr, param.name)
         }).catch(err => {
           if (arr.length > 0) {
             this.showLayers(arr)
@@ -169,6 +165,50 @@ export default {
       myChart1.setOption({
         visualMap: {
           show: false
+        },
+        tooltip: {
+          padding: 0,
+          enterable: true,
+          transitionDuration: 1,
+          textStyle: {
+            color: '#000',
+            decoration: 'none'
+          },
+          formatter: function (params) {
+            console.log(params)
+            var tipHtml = ''
+            if (params.componentType === 'markPoint') {
+              tipHtml = '<div style="width:280px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
+              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '节点信息' + '</span>' + '</div>' +
+              '<div style="padding:20px">' +
+              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
+              '节点名称：' + '<span style="color:#11ee7d;margin:0 6px;">' + params.data.mechostName + '</span>' + '</p>' +
+              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
+              '节点IP：' + '<span style="color:#f48225;margin:0 6px;">' + params.data.mechostIp + '</span>' + '</p>' +
+              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
+              '节点地址：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
+              '</div>' + '</div>'
+            } else {
+              let num = 0
+              data.forEach(item => {
+                if (item.city.indexOf(params.data.name) > -1) {
+                  num++
+                }
+              })
+              tipHtml = '<div style="width:280px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
+              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '地域节点信息' + '</span>' + '</div>' +
+              '<div style="padding:20px">' +
+              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
+              '在线节点：' + '<span style="color:#11ee7d;margin:0 6px;">' + num + '</span>' + '个' + '</p>' +
+              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
+              '离线节点：' + '<span style="color:#f48225;margin:0 6px;">' + 0 + '</span>' + '个' + '</p>' +
+              '</div>' + '</div>'
+            }
+            return tipHtml
+          }
+
         },
         series: [
           {
@@ -199,11 +239,14 @@ export default {
             },
             data: this.initMapData(mapJson),
             markPoint: {
-              symbol: 'pin',
-              symbolSize: [50, 50],
+              symbol: 'image://./eg.png',
+              symbolSize: [32, 32],
+
               label: {
                 normal: {
                   show: true,
+                  position: 'insideTop',
+                  distance: 7,
                   textStyle: {
                     color: '#fff',
                     fontSize: 8
@@ -302,7 +345,7 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './server.svg'
+            src: './eg.png'
           })
         }),
         zIndex: 999

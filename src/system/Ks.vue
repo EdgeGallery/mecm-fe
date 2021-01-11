@@ -529,11 +529,11 @@ export default {
             children: [
               {
                 label: '华为坂田基地',
-                value: '114.059803,22.650574'
+                value: '114.0561372,22.6579400'
               },
               {
                 label: '华为天安云谷',
-                value: '114.067714,22.658933'
+                value: '114.0610040,22.6622474,'
               },
               {
                 label: 'Clab实验室',
@@ -541,9 +541,20 @@ export default {
               },
               {
                 label: '南方科技大学',
-                value: '113.999634,22.598776'
+                value: '113.9906011,22.5950905'
               }
             ]
+          }]
+        }, {
+          value: '5',
+          label: '山东省',
+          children: [{
+            value: '5.1',
+            label: '青岛市',
+            children: [{
+              value: '120.4154467,36.1322617',
+              label: '海尔青岛工厂'
+            }]
           }]
         }
       ]
@@ -561,7 +572,7 @@ export default {
         ],
         mechostName: [
           { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9_-]{4,16}$/, message: this.$t('verify.hostNameVerify') }
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ],
         city: [
           { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
