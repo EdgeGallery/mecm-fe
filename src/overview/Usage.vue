@@ -50,8 +50,7 @@ export default {
     this.chartSettings = {
       seriesMap: {
         'Usage': {
-          type: 'gauge',
-          splitNumber: 0,
+          splitNumber: 4,
           radius: '90%',
           min: 0,
           max: 100,
@@ -82,9 +81,16 @@ export default {
               width: 2
             }
           },
+          axisLabel: {
+            show: true,
+            distance: 5,
+            color: '#fff',
+            fontSize: 8
+          },
           detail: {
             show: true,
-            fontSize: 11,
+            fontSize: 13,
+            offsetCenter: [0, '60%'],
             formatter: '{value}%'
           }
         }

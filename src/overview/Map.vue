@@ -56,6 +56,7 @@ import OlCluster from 'ol/source/Cluster'
 import Style from 'ol/style/Style'
 import Icon from 'ol/style/Icon'
 import XYZ from 'ol/source/XYZ'
+import InteractionSelect from 'ol/interaction/Select'
 
 import axios from 'axios'
 export default {
@@ -175,7 +176,6 @@ export default {
             decoration: 'none'
           },
           formatter: function (params) {
-            console.log(params)
             var tipHtml = ''
             if (params.componentType === 'markPoint') {
               tipHtml = '<div style="width:280px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
@@ -230,32 +230,31 @@ export default {
             },
             itemStyle: {
               normal: {
-                areaColor: '#ddd'
+                areaColor: '#bbb5b5'
               },
               emphasis: {
                 borderColor: '#D00D8E',
-                areaColor: '#8a2be2'
+                areaColor: '#9163cc'
               }
             },
             data: this.initMapData(mapJson),
             markPoint: {
               symbol: 'image://./eg.png',
               symbolSize: [32, 32],
-
-              label: {
-                normal: {
-                  show: true,
-                  position: 'insideTop',
-                  distance: 7,
-                  textStyle: {
-                    color: '#fff',
-                    fontSize: 8
-                  },
-                  formatter (value) {
-                    return value.data.mechostName
-                  }
-                }
-              },
+              // label: {
+              //   normal: {
+              //     show: true,
+              //     position: [25, -5],
+              //     distance: 7,
+              //     textStyle: {
+              //       color: '#1ececa',
+              //       fontSize: 10
+              //     },
+              //     formatter (value) {
+              //       return value.data.mechostName
+              //     }
+              //   }
+              // },
               itemStyle: {
                 normal: {
                   color: '#d81e06'
@@ -345,7 +344,7 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './eg.png'
+            src: './eg-32.png'
           })
         }),
         zIndex: 999
@@ -357,12 +356,26 @@ export default {
         // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
+          console.log(feature)
           data.forEach(item => {
             if (feature.geometryChangeKey_.target.extent_[0] === parseFloat(item.coordinates[0])) {
               _this.$emit('node', item)
             }
           })
         })
+      })
+
+      let selectSingleClick = new InteractionSelect({})
+
+      // 监听选中事件，然后在事件处理函数中改变被选中的`feature`的样式
+      this.map.addInteraction(selectSingleClick)
+      selectSingleClick.on('select', function (event) {
+        console.log(event)
+        event.selected[0].setStyle(new Style({
+          image: new Icon({
+            src: './eg.png'
+          })
+        }))
       })
     }
   }
