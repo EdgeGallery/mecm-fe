@@ -50,7 +50,9 @@
             <div class="nodeBasicInfo">
               <p>
                 <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
-                <span style="margin-left:25px;">{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
+              </p>
+              <p>
+                <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
               </p>
               <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
             </div>
