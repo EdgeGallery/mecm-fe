@@ -62,14 +62,14 @@ const hostData = function () {
       affinity: 'X86',
       applcmIp: '119.8.47.2',
       appRuleIp: '119.8.47.2',
-      city: '广东省/深圳市/Clab实验室',
+      city: '广东省/深圳市/南方科技大学',
       edgerepoIp: '119.8.47.2',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
       mechostIp: '119.8.63.144',
       mechostName: 'Node',
-      coordinates: '114.065973,22.659338',
+      coordinates: '113.9906011,22.5950905',
       userName: '',
       zipCode: '',
       appRuleManagerIp: '119.8.47.2',
@@ -159,7 +159,7 @@ const swCapability = function () {
 
 const kpiInfo = function () {
   let data = {
-    'cpuusage': { 'total': 1600653686.904, 'used': '0.025' },
+    'cpuusage': { 'total': 1600653686.904, 'used': '0.68' },
     'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' },
     'diskusage': { 'total': '0.0', 'used': '0.0' }
   }
