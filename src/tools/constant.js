@@ -14,6 +14,132 @@
  *  limitations under the License.
  */
 
+const INDUSTRY = [
+  {
+    label: ['智慧园区', 'Smart Park'],
+    value: 'Smart Park',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['智慧商超', 'Smart Supermarket'],
+    value: 'Smart Supermarket',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['工业制造', 'Industrial Manufacturing'],
+    value: 'Industrial Manufacturing',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['交通物流', 'Transportation Logistics'],
+    value: 'Transportation Logistics',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['水利', 'Water Conservancy'],
+    value: 'Water Conservancy',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['游戏竞技', 'Game Competition'],
+    value: 'Game Competition',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['开源', 'Open Source'],
+    value: 'Open Source',
+    selected: false,
+    type: 'industry'
+  },
+  {
+    label: ['其他', 'Other'],
+    value: 'Other',
+    selected: false,
+    type: 'industry'
+  }
+]
+
+const TYPESFORAPP = [
+  {
+    label: ['视频应用', 'Video Application'],
+    value: 'Video Application',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['游戏', 'Game'],
+    value: 'Game',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['视频监控', 'Video Surveillance'],
+    value: 'Video Surveillance',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['安全', 'Safety'],
+    value: 'Safety',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['区块链', 'Blockchain'],
+    value: 'Blockchain',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['智能设备', 'Smart Device'],
+    value: 'Smart Device',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['物联网', 'Internet of Things'],
+    value: 'Internet of Things',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['大数据', 'Big Data'],
+    value: 'Big Data',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['AR/VR', 'AR/VR'],
+    value: 'AR/VR',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['API', 'API'],
+    value: 'API',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['SDK', 'SDK'],
+    value: 'SDK',
+    selected: false,
+    type: 'types'
+  },
+  {
+    label: ['MEP', 'MEP'],
+    value: 'MEP',
+    selected: false,
+    type: 'types'
+  }
+]
+
 const TYPES = [
   {
     label: 'Video',
@@ -72,5 +198,5 @@ const SORT_BY = [
 ]
 
 export {
-  TYPES, AFFINITY, SORT_BY
+  TYPES, AFFINITY, SORT_BY, TYPESFORAPP, INDUSTRY
 }

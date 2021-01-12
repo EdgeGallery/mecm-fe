@@ -29,18 +29,17 @@
         :status-item="false"
         :type-item="false"
       />
+      <div class="btn-p rt">
+        <el-button
+          id="syncBtn"
+          style="float:right;"
+          type="primary"
+          @click="getAppListFromAppStore()"
+        >
+          {{ $t('app.packageList.synchronize') }}
+        </el-button>
+      </div>
       <div class="tableDiv">
-        <div class="el-row-button-input">
-          <el-button
-            id="syncBtn"
-            style="float:right;"
-            type="primary"
-            @click="getAppListFromAppStore()"
-            v-if="false"
-          >
-            {{ $t('app.packageList.synchronize') }}
-          </el-button>
-        </div>
         <el-row>
           <el-col
             :span="24"
@@ -49,7 +48,6 @@
             <el-table
               v-loading="dataLoading"
               :data="currPageTableData"
-              class="mt20"
               border
               size="small"
               style="width: 100%;"
@@ -58,11 +56,6 @@
                 prop="name"
                 sortable
                 :label="$t('app.packageList.name')"
-              />
-              <el-table-column
-                prop="userName"
-                sortable
-                :label="$t('app.packageList.auth')"
               />
               <el-table-column
                 prop="provider"
@@ -271,6 +264,7 @@
 
 <script>
 import { app, edge } from '../tools/request.js'
+import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -281,7 +275,7 @@ export default {
   },
   data () {
     return {
-      dataLoading: true,
+      dataLoading: false,
       tableData: [],
       paginationData: [],
       currPageTableData: [],
@@ -301,7 +295,8 @@ export default {
       version: '',
       options: [],
       dialogLoading: false,
-      appId: ''
+      appId: '',
+      language: localStorage.getItem('language')
     }
   },
   mounted () {
@@ -317,6 +312,13 @@ export default {
     },
     currPageEdgeNodeTableData: function () {
       return this.edgeNodesData.filter(data => !this.edgeNodeSearchInput || data.mechostName.toLowerCase().includes(this.edgeNodeSearchInput.toLowerCase()))
+    }
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.getAppListFromAppStore()
     }
   },
   methods: {
@@ -363,14 +365,35 @@ export default {
       this.selectedNodeNum = val.length
     },
     async getAppListFromAppStore () {
+      this.dataLoading = true
       app.getAppListFromAppStore().then(response => {
         this.tableData = response.data
         this.paginationData = this.tableData
+        this.checkProjectData()
         if (this.appType) this.filterTableData(this.appType, 'type')
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
         this.$message.error(this.$t('tip.failedToGetAppList'))
+      })
+    },
+    checkProjectData () {
+      console.log(this.language)
+      this.tableData.forEach(itemBe => {
+        INDUSTRY.forEach(itemFe => {
+          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
+            itemBe.industry = itemBe.industry.replace(itemFe.label[1], itemFe.label[0])
+          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
+            itemBe.industry = itemBe.industry.replace(itemFe.label[0], itemFe.label[1])
+          }
+        })
+        TYPESFORAPP.forEach(itemFe => {
+          if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
+            itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.label[0])
+          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
+            itemBe.type = itemBe.type.replace(itemFe.label[0], itemFe.label[1])
+          }
+        })
       })
     },
     async getNodeList (row) {

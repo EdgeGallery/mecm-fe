@@ -178,7 +178,7 @@ export default {
           formatter: function (params) {
             var tipHtml = ''
             if (params.componentType === 'markPoint') {
-              tipHtml = '<div style="width:280px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
+              tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
               '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '节点信息' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
@@ -196,7 +196,7 @@ export default {
                   num++
                 }
               })
-              tipHtml = '<div style="width:280px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
+              tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
               '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '地域节点信息' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
@@ -290,7 +290,6 @@ export default {
     opneLayers (data) {
       let _this = this
       this.btnShow = true
-      console.log(data)
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
@@ -373,7 +372,7 @@ export default {
         console.log(event)
         event.selected[0].setStyle(new Style({
           image: new Icon({
-            src: './eg.png'
+            src: './eg-4.png'
           })
         }))
       })
