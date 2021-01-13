@@ -117,7 +117,6 @@ export default {
         }
         this.regAndSetOption(myChart, this.chinaName, mapJson, false)
         myChart.on('click', (param) => {
-          console.log(param)
           if (param.componentType === 'markPoint') {
             this.$emit('node', param.data)
           } else {
@@ -138,6 +137,9 @@ export default {
           arr.push(val)
         }
       })
+      if (arr.length === 0) {
+        this.returnOverviewModel()
+      }
       axios
         .get('./map/' + cityId + '.json', {})
         .then(res => {
@@ -220,7 +222,7 @@ export default {
             label: {
               normal: {
                 show: true,
-                color: '#000',
+                color: '#61fbc9',
                 fontSize: 15
               },
               emphasis: {
@@ -240,21 +242,7 @@ export default {
             data: this.initMapData(mapJson),
             markPoint: {
               symbol: 'image://./eg.png',
-              symbolSize: [32, 32],
-              // label: {
-              //   normal: {
-              //     show: true,
-              //     position: [25, -5],
-              //     distance: 7,
-              //     textStyle: {
-              //       color: '#1ececa',
-              //       fontSize: 10
-              //     },
-              //     formatter (value) {
-              //       return value.data.mechostName
-              //     }
-              //   }
-              // },
+              symbolSize: [25, 25],
               itemStyle: {
                 normal: {
                   color: '#d81e06'
@@ -269,6 +257,9 @@ export default {
           }
         ]
       })
+    },
+    setoption () {
+
     },
     initMapData (mapJson) {
       let mapData = []

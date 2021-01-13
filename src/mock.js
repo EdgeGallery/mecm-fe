@@ -246,14 +246,14 @@ const appRuleData = function () {
       {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
-        'ipAddressType': 'IPv4',
+        'ipAddressType': 'IP_V4',
         'ipAddress': '1.1.1.1',
         'ttl': 86400
       },
       {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
-        'ipAddressType': 'IPv4',
+        'ipAddressType': 'IP_V4',
         'ipAddress': '1.1.1.1',
         'ttl': 86400
       }

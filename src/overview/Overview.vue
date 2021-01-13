@@ -69,8 +69,8 @@
           <label class="overviewLabel">{{ $t('overview.mepInfo') }}</label>
           <el-table
             :data="hwCapData"
-            class="mt20"
             header-row-class-name="headerClassName"
+            class="hwCapData"
           >
             <el-table-column
               prop="hwType"
@@ -93,7 +93,6 @@
           <el-row>
             <el-col :span="12">
               <el-select
-                class="mt20"
                 v-model="edgeApp"
                 style="width:100%;"
                 @change="appChange"
@@ -109,7 +108,6 @@
             <el-col :span="12">
               <div
                 style="float:right;margin-bottom:15px;"
-                class="mt20"
               >
                 <el-button
                   id="manageBtn"
@@ -355,7 +353,6 @@ export default {
   box-sizing: border-box;
 }
   label.overviewLabel{
-    opacity: 0.8;
     font-family: PingFangSC-Medium,sans-serif;
     font-size: 20px;
     color: #FFFFFF;
@@ -363,6 +360,8 @@ export default {
     line-height: 24px;
     display: block;
     padding:8px 0;
+    background: #494b4e;
+    padding-left: 8px;
   }
   .mt20 {
     margin-top: 20px;
@@ -375,13 +374,15 @@ export default {
   }
   .nodeBasicInfo{
     color:#F5F5F5;
-    padding: 15px 0;
+    padding: 0 0 25px 0;
+    margin-top: 15px;
     p{
       font-size: 16px;
       line-height: 32px;
-      padding: 0 10px 10px 10px;
+      padding: 0 10px;
       span{
         display: inline-block;
+        color:#c0c4cc;
       }
     }
   }
@@ -474,5 +475,8 @@ export default {
   }
   .headerClassName{
     font-size: 15px;
+  }
+  .hwCapData{
+    margin-top:15px;
   }
 </style>
