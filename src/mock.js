@@ -41,7 +41,7 @@ const hostData = function () {
       edgerepoUsername: '',
       mechostIp: '119.8.63.144',
       mechostName: 'Node',
-      coordinates: '114.065973,22.659338',
+      coordinates: '114.0561372,22.65794',
       userName: '',
       zipCode: '',
       appRuleManagerIp: '119.8.47.2',

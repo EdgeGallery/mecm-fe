@@ -372,7 +372,7 @@ export default {
         console.log(event)
         event.selected[0].setStyle(new Style({
           image: new Icon({
-            src: './eg-4.png'
+            src: './eg-32-r.png'
           })
         }))
       })
