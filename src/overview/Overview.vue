@@ -459,19 +459,6 @@ export default {
         border-color: #0263ff;
       }
     }
-    .progerss-item {
-      text-align: center;
-      color: white;
-      .el-progress__text {
-        color: white;
-      }
-      p{
-        position: relative;
-        top:-25px;
-        color:#ddd;
-        font-size:14px;
-      }
-    }
   }
   .headerClassName{
     font-size: 15px;

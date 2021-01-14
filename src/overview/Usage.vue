@@ -85,12 +85,12 @@ export default {
             show: true,
             distance: 5,
             color: '#fff',
-            fontSize: 8
+            fontSize: 10
           },
           detail: {
             show: true,
-            fontSize: 13,
-            offsetCenter: [0, '60%'],
+            fontSize: 15,
+            offsetCenter: [0, '70%'],
             formatter: '{value}%'
           }
         }
@@ -138,4 +138,17 @@ export default {
 
 </script>
 <style lang='less' scoped>
+  .progerss-item {
+    text-align: center;
+    color: white;
+    .el-progress__text {
+      color: white;
+    }
+    p{
+      position: relative;
+      top:-10px;
+      color:#ddd;
+      font-size:18px;
+    }
+  }
 </style>
