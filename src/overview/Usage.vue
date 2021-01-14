@@ -65,9 +65,9 @@ export default {
             lineStyle: {
               width: 8,
               color: [
-                [0.3, '#2e822e'],
-                [0.7, '#0067d1'],
-                [1, '#d00061']
+                [0.3, '#20ea71'],
+                [0.7, '#23a7f5'],
+                [1, '#f919d3']
               ],
               borderColor: '#000',
               borderWidth: '2'

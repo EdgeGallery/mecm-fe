@@ -25,15 +25,15 @@
       :status="distributionStatus"
       @getSearchData="getSearchData"
     />
+    <div class="btn-p rt">
+      <el-button
+        type="primary"
+        @click="multipleDeploy"
+      >
+        {{ $t('app.distriList.multipleDeploy') }}
+      </el-button>
+    </div>
     <div class="tableDiv">
-      <div class="btn-group rt">
-        <el-button
-          type="primary"
-          @click="multipleDeploy"
-        >
-          {{ $t('app.distriList.multipleDeploy') }}
-        </el-button>
-      </div>
       <el-table
         class="mt20"
         border
