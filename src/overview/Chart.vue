@@ -83,11 +83,20 @@ export default {
       this.option = {
         type: 'bar',
         xAxis: {
-          name: 'Status',
-          type: 'category'
+          name: 'status',
+          type: 'category',
+          splitLine: {
+            show: false
+          },
+          nameLocation: 'end',
+          nameGap: 3
         },
         yAxis: {
-          name: 'Num'
+          name: 'Num',
+          splitLine: {
+            show: false
+          },
+          minInterval: 1
         },
         legend: {
           data: this.alarmLabel.map(data => {

@@ -489,6 +489,7 @@ const applcmData = function () {
   return [
     {
       'applcmIp': '119.8.125.174',
+      'applcmName': 'APPLCM',
       'applcmPort': '30101',
       'userName': 'Xxx'
     }
@@ -499,6 +500,7 @@ const apprulemanagersData = function () {
   return [
     {
       'appRuleIp': '119.8.125.174',
+      'appRuleName': 'MGR1',
       'appRulePort': '30206',
       'userName': 'Xxx'
     }
