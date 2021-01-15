@@ -98,7 +98,7 @@
         </div>
         <div class="pageBar">
           <pagination
-            :page-sizes="[6,12,18,24]"
+            :page-sizes="[8,12,16,20]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />

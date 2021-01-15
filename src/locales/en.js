@@ -54,7 +54,7 @@ const en = {
     desc: 'Description',
     app: 'App',
     manage: 'Manage',
-    maintenance: 'Operation&Maintenance', // 运维
+    maintenance: 'Operation',
     serviceName: 'Service Name',
     services: 'Services',
     containers: 'Containers',
