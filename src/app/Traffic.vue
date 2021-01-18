@@ -871,7 +871,7 @@ export default {
         ],
         srcPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         dstAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -879,7 +879,7 @@ export default {
         ],
         dstPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         srcTunnelAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -887,7 +887,7 @@ export default {
         ],
         srcTunnelPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         dstTunnelAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -895,7 +895,7 @@ export default {
         ],
         dstTunnelPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ]
       }
       return formTrafficfilterRules
