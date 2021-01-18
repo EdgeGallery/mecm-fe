@@ -70,7 +70,8 @@ export default {
       continue: true,
       btnShow: false,
       map: null,
-      showMainView: true
+      showMainView: true,
+      image: 'image://./eg.png'
     }
   },
   mounted () {
@@ -85,7 +86,6 @@ export default {
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
-          console.log(this.$i18n.locale)
           if (this.$i18n.locale === 'en') {
             this.$emit('area', res.data, 'All')
           } else {
@@ -118,6 +118,7 @@ export default {
         this.regAndSetOption(myChart, this.chinaName, mapJson, false)
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
+            console.log(param)
             this.$emit('node', param.data)
           } else {
             if (this.continue) {
@@ -241,25 +242,13 @@ export default {
             },
             data: this.initMapData(mapJson),
             markPoint: {
-              symbol: 'image://./eg.png',
+              symbol: this.image,
               symbolSize: [25, 25],
-              itemStyle: {
-                normal: {
-                  color: '#d81e06'
-                }
-              },
-              effect: {
-                show: true,
-                shadowBlur: 1
-              },
               data: data
             }
           }
         ]
       })
-    },
-    setoption () {
-
     },
     initMapData (mapJson) {
       let mapData = []
@@ -346,7 +335,6 @@ export default {
         // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
-          console.log(feature)
           data.forEach(item => {
             if (feature.geometryChangeKey_.target.extent_[0] === parseFloat(item.coordinates[0])) {
               _this.$emit('node', item)
@@ -360,7 +348,6 @@ export default {
       // 监听选中事件，然后在事件处理函数中改变被选中的`feature`的样式
       this.map.addInteraction(selectSingleClick)
       selectSingleClick.on('select', function (event) {
-        console.log(event)
         event.selected[0].setStyle(new Style({
           image: new Icon({
             src: './eg-32-r.png'

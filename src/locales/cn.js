@@ -53,7 +53,7 @@ const cn = {
     desc: '描述',
     app: '应用',
     manage: '管理',
-    maintenance: '运维', // 运维
+    maintenance: '运维',
     serviceName: '服务名称',
     services: '服务',
     containers: '容器',
@@ -61,7 +61,6 @@ const cn = {
     name: '名称：',
     register: '注册',
     alarms: '告警',
-    nodeinfo: '节点信息',
     statistics: '统计表',
     nodeIp: '节点IP：',
     nodeName: '节点名称：',
