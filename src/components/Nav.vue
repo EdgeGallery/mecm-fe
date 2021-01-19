@@ -67,8 +67,14 @@
               v-if="ifGuest"
             >{{ $t('nav.login') }}</span>
             <span
+              v-if="!ifGuest"
+            >{{ userName }}</span>
+            <span
+              v-if="!ifGuest"
+            >|</span>
+            <span
               @click="beforeLogout()"
-              v-else
+              v-if="!ifGuest"
             >{{ $t('nav.logout') }}</span>
           </div>
         </div>
@@ -108,7 +114,8 @@ export default {
       jsonData: [],
       language: 'en',
       lang: 'English',
-      smallMenu: false
+      smallMenu: false,
+      userName: ''
     }
   },
   watch: {
@@ -126,6 +133,7 @@ export default {
     }
     if (!localStorage.getItem('language')) { localStorage.setItem('language', 'en') }
     user.getUserInfo().then(res => {
+      this.userName = res.data.userName
       sessionStorage.setItem('userId', res.data.userId)
       sessionStorage.setItem('access_token', res.data.accessToken)
       sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
