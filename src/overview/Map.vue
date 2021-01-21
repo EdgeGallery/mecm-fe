@@ -223,8 +223,8 @@ export default {
             label: {
               normal: {
                 show: true,
-                color: '#61fbc9',
-                fontSize: 15
+                color: '#fff',
+                fontSize: 14
               },
               emphasis: {
                 show: true,
@@ -233,11 +233,32 @@ export default {
             },
             itemStyle: {
               normal: {
-                areaColor: '#bbb5b5'
+                // 常规
+                areaColor: '#013C62',
+                borderColor: '#2ab8ff'
+                // 立体
+                // borderColor: '#2cb3dd',
+                // borderWidth: 0.8,
+                // areaColor: {
+                //   type: 'linear-gradient',
+                //   x: 1000,
+                //   y: 600,
+                //   x2: 1000,
+                //   y2: 0,
+                //   colorStops: [{
+                //     offset: 0,
+                //     color: '#274d68' // 0% 处的颜色
+                //   }, {
+                //     offset: 1,
+                //     color: '#09132c' // 50% 处的颜色
+                //   }],
+                //   global: true // 缺省为 false
+                // }
+                // 炫酷
+
               },
               emphasis: {
-                borderColor: '#D00D8E',
-                areaColor: '#9163cc'
+                areaColor: '#5c6ff3'
               }
             },
             data: this.initMapData(mapJson),
