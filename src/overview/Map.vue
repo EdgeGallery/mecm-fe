@@ -55,6 +55,8 @@ import OlSourceVector from 'ol/source/Vector'
 import OlCluster from 'ol/source/Cluster'
 import Style from 'ol/style/Style'
 import Icon from 'ol/style/Icon'
+// import Fill from 'ol/style/Fill'
+// import Stroke from 'ol/style/Stroke'
 import XYZ from 'ol/source/XYZ'
 import InteractionSelect from 'ol/interaction/Select'
 
@@ -70,8 +72,7 @@ export default {
       continue: true,
       btnShow: false,
       map: null,
-      showMainView: true,
-      image: 'image://./eg.png'
+      showMainView: true
     }
   },
   mounted () {
@@ -104,7 +105,7 @@ export default {
     showLayers (arr) {
       this.showMainView = false
       this.$nextTick(() => {
-        this.opneLayers(arr)
+        this.openlayers(arr)
       })
     },
     mapChart (divid) {
@@ -223,8 +224,8 @@ export default {
             label: {
               normal: {
                 show: true,
-                color: '#61fbc9',
-                fontSize: 15
+                color: '#fff',
+                fontSize: 14
               },
               emphasis: {
                 show: true,
@@ -233,17 +234,38 @@ export default {
             },
             itemStyle: {
               normal: {
-                areaColor: '#bbb5b5'
+                // 常规
+                areaColor: '#013C62',
+                borderColor: '#2ab8ff'
+                // 立体
+                // borderColor: '#2cb3dd',
+                // borderWidth: 0.8,
+                // areaColor: {
+                //   type: 'linear-gradient',
+                //   x: 1000,
+                //   y: 600,
+                //   x2: 1000,
+                //   y2: 0,
+                //   colorStops: [{
+                //     offset: 0,
+                //     color: '#274d68' // 0% 处的颜色
+                //   }, {
+                //     offset: 1,
+                //     color: '#09132c' // 50% 处的颜色
+                //   }],
+                //   global: true // 缺省为 false
+                // }
+                // 炫酷
+
               },
               emphasis: {
-                borderColor: '#D00D8E',
-                areaColor: '#9163cc'
+                areaColor: '#5c6ff3'
               }
             },
             data: this.initMapData(mapJson),
             markPoint: {
-              symbol: this.image,
-              symbolSize: [25, 25],
+              symbol: 'image://./w.png',
+              symbolSize: [26, 26],
               data: data
             }
           }
@@ -267,7 +289,7 @@ export default {
       this.continue = true
       this.$emit('area', this.nodeData, '')
     },
-    opneLayers (data) {
+    openlayers (data) {
       let _this = this
       this.btnShow = true
       if (this.map) {
@@ -282,7 +304,10 @@ export default {
           layers: [
             new TileLayer({
               source: new XYZ({
+                // openstreet
                 url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                // 午夜蓝图
+                // url: 'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}'
               })
 
             })
@@ -306,7 +331,8 @@ export default {
           new OlFeature({
             type: 'icon',
             geometry: new OlGeomPoint(lnglats[i]),
-            eventTarget_: data
+            eventTarget_: data,
+            style: './style.json'
           })
         )
       }
@@ -323,7 +349,8 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './eg-32.png'
+            src: './w.png',
+            scale: 0.3
           })
         }),
         zIndex: 999
@@ -350,7 +377,8 @@ export default {
       selectSingleClick.on('select', function (event) {
         event.selected[0].setStyle(new Style({
           image: new Icon({
-            src: './eg-32-r.png'
+            src: './ww.png',
+            scale: 0.3
           })
         }))
       })
