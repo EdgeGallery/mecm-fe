@@ -41,35 +41,7 @@ const hostData = function () {
       edgerepoUsername: '',
       mechostIp: '119.8.63.144',
       mechostName: 'Node',
-      coordinates: '114.0561372,22.65794',
-      userName: '',
-      zipCode: '',
-      appRuleManagerIp: '119.8.47.2',
-      capability: 'GPU',
-      hwcapabilities: [{
-        'hwType': 'GPU',
-        'hwVendor': 'gpu',
-        'hwModel': 'gpu'
-      },
-      {
-        'hwType': 'NPU',
-        'hwVendor': 'npu',
-        'hwModel': 'npu'
-      }]
-    },
-    {
-      address: '4/4.1/114.059448,22.653555',
-      affinity: 'X86',
-      applcmIp: '119.8.47.2',
-      appRuleIp: '119.8.47.2',
-      city: '广东省/深圳市/南方科技大学',
-      edgerepoIp: '119.8.47.2',
-      edgerepoName: null,
-      edgerepoPort: '1234',
-      edgerepoUsername: '',
-      mechostIp: '119.8.63.144',
-      mechostName: 'Node',
-      coordinates: '113.9906011,22.5950905',
+      coordinates: '114.05283,22.656889',
       userName: '',
       zipCode: '',
       appRuleManagerIp: '119.8.47.2',
