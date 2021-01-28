@@ -53,7 +53,15 @@
               prop="mechostName"
               sortable
               :label="$t('app.packageList.name')"
-            />
+            >
+              <template slot-scope="scope">
+                <em
+                  class="el-icon-success"
+                  :style="{color: '#67C23A'}"
+                />
+                <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
+              </template>
+            </el-table-column>
             <el-table-column
               prop="mechostIp"
               sortable
@@ -130,6 +138,14 @@
                   size="small"
                 >
                   {{ $t('common.modify') }}
+                </el-button>
+                <el-button
+                  id="monitorBtn"
+                  type="text"
+                  size="small"
+                  @click="handleMonitor(scope.row)"
+                >
+                  {{ $t('edgeNode.monitor') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -474,7 +490,7 @@ export default {
             value: '1.1',
             label: '海淀区',
             children: [{
-              value: '116.355989,39.980199',
+              value: '116.35,39.979508',
               label: '中国信通院'
             }, {
               value: '116.185087,40.054096',
@@ -630,6 +646,10 @@ export default {
     },
     getCurrentPageData (data) {
       this.currPageTableData = data
+    },
+    handleMonitor (row) {
+      this.src = 'https://' + row.mechostIp + ':30000/dashboards'
+      window.open(this.src)
     },
     onChanged (val) {
       this.currForm.coordinates = this.$refs.myCascader.getCheckedNodes()[0].value

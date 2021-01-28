@@ -38,6 +38,50 @@
             <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
           </div>
           <Chart :chart-data="chartData" />
+          <label class="overviewLabel">节点列表</label>
+          <div class="nodeTable">
+            <el-table
+              :data="nodeList"
+              header-row-class-name="headerClassName"
+              class="hwCapData"
+            >
+              <el-table-column
+                prop="mechostName"
+                sortable
+                :label="$t('app.packageList.name')"
+              >
+                <template slot-scope="scope">
+                  <em
+                    class="el-icon-success"
+                    :style="{color: '#67C23A'}"
+                  />
+                  <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="mechostIp"
+                sortable
+                :label="$t('app.packageList.ip')"
+              />
+              <el-table-column
+                prop="city"
+                sortable
+                :label="$t('system.edgeNodes.deployArea')"
+              />
+              <el-table-column
+                :label="$t('common.operation')"
+              >
+                <template slot-scope="scope">
+                  <button
+                    class="cp"
+                    @click="showDetail(scope.row)"
+                  >
+                    {{ $t('common.detail') }}
+                  </button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
         <div
           class="edge-souces"
@@ -160,6 +204,7 @@
         <Map
           @node="clickNode"
           @area="clickMap"
+          :detail="detail"
         />
       </el-col>
     </el-row>
@@ -202,7 +247,9 @@ export default {
       nodeBasicInfo: null,
       nodeNum: 0,
       city: '',
-      edgeIp: ''
+      edgeIp: '',
+      nodeList: [],
+      detail: {}
     }
   },
   watch: {
@@ -245,6 +292,7 @@ export default {
           this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join(' ').replace(/^\S/, s => s.toUpperCase())
         }
       }
+      this.nodeList = msg
       this.nodeNum = msg.length
       this.chartData =
         {
@@ -252,6 +300,9 @@ export default {
           'Online': this.nodeNum,
           'Offline': 0
         }
+    },
+    showDetail (row) {
+      this.detail = row
     },
     appChange (val) {
       this.edgeAppList.forEach(item => {

@@ -19,103 +19,140 @@
     <Breadcrumb
       class="breadcrumb"
       :first="$t('nav.overview')"
-      :second="$t('nav.edgeNodes')"
-      :third="$t('nav.nodeList')"
-      :path="{ path: '/mecm/node/list' }"
+      :second="$t('nav.system')"
+      :third="$t('nav.edgeNode')"
+      :path="{ path: '/mecm/systems/external/applcm' }"
     />
-    <div
-      class="nodelist"
-      id="nodelist"
-    >
-      <searchForm
+    <div class="sysk8s">
+      <Search
         :status-item="false"
         :affinity-item="false"
         :ip-item="true"
         @getSearchData="getSearchData"
       />
-      <div class="tableDiv">
-        <el-table
-          :data="currPageTableData"
-          v-loading="dataLoading"
-          class="mt20"
-          border
-          size="small"
-          style="width: 100%;"
+      <p class="btn-p">
+        <el-button
+          id="newregBtn"
+          type="primary"
+          @click="register()"
         >
-          <el-table-column
-            prop="mechostName"
-            sortable
-            :label="$t('app.packageList.name')"
+          {{ $t('system.appLcm.newReg') }}
+        </el-button>
+      </p>
+      <div class="tableDiv">
+        <el-row class="table">
+          <el-table
+            :data="currPageTableData"
+            v-loading="dataLoading"
+            class="mt20"
+            border
+            size="small"
+            style="width: 100%;"
           >
-            <template slot-scope="scope">
-              <em
-                class="el-icon-success"
-                :style="{color: '#67C23A'}"
-              />
-              <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="mechostIp"
-            sortable
-            :label="$t('app.packageList.ip')"
-          />
-          <el-table-column
-            prop="city"
-            sortable
-            :label="$t('system.edgeNodes.deployArea')"
-          />
-          <el-table-column
-            prop="affinity"
-            sortable
-            :label="$t('app.packageList.affinity')"
-          />
-          <el-table-column
-            :label="$t('system.edgeNodes.hwCapability')"
-            width="200"
-          >
-            <template slot-scope="scope">
-              <span
-                v-for="(item,index) in scope.row.hwcapabilities"
-                :key="index"
-              >
-                {{ item.hwType }}
-              </span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            prop="edgerepoIp"
-            sortable
-            :label="$t('system.edgeNodes.edgeNexusIp')"
-          />
-          <el-table-column
-            prop="edgerepoPort"
-            sortable
-            :label="$t('system.edgeNodes.edgeNexusPort')"
-          />
-          <el-table-column
-            prop="applcmIp"
-            sortable
-            :label="$t('system.edgeNodes.applcmIp')"
-          />
-          <el-table-column
-            :label="$t('common.operation')"
-            align="center"
-          >
-            <template slot-scope="scope">
-              <el-button
-                id="monitorBtn"
-                type="text"
-                size="small"
-                @click="handleMonitor(scope.row)"
-              >
-                {{ $t('edgeNode.monitor') }}
-              </el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+            <el-table-column
+              prop="mechostName"
+              sortable
+              :label="$t('app.packageList.name')"
+            >
+              <template slot-scope="scope">
+                <em
+                  class="el-icon-success"
+                  :style="{color: '#67C23A'}"
+                />
+                <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="mechostIp"
+              sortable
+              :label="$t('app.packageList.ip')"
+            />
+            <el-table-column
+              prop="city"
+              sortable
+              :label="$t('system.edgeNodes.deployArea')"
+            />
+            <el-table-column
+              prop="affinity"
+              sortable
+              :label="$t('app.packageList.affinity')"
+            />
+            <el-table-column
+              prop="applcmIp"
+              sortable
+              :label="$t('system.edgeNodes.applcmIp')"
+            />
+            <el-table-column
+              prop="appRuleIp"
+              sortable
+              label="App Rule MGR IP"
+            />
+            <el-table-column
+              prop="edgerepoIp"
+              sortable
+              :label="$t('system.edgeNodes.edgeNexusIp')"
+            />
+            <el-table-column
+              prop="edgerepoPort"
+              sortable
+              :label="$t('system.edgeNodes.edgeNexusPort')"
+            />
+            <el-table-column
+              :label="$t('system.edgeNodes.hwCapability')"
+            >
+              <template slot-scope="scope">
+                <span
+                  v-for="(item,index) in scope.row.hwcapabilities"
+                  :key="index"
+                >
+                  {{ item.hwType }}
+                </span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              :label="$t('common.operation')"
+              align="center"
+              width="280"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  id="deleteBtn"
+                  @click.native.prevent="beforeDelete(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('common.delete') }}
+                </el-button>
+                <el-button
+                  id="uploadBtn"
+                  @click.native.prevent="uploadFile(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('system.edgeNodes.uploadFile') }}
+                </el-button>
+                <el-button
+                  id="modifyBtn"
+                  @click="handleModify(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  {{ $t('common.modify') }}
+                </el-button>
+                <el-button
+                  id="monitorBtn"
+                  type="text"
+                  size="small"
+                  @click="handleMonitor(scope.row)"
+                >
+                  {{ $t('edgeNode.monitor') }}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-row>
         <div class="pageBar">
-          <Pagination
+          <pagination
             :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
@@ -124,70 +161,478 @@
       </div>
       <el-dialog
         :close-on-click-modal="false"
+        :title="title"
         :visible.sync="dialogVisible"
-        width="75%"
-        class="my-dialog"
+        style="padding-right:30px;"
+        width="30%"
       >
-        <iframe
-          style="height:800px;width:100%;position:relative;left:-50px;"
-          id="iframe_a"
-          :src="src"
-          title="Node Monitor"
-        />
+        <div class="k8s">
+          <el-row>
+            <el-form
+              label-width="auto"
+              :model="currForm"
+              ref="currForm"
+              :rules="rules"
+            >
+              <el-form-item
+                :label="$t('system.edgeNodes.systemPlatform')"
+              >
+                <el-radio-group
+                  v-model="radio"
+                  @change="changeType"
+                >
+                  <el-radio
+                    label="1"
+                  >
+                    K8S
+                  </el-radio>
+                  <el-radio
+                    label="2"
+                    :disabled="true"
+                  >
+                    OpenStack
+                  </el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.name')"
+                prop="mechostName"
+              >
+                <el-input
+                  id="hostname"
+                  maxlength="20"
+                  v-model="currForm.mechostName"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.ip')"
+                prop="mechostIp"
+              >
+                <el-input
+                  id="ip"
+                  v-model="currForm.mechostIp"
+                  :disabled="isDisable"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.deployArea')"
+                prop="city"
+              >
+                <el-cascader
+                  :options="options"
+                  :placeholder="$t('system.edgeNodes.choseDeployArea')"
+                  v-model="selectedArea"
+                  @change="onChanged"
+                  ref="myCascader"
+                >
+                  <template slot-scope="{ node, data }">
+                    <span>{{ data.label }}</span>
+                    <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
+                  </template>
+                </el-cascader>
+              </el-form-item>
+              <el-form-item
+                :label="$t('app.packageList.affinity')"
+                prop="affinity"
+              >
+                <el-radio-group v-model="currForm.affinity">
+                  <el-radio
+                    v-for="(item,index) in affinityList"
+                    :key="index"
+                    :label="item"
+                  >
+                    {{ item }}
+                  </el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.hwCapability')"
+              >
+                <el-checkbox-group
+                  v-model="capabilities"
+                >
+                  <el-checkbox
+                    v-for="(item,index) in capability"
+                    :key="index"
+                    :label="item"
+                  />
+                </el-checkbox-group>
+              </el-form-item>
+              <el-form-item
+                label="GPU Info"
+                v-if="capabilities.includes('GPU')"
+              >
+                <el-row :gutter="24">
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="gpuModel"
+                      placeholder="Model"
+                    />
+                  </el-col>
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="gpuVendor"
+                      placeholder="Vendor"
+                    />
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
+                label="NPU Info"
+                v-if="capabilities.includes('NPU')"
+              >
+                <el-row :gutter="24">
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="npuModel"
+                      placeholder="Model"
+                    />
+                  </el-col>
+                  <el-col :span="5">
+                    <el-input
+                      type="text"
+                      v-model="npuVendor"
+                      placeholder="Vendor"
+                    />
+                  </el-col>
+                </el-row>
+              </el-form-item>
+              <el-form-item
+                label="App LCM"
+                prop="applcmIp"
+              >
+                <el-select
+                  id="applcmip"
+                  v-model="currForm.applcmIp"
+                  :placeholder="$t('system.edgeNodes.applcmIp')"
+                >
+                  <el-option
+                    v-for="(item,index) in applcmList"
+                    :key="index"
+                    :label="item.applcmIp"
+                    :value="item.applcmIp"
+                  />
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                label="App Rule MGR"
+                prop="appRuleIp"
+              >
+                <el-select
+                  id="apprulemgrip"
+                  v-model="currForm.appRuleIp"
+                  placeholder="App Rule MGR IP"
+                >
+                  <el-option
+                    v-for="(item,index) in appRuleIpList"
+                    :key="index"
+                    :label="item.appRuleIp"
+                    :value="item.appRuleIp"
+                  />
+                </el-select>
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.userNmae')"
+                prop="username"
+                v-if="op"
+              >
+                <el-input
+                  id="username"
+                  maxlength="20"
+                  v-model="currForm.username"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appLcm.password')"
+                prop="password"
+                v-if="op"
+              >
+                <el-input
+                  id="password"
+                  maxlength="30"
+                  v-model="currForm.password"
+                  type="password"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.edgeNexusIp')"
+                prop="edgerepoIp"
+              >
+                <el-input
+                  id="edgeip"
+                  v-model="currForm.edgerepoIp"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.edgeNodes.edgeNexusPort')"
+                prop="edgerepoPort"
+              >
+                <el-input
+                  id="edgeport"
+                  v-model="currForm.edgerepoPort"
+                />
+              </el-form-item>
+            </el-form>
+          </el-row>
+        </div>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="cancelBtn"
+            size="small"
+            @click="cancel()"
+          >{{ $t('common.cancel') }}</el-button>
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            size="small"
+            @click="confirm('currForm')"
+          >{{ $t('common.confirm') }}</el-button>
+        </span>
       </el-dialog>
-      <input
-        type="text"
-        id="btn"
-        style="width: 0;height: 0;position:fixed;top:100%;z-index:-5;"
+      <el-dialog
+        :close-on-click-modal="false"
+        :title="$t('system.edgeNodes.uploadFile')"
+        :visible.sync="dialogVisibleUpload"
+        width="30%"
       >
+        <el-upload
+          id="upload"
+          class="upload-demo"
+          drag
+          action=""
+          :http-request="submitUpload"
+          :before-upload="beforeUpload"
+          :file-list="fileList"
+          :multiple="false"
+          accept=""
+          :limit="1"
+        >
+          <em class="el-icon-upload" />
+          <div class="el-upload__text">
+            {{ $t('system.edgeNodes.howToUpload') }}
+          </div>
+          <div
+            class="el-upload__tip"
+            slot="tip"
+          >
+            {{ $t('system.edgeNodes.uploadTip') }}
+          </div>
+        </el-upload>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import { edge } from '../tools/request.js'
-import searchForm from '../components/Search.vue'
-import Pagination from '../components/Pagination.vue'
+import { system, app } from '../tools/request.js'
+import pagination from '../components/Pagination.vue'
+import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
-
 export default {
-  name: 'Nodelist',
+  name: 'Sysk8s',
   components: {
-    searchForm, Pagination, Breadcrumb
+    Search, pagination, Breadcrumb
   },
   data () {
     return {
-      currPageTableData: [],
       paginationData: [],
-      edgeNodeSearchInput: '',
-      dialogVisible: false,
+      currPageTableData: [],
       dataLoading: true,
       tableData: [],
-      mepReadyNodes: [],
-      src: ''
+      dialogVisible: false,
+      dialogVisibleUpload: false,
+      fileList: [],
+      applcmList: [],
+      appRuleIpList: [],
+      op: false,
+      radio: '1',
+      area: false,
+      selectedArea: [],
+      currForm: {
+        'address': '',
+        'affinity': '',
+        'applcmIp': '',
+        'city': '',
+        'edgeName': '',
+        'edgerepoIp': '',
+        'edgerepoPort': '',
+        'edgerepoUsername': '',
+        'mechostIp': '',
+        'mechostName': '',
+        'userName': '',
+        'zipCode': '',
+        'hwcapabilities': [],
+        'appRuleIp': '',
+        'coordinates': ''
+      },
+      capabilities: [],
+      gpuModel: '',
+      gpuVendor: '',
+      npuModel: '',
+      npuVendor: '',
+      title: '',
+      editType: 1,
+      isDisable: false,
+      affinityList: ['X86', 'ARM64', 'ARM32'],
+      capability: ['GPU', 'NPU'],
+      fileConfirm: true,
+      options: [
+        {
+          value: '1',
+          label: '北京',
+          children: [{
+            value: '1.1',
+            label: '海淀区',
+            children: [{
+              value: '116.35,39.979508',
+              label: '中国信通院'
+            }, {
+              value: '116.185087,40.054096',
+              label: '华为北京研究所'
+            }]
+          }]
+        },
+        {
+          value: '1',
+          label: '陕西省',
+          children: [{
+            value: '1.1',
+            label: '西安市',
+            children: [{
+              value: '108.839257,34.197356',
+              label: '华为西安研究所'
+            }, {
+              value: '108.916787,34.230834',
+              label: '西安电子科技大学'
+            }]
+          }]
+        }, {
+          value: '2',
+          label: '江苏省',
+          children: [{
+            value: '2.1',
+            label: '南京市',
+            children: [{
+              label: '紫金山实验室',
+              value: '118.822617,31.871027'
+            }]
+          }]
+        }, {
+          value: '3',
+          label: '上海市',
+          children: [{
+            value: '3.1',
+            label: '浦东新区',
+            children: [
+              {
+                label: '华为上海研究所',
+                value: '121.633202,31.26335'
+              }
+            ]
+          }]
+        }, {
+          value: '4',
+          label: '广东省',
+          children: [{
+            value: '4.1',
+            label: '深圳市',
+            children: [
+              {
+                label: '华为坂田基地',
+                value: '114.054927,22.658795'
+              },
+              {
+                label: '华为天安云谷',
+                value: '114.064276,22.661791'
+              },
+              {
+                label: 'Clab实验室',
+                value: '114.05283,22.656889'
+              },
+              {
+                label: '南方科技大学',
+                value: '113.996625,22.603375'
+              }
+            ]
+          }]
+        }, {
+          value: '5',
+          label: '山东省',
+          children: [{
+            value: '5.1',
+            label: '青岛市',
+            children: [{
+              value: '120.4154467,36.1322617',
+              label: '海尔青岛工厂'
+            }]
+          }]
+        }
+      ]
     }
   },
   mounted () {
-    this.getNodeList()
+    this.getNodeListInPage()
+  },
+  computed: {
+    rules () {
+      const rules = {
+        mechostIp: [
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        mechostName: [
+          { required: true, message: this.$t('verify.hostnameTip'), trigger: 'blur' },
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
+        ],
+        city: [
+          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
+        ],
+        coordinates: [
+          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
+        ],
+        edgerepoIp: [
+          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
+          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        edgerepoPort: [
+          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
+          { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        appRuleIp: [
+          { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
+        ],
+        applcmIp: [
+          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'change' }
+        ],
+        affinity: [
+          { required: true, message: this.$t('verify.affinityTip'), trigger: 'change' }
+        ]
+      }
+      return rules
+    }
   },
   methods: {
-    // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
         let itemVal = item[key]
-        if (itemVal) return itemVal.indexOf(val) > -1
+        if (itemVal) return itemVal.toLowerCase().indexOf(val) > -1
       })
     },
     // 根据搜索组件进行筛选
     getSearchData (data) {
       this.paginationData = this.tableData
-      // hostname ip  后端对应的字段
       if (this.paginationData && this.paginationData.length > 0) {
         let reset = false
         for (let key in data) {
           if (data[key]) {
             reset = true
-            let dataKey = ''
+            let dataKey = key
             if (key === 'ip') {
               dataKey = 'mechostIp'
             } else if (key === 'name') {
@@ -202,16 +647,168 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    jumpTo (path) {
-      this.$router.push(path)
-    },
     handleMonitor (row) {
       this.src = 'https://' + row.mechostIp + ':30000/dashboards'
       window.open(this.src)
-      // this.dialogVisible = true
     },
-    getNodeList (row) {
-      edge.getNodeList().then(response => {
+    onChanged (val) {
+      this.currForm.coordinates = this.$refs.myCascader.getCheckedNodes()[0].value
+      this.currForm.city = this.$refs.myCascader.getCheckedNodes()[0].pathLabels.join('/')
+      this.currForm.address = val.join(',')
+    },
+    changeType () {
+      this.op = !this.op
+    },
+    uploadFile (row) {
+      this.fileList = []
+      this.dialogVisibleUpload = true
+      this.currForm = row
+    },
+    handleModify (row) {
+      this.getList()
+      this.editType = 2
+      this.title = this.$t('system.edgeNodes.nodeModify')
+      this.isDisable = true
+      let middleData = JSON.parse(JSON.stringify(row))
+      this.currForm = middleData
+      this.selectedArea = row.address.split('/')
+      this.dialogVisible = true
+      this.area = true
+      row.hwcapabilities.forEach(item => {
+        this.capabilities.push(item.hwType)
+      })
+      this.checkCapabilityInfo(row)
+    },
+    checkCapabilityInfo (row) {
+      row.hwcapabilities.forEach(item => {
+        if (item.hwType === 'GPU') {
+          this.gpuVendor = item.hwVendor
+          this.gpuModel = item.hwModel
+        } else {
+          this.npuVendor = item.hwVendor
+          this.npuModel = item.hwModel
+        }
+      })
+    },
+    cancel (row) {
+      this.dialogVisible = false
+      this.area = false
+      this.area = false
+      this.isDisable = false
+      this.resetForm()
+    },
+    resetForm () {
+      this.currForm = {
+        'address': '',
+        'affinity': '',
+        'applcmIp': '',
+        'city': '',
+        'edgeName': '',
+        'edgerepoIp': '',
+        'edgerepoPort': '',
+        'edgerepoUsername': '',
+        'mechostIp': '',
+        'mechostName': '',
+        'userName': '',
+        'zipCode': '',
+        'hwcapabilities': [],
+        'appRuleIp': '',
+        'coordinates': ''
+      }
+      this.selectedArea = []
+      this.capabilities = []
+    },
+    beforeDelete (row) {
+      app.getInstanceList().then(res => {
+        if (res.data && res.data.response.length > 0) {
+          res.data.response.forEach(item => {
+            if (item.mecHost === row.mechostIp) {
+              this.$message.error(this.$t('tip.deleteAppBeforeDeleteNode'))
+            } else {
+              this.showWarningBox(row)
+            }
+          })
+        } else {
+          this.showWarningBox(row)
+        }
+      }, error => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.showWarningBox(row)
+        }
+      })
+    },
+    showWarningBox (row) {
+      this.$confirm(this.$t('tip.confirmToDeleteNode'), this.$t('common.warning'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        closeOnClickModal: false,
+        type: 'warning'
+      }).then(() => {
+        this.handleDelete(row)
+      })
+    },
+    handleDelete (row) {
+      system.delete(2, row.mechostIp).then(response => {
+        this.showMessage('success', this.$t('tip.sucToDeleteNodes'), 1500)
+        this.getNodeListInPage()
+      }).catch(() => {
+        this.$message.error(this.$t('tip.faileToDeleteNode'))
+      })
+    },
+    register () {
+      this.editType = 1
+      this.title = this.$t('system.edgeNodes.nodeReg')
+      this.resetForm()
+      this.isDisable = false
+      this.dialogVisible = true
+      this.area = true
+      this.$nextTick(() => {
+        this.$refs.currForm.resetFields()
+      })
+      this.getList()
+    },
+    getList () {
+      system.getList(1).then(res => {
+        this.applcmList = res.data
+      }, error => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.applcmList = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
+      })
+      system.getList(4).then(res => {
+        this.appRuleIpList = res.data
+      }, error => {
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.appRuleIpList = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
+      })
+    },
+    beforeUpload (file) {
+      console.log(file)
+    },
+    async submitUpload (content) {
+      let params = new FormData()
+      params.append('file', content.file)
+      if (this.currForm.mechostIp) {
+        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+          this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
+          this.dialogVisibleUpload = false
+        }).catch((error) => {
+          console.log(error)
+          this.$message.error("File shouldn't contain any extension or filename is larger than max size")
+          this.fileList = []
+        })
+      } else {
+        this.$message.error(this.$t('tip.typeApp'))
+        this.fileList = []
+      }
+    },
+    getNodeListInPage () {
+      system.getList(2).then(response => {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
@@ -219,7 +816,59 @@ export default {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
+          this.$message.error(this.$t('tip.failedToGetList'))
+        }
+      })
+    },
+    confirm (form) {
+      this.$refs[form].validate((valid) => {
+        if (valid) {
+          this.currForm.hwcapabilities = []
+          if (this.capabilities.length > 0) {
+            if (this.capabilities.includes('GPU')) {
+              let obj = {}
+              obj.hwType = 'GPU'
+              obj.hwVendor = this.gpuVendor
+              obj.hwModel = this.gpuModel
+              this.currForm.hwcapabilities.push(obj)
+            }
+            if (this.capabilities.includes('NPU')) {
+              let obj = {}
+              obj.hwType = 'NPU'
+              obj.hwVendor = this.npuVendor
+              obj.hwModel = this.npuModel
+              this.currForm.hwcapabilities.push(obj)
+            }
+          }
+          this.currForm.address = this.selectedArea.join('/')
+          if (this.editType === 1) {
+            system.create(2, this.currForm).then(response => {
+              this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
+              this.getNodeListInPage()
+              this.dialogVisible = false
+              this.area = false
+              this.isDisable = false
+            }).catch((error) => {
+              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+                this.$message.error(error.response.data.details[0])
+              } else if (error.response.status === 403) {
+                this.$message.error(this.$t('tip.loginOperation'))
+              } else {
+                this.$message.error(error.response.data)
+              }
+            })
+          } else {
+            system.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
+              this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
+              this.getNodeListInPage()
+              this.dialogVisible = false
+              this.area = false
+              this.isDisable = false
+              this.resetForm()
+            }).catch(() => {
+              this.$message.error(this.$t('tip.failToModifyNode'))
+            })
+          }
         }
       })
     }
@@ -228,28 +877,19 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.nodelist{
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
+.sysk8s{
+  margin: 0 5%;
+  height: 100%;
+  background: #fff;
+  padding: 30px 60px;
+  .table {
+    margin-top: 10px;
+  }
   .tableDiv {
-    margin-top: 20px;
+    margin-top: 10px;
   }
-  /deep/ .el-dialog .el-dialog__header{
-    padding:0 !important;
-  }
-  /deep/ .el-dialog__body{
-    padding:0 !important;
-  }
-  /deep/ .el-dialog{
-    background: transparent !important;
-    margin-top:8vh !important;
-    overflow: hidden !important;
-    box-shadow: none !important;
-  }
-  /deep/ .el-dialog__headerbtn{
-    display:none !important;
-  }
+}
+.el-col{
+  padding-left:0 !important;
 }
 </style>
