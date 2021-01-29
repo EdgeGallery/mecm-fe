@@ -63,6 +63,15 @@ import InteractionSelect from 'ol/interaction/Select'
 import axios from 'axios'
 export default {
   name: 'Map',
+  props: {
+    detail: {
+      required: true,
+      type: Object,
+      detault: function () {
+        return null
+      }
+    }
+  },
   data () {
     return {
       chinaId: 100000,
@@ -77,6 +86,14 @@ export default {
   },
   mounted () {
     this.getNodeList()
+  },
+  watch: {
+    detail () {
+      let arr = []
+      arr.push(this.detail)
+      this.showLayers(arr)
+      this.$emit('node', this.detail)
+    }
   },
   methods: {
     getNodeList () {
@@ -119,7 +136,7 @@ export default {
         this.regAndSetOption(myChart, this.chinaName, mapJson, false)
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            console.log(param)
+            console.log(param.data)
             this.$emit('node', param.data)
           } else {
             if (this.continue) {
@@ -212,7 +229,6 @@ export default {
             }
             return tipHtml
           }
-
         },
         series: [
           {
@@ -237,26 +253,6 @@ export default {
                 // 常规
                 areaColor: '#013C62',
                 borderColor: '#2ab8ff'
-                // 立体
-                // borderColor: '#2cb3dd',
-                // borderWidth: 0.8,
-                // areaColor: {
-                //   type: 'linear-gradient',
-                //   x: 1000,
-                //   y: 600,
-                //   x2: 1000,
-                //   y2: 0,
-                //   colorStops: [{
-                //     offset: 0,
-                //     color: '#274d68' // 0% 处的颜色
-                //   }, {
-                //     offset: 1,
-                //     color: '#09132c' // 50% 处的颜色
-                //   }],
-                //   global: true // 缺省为 false
-                // }
-                // 炫酷
-
               },
               emphasis: {
                 areaColor: '#5c6ff3'
@@ -266,6 +262,7 @@ export default {
             markPoint: {
               symbol: 'image://./w.png',
               symbolSize: [26, 26],
+              hoverAnimation: true,
               data: data
             }
           }
