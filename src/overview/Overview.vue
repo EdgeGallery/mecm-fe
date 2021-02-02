@@ -517,4 +517,8 @@ export default {
   .hwCapData{
     margin-top:15px;
   }
+  .el-table{
+    max-height: 200px;
+    overflow-y: auto;
+  }
 </style>
