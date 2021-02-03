@@ -386,7 +386,7 @@ export default {
       }
     },
     async checkServiceInfo () {
-      window.open('https://' + this.edgeIp + ':30095')
+      window.open('http://' + this.edgeIp + ':30095')
     }
   }
 }
