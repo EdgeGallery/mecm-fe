@@ -38,7 +38,7 @@
             <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
           </div>
           <Chart :chart-data="chartData" />
-          <label class="overviewLabel">{{ $t(nav.nodeList) }}</label>
+          <label class="overviewLabel">{{ $t('nav.nodeList') }}</label>
           <div class="nodeTable">
             <el-table
               :data="nodeList"
@@ -385,9 +385,7 @@ export default {
       }
     },
     async checkServiceInfo () {
-      // await this.getServiceInfo(this.edgeApp)
-      // 跳转到mep
-      window.open('http://' + this.edgeIp + ':30095')
+      window.open('https://' + this.edgeIp + ':30095')
     }
   }
 }
@@ -517,7 +515,7 @@ export default {
   .hwCapData{
     margin-top:15px;
   }
-  .el-table{
+  .edge-souces .el-table{
     max-height: 185px;
     overflow-y: auto;
   }
