@@ -43,7 +43,7 @@
             <el-table
               :data="nodeList"
               header-row-class-name="headerClassName"
-              class="hwCapData"
+              class="hwCapData nodelistTable"
             >
               <el-table-column
                 prop="mechostName"
@@ -174,6 +174,7 @@
             <el-col :span="24">
               <el-table
                 :data="mepCapData"
+                class="capaTable"
                 style="width: 100%"
                 header-row-class-name="headerClassName"
               >
@@ -515,8 +516,12 @@ export default {
   .hwCapData{
     margin-top:15px;
   }
-  .edge-souces .el-table{
+  .capaTable{
     max-height: 185px;
+    overflow-y: auto;
+  }
+  .nodelistTable{
+    max-height: 350px;
     overflow-y: auto;
   }
 </style>

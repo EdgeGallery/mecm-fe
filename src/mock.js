@@ -83,6 +83,61 @@ const hostData = function () {
         'hwVendor': 'npu',
         'hwModel': 'npu'
       }]
+    },
+    {
+      address: '4/4.1/114.059448,22.653555',
+      affinity: 'X86',
+      applcmIp: '119.8.63.144',
+      appRuleIp: '119.8.47.2',
+      city: '北京市/海淀区/中国信通院',
+      edgerepoIp: '119.8.47.2',
+      edgerepoName: null,
+      edgerepoPort: '1234',
+      edgerepoUsername: '',
+      mechostIp: '119.8.63.144',
+      mechostName: 'Node',
+      coordinates: '116.35,39.979508',
+      userName: '',
+      zipCode: '',
+      appRuleManagerIp: '119.8.47.2',
+      capability: 'GPU',
+      hwcapabilities: [{
+        'hwType': 'GPU',
+        'hwVendor': 'gpu',
+        'hwModel': 'gpu'
+      },
+      {
+        'hwType': 'NPU',
+        'hwVendor': 'npu',
+        'hwModel': 'npu'
+      }]
+    },
+    {
+      address: '2/2.1/118.822617,31.871027',
+      affinity: 'X86',
+      applcmIp: '119.8.47.2',
+      appRuleIp: '119.8.47.2',
+      city: '江苏省/南京市/紫金山实验室',
+      edgerepoIp: '119.8.47.2',
+      edgerepoName: null,
+      edgerepoPort: '1234',
+      edgerepoUsername: '',
+      mechostIp: '119.8.47.2',
+      coordinates: '118.82832,31.876148',
+      mechostName: 'Node',
+      userName: '',
+      zipCode: '',
+      capability: 'GPU',
+      hwcapabilities: [{
+        'hwType': 'GPU',
+        'hwVendor': 'gpu',
+        'hwModel': 'gpu'
+      },
+      {
+        'hwType': 'NPU',
+        'hwVendor': 'npu',
+        'hwModel': 'npu'
+      }]
     }
   ]
 }
