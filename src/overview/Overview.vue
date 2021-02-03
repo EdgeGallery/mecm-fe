@@ -38,7 +38,7 @@
             <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
           </div>
           <Chart :chart-data="chartData" />
-          <label class="overviewLabel">节点列表</label>
+          <label class="overviewLabel">{{ $t(nav.nodeList) }}</label>
           <div class="nodeTable">
             <el-table
               :data="nodeList"
@@ -516,5 +516,9 @@ export default {
   }
   .hwCapData{
     margin-top:15px;
+  }
+  .el-table{
+    max-height: 185px;
+    overflow-y: auto;
   }
 </style>

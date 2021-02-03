@@ -136,8 +136,10 @@ export default {
         this.regAndSetOption(myChart, this.chinaName, mapJson, false)
         myChart.on('click', (param) => {
           if (param.componentType === 'markPoint') {
-            console.log(param.data)
+            let arr = []
+            arr.push(param.data)
             this.$emit('node', param.data)
+            this.showLayers(arr)
           } else {
             if (this.continue) {
               this.mapAreaClick(param, myChart)
