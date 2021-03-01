@@ -468,7 +468,7 @@ export default {
           .cell::before{
             content:'';
             display:inline-block;
-            height:15px;
+            height:13px;
             width:2px;
             background: #f5f5f5;
             margin-right:4px;
@@ -511,7 +511,7 @@ export default {
     }
   }
   .headerClassName{
-    font-size: 15px;
+    font-size: 13px;
   }
   .hwCapData{
     margin-top:15px;

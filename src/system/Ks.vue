@@ -485,78 +485,78 @@ export default {
       options: [
         {
           value: '1',
-          label: '北京',
+          label: this.$t('area.beijing'),
           children: [{
             value: '1.1',
-            label: '海淀区',
+            label: this.$t('area.haidian'),
             children: [{
               value: '116.35,39.979508',
-              label: '中国信通院'
+              label: this.$t('area.caict')
             }, {
               value: '116.185087,40.054096',
-              label: '华为北京研究所'
+              label: this.$t('area.huaweiBeijing')
             }]
           }]
         },
         {
           value: '1',
-          label: '陕西省',
+          label: this.$t('area.shanxi'),
           children: [{
             value: '1.1',
-            label: '西安市',
+            label: this.$t('area.xian'),
             children: [{
               value: '108.839257,34.197356',
-              label: '华为西安研究所'
+              label: this.$t('area.huaweiXian')
             }, {
               value: '108.916787,34.230834',
-              label: '西安电子科技大学'
+              label: this.$t('area.xidian')
             }]
           }]
         }, {
           value: '2',
-          label: '江苏省',
+          label: this.$t('area.jiangsu'),
           children: [{
             value: '2.1',
-            label: '南京市',
+            label: this.$t('area.nanjing'),
             children: [{
-              label: '紫金山实验室',
+              label: this.$t('area.zijinshan'),
               value: '118.822617,31.871027'
             }]
           }]
         }, {
           value: '3',
-          label: '上海市',
+          label: this.$t('area.shanghai'),
           children: [{
             value: '3.1',
-            label: '浦东新区',
+            label: this.$t('area.pudong'),
             children: [
               {
-                label: '华为上海研究所',
+                label: this.$t('area.huaweiShanghai'),
                 value: '121.633202,31.26335'
               }
             ]
           }]
         }, {
           value: '4',
-          label: '广东省',
+          label: this.$t('area.guangdong'),
           children: [{
             value: '4.1',
-            label: '深圳市',
+            label: this.$t('area.shenzhen'),
             children: [
               {
-                label: '华为坂田基地',
+                label: this.$t('area.huaweiBantian'),
                 value: '114.054927,22.658795'
               },
               {
-                label: '华为天安云谷',
+                label: this.$t('area.tiananyungu'),
                 value: '114.064276,22.661791'
               },
               {
-                label: 'Clab实验室',
+                label: this.$t('area.clab'),
                 value: '114.05283,22.656889'
               },
               {
-                label: '南方科技大学',
+                label: this.$t('area.SUSTech'),
                 value: '113.996625,22.603375'
               }
             ]
@@ -841,6 +841,7 @@ export default {
             }
           }
           this.currForm.address = this.selectedArea.join('/')
+          console.log(this.currForm)
           if (this.editType === 1) {
             system.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)

@@ -209,7 +209,7 @@ const en = {
       newReg: 'New Registration',
       hostName: 'Host Name',
       ipAddress: 'Ip Address',
-      deployArea: 'Deploy Area',
+      deployArea: 'Location',
       zipcode: 'Zipcode',
       username: 'Username',
       repoUsername: 'Edge Repo Username',
@@ -225,7 +225,7 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
-      choseDeployArea: 'Please select deploy area'
+      choseDeployArea: 'Please select location'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -358,6 +358,28 @@ const en = {
     idMust: 'Please type right rule ID.',
     domainMust: 'Please type right domain name.',
     beforeDeleteAppMgr: 'Are you sure to delete this data?'
+  },
+  area: {
+    beijing: 'Beijing',
+    haidian: 'Haidian',
+    caict: 'CAICT',
+    huaweiBeijing: 'Huawei Beijing',
+    shanxi: "Shan'xi",
+    xian: "Xi'an",
+    huaweiXian: "Huawei Xi'an",
+    xidian: 'Xidian Univercity',
+    jiangsu: 'Jiangsu',
+    nanjing: 'Nanjing',
+    zijinshan: 'Zijinshan Lab',
+    shanghai: 'Shanghai',
+    pudong: 'Pudong',
+    huaweiShanghai: 'Huawei Shanghai',
+    guangdong: 'Guangdong',
+    shenzhen: 'Shenzhen',
+    huaweiBantian: 'Huawei Bantian',
+    tiananyungu: 'Huawei Tiananyungu',
+    clab: 'Clab',
+    SUSTech: 'SUSTech'
   },
   ...enLocale
 }

@@ -93,7 +93,7 @@
           <el-table-column
             :label="$t('common.operation')"
             align="center"
-            width="250"
+            width="300"
           >
             <template slot-scope="scope">
               <el-button

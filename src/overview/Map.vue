@@ -55,8 +55,6 @@ import OlSourceVector from 'ol/source/Vector'
 import OlCluster from 'ol/source/Cluster'
 import Style from 'ol/style/Style'
 import Icon from 'ol/style/Icon'
-// import Fill from 'ol/style/Fill'
-// import Stroke from 'ol/style/Stroke'
 import XYZ from 'ol/source/XYZ'
 import InteractionSelect from 'ol/interaction/Select'
 
@@ -81,7 +79,8 @@ export default {
       continue: true,
       btnShow: false,
       map: null,
-      showMainView: true
+      showMainView: true,
+      language: localStorage.getItem('language')
     }
   },
   mounted () {
@@ -93,6 +92,11 @@ export default {
       arr.push(this.detail)
       this.showLayers(arr)
       this.$emit('node', this.detail)
+    },
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+      this.getNodeList()
     }
   },
   methods: {
@@ -243,12 +247,29 @@ export default {
               normal: {
                 show: true,
                 color: '#fff',
-                fontSize: 14
+                fontSize: 12,
+                formatter: function (params) {
+                  if (localStorage.getItem('language') === 'cn') {
+                    let pinyin = require('pinyin')
+                    let city = pinyin(params.name, { style: pinyin.STYLE_NORMAL }).join('').replace(/^\S/, s => s.toUpperCase())
+                    if (params.name === '重庆') {
+                      city = 'Chongqing'
+                    } else if (params.name === '西藏') {
+                      city = 'Xizang'
+                    }
+                    let str = city
+                    return str
+                  } else {
+                    let str = params.name
+                    return str
+                  }
+                }
               },
               emphasis: {
                 show: true,
                 color: '#fff'
               }
+
             },
             itemStyle: {
               normal: {
