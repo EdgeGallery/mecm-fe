@@ -358,6 +358,28 @@ const cn = {
     domainMust: '请填写正确的域名',
     beforeDeleteAppMgr: '确认要删除本条数据吗？'
   },
+  area: {
+    beijing: '',
+    haidian: '海淀区',
+    caict: '中国信通院',
+    huaweiBeijing: '华为北京研究所',
+    shanxi: '陕西省',
+    xian: '西安市',
+    huaweiXian: '华为西安研究所',
+    xidian: '西安电子科技大学',
+    jiangsu: '江苏省',
+    nanjing: '南京市',
+    zijinshan: '紫金山实验室',
+    shanghai: '上海市',
+    pudong: '浦东新区',
+    huaweiShanghai: '华为上海研究所',
+    guangdong: '广东省',
+    shenzhen: '深圳市',
+    huaweiBantian: '华为坂田基地',
+    tiananyungu: '华为天安云谷',
+    clab: 'Clab实验室',
+    SUSTech: '南方科技大学'
+  },
   ...zhLocale
 }
 

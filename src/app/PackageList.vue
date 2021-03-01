@@ -378,7 +378,6 @@ export default {
       })
     },
     checkProjectData () {
-      console.log(this.language)
       this.tableData.forEach(itemBe => {
         INDUSTRY.forEach(itemFe => {
           if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {

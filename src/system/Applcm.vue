@@ -191,7 +191,6 @@ export default {
         userName: '',
         applcmName: ''
       },
-      language: localStorage.getItem('language'),
       editType: 1
     }
   },
