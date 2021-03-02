@@ -57,20 +57,26 @@
                 <el-form-item :label="$t('system.appstore.appstoreName')">
                   {{ item.appstoreName }}
                 </el-form-item>
-                <el-form-item :label="$t('system.appstore.vendor')">
-                  {{ item.producer }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.username')">
-                  {{ item.userName }}
-                </el-form-item>
-                <el-form-item label="URI">
-                  {{ item.uri }}
-                </el-form-item>
                 <el-form-item :label="$t('system.appstore.ipAddress')">
                   {{ item.appstoreIp }}
                 </el-form-item>
                 <el-form-item :label="$t('system.appLcm.port')">
                   {{ item.appstorePort }}
+                </el-form-item>
+                <el-form-item label="应用仓库">
+                  {{ item.appstoreRepo }}
+                </el-form-item>
+                <el-form-item label="应用仓库名称">
+                  {{ item.appstoreRepoName }}
+                </el-form-item>
+                <el-form-item label="应用仓库用户名">
+                  {{ item.appstoreRepoUserName }}
+                </el-form-item>
+                <el-form-item label="应用仓库密码">
+                  {{ item.appstoreRepoPassword }}
+                </el-form-item>
+                <el-form-item :label="$t('system.appstore.vendor')">
+                  {{ item.producer }}
                 </el-form-item>
                 <el-form-item class="rt btn-group">
                   <el-button
@@ -129,37 +135,6 @@
                 />
               </el-form-item>
               <el-form-item
-                :label="$t('system.appstore.vendor')"
-                prop="producer"
-              >
-                <el-input
-                  id="producer"
-                  maxlength="20"
-                  v-model="form.producer"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.userNmae')"
-                prop="userName"
-              >
-                <el-input
-                  id="username"
-                  maxlength="20"
-                  v-model="form.userName"
-                  auto-complete="new-username"
-                />
-              </el-form-item>
-              <el-form-item
-                label="URI"
-                prop="uri"
-              >
-                <el-input
-                  id="uri"
-                  maxlength="80"
-                  v-model="form.uri"
-                />
-              </el-form-item>
-              <el-form-item
                 label="IP"
                 prop="appstoreIp"
               >
@@ -178,6 +153,56 @@
                   id="port"
                   maxlength="80"
                   v-model="form.appstorePort"
+                />
+              </el-form-item>
+              <el-form-item
+                label="应用仓库"
+                prop="appstoreRepo"
+              >
+                <el-input
+                  id="appstoreRepo"
+                  maxlength="20"
+                  v-model="form.appstoreRepo"
+                />
+              </el-form-item>
+              <el-form-item
+                label="应用仓库名称"
+                prop="appstoreRepoName"
+              >
+                <el-input
+                  id="appstoreRepoName"
+                  maxlength="20"
+                  v-model="form.appstoreRepoName"
+                />
+              </el-form-item>
+              <el-form-item
+                label="应用仓库用户名"
+                prop="appstoreRepoUserName"
+              >
+                <el-input
+                  id="appstoreRepoUserName"
+                  maxlength="20"
+                  v-model="form.appstoreRepoUserName"
+                />
+              </el-form-item>
+              <el-form-item
+                label="应用仓库密码"
+                prop="appstoreRepoPassword"
+              >
+                <el-input
+                  id="appstoreRepoPassword"
+                  maxlength="80"
+                  v-model="form.appstoreRepoPassword"
+                />
+              </el-form-item>
+              <el-form-item
+                :label="$t('system.appstore.vendor')"
+                prop="producer"
+              >
+                <el-input
+                  id="producer"
+                  maxlength="20"
+                  v-model="form.producer"
                 />
               </el-form-item>
             </el-form>
@@ -223,9 +248,11 @@ export default {
         appstoreIp: '',
         appstoreName: '',
         appstorePort: '',
-        producer: '',
-        userName: '',
-        uri: ''
+        appstoreRepo: '',
+        appstoreRepoName: '',
+        appstoreRepoPassword: '',
+        appstoreRepoUserName: '',
+        producer: ''
       },
       currPageTableData: [],
       paginationData: [],
@@ -244,18 +271,6 @@ export default {
           { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' },
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ],
-        producer: [
-          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' },
-          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
-        ],
-        userName: [
-          { required: true, message: this.$t('verify.usernameTip'), trigger: 'blur' },
-          { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
-        ],
-        uri: [
-          { required: true, message: this.$t('verify.uriTip'), trigger: 'blur' },
-          { pattern: /^https?:\/\/.+/, message: this.$t('verify.uriVerify') }
-        ],
         appstoreIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
@@ -263,6 +278,22 @@ export default {
         appstorePort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
+        ],
+        appstoreRepo: [
+          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
+        ],
+        appstoreRepoName: [
+          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
+        ],
+        appstoreRepoUserName: [
+          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
+        ],
+        appstoreRepoPassword: [
+          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
+        ],
+        producer: [
+          { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' },
+          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
       return rules
@@ -302,9 +333,11 @@ export default {
         appstoreIp: '',
         appstoreName: '',
         appstorePort: '',
-        producer: '',
-        uri: '',
-        userName: ''
+        appstoreRepo: '',
+        appstoreRepoName: '',
+        appstoreRepoPassword: '',
+        appstoreRepoUserName: '',
+        producer: ''
       }
     },
     register () {
@@ -320,6 +353,7 @@ export default {
     confirmToRegister (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          console.log(this.form)
           if (this.editType === 1) {
             inventory.create(3, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)

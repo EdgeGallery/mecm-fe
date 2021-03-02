@@ -71,6 +71,10 @@
               :label="$t('system.edgeNodes.location')"
             />
             <el-table-column
+              prop="vim"
+              label="虚机类型"
+            />
+            <el-table-column
               prop="affinity"
               :label="$t('app.packageList.affinity')"
             />
@@ -81,14 +85,6 @@
             <el-table-column
               prop="appRuleIp"
               label="App Rule MGR IP"
-            />
-            <el-table-column
-              prop="edgerepoIp"
-              :label="$t('system.edgeNodes.edgeNexusIp')"
-            />
-            <el-table-column
-              prop="edgerepoPort"
-              :label="$t('system.edgeNodes.edgeNexusPort')"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
@@ -171,16 +167,16 @@
                 :label="$t('system.edgeNodes.systemPlatform')"
               >
                 <el-radio-group
-                  v-model="radio"
+                  v-model="currForm.vim"
                   @change="changeType"
                 >
                   <el-radio
-                    label="1"
+                    label="K8S"
                   >
                     K8S
                   </el-radio>
                   <el-radio
-                    label="2"
+                    label="OpenStack"
                   >
                     OpenStack
                   </el-radio>
@@ -326,47 +322,6 @@
                   />
                 </el-select>
               </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.userNmae')"
-                prop="username"
-                v-if="op"
-              >
-                <el-input
-                  id="username"
-                  maxlength="20"
-                  v-model="currForm.username"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.appLcm.password')"
-                prop="password"
-                v-if="op"
-              >
-                <el-input
-                  id="password"
-                  maxlength="30"
-                  v-model="currForm.password"
-                  type="password"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusIp')"
-                prop="edgerepoIp"
-              >
-                <el-input
-                  id="edgeip"
-                  v-model="currForm.edgerepoIp"
-                />
-              </el-form-item>
-              <el-form-item
-                :label="$t('system.edgeNodes.edgeNexusPort')"
-                prop="edgerepoPort"
-              >
-                <el-input
-                  id="edgeport"
-                  v-model="currForm.edgerepoPort"
-                />
-              </el-form-item>
             </el-form>
           </el-row>
         </div>
@@ -443,25 +398,21 @@ export default {
       applcmList: [],
       appRuleIpList: [],
       op: false,
-      radio: '1',
       area: false,
       selectedArea: [],
       currForm: {
-        'address': '',
-        'affinity': '',
-        'applcmIp': '',
-        'city': '',
-        'edgeName': '',
-        'edgerepoIp': '',
-        'edgerepoPort': '',
-        'edgerepoUsername': '',
-        'mechostIp': '',
-        'mechostName': '',
-        'userName': '',
-        'zipCode': '',
-        'hwcapabilities': [],
-        'appRuleIp': '',
-        'coordinates': ''
+        address: '',
+        affinity: '',
+        applcmIp: '',
+        city: '',
+        mechostIp: '',
+        mechostName: '',
+        userName: '',
+        zipCode: '',
+        hwcapabilities: [],
+        appRuleIp: '',
+        coordinate: '',
+        vim: 'K8S'
       },
       capabilities: [],
       gpuModel: '',
@@ -588,14 +539,6 @@ export default {
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
         ],
-        edgerepoIp: [
-          { required: true, message: this.$t('verify.edgeNexusIpTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        edgerepoPort: [
-          { required: true, message: this.$t('verify.edgeNexusPortTip'), trigger: 'blur' },
-          { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
         ],
@@ -691,21 +634,18 @@ export default {
     },
     resetForm () {
       this.currForm = {
-        'address': '',
-        'affinity': '',
-        'applcmIp': '',
-        'city': '',
-        'edgeName': '',
-        'edgerepoIp': '',
-        'edgerepoPort': '',
-        'edgerepoUsername': '',
-        'mechostIp': '',
-        'mechostName': '',
-        'userName': '',
-        'zipCode': '',
-        'hwcapabilities': [],
-        'appRuleIp': '',
-        'coordinates': ''
+        address: '',
+        affinity: '',
+        applcmIp: '',
+        city: '',
+        mechostIp: '',
+        mechostName: '',
+        userName: '',
+        zipCode: '',
+        hwcapabilities: [],
+        appRuleIp: '',
+        coordinate: '',
+        vim: 'K8S'
       }
       this.selectedArea = []
       this.capabilities = []
@@ -815,6 +755,7 @@ export default {
     confirm (form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+          console.log(this.currForm)
           this.currForm.hwcapabilities = []
           if (this.capabilities.length > 0) {
             if (this.capabilities.includes('GPU')) {
