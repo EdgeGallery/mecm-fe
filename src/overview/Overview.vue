@@ -281,16 +281,18 @@ export default {
     },
     clickMap (msg, city) {
       this.alarmStatus = 'alarms'
-      if (this.$i18n.locale === 'cn') {
+      if (this.$i18n.locale === 'en') {
         this.city = city
       } else {
         if (city === '西藏') {
-          this.city = 'Xi Zang'
+          this.city = 'Xizang'
+        } else if (city === '重庆') {
+          this.city = 'Chongqing'
         } else if (city === '全国') {
           this.city = 'All'
         } else {
           let pinyin = require('pinyin')
-          this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join(' ').replace(/^\S/, s => s.toUpperCase())
+          this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join('').replace(/^\S/, s => s.toUpperCase())
         }
       }
       this.nodeList = msg

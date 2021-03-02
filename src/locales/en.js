@@ -45,9 +45,9 @@ const en = {
     cpu: 'CPU',
     mem: 'MEM', // memory
     disk: 'DISK',
-    mepCapa: 'MEP Hardware Capabilities',
+    mepCapa: 'HW Capabilities',
     mepInfo: 'MEP Information',
-    softwareCapa: 'MEP Software Capabilities',
+    softwareCapa: 'SW Capabilities',
     capa: 'Capabilities',
     vendor: 'Vendor',
     model: 'Model',

@@ -380,16 +380,16 @@ export default {
     checkProjectData () {
       this.tableData.forEach(itemBe => {
         INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
+          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[1], itemFe.label[0])
-          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
+          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[0], itemFe.label[1])
           }
         })
         TYPESFORAPP.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
+          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
             itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.label[0])
-          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
+          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.type = itemBe.type.replace(itemFe.label[0], itemFe.label[1])
           }
         })

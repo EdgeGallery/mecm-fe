@@ -188,7 +188,6 @@
                   </el-radio>
                   <el-radio
                     label="2"
-                    :disabled="true"
                   >
                     OpenStack
                   </el-radio>
