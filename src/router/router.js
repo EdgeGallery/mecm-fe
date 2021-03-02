@@ -76,11 +76,6 @@ export default new Router({
           component: () => import('../system/Apprule.vue')
         },
         {
-          path: 'mecm/systems/external/edgenodes',
-          name: 'externalSystem2',
-          component: () => import('../system/Ks.vue')
-        },
-        {
           path: 'mecm/systems/external/store',
           name: 'externalSystem3',
           component: () => import('../system/Appstore.vue')

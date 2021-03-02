@@ -379,7 +379,10 @@ const en = {
     huaweiBantian: 'Huawei Bantian',
     tiananyungu: 'Huawei Tiananyungu',
     clab: 'Clab',
-    SUSTech: 'SUSTech'
+    SUSTech: 'SUSTech',
+    shandong: 'Shandong',
+    qingdao: 'Qingdao',
+    haier: 'Haier Qingdao'
   },
   ...enLocale
 }

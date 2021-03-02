@@ -359,7 +359,7 @@ const cn = {
     beforeDeleteAppMgr: '确认要删除本条数据吗？'
   },
   area: {
-    beijing: '',
+    beijing: '北京市',
     haidian: '海淀区',
     caict: '中国信通院',
     huaweiBeijing: '华为北京研究所',
@@ -378,7 +378,10 @@ const cn = {
     huaweiBantian: '华为坂田基地',
     tiananyungu: '华为天安云谷',
     clab: 'Clab实验室',
-    SUSTech: '南方科技大学'
+    SUSTech: '南方科技大学',
+    shandong: '山东省',
+    qingdao: '青岛市',
+    haier: '海尔青岛工厂'
   },
   ...zhLocale
 }

@@ -59,22 +59,18 @@
               />
               <el-table-column
                 prop="provider"
-                sortable
                 :label="$t('app.packageList.vendor')"
               />
               <el-table-column
                 prop="type"
-                sortable
                 :label="$t('app.packageList.type')"
               />
               <el-table-column
                 prop="affinity"
-                sortable
                 :label="$t('app.packageList.affinity')"
               />
               <el-table-column
                 prop="shortDesc"
-                sortable
                 :label="$t('app.packageList.desc')"
               >
                 <template slot-scope="scope">
@@ -188,22 +184,18 @@
                 />
                 <el-table-column
                   prop="mechostIp"
-                  sortable
                   :label="$t('app.packageList.ip')"
                 />
                 <el-table-column
                   prop="city"
-                  sortable
                   :label="$t('app.packageList.city')"
                 />
                 <el-table-column
                   prop="affinity"
-                  sortable
                   :label="$t('app.packageList.affinity')"
                 />
                 <el-table-column
                   prop="applcmIp"
-                  sortable
                   :label="$t('system.edgeNodes.applcmIp')"
                 />
                 <el-table-column

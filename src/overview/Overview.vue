@@ -60,12 +60,10 @@
               </el-table-column>
               <el-table-column
                 prop="mechostIp"
-                sortable
                 :label="$t('app.packageList.ip')"
               />
               <el-table-column
                 prop="city"
-                sortable
                 :label="$t('system.edgeNodes.deployArea')"
               />
               <el-table-column
