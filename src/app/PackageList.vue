@@ -59,22 +59,18 @@
               />
               <el-table-column
                 prop="provider"
-                sortable
                 :label="$t('app.packageList.vendor')"
               />
               <el-table-column
                 prop="type"
-                sortable
                 :label="$t('app.packageList.type')"
               />
               <el-table-column
                 prop="affinity"
-                sortable
                 :label="$t('app.packageList.affinity')"
               />
               <el-table-column
                 prop="shortDesc"
-                sortable
                 :label="$t('app.packageList.desc')"
               >
                 <template slot-scope="scope">
@@ -188,22 +184,18 @@
                 />
                 <el-table-column
                   prop="mechostIp"
-                  sortable
                   :label="$t('app.packageList.ip')"
                 />
                 <el-table-column
                   prop="city"
-                  sortable
                   :label="$t('app.packageList.city')"
                 />
                 <el-table-column
                   prop="affinity"
-                  sortable
                   :label="$t('app.packageList.affinity')"
                 />
                 <el-table-column
                   prop="applcmIp"
-                  sortable
                   :label="$t('system.edgeNodes.applcmIp')"
                 />
                 <el-table-column
@@ -263,7 +255,7 @@
 </template>
 
 <script>
-import { app, edge } from '../tools/request.js'
+import { appstore, apm, inventory } from '../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
@@ -366,7 +358,7 @@ export default {
     },
     async getAppListFromAppStore () {
       this.dataLoading = true
-      app.getAppListFromAppStore().then(response => {
+      appstore.getAppListFromAppStore().then(response => {
         this.tableData = response.data
         this.paginationData = this.tableData
         this.checkProjectData()
@@ -380,16 +372,16 @@ export default {
     checkProjectData () {
       this.tableData.forEach(itemBe => {
         INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
+          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[1], itemFe.label[0])
-          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
+          } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[0], itemFe.label[1])
           }
         })
         TYPESFORAPP.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
+          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
             itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.label[0])
-          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
+          } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.type = itemBe.type.replace(itemFe.label[0], itemFe.label[1])
           }
         })
@@ -397,14 +389,14 @@ export default {
     },
     async getNodeList (row) {
       sessionStorage.setItem('appId', row.appId)
-      app.getPackageList(row.appId).then(res => {
+      appstore.getPackageList(row.appId).then(res => {
         this.options = res.data
         this.currentRowData.appId = row.appId
         this.currentRowData.version = this.version = res.data[0].version
         this.currentRowData.packageId = res.data[0].packageId
       })
       this.appId = row.appId
-      await edge.getNodeList().then(response => {
+      await inventory.getList(2).then(response => {
         this.edgeNodesData = response.data
       }).catch((error) => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
@@ -460,7 +452,7 @@ export default {
         modifiedTime: new Date().toString()
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
-        app.confirmToDistribute(params).then(response => {
+        apm.confirmToDistribute(params).then(response => {
           this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(

@@ -26,9 +26,9 @@ if (window.location.href.indexOf('30093') > -1) {
   api = 'https://' + window.location.host
 }
 
-let inventory = api + ':30203' + '/inventory/v1'
-let apm = api + ':30202' + '/apm/v1'
-let appo = api + ':30201' + '/appo/v1'
+let inventoryApi = api + ':30203' + '/inventory/v1'
+let apmApi = api + ':30202' + '/apm/v1'
+let appoApi = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
@@ -116,124 +116,105 @@ let user = {
     })
   }
 }
-let overview = {
-  getPackageInfo (item) {
-    return GET('/mec-appstore/mec/appstore/v1/apps/' + item.appId + '/packages/' + item.id)
-  },
-  getHwCapa (hostip) {
-    return GET(inventory + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
-  },
-  getNodeKpi (hostip) {
-    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi')
-  },
-  getServiceInfo (instanceId) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
-  },
-  getMepCapabilities (hostip) {
-    return GET(appo + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
-  }
-}
-let app = {
+
+let appstore = {
   getPackageList (appId) {
     return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
   },
   getAppListFromAppStore () {
     return GET('/mec-appstore/mec/appstore/v1/apps')
-  },
-  downloadPackage (appId, packageId) {
-    try {
-      var elemIF = document.createElement('iframe')
-      elemIF.src = '/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages/' + packageId + '/action/download'
-      elemIF.style.display = 'none'
-      document.body.appendChild(elemIF)
-      // 防止下载两次
-      setTimeout(function () {
-        document.body.removeChild(elemIF)
-      }, 1000)
-    } catch (e) {
-      console.log(e)
-    }
-  },
+  }
+}
+
+let apm = {
   confirmToDistribute (params) {
-    return POST(apm + '/tenants/' + getUserId() + '/packages', params)
+    return POST(apmApi + '/tenants/' + getUserId() + '/packages', params)
   },
   getDistributionList () {
-    return GET(apm + '/tenants/' + getUserId() + '/packages')
+    return GET(apmApi + '/tenants/' + getUserId() + '/packages')
   },
   deleteDistributionApp (type, hostIp, packageId) {
-    let url = apm + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
+    let url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
     if (type === 2) {
-      url = apm + '/tenants/' + getUserId() + '/packages/' + packageId
+      url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
+  }
+}
+
+let appo = {
+  getNodeKpi (hostip) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi')
+  },
+  getServiceInfo (instanceId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  },
+  getMepCapabilities (hostip) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
   },
   confirmToDeploy (params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances', params)
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances', params)
   },
   confirmToBatchDeploy (params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_create', params)
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_create', params)
   },
   getInstanceInfo (instanceId) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
-  },
-  getBatchInstanceInfo (instanceId) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos/appinstanceids?' + instanceId)
+    return GET(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
   },
   instantiateApp (instanceId) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
   batchInstantiateApp (params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
   },
   getInstanceList () {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instance_infos')
+    return GET(appoApi + '/tenants/' + getUserId() + '/app_instance_infos')
   },
   getInstanceDetail (appInstanceId) {
-    return GET(appo + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
+    return GET(appoApi + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
   },
   deleteInstanceApp (instanceId) {
-    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
   },
   batchDeleteInstanceApp (params) {
-    return POST(appo + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
   },
   addConfigRules (type, id, params) {
     if (type === 2) {
-      return PUT(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+      return PUT(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
     } else {
-      return POST(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
+      return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
     }
   },
   deleteConfigRules (id, params) {
-    return DELETE(appo + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
-  },
-  getConfigRules (id) {
-    return GET(inventory + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
   },
   getTaskStatus (id) {
-    return GET(appo + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
+    return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
   }
 }
-let edge = {
-  getNodeList () {
-    return GET(inventory + '/tenants/' + getUserId() + '/mechosts')
-  }
-}
-let system = {
+
+let inventory = {
   create (type, params) {
-    return POST(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+    return POST(inventoryApi + inventoryUrl[type - 1], params)
   },
   getList (type) {
-    return GET(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1])
+    return GET(inventoryApi + inventoryUrl[type - 1])
   },
   modify (type, params, ip) {
-    return PUT(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
+    return PUT(inventoryApi + inventoryUrl[type - 1] + '/' + ip, params)
   },
   delete (type, params) {
-    return DELETE(inventory + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
+    return DELETE(inventoryApi + inventoryUrl[type - 1] + '/' + params)
   },
   uploadConfig (ip, params) {
-    return POST(inventory + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
+    return POST(inventoryApi + '/mechosts/' + ip + '/k8sconfig', params)
+  },
+  getConfigRules (id) {
+    return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+  },
+  getHwCapa (hostip) {
+    return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   }
 }
 
@@ -243,8 +224,8 @@ export {
   PUT,
   DELETE,
   user,
-  overview,
-  app,
-  edge,
-  system
+  appstore,
+  apm,
+  appo,
+  inventory
 }

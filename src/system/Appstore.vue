@@ -205,7 +205,7 @@
 </template>
 
 <script>
-import { system } from '../tools/request.js'
+import { inventory } from '../tools/request.js'
 import Search from '../components/Search.vue'
 import pagination from '../components/Pagination.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -321,7 +321,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
-            system.create(3, this.form).then(res => {
+            inventory.create(3, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
               this.initList()
               this.dialogVisible = false
@@ -335,7 +335,7 @@ export default {
               }
             })
           } else {
-            system.modify(3, this.form, this.form.appstoreIp).then(res => {
+            inventory.modify(3, this.form, this.form.appstoreIp).then(res => {
               this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
               this.initList()
               this.dialogVisible = false
@@ -361,7 +361,7 @@ export default {
         closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
-        system.delete(3, row.appstoreIp).then(res => {
+        inventory.delete(3, row.appstoreIp).then(res => {
           this.initList()
           this.showMessage('success', this.$t('tip.deleteAppStoreSuc'), 1500)
         }).catch(error => {
@@ -370,7 +370,7 @@ export default {
       })
     },
     initList () {
-      system.getList(3).then(res => {
+      inventory.getList(3).then(res => {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {

@@ -208,7 +208,7 @@ const cn = {
       newReg: '新增注册',
       hostName: '主机名称',
       ipAddress: 'IP地址',
-      deployArea: '部署区域',
+      location: '部署位置',
       zipcode: '邮政编码',
       username: '用户名',
       repoUsername: '边缘仓库用户名',
@@ -224,7 +224,7 @@ const cn = {
       howToUpload: '拖拽文件到上传区域内，或者点击上传',
       hwCapability: '硬件能力',
       coordinates: '坐标',
-      choseDeployArea: '选择部署区域'
+      chooseLocation: '选择部署位置'
     },
     appstore: {
       appstoreName: '应用市场',
@@ -336,7 +336,7 @@ const cn = {
     failToModifyNode: '修改节点失败',
     typeApp: '请先输入节点IP地址!',
     uploadConf: '请上传config文件',
-    typeCity: '请选择部署区域',
+    typeCity: '请选择部署位置',
     confirmToDeleteNode: '确认要删除该节点吗？',
     deleteAppBeforeDeleteNode: '你需要先删除安装在该节点上的应用',
     beforeDeleteApplcm: '确认要删除App LCM？',
@@ -359,7 +359,7 @@ const cn = {
     beforeDeleteAppMgr: '确认要删除本条数据吗？'
   },
   area: {
-    beijing: '',
+    beijing: '北京市',
     haidian: '海淀区',
     caict: '中国信通院',
     huaweiBeijing: '华为北京研究所',
@@ -378,7 +378,10 @@ const cn = {
     huaweiBantian: '华为坂田基地',
     tiananyungu: '华为天安云谷',
     clab: 'Clab实验室',
-    SUSTech: '南方科技大学'
+    SUSTech: '南方科技大学',
+    shandong: '山东省',
+    qingdao: '青岛市',
+    haier: '海尔青岛工厂'
   },
   ...zhLocale
 }

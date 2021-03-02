@@ -112,7 +112,7 @@ export default {
       loginPage: '',
       ifGuest: true,
       jsonData: [],
-      language: 'en',
+      language: 'cn',
       lang: 'English',
       smallMenu: false,
       userName: ''
@@ -125,13 +125,16 @@ export default {
   },
   mounted () {
     this.jsonData = NavDataCn
-    this.language = localStorage.getItem('language') || 'en'
-    if (this.language === 'en') {
+    this.language = localStorage.getItem('language') || 'cn'
+    this.$i18n.locale = this.language
+    if (this.language === 'cn') {
       this.lang = 'English'
+      this.jsonData = NavDataCn
     } else {
       this.lang = '简体中文'
+      this.jsonData = NavData
     }
-    if (!localStorage.getItem('language')) { localStorage.setItem('language', 'en') }
+    if (!localStorage.getItem('language')) { localStorage.setItem('language', 'cn') }
     user.getUserInfo().then(res => {
       this.userName = res.data.userName
       sessionStorage.setItem('userId', res.data.userId)
@@ -161,19 +164,19 @@ export default {
       this.smallMenu = data
     },
     changeLang () {
-      this.$i18n.locale = this.language
       if (this.language === 'en') {
         this.language = 'cn'
-        this.lang = '简体中文'
-        this.jsonData = NavData
-      } else {
-        this.language = 'en'
         this.lang = 'English'
         this.jsonData = NavDataCn
+      } else {
+        this.language = 'en'
+        this.lang = '简体中文'
+        this.jsonData = NavData
       }
+      this.$i18n.locale = this.language
       localStorage.setItem('language', this.language)
       let appDom = document.getElementById('app')
-      if (this.language === 'en') {
+      if (this.language === 'cn') {
         appDom.style.fontFamily = 'Huaweisans, Arial, Microsoft YaHei, FZLTXHJW, Microsoft JhengHei, sans-serif'
       } else {
         if (this.os.isMac) {

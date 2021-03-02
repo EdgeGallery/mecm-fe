@@ -164,7 +164,7 @@
 </template>
 
 <script>
-import { system } from '../tools/request.js'
+import { inventory } from '../tools/request.js'
 import Search from '../components/Search.vue'
 import pagination from '../components/Pagination.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -258,7 +258,7 @@ export default {
         closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
-        system.delete(4, row.appRuleIp).then(res => {
+        inventory.delete(4, row.appRuleIp).then(res => {
           this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
           this.initList()
         }, error => {
@@ -287,7 +287,7 @@ export default {
       this.$refs[form].validate((valid) => {
         if (valid) {
           if (this.editType === 1) {
-            system.create(4, this.form).then(res => {
+            inventory.create(4, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
               this.initList()
               this.dialogVisible = false
@@ -301,7 +301,7 @@ export default {
               }
             })
           } else {
-            system.modify(4, this.form, this.form.appRuleIp).then(res => {
+            inventory.modify(4, this.form, this.form.appRuleIp).then(res => {
               this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
               this.initList()
               this.dialogVisible = false
@@ -313,7 +313,7 @@ export default {
       })
     },
     initList () {
-      system.getList(4).then(res => {
+      inventory.getList(4).then(res => {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {

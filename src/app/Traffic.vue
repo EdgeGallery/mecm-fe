@@ -704,7 +704,7 @@
 </template>
 
 <script>
-import { app } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 import Detail from './TrafficDetail.vue'
 export default {
   components: {
@@ -920,7 +920,7 @@ export default {
       this.operationDialog = false
     },
     getAppRules () {
-      app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
+      inventory.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.type = 2
           this.rule = JSON.parse(JSON.stringify(res.data))
@@ -955,9 +955,9 @@ export default {
           this.operationDialog = false
           data.appTrafficRule.push(this.appTrafficRule)
           console.log(data)
-          app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
+          appo.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
             if (res.data) {
-              app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+              appo.getTaskStatus(res.data.response.apprule_task_id).then(response => {
                 if (response.data.response.configResult === 'FAILURE') {
                   this.$message.error(this.$t('app.ruleConfig.mepError'))
                 } else {
@@ -1030,7 +1030,7 @@ export default {
             data.appTrafficRule.push(item.trafficRuleId)
           })
         }
-        app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
+        appo.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.showMessage('success', this.$t('app.ruleConfig.delRuleSuc'), 1500)
           this.loading = true
           this.timer = setTimeout(() => { this.getAppRules() }, 3000)

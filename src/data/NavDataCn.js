@@ -61,28 +61,21 @@ const NavDataCn = [
     'display': false,
     'children': [
       {
-        'id': '2.4.1.1',
+        'id': '2.4.1',
         'name': 'App LCM注册系统',
         'path': '/mecm/systems/external/applcm',
         'pageId': '2.0.3.1.1',
         'display': false
       },
       {
-        'id': '2.4.1.4',
+        'id': '2.4.2',
         'name': 'App Rule MGR 注册系统',
         'path': '/mecm/systems/external/apprule',
         'pageId': '2.0.3.1.4',
         'display': false
       },
       {
-        'id': '2.4.1.2',
-        'name': '边缘节点注册系统',
-        'path': '/mecm/systems/external/edgenodes',
-        'pageId': '2.0.3.1.2',
-        'display': false
-      },
-      {
-        'id': '2.4.1.3',
+        'id': '2.4.3',
         'name': '应用市场注册系统',
         'path': '/mecm/systems/external/store',
         'pageId': '2.0.3.1.3',

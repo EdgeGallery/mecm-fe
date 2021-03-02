@@ -60,13 +60,11 @@
               </el-table-column>
               <el-table-column
                 prop="mechostIp"
-                sortable
                 :label="$t('app.packageList.ip')"
               />
               <el-table-column
                 prop="city"
-                sortable
-                :label="$t('system.edgeNodes.deployArea')"
+                :label="$t('system.edgeNodes.location')"
               />
               <el-table-column
                 :label="$t('common.operation')"
@@ -223,7 +221,7 @@
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import Map from './Map.vue'
-import { overview, app } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -281,19 +279,24 @@ export default {
     },
     clickMap (msg, city) {
       this.alarmStatus = 'alarms'
-      if (this.$i18n.locale === 'cn') {
+      if (this.$i18n.locale === 'en') {
         this.city = city
       } else {
         if (city === '西藏') {
-          this.city = 'Xi Zang'
+          this.city = 'Xizang'
+        } else if (city === '重庆') {
+          this.city = 'Chongqing'
         } else if (city === '全国') {
           this.city = 'All'
         } else {
           let pinyin = require('pinyin')
-          this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join(' ').replace(/^\S/, s => s.toUpperCase())
+          this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join('').replace(/^\S/, s => s.toUpperCase())
         }
       }
       this.nodeList = msg
+      this.nodeList.forEach(item => {
+        item.city = item.city.split('/')[0]
+      })
       this.nodeNum = msg.length
       this.chartData =
         {
@@ -313,7 +316,7 @@ export default {
       })
     },
     getAppInfo (ip) {
-      app.getInstanceList().then(res => {
+      appo.getInstanceList().then(res => {
         this.infoList = res.data.response
         this.edgeAppList = []
         if (this.infoList && this.infoList.length > 0) {
@@ -334,7 +337,7 @@ export default {
       })
     },
     getHwCapa (host) {
-      overview.getHwCapa(host).then(res => {
+      inventory.getHwCapa(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
             this.hwCapData = res.data.hwcapabilities
@@ -343,7 +346,7 @@ export default {
       })
     },
     getMepCapa (host) {
-      overview.getMepCapabilities(host).then(res => {
+      appo.getMepCapabilities(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
             this.mepCapData = JSON.parse(res.data.response)
@@ -352,7 +355,7 @@ export default {
       })
     },
     getNodeKpi (ip) {
-      overview.getNodeKpi(ip).then(res => {
+      inventory.getHwCapa(ip).then(res => {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
@@ -365,7 +368,7 @@ export default {
     getServiceInfo (instanceId) {
       if (this.edgeAppList.length > 0) {
         this.loginBtnLoading = true
-        overview.getServiceInfo(instanceId).then(res => {
+        appo.getServiceInfo(instanceId).then(res => {
           this.serviceInfo = JSON.parse(res.data.response)
           this.manageDialogStatus = true
           this.loginBtnLoading = false

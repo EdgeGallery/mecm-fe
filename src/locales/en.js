@@ -45,9 +45,9 @@ const en = {
     cpu: 'CPU',
     mem: 'MEM', // memory
     disk: 'DISK',
-    mepCapa: 'MEP Hardware Capabilities',
+    mepCapa: 'HW Capabilities',
     mepInfo: 'MEP Information',
-    softwareCapa: 'MEP Software Capabilities',
+    softwareCapa: 'SW Capabilities',
     capa: 'Capabilities',
     vendor: 'Vendor',
     model: 'Model',
@@ -209,7 +209,7 @@ const en = {
       newReg: 'New Registration',
       hostName: 'Host Name',
       ipAddress: 'Ip Address',
-      deployArea: 'Location',
+      location: 'Location',
       zipcode: 'Zipcode',
       username: 'Username',
       repoUsername: 'Edge Repo Username',
@@ -225,7 +225,7 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
-      choseDeployArea: 'Please select location'
+      chooseLocation: 'Please select location'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -379,7 +379,10 @@ const en = {
     huaweiBantian: 'Huawei Bantian',
     tiananyungu: 'Huawei Tiananyungu',
     clab: 'Clab',
-    SUSTech: 'SUSTech'
+    SUSTech: 'SUSTech',
+    shandong: 'Shandong',
+    qingdao: 'Qingdao',
+    haier: 'Haier Qingdao'
   },
   ...enLocale
 }

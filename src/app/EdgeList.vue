@@ -277,7 +277,7 @@
 <script>
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
-import { app } from '../tools/request.js'
+import { appo, apm } from '../tools/request.js'
 export default {
   name: 'EdgeList',
   components: {
@@ -425,7 +425,7 @@ export default {
       }).then(() => {
         let hostIp = rows.hostIp
         let type = 1
-        app.deleteDistributionApp(type, hostIp, this.appPackageId).then(res => {
+        apm.deleteDistributionApp(type, hostIp, this.appPackageId).then(res => {
           this.showMessage('success', this.$t('tip.deletePacFrmoHost'), 1500)
           this.initList()
         })
@@ -433,7 +433,7 @@ export default {
       })
     },
     initList () {
-      app.getDistributionList().then(res => {
+      apm.getDistributionList().then(res => {
         this.paginationData = []
         res.data.forEach(item => {
           if (item.appId === this.appid) {
@@ -504,7 +504,7 @@ export default {
           }
           this.loading = true
           if (typeof (params.mecHost) === 'string') {
-            app.confirmToDeploy(params).then(res => {
+            appo.confirmToDeploy(params).then(res => {
               let instanceId = res.data.response.app_instance_id
               this.timer = setTimeout(() => { this.queryInstanceStatus(instanceId) }, 1000)
             }).catch(() => {
@@ -512,7 +512,7 @@ export default {
               this.dialogVisible = false
             })
           } else {
-            app.confirmToBatchDeploy(params).then(res => {
+            appo.confirmToBatchDeploy(params).then(res => {
               let instanceIds = res.data.response
               this.timer = setTimeout(() => { this.batchInstaniateApp(instanceIds) }, 1000)
             }).catch(() => {
@@ -524,7 +524,7 @@ export default {
       })
     },
     queryInstanceStatus (instanceids) {
-      app.getInstanceInfo(instanceids).then(res1 => {
+      appo.getInstanceInfo(instanceids).then(res1 => {
         let status = res1.data.response.operationalStatus
         if (status === 'Created') {
           this.instaniateApp(instanceids)
@@ -544,7 +544,7 @@ export default {
       })
     },
     instaniateApp (instanceId) {
-      app.instantiateApp(instanceId).then(response => {
+      appo.instantiateApp(instanceId).then(response => {
         this.loading = false
         this.dialogVisible = false
         this.$nextTick(() => {
@@ -563,7 +563,7 @@ export default {
       instanceId.forEach(item => {
         obj.appInstanceIds.push(item.appInstanceId)
       })
-      app.batchInstantiateApp(obj).then(response => {
+      appo.batchInstantiateApp(obj).then(response => {
         this.loading = false
         this.dialogVisible = false
         this.$nextTick(() => {
