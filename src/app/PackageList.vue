@@ -396,7 +396,7 @@ export default {
         this.currentRowData.packageId = res.data[0].packageId
       })
       this.appId = row.appId
-      await inventory.getNodeList().then(response => {
+      await inventory.getList(2).then(response => {
         this.edgeNodesData = response.data
       }).catch((error) => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {

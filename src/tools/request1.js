@@ -49,9 +49,6 @@ let appo = {
   getInstanceDetail () {
     return axios.get('/mock/instanceInfo')
   },
-  getConfigRules () {
-    return axios.get('/mock/getConfigRules')
-  },
   getAppInfo () {
     return axios.get('/mock/instanceInfo')
   },
@@ -69,11 +66,11 @@ let inventory = {
   getList (type) {
     return axios.get('/mock' + inventoryUrl[type - 1])
   },
-  getNodeList () {
-    return axios.get('/mock/mechosts')
-  },
   getHwCapa () {
     return axios.get('/mock/getHwCapability')
+  },
+  getConfigRules () {
+    return axios.get('/mock/getConfigRules')
   }
 }
 

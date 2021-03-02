@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { appo } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 export default {
   data () {
     return {
@@ -255,7 +255,7 @@ export default {
   },
   methods: {
     getAppRules () {
-      appo.getTaskStatus(sessionStorage.getItem('instanceId')).then(res => {
+      inventory.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.type = 2
           this.rule = res.data

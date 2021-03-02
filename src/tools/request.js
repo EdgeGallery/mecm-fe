@@ -198,9 +198,6 @@ let inventory = {
   getHwCapa (hostip) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   },
-  getNodeList () {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts')
-  },
   create (type, params) {
     return POST(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
@@ -215,6 +212,9 @@ let inventory = {
   },
   uploadConfig (ip, params) {
     return POST(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
+  },
+  getConfigRules (id) {
+    return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
   }
 }
 

@@ -704,7 +704,7 @@
 </template>
 
 <script>
-import { appo } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 import Detail from './TrafficDetail.vue'
 export default {
   components: {
@@ -920,7 +920,7 @@ export default {
       this.operationDialog = false
     },
     getAppRules () {
-      appo.getTaskStatus(sessionStorage.getItem('instanceId')).then(res => {
+      inventory.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.type = 2
           this.rule = JSON.parse(JSON.stringify(res.data))

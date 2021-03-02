@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     getNodeList () {
-      inventory.getNodeList().then(res => {
+      inventory.getList(2).then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')
