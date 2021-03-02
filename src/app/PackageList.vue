@@ -255,7 +255,7 @@
 </template>
 
 <script>
-import { app, edge } from '../tools/request.js'
+import { appstore, apm, inventory } from '../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
@@ -358,7 +358,7 @@ export default {
     },
     async getAppListFromAppStore () {
       this.dataLoading = true
-      app.getAppListFromAppStore().then(response => {
+      appstore.getAppListFromAppStore().then(response => {
         this.tableData = response.data
         this.paginationData = this.tableData
         this.checkProjectData()
@@ -389,14 +389,14 @@ export default {
     },
     async getNodeList (row) {
       sessionStorage.setItem('appId', row.appId)
-      app.getPackageList(row.appId).then(res => {
+      appstore.getPackageList(row.appId).then(res => {
         this.options = res.data
         this.currentRowData.appId = row.appId
         this.currentRowData.version = this.version = res.data[0].version
         this.currentRowData.packageId = res.data[0].packageId
       })
       this.appId = row.appId
-      await edge.getNodeList().then(response => {
+      await inventory.getNodeList().then(response => {
         this.edgeNodesData = response.data
       }).catch((error) => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
@@ -452,7 +452,7 @@ export default {
         modifiedTime: new Date().toString()
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
-        app.confirmToDistribute(params).then(response => {
+        apm.confirmToDistribute(params).then(response => {
           this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(

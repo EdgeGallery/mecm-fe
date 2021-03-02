@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { app } from '../tools/request.js'
+import { appo } from '../tools/request.js'
 export default {
   data () {
     return {
@@ -255,7 +255,7 @@ export default {
   },
   methods: {
     getAppRules () {
-      app.getConfigRules(sessionStorage.getItem('instanceId')).then(res => {
+      appo.getTaskStatus(sessionStorage.getItem('instanceId')).then(res => {
         if (res.data) {
           this.type = 2
           this.rule = res.data
@@ -279,9 +279,9 @@ export default {
           }
           data.appDNSRule.push(this.dnsRule)
           console.log(data)
-          app.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
+          appo.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
             if (res.data) {
-              app.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+              appo.getTaskStatus(res.data.response.apprule_task_id).then(response => {
                 if (response.data.response.configResult === 'FAILURE') {
                   this.$message.error(this.$t('app.ruleConfig.mepError'))
                 } else {
@@ -341,7 +341,7 @@ export default {
             data.appDNSRule.push(item.dnsRuleId)
           })
         }
-        app.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
+        appo.deleteConfigRules(sessionStorage.getItem('instanceId'), data).then(res => {
           this.showMessage('success', this.$t('app.ruleConfig.delRuleSuc'), 1500)
           this.loading = true
           this.timer = setTimeout(() => { this.getAppRules() }, 3000)

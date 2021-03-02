@@ -180,7 +180,7 @@
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
 import Breadcrumb from '../components/BreadCrumb'
-import { app } from '../tools/request.js'
+import { appo } from '../tools/request.js'
 
 export default {
   name: 'AinsList',
@@ -285,7 +285,7 @@ export default {
       }
     },
     initList () {
-      app.getInstanceList().then(res => {
+      appo.getInstanceList().then(res => {
         this.tableData = this.paginationData = res.data.response
         if (this.searchData) {
           this.getSearchData(this.searchData)
@@ -308,7 +308,7 @@ export default {
         obj.appInstanceIds.push(item.appInstanceId)
       })
       this.dataLoading = true
-      app.batchDeleteInstanceApp(obj).then(response => {
+      appo.batchDeleteInstanceApp(obj).then(response => {
         setTimeout(() => {
           this.initList()
         }, 1500)
@@ -319,7 +319,7 @@ export default {
     },
     confirmDetlete (appInstanceId) {
       this.dataLoading = true
-      app.deleteInstanceApp(appInstanceId).then(response => {
+      appo.deleteInstanceApp(appInstanceId).then(response => {
         setTimeout(() => {
           this.initList()
         }, 1500)
@@ -329,7 +329,7 @@ export default {
       })
     },
     checkDetail (rows) {
-      app.getInstanceDetail(rows.appInstanceId).then(response => {
+      appo.getInstanceDetail(rows.appInstanceId).then(response => {
         let data = JSON.parse(response.data.response)
         this.detailData = data.pods
         this.dialogVisible = true

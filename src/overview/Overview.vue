@@ -221,7 +221,7 @@
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import Map from './Map.vue'
-import { overview, app } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -316,7 +316,7 @@ export default {
       })
     },
     getAppInfo (ip) {
-      app.getInstanceList().then(res => {
+      appo.getInstanceList().then(res => {
         this.infoList = res.data.response
         this.edgeAppList = []
         if (this.infoList && this.infoList.length > 0) {
@@ -337,7 +337,7 @@ export default {
       })
     },
     getHwCapa (host) {
-      overview.getHwCapa(host).then(res => {
+      inventory.getHwCapa(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
             this.hwCapData = res.data.hwcapabilities
@@ -346,7 +346,7 @@ export default {
       })
     },
     getMepCapa (host) {
-      overview.getMepCapabilities(host).then(res => {
+      appo.getMepCapabilities(host).then(res => {
         if (res && res.data) {
           if (res.data.status !== 500) {
             this.mepCapData = JSON.parse(res.data.response)
@@ -355,7 +355,7 @@ export default {
       })
     },
     getNodeKpi (ip) {
-      overview.getNodeKpi(ip).then(res => {
+      inventory.getHwCapa(ip).then(res => {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
@@ -368,7 +368,7 @@ export default {
     getServiceInfo (instanceId) {
       if (this.edgeAppList.length > 0) {
         this.loginBtnLoading = true
-        overview.getServiceInfo(instanceId).then(res => {
+        appo.getServiceInfo(instanceId).then(res => {
           this.serviceInfo = JSON.parse(res.data.response)
           this.manageDialogStatus = true
           this.loginBtnLoading = false

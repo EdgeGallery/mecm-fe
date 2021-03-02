@@ -42,7 +42,7 @@
 
 <script>
 import CityMap from '../assets/js/CityMap'
-import { edge } from '../tools/request'
+import { inventory } from '../tools/request.js'
 import echarts from 'echarts'
 
 import 'ol/ol.css'
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     getNodeList () {
-      edge.getNodeList().then(res => {
+      inventory.getNodeList().then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')

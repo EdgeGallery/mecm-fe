@@ -422,7 +422,7 @@
 </template>
 
 <script>
-import { system, app } from '../tools/request.js'
+import { appo, inventory } from '../tools/request.js'
 import pagination from '../components/Pagination.vue'
 import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -711,7 +711,7 @@ export default {
       this.capabilities = []
     },
     beforeDelete (row) {
-      app.getInstanceList().then(res => {
+      appo.getInstanceList().then(res => {
         if (res.data && res.data.response.length > 0) {
           res.data.response.forEach(item => {
             if (item.mecHost === row.mechostIp) {
@@ -740,7 +740,7 @@ export default {
       })
     },
     handleDelete (row) {
-      system.delete(2, row.mechostIp).then(response => {
+      inventory.delete(2, row.mechostIp).then(response => {
         this.showMessage('success', this.$t('tip.sucToDeleteNodes'), 1500)
         this.getNodeListInPage()
       }).catch(() => {
@@ -760,7 +760,7 @@ export default {
       this.getList()
     },
     getList () {
-      system.getList(1).then(res => {
+      inventory.getList(1).then(res => {
         this.applcmList = res.data
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
@@ -769,7 +769,7 @@ export default {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }
       })
-      system.getList(4).then(res => {
+      inventory.getList(4).then(res => {
         this.appRuleIpList = res.data
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
@@ -786,7 +786,7 @@ export default {
       let params = new FormData()
       params.append('file', content.file)
       if (this.currForm.mechostIp) {
-        system.uploadConfig(this.currForm.mechostIp, params).then(response => {
+        inventory.uploadConfig(this.currForm.mechostIp, params).then(response => {
           this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
           this.dialogVisibleUpload = false
         }).catch((error) => {
@@ -800,7 +800,7 @@ export default {
       }
     },
     getNodeListInPage () {
-      system.getList(2).then(response => {
+      inventory.getList(2).then(response => {
         this.tableData = this.paginationData = response.data
         this.dataLoading = false
       }).catch((error) => {
@@ -834,7 +834,7 @@ export default {
           }
           this.currForm.address = this.selectedArea.join('/')
           if (this.editType === 1) {
-            system.create(2, this.currForm).then(response => {
+            inventory.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
               this.getNodeListInPage()
               this.dialogVisible = false
@@ -850,7 +850,7 @@ export default {
               }
             })
           } else {
-            system.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
+            inventory.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
               this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
               this.getNodeListInPage()
               this.dialogVisible = false

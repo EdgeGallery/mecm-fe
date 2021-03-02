@@ -28,15 +28,32 @@ let user = {
   }
 }
 
-let overview = {
-  getPackageInfo () {
-    return axios.get('/mock/packageInfo')
+let appstore = {
+  getAppListFromAppStore () {
+    return axios.get('/mock/appPackageList')
+  },
+  getPackageList () {
+    return axios.get('/mock/appPackageList')
+  }
+}
+let apm = {
+  getDistributionList () {
+    return axios.get('/mock/appDistributionList')
+  }
+
+}
+let appo = {
+  getInstanceList () {
+    return axios.get('/mock/instanceInfo')
+  },
+  getInstanceDetail () {
+    return axios.get('/mock/instanceInfo')
+  },
+  getConfigRules () {
+    return axios.get('/mock/getConfigRules')
   },
   getAppInfo () {
     return axios.get('/mock/instanceInfo')
-  },
-  getHwCapa () {
-    return axios.get('/mock/getHwCapability')
   },
   getMepCapabilities () {
     return axios.get('/mock/getSwCapability')
@@ -48,41 +65,22 @@ let overview = {
     return axios.get('/mock/seviceInfo')
   }
 }
-let app = {
-  getAppListFromAppStore () {
-    return axios.get('/mock/appPackageList')
-  },
-  getPackageList () {
-    return axios.get('/mock/appPackageList')
-  },
-  getDistributionList () {
-    return axios.get('/mock/appDistributionList')
-  },
-  getInstanceList () {
-    return axios.get('/mock/instanceInfo')
-  },
-  getInstanceDetail () {
-    return axios.get('/mock/instanceInfo')
-  },
-  getConfigRules () {
-    return axios.get('/mock/getConfigRules')
-  }
-}
-let edge = {
-  getNodeList () {
-    return axios.get('/mock/mechosts')
-  }
-}
-let system = {
+let inventory = {
   getList (type) {
     return axios.get('/mock' + inventoryUrl[type - 1])
+  },
+  getNodeList () {
+    return axios.get('/mock/mechosts')
+  },
+  getHwCapa () {
+    return axios.get('/mock/getHwCapability')
   }
 }
 
 export {
   user,
-  overview,
-  app,
-  edge,
-  system
+  apm,
+  appo,
+  appstore,
+  inventory
 }
