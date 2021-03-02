@@ -195,26 +195,26 @@ let appo = {
 }
 
 let inventory = {
-  getHwCapa (hostip) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
-  },
   create (type, params) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+    return POST(inventoryApi + inventoryUrl[type - 1], params)
   },
   getList (type) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1])
+    return GET(inventoryApi + inventoryUrl[type - 1])
   },
   modify (type, params, ip) {
-    return PUT(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
+    return PUT(inventoryApi + inventoryUrl[type - 1] + '/' + ip, params)
   },
   delete (type, params) {
-    return DELETE(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
+    return DELETE(inventoryApi + inventoryUrl[type - 1] + '/' + params)
   },
   uploadConfig (ip, params) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
+    return POST(inventoryApi + '/mechosts/' + ip + '/k8sconfig', params)
   },
   getConfigRules (id) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
+  },
+  getHwCapa (hostip) {
+    return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   }
 }
 
