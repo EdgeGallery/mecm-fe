@@ -68,7 +68,7 @@
             />
             <el-table-column
               prop="city"
-              :label="$t('system.edgeNodes.deployArea')"
+              :label="$t('system.edgeNodes.location')"
             />
             <el-table-column
               prop="affinity"
@@ -207,12 +207,12 @@
                 />
               </el-form-item>
               <el-form-item
-                :label="$t('system.edgeNodes.deployArea')"
+                :label="$t('system.edgeNodes.location')"
                 prop="city"
               >
                 <el-cascader
                   :options="options"
-                  :placeholder="$t('system.edgeNodes.choseDeployArea')"
+                  :placeholder="$t('system.edgeNodes.chooseLocation')"
                   v-model="selectedArea"
                   @change="onChanged"
                   ref="myCascader"

@@ -209,7 +209,7 @@ const en = {
       newReg: 'New Registration',
       hostName: 'Host Name',
       ipAddress: 'Ip Address',
-      deployArea: 'Location',
+      location: 'Location',
       zipcode: 'Zipcode',
       username: 'Username',
       repoUsername: 'Edge Repo Username',
@@ -225,7 +225,7 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
-      choseDeployArea: 'Please select location'
+      chooseLocation: 'Please select location'
     },
     appstore: {
       appstoreName: 'App Store Name',

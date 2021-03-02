@@ -64,7 +64,7 @@
               />
               <el-table-column
                 prop="city"
-                :label="$t('system.edgeNodes.deployArea')"
+                :label="$t('system.edgeNodes.location')"
               />
               <el-table-column
                 :label="$t('common.operation')"
@@ -294,6 +294,9 @@ export default {
         }
       }
       this.nodeList = msg
+      this.nodeList.forEach(item => {
+        item.city = item.city.split('/')[0]
+      })
       this.nodeNum = msg.length
       this.chartData =
         {

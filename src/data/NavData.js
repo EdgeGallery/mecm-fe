@@ -76,13 +76,6 @@ const NavData = [
       },
       {
         'id': '2.12',
-        'name': 'Edge Node',
-        'path': '/mecm/systems/external/edgenodes',
-        'pageId': '2.0.3.1.2',
-        'display': false
-      },
-      {
-        'id': '2.13',
         'name': 'App Store',
         'path': '/mecm/systems/external/store',
         'pageId': '2.0.3.1.3',
