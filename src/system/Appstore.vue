@@ -30,7 +30,10 @@
         :status-item="false"
         @getSearchData="getSearchData"
       />
-      <p class="btn-p">
+      <p
+        class="btn-p"
+        v-if="rlp=='418'"
+      >
         <el-button
           id="newregBtn"
           type="primary"
@@ -63,22 +66,25 @@
                 <el-form-item :label="$t('system.appLcm.port')">
                   {{ item.appstorePort }}
                 </el-form-item>
-                <el-form-item label="应用仓库">
+                <el-form-item :label="$t('system.appstore.appstoreRepo')">
                   {{ item.appstoreRepo }}
                 </el-form-item>
-                <el-form-item label="应用仓库名称">
+                <el-form-item :label="$t('system.appstore.appstoreRepoName')">
                   {{ item.appstoreRepoName }}
                 </el-form-item>
-                <el-form-item label="应用仓库用户名">
+                <el-form-item :label="$t('system.appstore.appstoreRepoUserName')">
                   {{ item.appstoreRepoUserName }}
                 </el-form-item>
-                <el-form-item label="应用仓库密码">
+                <el-form-item :label="$t('system.appstore.appstoreRepoPassword')">
                   {{ item.appstoreRepoPassword }}
                 </el-form-item>
                 <el-form-item :label="$t('system.appstore.vendor')">
                   {{ item.producer }}
                 </el-form-item>
-                <el-form-item class="rt btn-group">
+                <el-form-item
+                  class="rt btn-group"
+                  v-if="rlp=='418'"
+                >
                   <el-button
                     type="warning"
                     size="mini"
@@ -156,7 +162,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="应用仓库"
+                :label="$t('system.appstore.appstoreRepo')"
                 prop="appstoreRepo"
               >
                 <el-input
@@ -166,7 +172,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="应用仓库名称"
+                :label="$t('system.appstore.appstoreRepoName')"
                 prop="appstoreRepoName"
               >
                 <el-input
@@ -176,7 +182,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="应用仓库用户名"
+                :label="$t('system.appstore.appstoreRepoUserName')"
                 prop="appstoreRepoUserName"
               >
                 <el-input
@@ -186,7 +192,7 @@
                 />
               </el-form-item>
               <el-form-item
-                label="应用仓库密码"
+                :label="$t('system.appstore.appstoreRepoPassword')"
                 prop="appstoreRepoPassword"
               >
                 <el-input
@@ -257,8 +263,8 @@ export default {
       currPageTableData: [],
       paginationData: [],
       tableData: [],
-      dataLoading: true
-
+      dataLoading: true,
+      rlp: sessionStorage.getItem('rlp')
     }
   },
   mounted () {

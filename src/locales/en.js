@@ -68,10 +68,10 @@ const en = {
     nodeName: 'Node Name: ',
     nodeAddress: 'Node Address: ',
     nodeInfo: 'Node Information',
-    overview: 'Overview',
-    edgeNodes: 'Edge Nodes',
-    onlineNodes: 'Online Nodes',
-    offlineNodes: 'Offline Nodes',
+    overview: 'Node Statistics',
+    edgeNodes: 'Total Edge Nodes',
+    onlineNodes: 'Number of Online Nodes',
+    offlineNodes: 'Number of Offline Nodes',
     returnOverview: 'Back to main view'
   },
   app: {
@@ -182,7 +182,8 @@ const en = {
     edgeNexusPort: 'Edge Repo Port',
     applcmIp: 'App LCM IP',
     k8sUrl: 'K8S URL',
-    monitor: 'Monitor'
+    monitor: 'Monitor',
+    vim: 'VIM'
   },
   system: {
     appLcm: {
@@ -235,7 +236,11 @@ const en = {
       createTime: 'Created Time',
       url: 'URL',
       appStoreReg: 'App Store Registration',
-      appStoreModify: 'App Store Modify'
+      appStoreModify: 'App Store Modify',
+      appstoreRepo: 'Appstore Repo',
+      appstoreRepoName: 'Appstore Repo Name',
+      appstoreRepoUserName: 'Appstore Repo Username',
+      appstoreRepoPassword: 'Appstore Repo Password'
     }
   },
   common: {
