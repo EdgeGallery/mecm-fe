@@ -144,7 +144,7 @@ export default {
       if (res.data.userName !== 'guest') {
         this.ifGuest = false
       }
-      if (res.data.authorities.indexOf('ROLE_MECM_ADMIN')) {
+      if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
         sessionStorage.setItem('rlp', 418)
       }
     })
