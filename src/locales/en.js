@@ -280,6 +280,7 @@ const en = {
     uriVerify: 'Try to type right Uri.',
     descVerify: 'Describtion can not be empty.',
     appNameVerify: 'App name can not be empty',
+    mustOptions: 'This input box can not be empty',
     appRuleManaVerify: 'App rule manager can not be empty'
   },
   tip: {
