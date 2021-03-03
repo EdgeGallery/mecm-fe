@@ -96,6 +96,14 @@
                     {{ $t('common.detail') }}
                   </el-button>
                   <el-button
+                    id="detailBtn"
+                    @click="syncAppstore(scope.row)"
+                    type="text"
+                    size="small"
+                  >
+                    同步镜像
+                  </el-button>
+                  <el-button
                     id="distributeBtn"
                     @click="distribute(scope.row)"
                     type="text"
