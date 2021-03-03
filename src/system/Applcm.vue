@@ -32,7 +32,10 @@
           :status-item="false"
           @getSearchData="getSearchData"
         />
-        <p class="btn-p">
+        <p
+          class="btn-p"
+          v-if="rlp=='418'"
+        >
           <el-button
             id="newregBtn"
             type="primary"
@@ -63,7 +66,10 @@
                 <el-form-item :label="$t('system.appLcm.port')">
                   {{ item.applcmPort }}
                 </el-form-item>
-                <el-form-item class="rt btn-group">
+                <el-form-item
+                  class="rt btn-group"
+                  v-if="rlp=='418'"
+                >
                   <el-button
                     type="warning"
                     size="mini"
@@ -191,7 +197,8 @@ export default {
         userName: '',
         applcmName: ''
       },
-      editType: 1
+      editType: 1,
+      rlp: sessionStorage.getItem('rlp')
     }
   },
   mounted () {

@@ -30,7 +30,10 @@
         :ip-item="true"
         @getSearchData="getSearchData"
       />
-      <p class="btn-p">
+      <p
+        class="btn-p"
+        v-if="rlp=='418'"
+      >
         <el-button
           id="newregBtn"
           type="primary"
@@ -72,7 +75,7 @@
             />
             <el-table-column
               prop="vim"
-              label="虚机类型"
+              :label="$t('system.edgeNodes.vim')"
             />
             <el-table-column
               prop="affinity"
@@ -102,6 +105,7 @@
               :label="$t('common.operation')"
               align="center"
               width="280"
+              v-if="rlp=='418'"
             >
               <template slot-scope="scope">
                 <el-button
@@ -516,7 +520,8 @@ export default {
             }]
           }]
         }
-      ]
+      ],
+      rlp: sessionStorage.getItem('rlp')
     }
   },
   mounted () {

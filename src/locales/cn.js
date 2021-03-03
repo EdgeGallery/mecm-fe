@@ -66,10 +66,10 @@ const cn = {
     nodeName: '节点名称：',
     nodeAddress: '节点地址：',
     nodeInfo: '节点信息',
-    overview: '基础信息',
-    edgeNodes: '计算节点',
-    onlineNodes: '在线节点',
-    offlineNodes: '离线节点',
+    overview: '节点统计信息',
+    edgeNodes: '节点总数',
+    onlineNodes: '在线节点数',
+    offlineNodes: '离线节点数',
     returnOverview: '返回主视图'
   },
   app: {
@@ -224,7 +224,8 @@ const cn = {
       howToUpload: '拖拽文件到上传区域内，或者点击上传',
       hwCapability: '硬件能力',
       coordinates: '坐标',
-      chooseLocation: '选择部署位置'
+      chooseLocation: '选择部署位置',
+      vim: '虚拟机'
     },
     appstore: {
       appstoreName: '应用市场',
@@ -234,7 +235,11 @@ const cn = {
       createTime: '创建时间',
       url: 'URL',
       appStoreReg: 'App Store注册',
-      appStoreModify: 'App Store编辑'
+      appStoreModify: 'App Store编辑',
+      appstoreRepo: '应用仓库',
+      appstoreRepoName: '应用仓库名称',
+      appstoreRepoUserName: '应用仓库用户名',
+      appstoreRepoPassword: '应用仓库密码'
     }
   },
   common: {
