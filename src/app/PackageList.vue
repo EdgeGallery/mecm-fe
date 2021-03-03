@@ -34,7 +34,7 @@
           id="syncBtn"
           style="float:right;"
           type="primary"
-          @click="getAppListFromAppStore()"
+          @click="getAppstoreList()"
         >
           {{ $t('app.packageList.synchronize') }}
         </el-button>
@@ -293,7 +293,7 @@ export default {
   },
   mounted () {
     this.appType = this.$route.query.type ? this.$route.query.type : ''
-    this.getAppListFromAppStore()
+    this.getAppstoreList()
   },
   computed: {
     edgeNodeTotalNum: function () {
@@ -310,7 +310,7 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
-      this.getAppListFromAppStore()
+      this.getAppstoreList()
     }
   },
   methods: {
@@ -356,10 +356,34 @@ export default {
       this.nodeSelection = val
       this.selectedNodeNum = val.length
     },
-    async getAppListFromAppStore () {
+    async getAppstoreList () {
       this.dataLoading = true
-      appstore.getAppListFromAppStore().then(response => {
-        this.tableData = response.data
+      inventory.getList().then(res => {
+        if (res.data && res.data.length > 0) {
+          this.tableData = []
+          res.data.forEach(item => {
+            this.getPackageList(item.appstoreIp)
+          })
+        }
+      })
+    },
+    syncAppstore (row) {
+      let params = {
+        'appId': row.appId,
+        'appstoreIp': '',
+        'packageId': row.packageId
+      }
+      apm.syncAppstore(params).then(res => {
+        if (res) {
+          apm.getSyncStatus().then(response => {
+            console.log(response)
+          })
+        }
+      })
+    },
+    getPackageList (ip) {
+      apm.getAppPackageList(ip).then(response => {
+        this.tableData.push(response.data)
         this.paginationData = this.tableData
         this.checkProjectData()
         if (this.appType) this.filterTableData(this.appType, 'type')

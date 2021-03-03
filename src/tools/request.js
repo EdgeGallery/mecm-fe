@@ -127,6 +127,15 @@ let appstore = {
 }
 
 let apm = {
+  getAppPackageList (appstoreIp) {
+    return GET(apmApi + '/apps/info/appstores/' + appstoreIp)
+  },
+  syncAppstore (params) {
+    return POST(apmApi + 'apps/sync', params)
+  },
+  getSyncStatus () {
+    return GET(apmApi + '/apps/syncstatus')
+  },
   confirmToDistribute (params) {
     return POST(apmApi + '/tenants/' + getUserId() + '/packages', params)
   },

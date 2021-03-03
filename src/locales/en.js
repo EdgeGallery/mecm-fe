@@ -238,9 +238,9 @@ const en = {
       appStoreReg: 'App Store Registration',
       appStoreModify: 'App Store Modify',
       appstoreRepo: 'Appstore Repo',
-      appstoreRepoName: 'Appstore Repo Name',
-      appstoreRepoUserName: 'Appstore Repo Username',
-      appstoreRepoPassword: 'Appstore Repo Password'
+      appstoreRepoName: 'Repo Name',
+      appstoreRepoUserName: 'Repo Username',
+      appstoreRepoPassword: 'Repo Password'
     }
   },
   common: {
