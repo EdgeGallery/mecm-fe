@@ -372,6 +372,7 @@ export default {
       inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
           this.tableData = []
+          this.num = 0
           res.data.forEach(item => {
             this.getPackageList(res.data.length, item.appstoreIp, item.appstorePort)
           })
@@ -413,8 +414,8 @@ export default {
           this.paginationData = this.tableData
           this.checkProjectData()
           if (this.appType) this.filterTableData(this.appType, 'type')
-          this.dataLoading = false
         }
+        this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
         this.$message.error(this.$t('tip.failedToGetAppList'))
