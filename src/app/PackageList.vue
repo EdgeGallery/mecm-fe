@@ -366,7 +366,7 @@ export default {
     },
     async getAppstoreList () {
       this.dataLoading = true
-      inventory.getList().then(res => {
+      inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
           this.tableData = []
           res.data.forEach(item => {
