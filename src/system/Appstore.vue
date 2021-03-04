@@ -45,7 +45,7 @@
         </el-button>
       </p>
       <div class="">
-        <div class="appstoreList">
+        <!-- <div class="appstoreList">
           <div
             v-for="(item,index) in currPageTableData"
             :key="index"
@@ -107,10 +107,71 @@
               </el-form>
             </div>
           </div>
+        </div> -->
+        <div class="appstoreList">
+          <el-table
+            :data="currPageTableData"
+            style="width: 100%"
+          >
+            <el-table-column
+              sortable
+              prop="appstoreName"
+              :label="$t('system.appstore.appstoreName')"
+            />
+            <el-table-column
+              prop="appstoreIp"
+              :label="$t('system.appstore.ipAddress')"
+            />
+            <el-table-column
+              prop="appstorePort"
+              :label="$t('system.appLcm.port')"
+            />
+            <el-table-column
+              prop="appstoreRepo"
+              :label="$t('system.appstore.appstoreRepo')"
+            />
+            <el-table-column
+              prop="appstoreRepoName"
+              :label="$t('system.appstore.appstoreRepoName')"
+            />
+            <el-table-column
+              prop="appstoreRepoUserName"
+              :label="$t('system.appstore.appstoreRepoUserName')"
+            />
+            <el-table-column
+              prop="producer"
+              :label="$t('system.appstore.vendor')"
+            />
+            <el-table-column
+              header-align="center"
+              align="center"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  type="text"
+                  size="mini"
+                  class="button"
+                  id="deleteBtn"
+                  @click.native.prevent="handleDelete(scope.row)"
+                >
+                  {{ $t('common.delete') }}
+                </el-button>
+                <el-button
+                  type="text"
+                  size="mini"
+                  class="button"
+                  id="modifyBtn"
+                  @click="handleEdit(scope.row)"
+                >
+                  {{ $t('common.modify') }}
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
         <div class="pageBar">
           <pagination
-            :page-sizes="[8,12,16,20]"
+            :page-sizes="[10,15,20,25]"
             :table-data="paginationData"
             @getCurrentPageData="getCurrentPageData"
           />

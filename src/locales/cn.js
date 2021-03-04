@@ -94,7 +94,9 @@ const cn = {
       fileNotSupport: '不支持的文件格式',
       auth: '作者',
       pacVersion: '应用版本',
-      status: '状态'
+      status: '状态',
+      sync: '同步',
+      syncTip: '请至少选择一个应用进行同步！'
     },
     distriList: {
       mecHost: 'MEC 主机',
