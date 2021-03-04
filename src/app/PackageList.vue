@@ -34,7 +34,7 @@
           id="syncBtn"
           style="float:right;"
           type="primary"
-          @click="getAppstoreList()"
+          @click="syncAppstore(2,selectData)"
         >
           {{ $t('app.packageList.synchronize') }}
         </el-button>
@@ -51,7 +51,12 @@
               border
               size="small"
               style="width: 100%;"
+              @selection-change="handleSelectionChange"
             >
+              <el-table-column
+                type="selection"
+                width="55"
+              />
               <el-table-column
                 prop="name"
                 sortable
@@ -97,7 +102,7 @@
                   </el-button>
                   <el-button
                     id="detailBtn"
-                    @click="syncAppstore(scope.row)"
+                    @click="syncAppstore(1,scope.row)"
                     type="text"
                     size="small"
                   >
@@ -260,67 +265,6 @@
         </el-button>
       </div>
     </el-dialog>
-
-    <el-dialog
-      title="应用市场选取"
-      :visible.sync="appstoreDialogVisible"
-      width="40%"
-    >
-      <div class="appstoreList">
-        <el-table
-          :data="currPageAppstoreTableData"
-          style="width: 100%"
-        >
-          <el-table-column
-            sortable
-            prop="appstoreName"
-            :label="$t('system.appstore.appstoreName')"
-          />
-          <el-table-column
-            prop="appstoreIp"
-            :label="$t('system.appstore.ipAddress')"
-          />
-          <el-table-column
-            prop="appstorePort"
-            :label="$t('system.appLcm.port')"
-          />
-          <el-table-column
-            prop="appstoreRepo"
-            :label="$t('system.appstore.appstoreRepo')"
-          />
-          <el-table-column
-            prop="appstoreRepoName"
-            :label="$t('system.appstore.appstoreRepoName')"
-          />
-          <el-table-column
-            prop="appstoreRepoUserName"
-            :label="$t('system.appstore.appstoreRepoUserName')"
-          />
-          <el-table-column
-            prop="producer"
-            :label="$t('system.appstore.vendor')"
-          />
-        </el-table>
-      </div>
-      <div class="pageBar">
-        <pagination
-          :page-sizes="[8,12,16,20]"
-          :table-data="appstorePaginationData"
-          @getCurrentPageData="getCurrentAppstorePageData"
-        />
-      </div>
-      <div slot="footer">
-        <el-button @click="dialogVisible = false">
-          取 消
-        </el-button>
-        <el-button
-          type="primary"
-          @click="dialogVisible = false"
-        >
-          确 定
-        </el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -359,8 +303,7 @@ export default {
       dialogLoading: false,
       appId: '',
       language: localStorage.getItem('language'),
-      appstoreDialogVisible: false,
-      currPageAppstoreTableData: []
+      selectData: []
     }
   },
   mounted () {
@@ -413,9 +356,18 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    // appstore根据分页组件显示数据
-    getCurrentAppstorePageData (data) {
-      this.appstorePaginationData = data
+    handleSelectionChange (val) {
+      if (val.length > 0) {
+        val.forEach(item => {
+          this.selectData.push(
+            {
+              appId: item.appId,
+              appstoreIp: item.appstoreIp,
+              packageId: item.packageId
+            }
+          )
+        })
+      }
     },
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
@@ -436,8 +388,6 @@ export default {
       this.dataLoading = true
       inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
-          this.currPageAppstoreTableData = res.data
-          this.appstorePaginationData = this.currPageAppstoreTableData
           this.tableData = []
           res.data.forEach(item => {
             this.getPackageList(item.appstoreIp)
@@ -445,11 +395,20 @@ export default {
         }
       })
     },
-    syncAppstore (row) {
-      let params = {
-        'appId': row.appId,
-        'appstoreIp': '',
-        'packageId': row.packageId
+    syncAppstore (type, row) {
+      let params
+      if (type === 1) {
+        params = [{
+          'appId': row.appId,
+          'appstoreIp': '',
+          'packageId': row.packageId
+        }]
+      } else {
+        if (this.selectData.length === 0) {
+          this.$message.warning('请至少选择一个应用进行同步！')
+        } else {
+          params = this.selectData
+        }
       }
       apm.syncAppstore(params).then(res => {
         if (res) {
