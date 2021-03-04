@@ -405,7 +405,7 @@ export default {
         }]
       } else {
         if (this.selectData.length === 0) {
-          this.$message.warning(this.$t('app.packagesList.syncTip'))
+          this.$message.warning(this.$t('app.packageList.syncTip'))
         } else {
           params = this.selectData
         }
