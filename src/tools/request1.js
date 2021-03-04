@@ -31,16 +31,16 @@ let user = {
 let appstore = {
   getAppListFromAppStore () {
     return axios.get('/mock/appPackageList')
-  },
-  getPackageList () {
-    return axios.get('/mock/appPackageList')
   }
 }
 let apm = {
   getDistributionList () {
     return axios.get('/mock/appDistributionList')
-  }
+  },
 
+  getAppPackageList () {
+    return axios.get('/mock/appPackageList')
+  }
 }
 let appo = {
   getInstanceList () {

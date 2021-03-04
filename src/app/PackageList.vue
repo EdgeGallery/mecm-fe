@@ -131,134 +131,196 @@
             @getCurrentPageData="getCurrentPageData"
           />
         </div>
-        <el-dialog
-          :close-on-click-modal="false"
-          :title="$t('app.packageList.slectEdgeNodes')"
-          :visible.sync="dialogVisible"
-          v-loading="loading"
-        >
-          <el-row class="el-row-search">
-            <el-col
-              :span="16"
-              class="el-col-selected-text"
-            >
-              <label style="margin-right:10px;font-size:14px;font-weight:bold;">{{ $t('app.packageList.pacVersion') }}:</label>
-              <el-select
-                v-model="version"
-                @change="versionChange"
-              >
-                <el-option
-                  v-for="item in options"
-                  :key="item.value"
-                  :label="item.version"
-                  :value="item.packageId"
-                />
-              </el-select>
-            </el-col>
-            <el-col
-              :span="8"
-              :offset="0"
-            >
-              <el-input
-                id="nodesearch"
-                class="el-input-search"
-                v-model="edgeNodeSearchInput"
-              >
-                <em
-                  slot="suffix"
-                  class="el-input__icon el-icon-search"
-                />
-              </el-input>
-            </el-col>
-          </el-row>
-          <el-row class="el-row-table">
-            <el-col :span="24">
-              <el-table
-                ref="multipleEdgeNodeTable"
-                :data="currPageEdgeNodeTableData"
-                class="mt20"
-                border
-                size="small"
-                style="width: 100%;"
-                @selection-change="handleEdgeNodeSelectionChange"
-              >
-                <el-table-column
-                  type="selection"
-                />
-                <el-table-column
-                  prop="mechostName"
-                  sortable
-                  :label="$t('app.packageList.name')"
-                />
-                <el-table-column
-                  prop="mechostIp"
-                  :label="$t('app.packageList.ip')"
-                />
-                <el-table-column
-                  prop="city"
-                  :label="$t('app.packageList.city')"
-                />
-                <el-table-column
-                  prop="affinity"
-                  :label="$t('app.packageList.affinity')"
-                />
-                <el-table-column
-                  prop="applcmIp"
-                  :label="$t('system.edgeNodes.applcmIp')"
-                />
-                <el-table-column
-                  :label="$t('system.edgeNodes.hwCapability')"
-                  width="200"
-                >
-                  <template slot-scope="scope">
-                    <span
-                      v-for="(item,index) in scope.row.hwcapabilities"
-                      :key="index"
-                    >
-                      {{ item.hwType }}
-                    </span>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-pagination
-              background
-              class="pageBar"
-              @size-change="handleEdgeNodePageSizeChange"
-              @current-change="handleEdgeNodeCurrentPageChange"
-              :current-page="edgeNodeCurrentPage"
-              :page-sizes="[5, 10, 15, 20]"
-              :page-size="edgeNodePageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="edgeNodeTotalNum"
-            />
-          </el-row>
-          <div
-            slot="footer"
-            class="dialog-footer"
-          >
-            <el-button
-              id="cancelBtn"
-              size="small"
-              @click="cancel()"
-            >
-              {{ $t('common.cancel') }}
-            </el-button>
-            <el-button
-              id="confirmBtn"
-              type="primary"
-              size="small"
-              @click="confirm()"
-              :loading="loading"
-            >
-              {{ $t('common.confirm') }}
-            </el-button>
-          </div>
-        </el-dialog>
       </div>
     </div>
+
+    <el-dialog
+      :close-on-click-modal="false"
+      :title="$t('app.packageList.slectEdgeNodes')"
+      :visible.sync="dialogVisible"
+      v-loading="loading"
+    >
+      <el-row class="el-row-search">
+        <el-col
+          :span="16"
+          class="el-col-selected-text"
+        >
+          <label style="margin-right:10px;font-size:14px;font-weight:bold;">{{ $t('app.packageList.pacVersion') }}:</label>
+          <el-select
+            v-model="version"
+            @change="versionChange"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.version"
+              :value="item.packageId"
+            />
+          </el-select>
+        </el-col>
+        <el-col
+          :span="8"
+          :offset="0"
+        >
+          <el-input
+            id="nodesearch"
+            class="el-input-search"
+            v-model="edgeNodeSearchInput"
+          >
+            <em
+              slot="suffix"
+              class="el-input__icon el-icon-search"
+            />
+          </el-input>
+        </el-col>
+      </el-row>
+      <el-row class="el-row-table">
+        <el-col :span="24">
+          <el-table
+            ref="multipleEdgeNodeTable"
+            :data="currPageEdgeNodeTableData"
+            class="mt20"
+            border
+            size="small"
+            style="width: 100%;"
+            @selection-change="handleEdgeNodeSelectionChange"
+          >
+            <el-table-column
+              type="selection"
+            />
+            <el-table-column
+              prop="mechostName"
+              sortable
+              :label="$t('app.packageList.name')"
+            />
+            <el-table-column
+              prop="mechostIp"
+              :label="$t('app.packageList.ip')"
+            />
+            <el-table-column
+              prop="city"
+              :label="$t('app.packageList.city')"
+            />
+            <el-table-column
+              prop="affinity"
+              :label="$t('app.packageList.affinity')"
+            />
+            <el-table-column
+              prop="applcmIp"
+              :label="$t('system.edgeNodes.applcmIp')"
+            />
+            <el-table-column
+              :label="$t('system.edgeNodes.hwCapability')"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <span
+                  v-for="(item,index) in scope.row.hwcapabilities"
+                  :key="index"
+                >
+                  {{ item.hwType }}
+                </span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-pagination
+          background
+          class="pageBar"
+          @size-change="handleEdgeNodePageSizeChange"
+          @current-change="handleEdgeNodeCurrentPageChange"
+          :current-page="edgeNodeCurrentPage"
+          :page-sizes="[5, 10, 15, 20]"
+          :page-size="edgeNodePageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="edgeNodeTotalNum"
+        />
+      </el-row>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancel()"
+        >
+          {{ $t('common.cancel') }}
+        </el-button>
+        <el-button
+          id="confirmBtn"
+          type="primary"
+          size="small"
+          @click="confirm()"
+          :loading="loading"
+        >
+          {{ $t('common.confirm') }}
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog
+      title="应用市场选取"
+      :visible.sync="appstoreDialogVisible"
+      width="40%"
+    >
+      <div class="appstoreList">
+        <el-table
+          :data="currPageAppstoreTableData"
+          style="width: 100%"
+        >
+          <el-table-column
+            sortable
+            prop="appstoreName"
+            :label="$t('system.appstore.appstoreName')"
+          />
+          <el-table-column
+            prop="appstoreIp"
+            :label="$t('system.appstore.ipAddress')"
+          />
+          <el-table-column
+            prop="appstorePort"
+            :label="$t('system.appLcm.port')"
+          />
+          <el-table-column
+            prop="appstoreRepo"
+            :label="$t('system.appstore.appstoreRepo')"
+          />
+          <el-table-column
+            prop="appstoreRepoName"
+            :label="$t('system.appstore.appstoreRepoName')"
+          />
+          <el-table-column
+            prop="appstoreRepoUserName"
+            :label="$t('system.appstore.appstoreRepoUserName')"
+          />
+          <el-table-column
+            prop="producer"
+            :label="$t('system.appstore.vendor')"
+          />
+        </el-table>
+      </div>
+      <div class="pageBar">
+        <pagination
+          :page-sizes="[8,12,16,20]"
+          :table-data="appstorePaginationData"
+          @getCurrentPageData="getCurrentAppstorePageData"
+        />
+      </div>
+      <div slot="footer">
+        <el-button @click="dialogVisible = false">
+          取 消
+        </el-button>
+        <el-button
+          type="primary"
+          @click="dialogVisible = false"
+        >
+          确 定
+        </el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -296,7 +358,9 @@ export default {
       options: [],
       dialogLoading: false,
       appId: '',
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      appstoreDialogVisible: false,
+      currPageAppstoreTableData: []
     }
   },
   mounted () {
@@ -345,9 +409,13 @@ export default {
         if (!reset) this.paginationData = this.tableData
       }
     },
-    // 根据分页组件显示数据
+    // 节点列表根据分页组件显示数据
     getCurrentPageData (data) {
       this.currPageTableData = data
+    },
+    // appstore根据分页组件显示数据
+    getCurrentAppstorePageData (data) {
+      this.appstorePaginationData = data
     },
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
@@ -368,6 +436,8 @@ export default {
       this.dataLoading = true
       inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
+          this.currPageAppstoreTableData = res.data
+          this.appstorePaginationData = this.currPageAppstoreTableData
           this.tableData = []
           res.data.forEach(item => {
             this.getPackageList(item.appstoreIp)
