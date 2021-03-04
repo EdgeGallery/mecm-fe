@@ -536,13 +536,7 @@ const apprulemanagersData = function () {
 
 const appstoreData = function () {
   return [
-    { appstoreIp: '119.8.47.2',
-      appstoreName: 'appstore',
-      appstorePort: '1111',
-      producer: 'Huawei',
-      uri: 'https://1.1.1.1:1111',
-      userName: 'xxxx'
-    }
+    { 'appstoreIp': '119.8.63.144', 'appstorePort': '30099', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '119.8.63.144:443', 'appstoreRepoUserName': 'admin', 'appstoreRepoPassword': 'Harbor@12345', 'producer': 'huawei' }
   ]
 }
 

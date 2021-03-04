@@ -131,7 +131,7 @@ let apm = {
     return GET(apmApi + '/apps/info/appstores/' + appstoreIp)
   },
   syncAppstore (params) {
-    return POST(apmApi + 'apps/sync', params)
+    return POST(apmApi + '/apps/sync', params)
   },
   getSyncStatus () {
     return GET(apmApi + '/apps/syncstatus')

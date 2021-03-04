@@ -106,7 +106,7 @@
                     type="text"
                     size="small"
                   >
-                    {{ $t.app.packageList.sync }}
+                    {{ $t('app.packageList.sync') }}
                   </el-button>
                   <el-button
                     id="distributeBtn"
@@ -147,25 +147,9 @@
     >
       <el-row class="el-row-search">
         <el-col
-          :span="16"
-          class="el-col-selected-text"
-        >
-          <label style="margin-right:10px;font-size:14px;font-weight:bold;">{{ $t('app.packageList.pacVersion') }}:</label>
-          <el-select
-            v-model="version"
-            @change="versionChange"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.version"
-              :value="item.packageId"
-            />
-          </el-select>
-        </el-col>
-        <el-col
           :span="8"
           :offset="0"
+          class="rt"
         >
           <el-input
             id="nodesearch"
@@ -269,7 +253,7 @@
 </template>
 
 <script>
-import { appstore, apm, inventory } from '../tools/request.js'
+import { apm, inventory } from '../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
@@ -298,12 +282,11 @@ export default {
       currentRowData: '',
       appType: '',
       loading: false,
-      version: '',
-      options: [],
       dialogLoading: false,
       appId: '',
       language: localStorage.getItem('language'),
-      selectData: []
+      selectData: [],
+      num: 0
     }
   },
   mounted () {
@@ -352,7 +335,7 @@ export default {
         if (!reset) this.paginationData = this.tableData
       }
     },
-    // 节点列表根据分页组件显示数据
+    // 列表根据分页组件显示数据
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
@@ -389,8 +372,9 @@ export default {
       inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
           this.tableData = []
+          this.num = 0
           res.data.forEach(item => {
-            this.getPackageList(item.appstoreIp)
+            this.getPackageList(res.data.length, item.appstoreIp, item.appstorePort)
           })
         }
       })
@@ -400,12 +384,12 @@ export default {
       if (type === 1) {
         params = [{
           'appId': row.appId,
-          'appstoreIp': '',
+          'appstoreIp': row.appstoreIp,
           'packageId': row.packageId
         }]
       } else {
         if (this.selectData.length === 0) {
-          this.$message.warning(this.$t('app.packagesList.syncTip'))
+          this.$message.warning(this.$t('app.packageList.syncTip'))
         } else {
           params = this.selectData
         }
@@ -418,12 +402,19 @@ export default {
         }
       })
     },
-    getPackageList (ip) {
+    getPackageList (len, ip, port) {
       apm.getAppPackageList(ip).then(response => {
-        this.tableData.push(response.data)
-        this.paginationData = this.tableData
-        this.checkProjectData()
-        if (this.appType) this.filterTableData(this.appType, 'type')
+        response.data.forEach(item => {
+          item.appstoreIp = ip
+          item.appstorePort = port
+          this.tableData.push(item)
+        })
+        this.num++
+        if (this.num === len) {
+          this.paginationData = this.tableData
+          this.checkProjectData()
+          if (this.appType) this.filterTableData(this.appType, 'type')
+        }
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
@@ -433,14 +424,14 @@ export default {
     checkProjectData () {
       this.tableData.forEach(itemBe => {
         INDUSTRY.forEach(itemFe => {
-          if (itemBe.industry.match(itemFe.label[1]) && this.language === 'cn') {
+          if (itemBe.industry.match(itemFe.label[0]) && this.language === 'cn') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[1], itemFe.label[0])
           } else if (itemBe.industry.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.industry = itemBe.industry.replace(itemFe.label[0], itemFe.label[1])
           }
         })
         TYPESFORAPP.forEach(itemFe => {
-          if (itemBe.type.match(itemFe.label[1]) && this.language === 'cn') {
+          if (itemBe.type.match(itemFe.label[0]) && this.language === 'cn') {
             itemBe.type = itemBe.type.replace(itemFe.label[1], itemFe.label[0])
           } else if (itemBe.type.match(itemFe.label[1]) && this.language === 'en') {
             itemBe.type = itemBe.type.replace(itemFe.label[0], itemFe.label[1])
@@ -450,27 +441,11 @@ export default {
     },
     async getNodeList (row) {
       sessionStorage.setItem('appId', row.appId)
-      appstore.getPackageList(row.appId).then(res => {
-        this.options = res.data
-        this.currentRowData.appId = row.appId
-        this.currentRowData.version = this.version = res.data[0].version
-        this.currentRowData.packageId = res.data[0].packageId
-      })
-      this.appId = row.appId
       await inventory.getList(2).then(response => {
         this.edgeNodesData = response.data
       }).catch((error) => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
           this.edgeNodesData = []
-        }
-      })
-    },
-    versionChange (val) {
-      this.options.forEach(item => {
-        if (item.version === val) {
-          this.currentRowData.version = item.version
-          this.currentRowData.packageId = item.packageId
-          this.currentRowData.size = item.size
         }
       })
     },
@@ -494,9 +469,9 @@ export default {
       })
       this.$refs.multipleEdgeNodeTable.clearSelection()
       this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
-      let address = 'http'
+      let address = 'http://'
       if (this.isSecureBackend === 'true') {
-        address = 'https'
+        address = 'https://'
       }
       let params = {
         appPkgId: this.currentRowData.packageId,
@@ -505,13 +480,14 @@ export default {
         appPkgVersion: this.currentRowData.version,
         appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
         appPkgAffinity: this.currentRowData.affinity,
-        appPkgPath: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
-        appIconUrl: address + '://appstore-be-svc:8099' + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
+        appPkgPath: address + this.currentRowData.appstoreIp + ':' + this.currentRowData.appstorePort + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
+        appIconUrl: address + this.currentRowData.appstoreIp + ':' + this.currentRowData.appstorePort + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
         appProvider: this.currentRowData.provider,
         mecHostInfo: selectedMecHost,
         createdTime: new Date().toString(),
         modifiedTime: new Date().toString()
       }
+      console.log(params)
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         apm.confirmToDistribute(params).then(response => {
           this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
