@@ -95,7 +95,9 @@ const en = {
       download: 'Download',
       auth: 'Author',
       pacVersion: 'Package Version',
-      status: 'Status'
+      status: 'Status',
+      sync: 'Sync',
+      syncTip: 'Select at lease one application for synchronization!'
     },
     distriList: {
       mecHost: 'MEC Hosts',

@@ -106,7 +106,7 @@
                     type="text"
                     size="small"
                   >
-                    同步镜像
+                    {{ $t.app.packageList.sync }}
                   </el-button>
                   <el-button
                     id="distributeBtn"
@@ -405,7 +405,7 @@ export default {
         }]
       } else {
         if (this.selectData.length === 0) {
-          this.$message.warning('请至少选择一个应用进行同步！')
+          this.$message.warning(this.$t('app.packagesList.syncTip'))
         } else {
           params = this.selectData
         }
