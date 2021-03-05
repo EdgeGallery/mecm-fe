@@ -396,9 +396,15 @@ export default {
       }
       apm.syncAppstore(params).then(res => {
         if (res) {
-          apm.getSyncStatus().then(response => {
-            this.$message.success(this.$t('app.packageList.syncSuccess'))
-          })
+          if (type === 1) {
+            apm.getOneSyncStatus(params.appId, params.packageId).then(response => {
+              this.$message.success(this.$t('app.packageList.syncSuccess'))
+            })
+          } else {
+            apm.getSyncStatus().then(response => {
+              this.$message.success(this.$t('app.packageList.syncSuccess'))
+            })
+          }
         }
       })
     },

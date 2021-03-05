@@ -136,6 +136,9 @@ let apm = {
   getSyncStatus () {
     return GET(apmApi + '/apps/syncstatus')
   },
+  getOneSyncStatus (appId, packageId) {
+    return GET(apmApi + '/apps' + appId + '/packages/' + packageId + '/syncstatus')
+  },
   confirmToDistribute (params) {
     return POST(apmApi + '/tenants/' + getUserId() + '/packages', params)
   },
