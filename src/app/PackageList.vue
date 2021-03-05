@@ -397,7 +397,7 @@ export default {
       apm.syncAppstore(params).then(res => {
         if (res) {
           apm.getSyncStatus().then(response => {
-            console.log(response)
+            this.$message.success(this.$t('app.packageList.syncSuccess'))
           })
         }
       })
