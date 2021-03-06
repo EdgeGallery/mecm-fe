@@ -133,7 +133,7 @@ let apm = {
   syncAppstore (params) {
     return POST(apmApi + '/apps/sync', params)
   },
-  getSyncStatus () {
+  initApmPackages () {
     return GET(apmApi + '/apps/syncstatus')
   },
   getOneSyncStatus (appId, packageId) {

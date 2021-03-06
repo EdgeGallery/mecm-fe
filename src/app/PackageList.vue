@@ -198,16 +198,10 @@
         <div
           style="margin-top:15px;"
         >
-          <el-pagination
-            background
-            class="pageBar"
-            @size-change="handlePackagePageSizeChange"
-            @current-change="handlePackageCurrentPageChange"
-            :current-page="packageCurrentPage"
-            :page-sizes="[5, 10, 15, 20]"
-            :page-size="edgeNodePageSize"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="packageTotalNum"
+          <Pagination
+            :page-sizes="[10,15,20,25]"
+            :table-data="paginationPackageData"
+            @getCurrentPageData="getCurrentPagePackageData"
           />
         </div>
         <div
@@ -379,19 +373,16 @@ export default {
       appId: '',
       language: localStorage.getItem('language'),
       selectData: [],
-      num: 0,
       syncDialogVisible: false,
       appstoreOptions: [],
       appstoreIp: '',
       syncPackageTableData: [],
-      packageCurrentPage: 1,
-      packagePageSize: 5,
-      packageTotalNum: 0
+      paginationPackageData: []
     }
   },
   mounted () {
     this.appType = this.$route.query.type ? this.$route.query.type : ''
-    this.getAppstoreList()
+    this.getPackageList()
   },
   computed: {
     edgeNodeTotalNum: function () {
@@ -439,6 +430,9 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
+    getCurrentPagePackageData (data) {
+      this.syncPackageTableData = data
+    },
     handleSelectionChange (val) {
       if (val.length > 0) {
         val.forEach(item => {
@@ -475,19 +469,14 @@ export default {
       this.dataLoading = true
       inventory.getList(3).then(res => {
         if (res.data && res.data.length > 0) {
-          this.tableData = []
-          this.num = 0
           this.appstoreOptions = res.data
           this.appstoreIp = res.data[0].appstoreIp
-          res.data.forEach(item => {
-            this.getPackageList(res.data.length, item.appstoreIp, item.appstorePort)
-          })
         }
       })
     },
     showSyncBox () {
       apm.getAppPackageList(this.appstoreIp).then(response => {
-        this.syncPackageTableData = response.data
+        this.paginationPackageData = response.data
       })
       this.syncDialogVisible = true
     },
@@ -503,7 +492,7 @@ export default {
         params = this.selectData
         apm.confirmToSync(params).then(res => {
           if (res) {
-            apm.getSyncStatus().then(response => {
+            apm.getOneSyncStatus(params).then(response => {
               this.$message.success(this.$t('app.packageList.syncSuccess'))
               this.$refs.syncPackageTable.clearSelection()
               this.syncDialogVisible = false
@@ -519,19 +508,12 @@ export default {
     handlePackageCurrentPageChange (packageCurrentPage) {
       this.packageCurrentPage = packageCurrentPage
     },
-    getPackageList (len, ip, port) {
-      apm.getAppPackageList(ip).then(response => {
-        response.data.forEach(item => {
-          item.appstoreIp = ip
-          item.appstorePort = port
-          this.tableData.push(item)
-        })
-        this.num++
-        if (this.num === len) {
-          this.paginationData = this.tableData
-          this.checkProjectData()
-          if (this.appType) this.filterTableData(this.appType, 'type')
-        }
+    getPackageList () {
+      apm.initApmPackages().then(response => {
+        this.tableData = response.data
+        this.paginationData = this.tableData
+        this.checkProjectData()
+        if (this.appType) this.filterTableData(this.appType, 'type')
         this.dataLoading = false
       }).catch(() => {
         this.dataLoading = false
