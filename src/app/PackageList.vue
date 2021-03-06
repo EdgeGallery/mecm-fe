@@ -156,7 +156,9 @@
         </div>
         <div>
           <el-table
+            ref="syncPackageTable"
             :data="syncPackageTableData"
+            class="mt20"
             border
             size="small"
             style="width: 100%;"
@@ -193,17 +195,40 @@
             />
           </el-table>
         </div>
-      </div>
-      <div slot="footer">
-        <el-button @click="syncDialogVisible = false">
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
-          type="primary"
-          @click="confirmToSync()"
+        <div
+          style="margin-top:15px;"
         >
-          {{ $t('common.confirm') }}
-        </el-button>
+          <el-pagination
+            background
+            class="pageBar"
+            @size-change="handlePackagePageSizeChange"
+            @current-change="handlePackageCurrentPageChange"
+            :current-page="packageCurrentPage"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="edgeNodePageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="packageTotalNum"
+          />
+        </div>
+        <div
+          slot="footer"
+          class="dialog-footer"
+          style="text-align:right;padding-bottom:15px"
+        >
+          <el-button
+            @click="cancelToSync"
+            size="small"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
+          <el-button
+            type="primary"
+            @click="confirmToSync()"
+            size="small"
+          >
+            {{ $t('common.confirm') }}
+          </el-button>
+        </div>
       </div>
     </el-dialog>
     <!-- 分发 -->
@@ -358,7 +383,10 @@ export default {
       syncDialogVisible: false,
       appstoreOptions: [],
       appstoreIp: '',
-      syncPackageTableData: []
+      syncPackageTableData: [],
+      packageCurrentPage: 1,
+      packagePageSize: 5,
+      packageTotalNum: 0
     }
   },
   mounted () {
@@ -426,6 +454,7 @@ export default {
     },
     chooseAppstore (val) {
       this.showSyncBox()
+      this.$refs.syncPackageTable.clearSelection()
     },
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
@@ -449,6 +478,7 @@ export default {
           this.tableData = []
           this.num = 0
           this.appstoreOptions = res.data
+          this.appstoreIp = res.data[0].appstoreIp
           res.data.forEach(item => {
             this.getPackageList(res.data.length, item.appstoreIp, item.appstorePort)
           })
@@ -461,6 +491,10 @@ export default {
       })
       this.syncDialogVisible = true
     },
+    cancelToSync () {
+      this.syncDialogVisible = false
+      this.$refs.syncPackageTable.clearSelection()
+    },
     confirmToSync () {
       let params
       if (this.selectData.length === 0) {
@@ -471,11 +505,19 @@ export default {
           if (res) {
             apm.getSyncStatus().then(response => {
               this.$message.success(this.$t('app.packageList.syncSuccess'))
+              this.$refs.syncPackageTable.clearSelection()
+              this.syncDialogVisible = false
               this.getAppstoreList()
             })
           }
         })
       }
+    },
+    handlePackagePageSizeChange (packagePageSize) {
+      this.packagePageSize = packagePageSize
+    },
+    handlePackageCurrentPageChange (packageCurrentPage) {
+      this.packageCurrentPage = packageCurrentPage
     },
     getPackageList (len, ip, port) {
       apm.getAppPackageList(ip).then(response => {
@@ -562,7 +604,6 @@ export default {
         createdTime: new Date().toString(),
         modifiedTime: new Date().toString()
       }
-      console.log(params)
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         apm.confirmToDistribute(params).then(response => {
           this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
