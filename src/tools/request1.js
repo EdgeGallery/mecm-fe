@@ -15,7 +15,7 @@
  */
 
 //  Mock Data
-//  本地调试时将request1.js改为request.js，即可使用mock api获取数据
+//  本地调试替换request.js
 
 import axios from 'axios'
 require('../mock.js')
