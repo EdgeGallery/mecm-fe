@@ -34,7 +34,7 @@
           id="syncBtn"
           style="float:right;"
           type="primary"
-          @click="syncAppstore(2,selectData)"
+          @click="showSyncBox()"
         >
           {{ $t('app.packageList.synchronize') }}
         </el-button>
@@ -51,20 +51,23 @@
               border
               size="small"
               style="width: 100%;"
-              @selection-change="handleSelectionChange"
             >
-              <el-table-column
-                type="selection"
-                width="55"
-              />
               <el-table-column
                 prop="name"
                 sortable
                 :label="$t('app.packageList.name')"
               />
               <el-table-column
+                prop="version"
+                :label="$t('app.packageList.version')"
+              />
+              <el-table-column
                 prop="provider"
                 :label="$t('app.packageList.vendor')"
+              />
+              <el-table-column
+                prop="industry"
+                :label="$t('app.packageList.industry')"
               />
               <el-table-column
                 prop="type"
@@ -101,14 +104,6 @@
                     {{ $t('common.detail') }}
                   </el-button>
                   <el-button
-                    id="detailBtn"
-                    @click="syncAppstore(1,scope.row)"
-                    type="text"
-                    size="small"
-                  >
-                    {{ $t('app.packageList.sync') }}
-                  </el-button>
-                  <el-button
                     id="distributeBtn"
                     @click="distribute(scope.row)"
                     type="text"
@@ -138,7 +133,80 @@
         </div>
       </div>
     </div>
-
+    <!-- 同步 -->
+    <el-dialog
+      :title="$t('app.packageList.synchronize')"
+      :visible.sync="syncDialogVisible"
+      width="width"
+    >
+      <div>
+        <div>
+          <el-select
+            v-model="appstoreIp"
+            :placeholder="$t('tip.pleaseSelect')"
+            @change="chooseAppstore()"
+          >
+            <el-option
+              v-for="item in appstoreOptions"
+              :key="item.appstoreIp"
+              :label="item.appstoreName"
+              :value="item.appstoreIp"
+            />
+          </el-select>
+        </div>
+        <div>
+          <el-table
+            :data="syncPackageTableData"
+            border
+            size="small"
+            style="width: 100%;"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column
+              type="selection"
+              width="55"
+            />
+            <el-table-column
+              prop="name"
+              sortable
+              :label="$t('app.packageList.name')"
+            />
+            <el-table-column
+              prop="version"
+              :label="$t('app.packageList.version')"
+            />
+            <el-table-column
+              prop="provider"
+              :label="$t('app.packageList.vendor')"
+            />
+            <el-table-column
+              prop="industry"
+              :label="$t('app.packageList.industry')"
+            />
+            <el-table-column
+              prop="type"
+              :label="$t('app.packageList.type')"
+            />
+            <el-table-column
+              prop="affinity"
+              :label="$t('app.packageList.affinity')"
+            />
+          </el-table>
+        </div>
+      </div>
+      <div slot="footer">
+        <el-button @click="syncDialogVisible = false">
+          {{ $t('common.cancel') }}
+        </el-button>
+        <el-button
+          type="primary"
+          @click="confirmToSync()"
+        >
+          {{ $t('common.confirm') }}
+        </el-button>
+      </div>
+    </el-dialog>
+    <!-- 分发 -->
     <el-dialog
       :close-on-click-modal="false"
       :title="$t('app.packageList.slectEdgeNodes')"
@@ -253,7 +321,7 @@
 </template>
 
 <script>
-import { apm, inventory } from '../tools/request.js'
+import { apm, inventory } from '../tools/request1.js'
 import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
 import Search from '../components/Search.vue'
 import Pagination from '../components/Pagination.vue'
@@ -286,7 +354,11 @@ export default {
       appId: '',
       language: localStorage.getItem('language'),
       selectData: [],
-      num: 0
+      num: 0,
+      syncDialogVisible: false,
+      appstoreOptions: [],
+      appstoreIp: '',
+      syncPackageTableData: []
     }
   },
   mounted () {
@@ -345,12 +417,15 @@ export default {
           this.selectData.push(
             {
               appId: item.appId,
-              appstoreIp: item.appstoreIp,
+              appstoreIp: this.appstoreIp,
               packageId: item.packageId
             }
           )
         })
       }
+    },
+    chooseAppstore (val) {
+      this.showSyncBox()
     },
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
@@ -373,40 +448,34 @@ export default {
         if (res.data && res.data.length > 0) {
           this.tableData = []
           this.num = 0
+          this.appstoreOptions = res.data
           res.data.forEach(item => {
             this.getPackageList(res.data.length, item.appstoreIp, item.appstorePort)
           })
         }
       })
     },
-    syncAppstore (type, row) {
+    showSyncBox () {
+      apm.getAppPackageList(this.appstoreIp).then(response => {
+        this.syncPackageTableData = response.data
+      })
+      this.syncDialogVisible = true
+    },
+    confirmToSync () {
       let params
-      if (type === 1) {
-        params = [{
-          'appId': row.appId,
-          'appstoreIp': row.appstoreIp,
-          'packageId': row.packageId
-        }]
+      if (this.selectData.length === 0) {
+        this.$message.warning(this.$t('app.packageList.syncTip'))
       } else {
-        if (this.selectData.length === 0) {
-          this.$message.warning(this.$t('app.packageList.syncTip'))
-        } else {
-          params = this.selectData
-        }
-      }
-      apm.syncAppstore(params).then(res => {
-        if (res) {
-          if (type === 1) {
-            apm.getOneSyncStatus(params.appId, params.packageId).then(response => {
-              this.$message.success(this.$t('app.packageList.syncSuccess'))
-            })
-          } else {
+        params = this.selectData
+        apm.confirmToSync(params).then(res => {
+          if (res) {
             apm.getSyncStatus().then(response => {
               this.$message.success(this.$t('app.packageList.syncSuccess'))
+              this.getAppstoreList()
             })
           }
-        }
-      })
+        })
+      }
     },
     getPackageList (len, ip, port) {
       apm.getAppPackageList(ip).then(response => {

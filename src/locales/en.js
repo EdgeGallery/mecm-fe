@@ -98,7 +98,8 @@ const en = {
       status: 'Status',
       sync: 'Sync',
       syncTip: 'Select at lease one application for synchronization!',
-      syncSuccess: 'Sync succeeded！'
+      syncSuccess: 'Sync succeeded！',
+      industry: 'Industry'
     },
     distriList: {
       mecHost: 'MEC Hosts',

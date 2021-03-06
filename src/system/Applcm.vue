@@ -83,6 +83,15 @@
                     type="primary"
                     size="mini"
                     class="button"
+                    id="syncBtn"
+                    @click.native.prevent="handleDelete(item)"
+                  >
+                    {{ $t('app.packageList.sync') }}
+                  </el-button>
+                  <el-button
+                    type="primary"
+                    size="mini"
+                    class="button"
                     id="modifyBtn"
                     @click="handleEdit(item)"
                   >
