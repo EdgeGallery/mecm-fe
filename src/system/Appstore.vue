@@ -45,69 +45,6 @@
         </el-button>
       </p>
       <div class="">
-        <!-- <div class="appstoreList">
-          <div
-            v-for="(item,index) in currPageTableData"
-            :key="index"
-            class="content"
-          >
-            <div
-              class="list"
-            >
-              <el-form
-                label-width="auto"
-              >
-                <el-form-item :label="$t('system.appstore.appstoreName')">
-                  {{ item.appstoreName }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.ipAddress')">
-                  {{ item.appstoreIp }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appLcm.port')">
-                  {{ item.appstorePort }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.appstoreRepo')">
-                  {{ item.appstoreRepo }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.appstoreRepoName')">
-                  {{ item.appstoreRepoName }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.appstoreRepoUserName')">
-                  {{ item.appstoreRepoUserName }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.appstoreRepoPassword')">
-                  {{ item.appstoreRepoPassword }}
-                </el-form-item>
-                <el-form-item :label="$t('system.appstore.vendor')">
-                  {{ item.producer }}
-                </el-form-item>
-                <el-form-item
-                  class="rt btn-group"
-                  v-if="rlp=='418'"
-                >
-                  <el-button
-                    type="warning"
-                    size="mini"
-                    class="button"
-                    id="deleteBtn"
-                    @click.native.prevent="handleDelete(item)"
-                  >
-                    {{ $t('common.delete') }}
-                  </el-button>
-                  <el-button
-                    type="primary"
-                    size="mini"
-                    class="button"
-                    id="modifyBtn"
-                    @click="handleEdit(item)"
-                  >
-                    {{ $t('common.modify') }}
-                  </el-button>
-                </el-form-item>
-              </el-form>
-            </div>
-          </div>
-        </div> -->
         <div class="appstoreList">
           <el-table
             :data="currPageTableData"

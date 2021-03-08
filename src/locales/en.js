@@ -97,7 +97,9 @@ const en = {
       pacVersion: 'Package Version',
       status: 'Status',
       sync: 'Sync',
-      syncTip: 'Select at lease one application for synchronization!'
+      syncTip: 'Select at lease one application for synchronization!',
+      syncSuccess: 'Sync succeeded！',
+      industry: 'Industry'
     },
     distriList: {
       mecHost: 'MEC Hosts',
