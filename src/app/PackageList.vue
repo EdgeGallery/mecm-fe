@@ -166,35 +166,33 @@
           >
             <el-table-column
               type="selection"
-            >
               width="55"
-              />
-              <el-table-column
-                prop="name"
-                sortable
-                :label="$t('app.packageList.name')"
-              />
-              <el-table-column
-                prop="version"
-                :label="$t('app.packageList.version')"
-              />
-              <el-table-column
-                prop="provider"
-                :label="$t('app.packageList.vendor')"
-              />
-              <el-table-column
-                prop="industry"
-                :label="$t('app.packageList.industry')"
-              />
-              <el-table-column
-                prop="type"
-                :label="$t('app.packageList.type')"
-              />
-              <el-table-column
-                prop="affinity"
-                :label="$t('app.packageList.affinity')"
-              />
-            </el-table-column>
+            />
+            <el-table-column
+              prop="name"
+              sortable
+              :label="$t('app.packageList.name')"
+            />
+            <el-table-column
+              prop="version"
+              :label="$t('app.packageList.version')"
+            />
+            <el-table-column
+              prop="provider"
+              :label="$t('app.packageList.vendor')"
+            />
+            <el-table-column
+              prop="industry"
+              :label="$t('app.packageList.industry')"
+            />
+            <el-table-column
+              prop="type"
+              :label="$t('app.packageList.type')"
+            />
+            <el-table-column
+              prop="affinity"
+              :label="$t('app.packageList.affinity')"
+            />
           </el-table>
         </div>
         <div
