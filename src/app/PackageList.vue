@@ -166,33 +166,35 @@
           >
             <el-table-column
               type="selection"
+            >
               width="55"
-            />
-            <el-table-column
-              prop="name"
-              sortable
-              :label="$t('app.packageList.name')"
-            />
-            <el-table-column
-              prop="version"
-              :label="$t('app.packageList.version')"
-            />
-            <el-table-column
-              prop="provider"
-              :label="$t('app.packageList.vendor')"
-            />
-            <el-table-column
-              prop="industry"
-              :label="$t('app.packageList.industry')"
-            />
-            <el-table-column
-              prop="type"
-              :label="$t('app.packageList.type')"
-            />
-            <el-table-column
-              prop="affinity"
-              :label="$t('app.packageList.affinity')"
-            />
+              />
+              <el-table-column
+                prop="name"
+                sortable
+                :label="$t('app.packageList.name')"
+              />
+              <el-table-column
+                prop="version"
+                :label="$t('app.packageList.version')"
+              />
+              <el-table-column
+                prop="provider"
+                :label="$t('app.packageList.vendor')"
+              />
+              <el-table-column
+                prop="industry"
+                :label="$t('app.packageList.industry')"
+              />
+              <el-table-column
+                prop="type"
+                :label="$t('app.packageList.type')"
+              />
+              <el-table-column
+                prop="affinity"
+                :label="$t('app.packageList.affinity')"
+              />
+            </el-table-column>
           </el-table>
         </div>
         <div
@@ -447,6 +449,12 @@ export default {
         })
       }
     },
+    // selectable (row, index) {
+    //   console.log(row, index)
+    //   if (this.tableData.some(el => { return el.packageId === row.packageId })) {
+    //     return false
+    //   }
+    // },
     chooseAppstore (val) {
       this.showSyncBox()
       this.$refs.syncPackageTable.clearSelection()
@@ -477,13 +485,7 @@ export default {
     },
     showSyncBox () {
       apm.getAppPackageList(this.appstoreIp).then(response => {
-        let data = []
-        response.data.forEach(item => {
-          if (this.tableData.indexOf(item.packageId) < 0) {
-            data.push(item)
-          }
-        })
-        this.paginationPackageData = data
+        this.paginationPackageData = response.data
       })
       this.syncDialogVisible = true
     },
