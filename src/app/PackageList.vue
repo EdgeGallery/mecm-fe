@@ -196,7 +196,7 @@
           </el-table>
         </div>
         <div
-          style="margin-top:15px;"
+          style="margin-top:15px;height:50px;"
         >
           <Pagination
             :page-sizes="[10,15,20,25]"
@@ -477,7 +477,13 @@ export default {
     },
     showSyncBox () {
       apm.getAppPackageList(this.appstoreIp).then(response => {
-        this.paginationPackageData = response.data
+        let data = []
+        response.data.forEach(item => {
+          if (this.tableData.indexOf(item.packageId) < 0) {
+            data.push(item)
+          }
+        })
+        this.paginationPackageData = data
       })
       this.syncDialogVisible = true
     },
@@ -491,13 +497,25 @@ export default {
         this.$message.warning(this.$t('app.packageList.syncTip'))
       } else {
         params = this.selectData
-        apm.confirmToSync(params).then(res => {
+        apm.syncAppFromStore(params).then(res => {
           if (res) {
-            apm.getOneSyncStatus(params).then(response => {
-              this.$message.success(this.$t('app.packageList.syncSuccess'))
-              this.$refs.syncPackageTable.clearSelection()
-              this.syncDialogVisible = false
+            let num = 0
+            params.forEach(item => {
+              num++
+              apm.getOneSyncStatus(item.appId, item.packageId).then(response => {
+                if (num === params.length) {
+                  this.$message.success(this.$t('app.packageList.syncSuccess'))
+                  this.$refs.syncPackageTable.clearSelection()
+                }
+              }).catch(error => {
+                console.log(error)
+                this.syncDialogVisible = false
+              })
             })
+            if (num === params.length) {
+              this.getPackageList()
+            }
+            this.syncDialogVisible = false
           }
         })
       }
@@ -517,8 +535,7 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
-        this.dataLoading = false
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+        if (error.response.status === 404 && error.response.data.details[0] === 'record not found') {
           this.tableData = this.paginationData = []
         } else {
           this.$message.error(this.$t('tip.failedToGetAppList'))
