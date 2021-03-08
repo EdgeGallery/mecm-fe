@@ -383,6 +383,7 @@ export default {
   mounted () {
     this.appType = this.$route.query.type ? this.$route.query.type : ''
     this.getPackageList()
+    this.getAppstoreList()
   },
   computed: {
     edgeNodeTotalNum: function () {
@@ -399,7 +400,7 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
-      this.getAppstoreList()
+      this.getPackageList()
     }
   },
   methods: {
@@ -496,7 +497,6 @@ export default {
               this.$message.success(this.$t('app.packageList.syncSuccess'))
               this.$refs.syncPackageTable.clearSelection()
               this.syncDialogVisible = false
-              this.getAppstoreList()
             })
           }
         })
@@ -515,9 +515,14 @@ export default {
         this.checkProjectData()
         if (this.appType) this.filterTableData(this.appType, 'type')
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
         this.dataLoading = false
-        this.$message.error(this.$t('tip.failedToGetAppList'))
+        this.dataLoading = false
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.failedToGetAppList'))
+        }
       })
     },
     checkProjectData () {
