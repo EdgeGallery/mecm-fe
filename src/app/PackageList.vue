@@ -196,7 +196,7 @@
           </el-table>
         </div>
         <div
-          style="margin-top:15px;"
+          style="margin-top:15px;height:50px;"
         >
           <Pagination
             :page-sizes="[10,15,20,25]"
@@ -383,6 +383,7 @@ export default {
   mounted () {
     this.appType = this.$route.query.type ? this.$route.query.type : ''
     this.getPackageList()
+    this.getAppstoreList()
   },
   computed: {
     edgeNodeTotalNum: function () {
@@ -399,7 +400,7 @@ export default {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
       this.language = language
-      this.getAppstoreList()
+      this.getPackageList()
     }
   },
   methods: {
@@ -446,6 +447,12 @@ export default {
         })
       }
     },
+    // selectable (row, index) {
+    //   console.log(row, index)
+    //   if (this.tableData.some(el => { return el.packageId === row.packageId })) {
+    //     return false
+    //   }
+    // },
     chooseAppstore (val) {
       this.showSyncBox()
       this.$refs.syncPackageTable.clearSelection()
@@ -490,14 +497,25 @@ export default {
         this.$message.warning(this.$t('app.packageList.syncTip'))
       } else {
         params = this.selectData
-        apm.confirmToSync(params).then(res => {
+        apm.syncAppFromStore(params).then(res => {
           if (res) {
-            apm.getOneSyncStatus(params).then(response => {
-              this.$message.success(this.$t('app.packageList.syncSuccess'))
-              this.$refs.syncPackageTable.clearSelection()
-              this.syncDialogVisible = false
-              this.getAppstoreList()
+            let num = 0
+            params.forEach(item => {
+              num++
+              apm.getOneSyncStatus(item.appId, item.packageId).then(response => {
+                if (num === params.length) {
+                  this.$message.success(this.$t('app.packageList.syncSuccess'))
+                  this.$refs.syncPackageTable.clearSelection()
+                }
+              }).catch(error => {
+                console.log(error)
+                this.syncDialogVisible = false
+              })
             })
+            if (num === params.length) {
+              this.getPackageList()
+            }
+            this.syncDialogVisible = false
           }
         })
       }
@@ -515,9 +533,13 @@ export default {
         this.checkProjectData()
         if (this.appType) this.filterTableData(this.appType, 'type')
         this.dataLoading = false
-      }).catch(() => {
+      }).catch((error) => {
         this.dataLoading = false
-        this.$message.error(this.$t('tip.failedToGetAppList'))
+        if (error.response.status === 404 && error.response.data.details[0] === 'record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.failedToGetAppList'))
+        }
       })
     },
     checkProjectData () {
