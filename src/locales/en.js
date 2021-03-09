@@ -290,7 +290,8 @@ const en = {
     descVerify: 'Describtion can not be empty.',
     appNameVerify: 'App name can not be empty',
     mustOptions: 'This input box can not be empty',
-    appRuleManaVerify: 'App rule manager can not be empty'
+    appRuleManaVerify: 'App rule manager can not be empty',
+    passVerify: '6-18digit conbination of letters, digits and special characters.'
   },
   tip: {
     getCommonListFailed: 'Get list failed.',
