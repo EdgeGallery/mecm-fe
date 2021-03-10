@@ -19,6 +19,7 @@ const en = {
   nav: {
     login: 'Log In',
     logout: 'Log Out',
+    userAccountCenter: 'My Account',
     mecm: 'Manager',
     overview: 'Overview',
     appMana: 'App Management',
