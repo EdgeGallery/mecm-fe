@@ -84,7 +84,6 @@
                     size="mini"
                     class="button"
                     id="syncBtn"
-                    @click.native.prevent="handleDelete(item)"
                   >
                     {{ $t('app.packageList.sync') }}
                   </el-button>
