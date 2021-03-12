@@ -146,6 +146,8 @@ export default {
       }
       if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
         sessionStorage.setItem('rlp', 418)
+      } else {
+        sessionStorage.removeItem('rlp')
       }
     })
   },

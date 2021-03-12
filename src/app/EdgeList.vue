@@ -102,11 +102,11 @@
         >
           <template slot-scope="scope">
             <span
-              v-if="scope.row.status === 'Distributed'"
+              v-if="scope.row.status === 'distributed'"
               class="success"
             ><em class="el-icon-success" />{{ scope.row.status }}</span>
             <span
-              v-else-if="scope.row.status === 'Processing'"
+              v-else-if="scope.row.status === 'drocessing'"
               class="primary"
             ><em class="el-icon-loading" />{{ scope.row.status }}</span>
             <span
@@ -132,7 +132,7 @@
             <el-button
               id="deployBtn"
               @click="deploy(scope.row,1)"
-              :disabled="scope.row.status !=='Distributed'"
+              :disabled="scope.row.status !=='distributed'"
               type="text"
               size="small"
             >
@@ -173,17 +173,9 @@
               class="hostip"
             >{{ item.hostIp }}</span>
             <span
-              v-if="item.status === 'Distributed'"
+              v-if="item.status === 'distributed'"
               class="success"
             ><em class="el-icon-success" />{{ item.status }}</span>
-            <span
-              v-else-if="item.status === 'Processing'"
-              class="primary"
-            ><em class="el-icon-loading" />{{ item.status }}</span>
-            <span
-              v-else
-              class="error"
-            ><em class="el-icon-error" />{{ item.status }}</span>
           </div>
         </el-form-item>
         <p>APP Information</p>
