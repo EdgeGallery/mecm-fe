@@ -230,7 +230,8 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
-      chooseLocation: 'Please select location'
+      chooseLocation: 'Please select location',
+      vim: 'VIM'
     },
     appstore: {
       appstoreName: 'App Store Name',
