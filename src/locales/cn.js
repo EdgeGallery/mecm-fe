@@ -290,7 +290,8 @@ const cn = {
     descVerify: '描述信息不能为空',
     appNameVerify: '应用名称不能为空',
     mustOptions: '必填项',
-    appRuleManaVerify: '应用规则管理IP为必选项'
+    appRuleManaVerify: '应用规则管理IP为必选项',
+    passVerify: '密码应该为6-18位的字母数字加特殊符号组合'
   },
   tip: {
     getCommonListFailed: '获取列表失败',

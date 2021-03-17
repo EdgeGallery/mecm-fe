@@ -231,7 +231,8 @@ const en = {
       howToUpload: 'Drag the file here，or click to upload',
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
-      chooseLocation: 'Please select location'
+      chooseLocation: 'Please select location',
+      vim: 'VIM'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -291,7 +292,8 @@ const en = {
     descVerify: 'Describtion can not be empty.',
     appNameVerify: 'App name can not be empty',
     mustOptions: 'This input box can not be empty',
-    appRuleManaVerify: 'App rule manager can not be empty'
+    appRuleManaVerify: 'App rule manager can not be empty',
+    passVerify: '6-18digit conbination of letters, digits and special characters.'
   },
   tip: {
     getCommonListFailed: 'Get list failed.',

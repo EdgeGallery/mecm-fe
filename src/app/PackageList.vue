@@ -447,12 +447,6 @@ export default {
         })
       }
     },
-    // selectable (row, index) {
-    //   console.log(row, index)
-    //   if (this.tableData.some(el => { return el.packageId === row.packageId })) {
-    //     return false
-    //   }
-    // },
     chooseAppstore (val) {
       this.showSyncBox()
       this.$refs.syncPackageTable.clearSelection()
@@ -601,8 +595,7 @@ export default {
         appPkgVersion: this.currentRowData.version,
         appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
         appPkgAffinity: this.currentRowData.affinity,
-        appPkgPath: address + this.currentRowData.appstoreIp + ':' + this.currentRowData.appstorePort + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
-        appIconUrl: address + this.currentRowData.appstoreIp + ':' + this.currentRowData.appstorePort + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/icon',
+        appPkgPath: address + this.currentRowData.appstoreEndpoint + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
         appProvider: this.currentRowData.provider,
         mecHostInfo: selectedMecHost,
         createdTime: new Date().toString(),
