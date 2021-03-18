@@ -284,7 +284,7 @@ const cn = {
     applcmNameTip: 'App LCM名称不能为空',
     normalVerify: '输入的内容格式不正确',
     hostNameVerify: '4到16位（字母，数字）',
-    noSymbol: '不能包含特殊符号',
+    noSymbol: '长度为1-16位且不能包含特殊符号',
     coordinates: '坐标不能为空',
     uriVerify: '请填写正确的Uri',
     descVerify: '描述信息不能为空',

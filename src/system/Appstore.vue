@@ -293,8 +293,7 @@ export default {
           { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
         ],
         appstoreRepoPassword: [
-          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' },
-          { pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>?,./]).{6,18}$/, message: this.$t('verify.passVerify') }
+          { required: true, message: this.$t('verify.mustOptions'), trigger: 'blur' }
         ],
         producer: [
           { required: true, message: this.$t('verify.vendorTip'), trigger: 'blur' },
