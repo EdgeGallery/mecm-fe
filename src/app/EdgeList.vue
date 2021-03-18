@@ -106,7 +106,7 @@
               class="success"
             ><em class="el-icon-success" />{{ scope.row.status }}</span>
             <span
-              v-else-if="scope.row.status === 'drocessing'"
+              v-else-if="scope.row.status === 'Processing'"
               class="primary"
             ><em class="el-icon-loading" />{{ scope.row.status }}</span>
             <span

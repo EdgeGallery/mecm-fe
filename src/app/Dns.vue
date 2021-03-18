@@ -243,8 +243,7 @@ export default {
           { required: true, message: this.$t('domainMust'), trigger: 'blur' }
         ],
         ipAddress: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         ttl: [
           { required: true, message: this.$t('tip.ttl'), trigger: 'blur' }

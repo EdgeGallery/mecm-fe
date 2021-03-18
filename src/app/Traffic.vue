@@ -833,12 +833,10 @@ export default {
     formInterfaceRules () {
       let formInterfaceRules = {
         tunnelDstAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         tunnelSrcAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         srcMacAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
@@ -849,8 +847,7 @@ export default {
           { pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/, message: this.$t('verify.normalVerify') }
         ],
         dstIpAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ]
       }
       return formInterfaceRules
@@ -866,32 +863,28 @@ export default {
     formTrafficfilterRules () {
       let formTrafficfilterRules = {
         srcAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\/[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         srcPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         dstAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\/[1-9]\d{0,4}$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         dstPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         srcTunnelAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         srcTunnelPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ],
         dstTunnelAddress: [
-          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
+          { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
         dstTunnelPort: [
           { required: false, message: this.$t('verify.portTip'), trigger: 'blur' },
