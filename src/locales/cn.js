@@ -230,7 +230,8 @@ const cn = {
       hwCapability: '硬件能力',
       coordinates: '坐标',
       chooseLocation: '选择部署位置',
-      vim: '虚拟机'
+      vim: '虚拟机',
+      ifUploaded: '配置文件上传状态'
     },
     appstore: {
       appstoreName: '应用市场',

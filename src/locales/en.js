@@ -232,7 +232,8 @@ const en = {
       hwCapability: 'Capabilities',
       coordinates: 'Coordinates',
       chooseLocation: 'Please select location',
-      vim: 'VIM'
+      vim: 'VIM',
+      ifUploaded: 'Upload Status'
     },
     appstore: {
       appstoreName: 'App Store Name',
