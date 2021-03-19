@@ -102,6 +102,20 @@
               </template>
             </el-table-column>
             <el-table-column
+              prop="configUploadStatus"
+              :label="$t('system.edgeNodes.ifUploaded')"
+            >
+              <template slot-scope="scope">
+                <span
+                  class="success"
+                  v-if="scope.row.configUploadStatus"
+                >
+                  {{ scope.row.configUploadStatus }}
+                </span>
+                <span v-else>/</span>
+              </template>
+            </el-table-column>
+            <el-table-column
               :label="$t('common.operation')"
               align="center"
               width="280"
