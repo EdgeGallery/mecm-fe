@@ -82,6 +82,7 @@
             <el-table-column
               header-align="center"
               align="center"
+              v-if="rlp=='418'"
             >
               <template slot-scope="scope">
                 <el-button
@@ -192,6 +193,7 @@
               <el-form-item
                 :label="$t('system.appstore.appstoreRepoPassword')"
                 prop="appstoreRepoPassword"
+                v-if="rlp=='418'"
               >
                 <el-input
                   id="appstoreRepoPassword"
