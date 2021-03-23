@@ -203,7 +203,7 @@ export default {
   },
   computed: {
     rules () {
-      const rules = {
+      return {
         appRuleIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
@@ -217,7 +217,6 @@ export default {
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
-      return rules
     }
   },
   mounted () {
@@ -271,7 +270,6 @@ export default {
         }, error => {
           this.$message.error(error.response.data)
         })
-      }).catch(() => {
       })
     },
     register () {
@@ -291,7 +289,7 @@ export default {
     },
     confirmToRegister (form) {
       console.log(this.form)
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
           if (this.editType === 1) {
             inventory.create(4, this.form).then(res => {

@@ -58,9 +58,7 @@ export default {
     return {
       activeName: 'dns'
     }
-  },
-  methods: {},
-  mounted () {}
+  }
 }
 
 </script>

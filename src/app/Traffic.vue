@@ -853,15 +853,14 @@ export default {
       return formInterfaceRules
     },
     formRules () {
-      let formRules = {
+      return {
         trafficRuleId: [
           { required: true, message: this.$t('idMust'), trigger: 'blur' }
         ]
       }
-      return formRules
     },
     formTrafficfilterRules () {
-      let formTrafficfilterRules = {
+      return {
         srcAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
@@ -891,7 +890,6 @@ export default {
           { pattern: /^\d{4,5}(,+\d{4,5})*$/, message: this.$t('verify.normalVerify') }
         ]
       }
-      return formTrafficfilterRules
     }
   },
   methods: {
@@ -938,7 +936,7 @@ export default {
       this.loading = false
     },
     addAppRules () {
-      this.$refs.appTrafficRule.validate((valid) => {
+      this.$refs.appTrafficRule.validate(valid => {
         if (valid) {
           let data = {
             appTrafficRule: [],
@@ -1059,7 +1057,7 @@ export default {
       this.$refs[form].resetFields()
     },
     confirmToAdd (form) {
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
           if (form === 'trafficFilter') {
             if (this.filterIndex !== -1) {

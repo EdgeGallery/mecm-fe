@@ -235,7 +235,7 @@ export default {
   },
   computed: {
     formRules () {
-      let formRules = {
+      return {
         dnsRuleId: [
           { required: true, message: this.$t('idMust'), trigger: 'blur' }
         ],
@@ -249,7 +249,6 @@ export default {
           { required: true, message: this.$t('tip.ttl'), trigger: 'blur' }
         ]
       }
-      return formRules
     }
   },
   methods: {
@@ -269,7 +268,7 @@ export default {
       this.$refs[formName].resetFields()
     },
     addAppRule (formName) {
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate(valid => {
         if (valid) {
           let data = {
             appDNSRule: [],

@@ -322,7 +322,7 @@ export default {
   },
   computed: {
     rules () {
-      let rules = {
+      return {
         appName: [
           { required: true, message: this.$t('verify.appNameVerify'), trigger: 'blur' },
           { pattern: /^[a-zA-Z0-9]{4,16}$/, message: this.$t('verify.hostNameVerify') }
@@ -331,7 +331,6 @@ export default {
           { required: true, message: this.$t('verify.descVerify'), trigger: 'blur' }
         ]
       }
-      return rules
     }
   },
   mounted () {
@@ -421,7 +420,6 @@ export default {
           this.showMessage('success', this.$t('tip.deletePacFrmoHost'), 1500)
           this.initList()
         })
-      }).catch(() => {
       })
     },
     initList () {
@@ -484,7 +482,7 @@ export default {
       }
     },
     confirmToDeploy (configForm) {
-      this.$refs[configForm].validate((valid) => {
+      this.$refs[configForm].validate(valid => {
         if (valid) {
           let params = {
             appId: this.configForm.appId,
@@ -537,16 +535,22 @@ export default {
     },
     instaniateApp (instanceId) {
       appo.instantiateApp(instanceId).then(response => {
-        this.loading = false
-        this.dialogVisible = false
-        this.$nextTick(() => {
-          this.$router.push('/mecm/ains/list')
-        })
+        this.afterInstantiateApp()
       }).catch(() => {
-        this.$message.error(this.$t('tip.deployFailed'))
-        this.dialogVisible = false
-        this.loading = false
+        this.catchInstantiateApp()
       })
+    },
+    afterInstantiateApp () {
+      this.loading = false
+      this.dialogVisible = false
+      this.$nextTick(() => {
+        this.$router.push('/mecm/ains/list')
+      })
+    },
+    catchInstantiateApp () {
+      this.$message.error(this.$t('tip.deployFailed'))
+      this.dialogVisible = false
+      this.loading = false
     },
     batchInstaniateApp (instanceId) {
       let obj = {
@@ -556,15 +560,9 @@ export default {
         obj.appInstanceIds.push(item.appInstanceId)
       })
       appo.batchInstantiateApp(obj).then(response => {
-        this.loading = false
-        this.dialogVisible = false
-        this.$nextTick(() => {
-          this.$router.push('/mecm/ains/list')
-        })
+        this.afterInstantiateApp()
       }).catch(() => {
-        this.$message.error(this.$t('tip.deployFailed'))
-        this.dialogVisible = false
-        this.loading = false
+        this.catchInstantiateApp()
       })
     },
     handleSelectionChange (selection) {
