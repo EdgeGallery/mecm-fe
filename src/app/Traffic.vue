@@ -831,7 +831,7 @@ export default {
   },
   computed: {
     formInterfaceRules () {
-      let formInterfaceRules = {
+      return {
         tunnelDstAddress: [
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ],
@@ -850,7 +850,6 @@ export default {
           { required: false, message: this.$t('verify.ipTip'), trigger: 'blur' }
         ]
       }
-      return formInterfaceRules
     },
     formRules () {
       return {
@@ -948,23 +947,26 @@ export default {
           console.log(data)
           appo.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
             if (res.data) {
-              appo.getTaskStatus(res.data.response.apprule_task_id).then(response => {
-                if (response.data.response.configResult === 'FAILURE') {
-                  this.$message.error(this.$t('app.ruleConfig.mepError'))
-                } else {
-                  if (this.index === -1) {
-                    this.showMessage('success', this.$t('app.ruleConfig.addRuleSuc'), 1500)
-                  } else {
-                    this.showMessage('success', this.$t('app.ruleConfig.editRuleSuc'), 1500)
-                  }
-                }
-              })
-              this.loading = true
-              this.timer = setTimeout(() => { this.getAppRules() }, 3000)
+              this.getTaskStatus(res)
             }
           })
         }
       })
+    },
+    getTaskStatus (res) {
+      appo.getTaskStatus(res.data.response.apprule_task_id).then(response => {
+        if (response.data.response.configResult === 'FAILURE') {
+          this.$message.error(this.$t('app.ruleConfig.mepError'))
+        } else {
+          if (this.index === -1) {
+            this.showMessage('success', this.$t('app.ruleConfig.addRuleSuc'), 1500)
+          } else {
+            this.showMessage('success', this.$t('app.ruleConfig.editRuleSuc'), 1500)
+          }
+        }
+      })
+      this.loading = true
+      this.timer = setTimeout(() => { this.getAppRules() }, 3000)
     },
     confirmToAddTraRules () {
       let data = JSON.parse(JSON.stringify(this.trafficFilterData))

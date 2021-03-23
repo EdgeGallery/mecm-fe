@@ -54,9 +54,6 @@ export default {
       type: Object
     }
   },
-  mounted () {
-
-  },
   methods: {
     jumpTo (path) {
       return path
