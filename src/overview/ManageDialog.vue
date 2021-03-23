@@ -134,8 +134,6 @@ export default {
     handleClose () {
       this.$emit('input', false)
     },
-    handleCurrentChange (row) {
-    },
     containerChange (val) {
       let data = this.serviceInfo.pods
       let kpiInfo = data[val].containers[0].metricsusage

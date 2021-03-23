@@ -573,8 +573,7 @@ const serviceInfoData = function () {
       }
     ]
   }
-  let res = { response: JSON.stringify(data) }
-  return res
+  return { response: JSON.stringify(data) }
 }
 
 Mock.mock('/mock/login', userData)

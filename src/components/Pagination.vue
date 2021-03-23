@@ -56,8 +56,6 @@ export default {
       this.data = val
       this.totalNum = val.length
       this.returnTableData()
-      // let page = sessionStorage.getItem('currentPage') ? Number(sessionStorage.getItem('currentPage')) : 1
-      // this.handleCurrentPageChange(page)
     }
   },
 
@@ -77,8 +75,7 @@ export default {
       let currentPageData = this.data.slice(start, end)
       this.$emit('getCurrentPageData', currentPageData)
     }
-  },
-  mounted () {}
+  }
 }
 
 </script>

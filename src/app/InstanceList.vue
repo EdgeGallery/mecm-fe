@@ -309,10 +309,7 @@ export default {
       })
       this.dataLoading = true
       appo.batchDeleteInstanceApp(obj).then(response => {
-        setTimeout(() => {
-          this.initList()
-        }, 1500)
-        this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
+        this.timeout()
       }).catch((error) => {
         this.$message.error(error.response.data)
       })
@@ -320,10 +317,7 @@ export default {
     confirmDetlete (appInstanceId) {
       this.dataLoading = true
       appo.deleteInstanceApp(appInstanceId).then(response => {
-        setTimeout(() => {
-          this.initList()
-        }, 1500)
-        this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
+        this.timeout()
       }).catch((error) => {
         this.$message.error(error.response.data)
       })
@@ -340,6 +334,12 @@ export default {
           this.$message.error('Network Error')
         }
       })
+    },
+    timeout () {
+      setTimeout(() => {
+        this.initList()
+      }, 1500)
+      this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
     }
   }
 }

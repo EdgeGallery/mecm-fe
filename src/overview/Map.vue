@@ -200,6 +200,12 @@ export default {
           },
           formatter: function (params) {
             var tipHtml = ''
+            let num = 0
+            data.forEach(item => {
+              if (item.city.indexOf(params.data.name) > -1) {
+                num++
+              }
+            })
             if (localStorage.getItem('language') === 'en') {
               if (params.componentType === 'markPoint') {
                 tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
@@ -214,12 +220,6 @@ export default {
               'Node Location：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                let num = 0
-                data.forEach(item => {
-                  if (item.city.indexOf(params.data.name) > -1) {
-                    num++
-                  }
-                })
                 tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
               '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + 'Area Node Info' + '</span>' + '</div>' +
@@ -244,12 +244,6 @@ export default {
               '节点地址：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                let num = 0
-                data.forEach(item => {
-                  if (item.city.indexOf(params.data.name) > -1) {
-                    num++
-                  }
-                })
                 tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
               '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '地域节点信息' + '</span>' + '</div>' +
@@ -285,11 +279,9 @@ export default {
                     } else if (params.name === '西藏') {
                       city = 'Xizang'
                     }
-                    let str = city
-                    return str
+                    return city
                   } else {
-                    let str = params.name
-                    return str
+                    return params.name
                   }
                 }
               },
@@ -322,9 +314,9 @@ export default {
     },
     initMapData (mapJson) {
       let mapData = []
-      for (let i = 0; i < mapJson.features.length; i++) {
+      for (let features of mapJson.features) {
         mapData.push({
-          name: mapJson.features[i].properties.name
+          name: features.properties.name
         })
       }
       return mapData
@@ -354,8 +346,6 @@ export default {
               source: new XYZ({
                 // openstreet
                 url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                // 午夜蓝图
-                // url: 'https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}'
               })
 
             })
@@ -374,11 +364,11 @@ export default {
 
       // 创建Feature对象集合
       var features = []
-      for (var i = 0; i < lnglats.length; i++) {
+      for (let lnglat of lnglats) {
         features.push(
           new OlFeature({
             type: 'icon',
-            geometry: new OlGeomPoint(lnglats[i]),
+            geometry: new OlGeomPoint(lnglat),
             eventTarget_: data,
             style: './style.json'
           })

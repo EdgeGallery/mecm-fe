@@ -272,7 +272,7 @@ export default {
   },
   computed: {
     rules () {
-      const rules = {
+      return {
         appstoreName: [
           { required: true, message: this.$t('verify.appstorenameTip'), trigger: 'blur' },
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
@@ -302,7 +302,6 @@ export default {
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
-      return rules
     }
   },
   methods: {
@@ -357,14 +356,12 @@ export default {
       })
     },
     confirmToRegister (form) {
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
           console.log(this.form)
           if (this.editType === 1) {
             inventory.create(3, this.form).then(res => {
-              this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
-              this.initList()
-              this.dialogVisible = false
+              this.showSuccessTip()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
@@ -376,9 +373,7 @@ export default {
             })
           } else {
             inventory.modify(3, this.form, this.form.appstoreIp).then(res => {
-              this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
-              this.initList()
-              this.dialogVisible = false
+              this.showSuccessTip()
             }, error => {
               this.$message.error(error.response.data)
             })
@@ -408,6 +403,11 @@ export default {
           this.$message.error(error.response.data)
         })
       })
+    },
+    showSuccessTip () {
+      this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
+      this.initList()
+      this.dialogVisible = false
     },
     initList () {
       inventory.getList(3).then(res => {

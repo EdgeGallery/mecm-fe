@@ -22,9 +22,6 @@
 
 <script>
 export default {
-  name: 'Layout',
-  components: {},
-  mounted () {},
-  methods: {}
+  name: 'Layout'
 }
 </script>
