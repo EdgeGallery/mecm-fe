@@ -603,7 +603,6 @@ export default {
       }
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         apm.confirmToDistribute(params).then(response => {
-          this.showMessage('success', this.$t('tip.sucToDownload'), 1500)
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(
             this.$router.push('/mecm/apac/detail?appId=' + params.appId)
