@@ -747,9 +747,10 @@ export default {
         inventory.uploadConfig(this.currForm.mechostIp, params).then(response => {
           this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
           this.dialogVisibleUpload = false
+          this.getNodeListInPage()
         }).catch((error) => {
           console.log(error)
-          this.$message.error("File shouldn't contain any extension or filename is larger than max size")
+          this.$message.error(error)
           this.fileList = []
         })
       } else {
