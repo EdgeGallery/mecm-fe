@@ -153,7 +153,7 @@ let apm = {
     return DELETE(url)
   },
   syncFromApm () {
-    return POST(apmApi + '/tenants/' + getUserId() + 'app_package_infos/sync')
+    return POST(apmApi + '/tenants/' + getUserId() + '/app_package_infos/sync')
   }
 }
 
