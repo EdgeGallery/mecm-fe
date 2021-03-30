@@ -151,6 +151,9 @@ let apm = {
       url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
+  },
+  syncFromApm () {
+    return POST(apmApi + '/tenants/' + getUserId() + 'app_package_infos/sync')
   }
 }
 
@@ -203,6 +206,9 @@ let appo = {
   },
   getTaskStatus (id) {
     return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
+  },
+  syncFromAppo () {
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances_infos/sync')
   }
 }
 
@@ -227,6 +233,12 @@ let inventory = {
   },
   getHwCapa (hostip) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
+  },
+  syncApprule (ip) {
+    return POST(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip)
+  },
+  syncMechost (ip) {
+    return POST(inventoryApi + '/mepms/' + ip + '/mechost/sync')
   }
 }
 

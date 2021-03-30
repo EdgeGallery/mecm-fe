@@ -118,7 +118,7 @@
             <el-table-column
               :label="$t('common.operation')"
               align="center"
-              width="280"
+              width="350"
               v-if="rlp=='418'"
             >
               <template slot-scope="scope">
@@ -131,6 +131,14 @@
                   {{ $t('common.delete') }}
                 </el-button>
                 <el-button
+                  id="monitorBtn"
+                  type="text"
+                  size="small"
+                  @click="handleMonitor(scope.row)"
+                >
+                  {{ $t('edgeNode.monitor') }}
+                </el-button>
+                <el-button
                   id="uploadBtn"
                   @click.native.prevent="uploadFile(scope.row)"
                   type="text"
@@ -139,20 +147,20 @@
                   {{ $t('system.edgeNodes.uploadFile') }}
                 </el-button>
                 <el-button
+                  type="text"
+                  size="small"
+                  id="syncBtn"
+                  @click="syncFromEdge(scope.row)"
+                >
+                  {{ $t('app.packageList.sync') }}
+                </el-button>
+                <el-button
                   id="modifyBtn"
                   @click="handleModify(scope.row)"
                   type="text"
                   size="small"
                 >
                   {{ $t('common.modify') }}
-                </el-button>
-                <el-button
-                  id="monitorBtn"
-                  type="text"
-                  size="small"
-                  @click="handleMonitor(scope.row)"
-                >
-                  {{ $t('edgeNode.monitor') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -395,7 +403,7 @@
 </template>
 
 <script>
-import { appo, inventory } from '../tools/request.js'
+import { appo, apm, inventory } from '../tools/request.js'
 import pagination from '../components/Pagination.vue'
 import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -616,6 +624,18 @@ export default {
       this.fileList = []
       this.dialogVisibleUpload = true
       this.currForm = row
+    },
+    async syncFromEdge (row) {
+      let result = 0
+      await apm.syncFromApm()
+      await appo.syncFromAppo()
+      await inventory.syncMechost()
+      await inventory.syncApprule().then(res => {
+        result = 1
+      })
+      if (result === 1) {
+        this.$message.success(this.$t('app.packageList.syncSuccess'))
+      }
     },
     handleModify (row) {
       this.getList()
