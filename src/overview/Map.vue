@@ -1,5 +1,5 @@
 <!--
-  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -  Copyright 2020-2021 Huawei Technologies Co., Ltd.
   -
   -  Licensed under the Apache License, Version 2.0 (the "License");
   -  you may not use this file except in compliance with the License.
@@ -303,7 +303,7 @@ export default {
             },
             data: this.initMapData(mapJson),
             markPoint: {
-              symbol: 'image://./w.png',
+              symbol: 'image://./outer.png',
               symbolSize: [26, 26],
               hoverAnimation: true,
               data: data
@@ -387,7 +387,7 @@ export default {
         source: clusterSource,
         style: new Style({
           image: new Icon({
-            src: './w.png',
+            src: './outer.png',
             scale: 0.3
           })
         }),
@@ -415,7 +415,7 @@ export default {
       selectSingleClick.on('select', function (event) {
         event.selected[0].setStyle(new Style({
           image: new Icon({
-            src: './ww.png',
+            src: './inner.png',
             scale: 0.3
           })
         }))

@@ -1,5 +1,5 @@
 <!--
-  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -  Copyright 2020-2021 Huawei Technologies Co., Ltd.
   -
   -  Licensed under the Apache License, Version 2.0 (the "License");
   -  you may not use this file except in compliance with the License.
@@ -78,14 +78,6 @@
                     @click.native.prevent="handleDelete(item)"
                   >
                     {{ $t('common.delete') }}
-                  </el-button>
-                  <el-button
-                    type="primary"
-                    size="mini"
-                    class="button"
-                    id="syncBtn"
-                  >
-                    {{ $t('app.packageList.sync') }}
                   </el-button>
                   <el-button
                     type="primary"

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 Huawei Technologies Co., Ltd.
+ *  Copyright 2020-2021 Huawei Technologies Co., Ltd.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -151,6 +151,9 @@ let apm = {
       url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId
     }
     return DELETE(url)
+  },
+  syncFromApm () {
+    return POST(apmApi + '/tenants/' + getUserId() + 'app_package_infos/sync')
   }
 }
 
@@ -203,6 +206,9 @@ let appo = {
   },
   getTaskStatus (id) {
     return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
+  },
+  syncFromAppo () {
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
   }
 }
 
@@ -227,6 +233,12 @@ let inventory = {
   },
   getHwCapa (hostip) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
+  },
+  syncApprule (ip) {
+    return POST(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
+  },
+  syncMechost (ip) {
+    return POST(inventoryApi + '/mepms/' + ip + '/mechost/sync')
   }
 }
 

@@ -1,5 +1,5 @@
 <!--
-  -  Copyright 2020 Huawei Technologies Co., Ltd.
+  -  Copyright 2020-2021 Huawei Technologies Co., Ltd.
   -
   -  Licensed under the Apache License, Version 2.0 (the "License");
   -  you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@
             <el-table-column
               :label="$t('common.operation')"
               align="center"
-              width="280"
+              width="350"
               v-if="rlp=='418'"
             >
               <template slot-scope="scope">
@@ -131,6 +131,14 @@
                   {{ $t('common.delete') }}
                 </el-button>
                 <el-button
+                  id="monitorBtn"
+                  type="text"
+                  size="small"
+                  @click="handleMonitor(scope.row)"
+                >
+                  {{ $t('edgeNode.monitor') }}
+                </el-button>
+                <el-button
                   id="uploadBtn"
                   @click.native.prevent="uploadFile(scope.row)"
                   type="text"
@@ -139,20 +147,20 @@
                   {{ $t('system.edgeNodes.uploadFile') }}
                 </el-button>
                 <el-button
+                  type="text"
+                  size="small"
+                  id="syncBtn"
+                  @click="syncFromEdge(scope.row)"
+                >
+                  {{ $t('app.packageList.sync') }}
+                </el-button>
+                <el-button
                   id="modifyBtn"
                   @click="handleModify(scope.row)"
                   type="text"
                   size="small"
                 >
                   {{ $t('common.modify') }}
-                </el-button>
-                <el-button
-                  id="monitorBtn"
-                  type="text"
-                  size="small"
-                  @click="handleMonitor(scope.row)"
-                >
-                  {{ $t('edgeNode.monitor') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -395,7 +403,7 @@
 </template>
 
 <script>
-import { appo, inventory } from '../tools/request.js'
+import { appo, apm, inventory } from '../tools/request.js'
 import pagination from '../components/Pagination.vue'
 import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -617,6 +625,18 @@ export default {
       this.dialogVisibleUpload = true
       this.currForm = row
     },
+    async syncFromEdge (row) {
+      let result = 0
+      await apm.syncFromApm()
+      await appo.syncFromAppo()
+      await inventory.syncMechost(row.mechostIp)
+      await inventory.syncApprule(row.mechostIp).then(res => {
+        result = 1
+      })
+      if (result === 1) {
+        this.$message.success(this.$t('app.packageList.syncSuccess'))
+      }
+    },
     handleModify (row) {
       this.getList()
       this.editType = 2
@@ -747,9 +767,10 @@ export default {
         inventory.uploadConfig(this.currForm.mechostIp, params).then(response => {
           this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
           this.dialogVisibleUpload = false
+          this.getNodeListInPage()
         }).catch((error) => {
           console.log(error)
-          this.$message.error("File shouldn't contain any extension or filename is larger than max size")
+          this.$message.error(error)
           this.fileList = []
         })
       } else {
