@@ -629,8 +629,8 @@ export default {
       let result = 0
       await apm.syncFromApm()
       await appo.syncFromAppo()
-      await inventory.syncMechost()
-      await inventory.syncApprule().then(res => {
+      await inventory.syncMechost(row.mechostIp)
+      await inventory.syncApprule(row.mechostIp).then(res => {
         result = 1
       })
       if (result === 1) {

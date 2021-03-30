@@ -208,7 +208,7 @@ let appo = {
     return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
   },
   syncFromAppo () {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances_infos/sync')
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
   }
 }
 
@@ -235,7 +235,7 @@ let inventory = {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   },
   syncApprule (ip) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip)
+    return POST(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
   },
   syncMechost (ip) {
     return POST(inventoryApi + '/mepms/' + ip + '/mechost/sync')
