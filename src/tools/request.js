@@ -235,10 +235,10 @@ let inventory = {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   },
   syncApprule (ip) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
+    return GET(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
   },
   syncMechost (ip) {
-    return POST(inventoryApi + '/mepms/' + ip + '/mechost/sync')
+    return GET(inventoryApi + '/mepms/' + ip + '/mechost/sync')
   }
 }
 
