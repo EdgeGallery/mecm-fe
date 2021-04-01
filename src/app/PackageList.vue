@@ -478,6 +478,10 @@ export default {
     showSyncBox () {
       apm.getAppPackageList(this.appstoreIp).then(response => {
         this.paginationPackageData = response.data
+      }).catch(error => {
+        console.log(error)
+        this.paginationPackageData = []
+        this.selectData = []
       })
       this.syncDialogVisible = true
     },
@@ -511,6 +515,9 @@ export default {
             }
             this.syncDialogVisible = false
           }
+        }).catch(err => {
+          console.log(err)
+          this.$message.warning(this.$t('tip.noPermession'))
         })
       }
     },

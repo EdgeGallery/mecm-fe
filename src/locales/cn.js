@@ -368,7 +368,8 @@ const cn = {
     macMust: '请填写正确的MAC地址',
     idMust: '请填写正确的规则标识',
     domainMust: '请填写正确的域名',
-    beforeDeleteAppMgr: '确认要删除本条数据吗？'
+    beforeDeleteAppMgr: '确认要删除本条数据吗？',
+    noPermession: '当前用户无权操作！'
   },
   area: {
     beijing: '北京市',

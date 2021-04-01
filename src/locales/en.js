@@ -370,7 +370,8 @@ const en = {
     macMust: 'Please type right mac address.',
     idMust: 'Please type right rule ID.',
     domainMust: 'Please type right domain name.',
-    beforeDeleteAppMgr: 'Are you sure to delete this data?'
+    beforeDeleteAppMgr: 'Are you sure to delete this data?',
+    noPermession: 'No permission to operate, please login！'
   },
   area: {
     beijing: 'Beijing',
