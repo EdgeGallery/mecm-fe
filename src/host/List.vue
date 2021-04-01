@@ -403,7 +403,7 @@
 </template>
 
 <script>
-import { appo, apm, inventory } from '../tools/request.js'
+import { appo, apm, inventory } from '../tools/request1.js'
 import pagination from '../components/Pagination.vue'
 import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -686,6 +686,7 @@ export default {
         vim: 'K8S'
       }
       this.selectedArea = []
+      this.$refs.myCascader.clearCheckedNodes()
       this.capabilities = []
     },
     beforeDelete (row) {
