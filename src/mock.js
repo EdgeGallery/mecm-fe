@@ -15,16 +15,14 @@
  */
 const Mock = require('mockjs')
 const userData = function () {
-  return [
-    {
-      'userId': '######',
-      'userName': '******',
-      'isSecureBackend': 'true',
-      'loginPage': '',
-      'accessToken': '######',
-      'authorities': []
-    }
-  ]
+  return {
+    'userId': '######',
+    'userName': '******',
+    'isSecureBackend': 'true',
+    'loginPage': '',
+    'accessToken': '######',
+    'authorities': ['ROLE_MECM_ADMIN']
+  }
 }
 
 const hostData = function () {
