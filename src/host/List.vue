@@ -686,7 +686,6 @@ export default {
         vim: 'K8S'
       }
       this.selectedArea = []
-      this.$refs.myCascader.clearCheckedNodes()
       this.capabilities = []
     },
     beforeDelete (row) {
@@ -785,6 +784,7 @@ export default {
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
+        this.tableData = this.paginationData = []
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
           this.tableData = this.paginationData = []
         } else {
