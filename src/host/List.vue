@@ -664,6 +664,7 @@ export default {
       })
     },
     cancel (row) {
+      this.$refs.myCascader.$refs.panel.clearCheckedNodes()
       this.dialogVisible = false
       this.area = false
       this.area = false
@@ -687,7 +688,6 @@ export default {
       }
       this.selectedArea = []
       this.capabilities = []
-      this.$refs.myCascader.$refs.panel.clearCheckedNodes()
     },
     beforeDelete (row) {
       appo.getInstanceList().then(res => {
@@ -821,6 +821,7 @@ export default {
             inventory.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
               this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
               this.getNodeListInPage()
+              this.$refs.myCascader.$refs.panel.clearCheckedNodes()
               this.dialogVisible = false
               this.area = false
               this.isDisable = false
