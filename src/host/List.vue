@@ -403,7 +403,7 @@
 </template>
 
 <script>
-import { appo, apm, inventory } from '../tools/request1.js'
+import { appo, apm, inventory } from '../tools/request.js'
 import pagination from '../components/Pagination.vue'
 import Search from '../components/Search.vue'
 import Breadcrumb from '../components/BreadCrumb'
@@ -687,6 +687,7 @@ export default {
       }
       this.selectedArea = []
       this.capabilities = []
+      // this.$refs.myCascader.$refs.panel.clearCheckedNodes()
     },
     beforeDelete (row) {
       appo.getInstanceList().then(res => {
