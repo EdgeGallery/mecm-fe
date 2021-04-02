@@ -687,7 +687,7 @@ export default {
       }
       this.selectedArea = []
       this.capabilities = []
-      // this.$refs.myCascader.$refs.panel.clearCheckedNodes()
+      this.$refs.myCascader.$refs.panel.clearCheckedNodes()
     },
     beforeDelete (row) {
       appo.getInstanceList().then(res => {
