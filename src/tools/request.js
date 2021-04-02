@@ -153,7 +153,8 @@ let apm = {
     return DELETE(url)
   },
   syncFromApm () {
-    return POST(apmApi + '/tenants/' + getUserId() + '/app_package_infos/sync')
+    // return POST(apmApi + '/tenants/' + getUserId() + '/app_package_infos/sync')
+    return POST(apmApi + '/tenants/00000000-0000-0000-0000-000000000000/app_package_infos/sync')
   }
 }
 
@@ -208,7 +209,8 @@ let appo = {
     return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
   },
   syncFromAppo () {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
+    // return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
+    return POST(appoApi + '/tenants/00000000-0000-0000-0000-000000000000/app_instance_infos/sync')
   }
 }
 
@@ -235,7 +237,7 @@ let inventory = {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
   },
   syncApprule (ip) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
+    return GET(inventoryApi + '/tenants/00000000-0000-0000-0000-000000000000/mepms/' + ip + '/apprule/sync')
   },
   syncMechost (ip) {
     return GET(inventoryApi + '/mepms/' + ip + '/mechost/sync')
