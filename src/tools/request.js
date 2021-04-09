@@ -32,55 +32,32 @@ let appoApi = api + ':30201' + '/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
+axios.interceptors.request.use(
+  config => {
+    config.headers['access_token'] = getToken()
+    return config
+  },
+  error => {
+    ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
+    return Promise.reject(error)
+  }
+)
+
 axios.interceptors.response.use(
-  function (response) {
+  response => {
     return response
   },
-  function (error) {
+  error => {
     if (error.response.status === 401) {
       ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
       let host = window.location.hostname
       setTimeout(() => {
-        window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.href
+        window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.origin
       }, 1500)
     }
     return Promise.reject(error)
   }
 )
-
-function GET (url, params) {
-  let headers = {
-    'access_token': getToken()
-  }
-  return axios.get(url, {
-    params: params,
-    headers: headers
-  })
-}
-
-function POST (url, params) {
-  let headers = {
-    'access_token': getToken()
-  }
-  return axios.post(url, params, { headers: headers })
-}
-
-function PUT (url, params) {
-  let headers = {
-    'access_token': getToken()
-  }
-  return axios.put(url, params, { headers: headers })
-}
-
-function DELETE (url, params) {
-  let headers = {
-    'access_token': getToken()
-  }
-  return axios.delete(url, {
-    headers: headers,
-    data: params
-  })
-}
 
 function getUserId () {
   return sessionStorage.getItem('userId')
@@ -88,6 +65,26 @@ function getUserId () {
 
 function getToken () {
   return sessionStorage.getItem('access_token')
+}
+
+function GET (url, params) {
+  return axios.get(url, {
+    params: params
+  })
+}
+
+function POST (url, params) {
+  return axios.post(url, params)
+}
+
+function PUT (url, params) {
+  return axios.put(url, params)
+}
+
+function DELETE (url, params) {
+  return axios.delete(url, {
+    data: params
+  })
 }
 
 function getCookie (name) {

@@ -271,7 +271,7 @@ export default {
             this.multipleDelete(rows)
           })
         } else {
-          this.$message.warning('Please select one package at least!')
+          this.$message.warning(this.$t('tip.onePackageAtLeast'))
         }
       } else {
         this.$confirm(this.$t('app.instanceList.beforeDelete'), this.$t('common.warning'), {
@@ -311,7 +311,9 @@ export default {
       appo.batchDeleteInstanceApp(obj).then(response => {
         this.timeout()
       }).catch((error) => {
-        this.$message.error(error.response.data)
+        if (error.response.status === 403) {
+          this.$message.error(this.$t('tip.loginOperation'))
+        }
       })
     },
     confirmDetlete (appInstanceId) {
@@ -319,7 +321,9 @@ export default {
       appo.deleteInstanceApp(appInstanceId).then(response => {
         this.timeout()
       }).catch((error) => {
-        this.$message.error(error.response.data)
+        if (error.response.status === 403) {
+          this.$message.error(this.$t('tip.loginOperation'))
+        }
       })
     },
     checkDetail (rows) {
@@ -330,8 +334,8 @@ export default {
       }).catch((error) => {
         if (error.response.status === 404) {
           this.$message.warning(this.$t('tip.getStatusDelay'))
-        } else {
-          this.$message.error('Network Error')
+        } else if (error.response.status === 403) {
+          this.$message.error(this.$t('tip.loginOperation'))
         }
       })
     },

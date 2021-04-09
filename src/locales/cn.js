@@ -364,6 +364,7 @@ const cn = {
     loginStatusFailed: '登录状态已失效，请刷新界面并重新登录。',
     loginOperation: '您当前没有登录，请登录后操作。',
     operationInfo: '操作信息',
+    onePackageAtLeast: '请至少选择一条数据进行操作！',
     ttl: '请输入正确的ttl',
     macMust: '请填写正确的MAC地址',
     idMust: '请填写正确的规则标识',
