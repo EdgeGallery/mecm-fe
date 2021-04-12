@@ -272,14 +272,14 @@ const appRuleData = function () {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
         'ipAddressType': 'IP_V4',
-        'ipAddress': '1.1.1.1',
+        'ipAddress': '127.0.0.1',
         'ttl': 86400
       },
       {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
         'ipAddressType': 'IP_V4',
-        'ipAddress': '1.1.1.1',
+        'ipAddress': '127.0.0.1',
         'ttl': 86400
       }
     ],
@@ -292,18 +292,18 @@ const appRuleData = function () {
         'trafficFilter': [
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -313,16 +313,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -330,18 +330,18 @@ const appRuleData = function () {
           },
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -351,16 +351,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -372,25 +372,25 @@ const appRuleData = function () {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           },
           {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           }
         ]
       },
@@ -402,18 +402,18 @@ const appRuleData = function () {
         'trafficFilter': [
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -423,16 +423,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -440,18 +440,18 @@ const appRuleData = function () {
           },
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -461,16 +461,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -482,25 +482,25 @@ const appRuleData = function () {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           },
           {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           }
         ]
       }
@@ -534,7 +534,7 @@ const apprulemanagersData = function () {
 
 const appstoreData = function () {
   return [
-    { 'appstoreIp': '127.0.0.1', 'appstorePort': '30099', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '127.0.0.1:443', 'appstoreRepoUserName': 'admin', 'appstoreRepoPassword': 'Harbor@12345', 'producer': 'huawei' }
+    { 'appstoreIp': '127.0.0.1', 'appstorePort': '443', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '127.0.0.1:443', 'appstoreRepoUserName': 'xxx', 'appstoreRepoPassword': 'xxx', 'producer': 'huawei' }
   ]
 }
 
