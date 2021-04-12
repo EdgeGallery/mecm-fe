@@ -30,19 +30,19 @@ const hostData = function () {
     {
       address: '4/4.1/114.059448,22.653555',
       affinity: 'X86',
-      applcmIp: '119.8.63.144',
-      appRuleIp: '119.8.47.2',
+      applcmIp: '127.0.0.1',
+      appRuleIp: '127.0.0.1',
       city: '北京市/海淀区/中国信通院',
-      edgerepoIp: '119.8.47.2',
+      edgerepoIp: '127.0.0.1',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.63.144',
+      mechostIp: '127.0.0.1',
       mechostName: 'Node',
       coordinates: '116.35,39.979508',
       userName: '',
       zipCode: '',
-      appRuleManagerIp: '119.8.47.2',
+      appRuleManagerIp: '127.0.0.1',
       capability: 'GPU',
       hwcapabilities: [{
         'hwType': 'GPU',
@@ -58,14 +58,14 @@ const hostData = function () {
     {
       address: '2/2.1/118.822617,31.871027',
       affinity: 'X86',
-      applcmIp: '119.8.47.2',
-      appRuleIp: '119.8.47.2',
+      applcmIp: '127.0.0.1',
+      appRuleIp: '127.0.0.1',
       city: '江苏省/南京市/紫金山实验室',
-      edgerepoIp: '119.8.47.2',
+      edgerepoIp: '127.0.0.1',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.47.2',
+      mechostIp: '127.0.0.1',
       coordinates: '118.82832,31.876148',
       mechostName: 'Node',
       userName: '',
@@ -85,19 +85,19 @@ const hostData = function () {
     {
       address: '4/4.1/114.059448,22.653555',
       affinity: 'X86',
-      applcmIp: '119.8.63.144',
-      appRuleIp: '119.8.47.2',
+      applcmIp: '127.0.0.1',
+      appRuleIp: '127.0.0.1',
       city: '北京市/海淀区/中国信通院',
-      edgerepoIp: '119.8.47.2',
+      edgerepoIp: '127.0.0.1',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.63.144',
+      mechostIp: '127.0.0.1',
       mechostName: 'Node',
       coordinates: '116.35,39.979508',
       userName: '',
       zipCode: '',
-      appRuleManagerIp: '119.8.47.2',
+      appRuleManagerIp: '127.0.0.1',
       capability: 'GPU',
       hwcapabilities: [{
         'hwType': 'GPU',
@@ -113,14 +113,14 @@ const hostData = function () {
     {
       address: '2/2.1/118.822617,31.871027',
       affinity: 'X86',
-      applcmIp: '119.8.47.2',
-      appRuleIp: '119.8.47.2',
+      applcmIp: '127.0.0.1',
+      appRuleIp: '127.0.0.1',
       city: '江苏省/南京市/紫金山实验室',
-      edgerepoIp: '119.8.47.2',
+      edgerepoIp: '127.0.0.1',
       edgerepoName: null,
       edgerepoPort: '1234',
       edgerepoUsername: '',
-      mechostIp: '119.8.47.2',
+      mechostIp: '127.0.0.1',
       coordinates: '118.82832,31.876148',
       mechostName: 'Node',
       userName: '',
@@ -169,8 +169,8 @@ const instanceList = function () {
         'appName': 'zone',
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
-        'mecHost': '119.8.47.2',
-        'applcmHost': '119.8.47.2',
+        'mecHost': '127.0.0.1',
+        'applcmHost': '127.0.0.1',
         'operationalStatus': 'Instantiated',
         'operationInfo': 'success'
       }
@@ -240,9 +240,9 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '119.8.47.2', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '119.8.53.5', 'status': 'Distributed', 'error': '' }
+      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' }
     ]
   },
   {
@@ -258,9 +258,9 @@ const distributionData = function () {
     'modifiedTime': '2020-09-19T07:31:33.455',
     'appId': '73b6f66992ab4798a55350f419a210af',
     'mecHostInfo': [
-      { 'hostIp': '119.8.47.2', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '119.8.53.4', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '119.8.53.5', 'status': 'Error', 'error': '' }
+      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
+      { 'hostIp': '127.0.0.1', 'status': 'Error', 'error': '' }
     ]
   }]
 }
@@ -272,14 +272,14 @@ const appRuleData = function () {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
         'ipAddressType': 'IP_V4',
-        'ipAddress': '1.1.1.1',
+        'ipAddress': '127.0.0.1',
         'ttl': 86400
       },
       {
         'dnsRuleId': 'DNS25841',
         'domainName': 'domainname',
         'ipAddressType': 'IP_V4',
-        'ipAddress': '1.1.1.1',
+        'ipAddress': '127.0.0.1',
         'ttl': 86400
       }
     ],
@@ -292,18 +292,18 @@ const appRuleData = function () {
         'trafficFilter': [
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -313,16 +313,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -330,18 +330,18 @@ const appRuleData = function () {
           },
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -351,16 +351,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -372,25 +372,25 @@ const appRuleData = function () {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           },
           {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           }
         ]
       },
@@ -402,18 +402,18 @@ const appRuleData = function () {
         'trafficFilter': [
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -423,16 +423,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -440,18 +440,18 @@ const appRuleData = function () {
           },
           {
             'srcAddress': [
-              '192.168.1.1',
-              '1.1.1.1'
+              '127.0.0.1',
+              '127.0.0.1'
             ],
             'srcPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'dstAddress': [
-              '192.168.1.1'
+              '127.0.0.1'
             ],
             'dstPort': [
-              '8080',
+              '443',
               '1234'
             ],
             'protocol': [
@@ -461,16 +461,16 @@ const appRuleData = function () {
               'tag'
             ],
             'srcTunnelAddress': [
-              '1.1.1.1'
+              '127.0.0.1'
             ],
             'dstTunnelAddress': [
-              '2.2.2.2'
+              '127.0.0.1'
             ],
             'srcTunnelPort': [
-              '8080'
+              '443'
             ],
             'dstTunnelPort': [
-              '8080'
+              '443'
             ],
             'qCI': 1,
             'dSCP': 0,
@@ -482,25 +482,25 @@ const appRuleData = function () {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           },
           {
             'interfaceType': 'tunnel',
             'tunnelInfo': {
               'tunnelType': 'tunneltype',
-              'tunnelDstAddress': '1.1.1.1',
-              'tunnelSrcAddress': '2.2.2.2',
+              'tunnelDstAddress': '127.0.0.1',
+              'tunnelSrcAddress': '127.0.0.1',
               'tunnelSpecificData': 'some data'
             },
-            'srcMacAddress': 'da:07:39:28:e1:4f',
-            'dstMacAddress': 'da:07:39:28:e1:4f',
-            'dstIpAddress': '3.3.3.3'
+            'srcMacAddress': 'da:da:da:da:da:da',
+            'dstMacAddress': 'da:da:da:da:da:da',
+            'dstIpAddress': '127.0.0.1'
           }
         ]
       }
@@ -513,7 +513,7 @@ const appRuleData = function () {
 const applcmData = function () {
   return [
     {
-      'applcmIp': '119.8.125.174',
+      'applcmIp': '127.0.0.1',
       'applcmName': 'APPLCM',
       'applcmPort': '30101',
       'userName': 'Xxx'
@@ -524,7 +524,7 @@ const applcmData = function () {
 const apprulemanagersData = function () {
   return [
     {
-      'appRuleIp': '119.8.125.174',
+      'appRuleIp': '127.0.0.1',
       'appRuleName': 'MGR1',
       'appRulePort': '30206',
       'userName': 'Xxx'
@@ -534,7 +534,7 @@ const apprulemanagersData = function () {
 
 const appstoreData = function () {
   return [
-    { 'appstoreIp': '119.8.63.144', 'appstorePort': '30099', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '119.8.63.144:443', 'appstoreRepoUserName': 'admin', 'appstoreRepoPassword': 'Harbor@12345', 'producer': 'huawei' }
+    { 'appstoreIp': '127.0.0.1', 'appstorePort': '443', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '127.0.0.1:443', 'appstoreRepoUserName': 'xxx', 'appstoreRepoPassword': 'xxx', 'producer': 'huawei' }
   ]
 }
 
