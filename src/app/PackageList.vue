@@ -515,9 +515,10 @@ export default {
             }
             this.syncDialogVisible = false
           }
-        }).catch(err => {
-          console.log(err)
-          this.$message.warning(this.$t('tip.noPermession'))
+        }).catch(error => {
+          if (error.response.status === 403) {
+            this.$message.error(this.$t('tip.loginOperation'))
+          }
         })
       }
     },

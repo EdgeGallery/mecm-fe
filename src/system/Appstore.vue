@@ -358,7 +358,6 @@ export default {
     confirmToRegister (form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          console.log(this.form)
           if (this.editType === 1) {
             inventory.create(3, this.form).then(res => {
               this.showSuccessTip()

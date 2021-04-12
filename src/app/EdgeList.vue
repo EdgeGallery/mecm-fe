@@ -404,7 +404,7 @@ export default {
           this.$message.error(this.$t('app.disriList.deleteError'))
         }
       } else {
-        this.$message.warning('Please select one package at least!')
+        this.$message.warning(this.$t('tip.onePackageAtLeast'))
       }
     },
     beforeDelete (rows) {
