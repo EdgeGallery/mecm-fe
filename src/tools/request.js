@@ -114,15 +114,6 @@ let user = {
   }
 }
 
-let appstore = {
-  getPackageList (appId) {
-    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
-  },
-  getAppListFromAppStore () {
-    return GET('/mec-appstore/mec/appstore/v1/apps')
-  }
-}
-
 let apm = {
   getAppPackageList (appstoreIp) {
     return GET(apmApi + '/apps/info/appstores/' + appstoreIp)
@@ -245,7 +236,6 @@ export {
   PUT,
   DELETE,
   user,
-  appstore,
   apm,
   appo,
   inventory
