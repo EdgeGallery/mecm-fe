@@ -27,7 +27,7 @@ import i18n from './locales/i18n.js'
 import VCharts from 'v-charts'
 import { pcaa } from 'area-data-vue'
 import AreaLinkageVue from 'area-linkage-vue'
-import axios from 'axios'
+// import axios from 'axios'
 Vue.prototype.showMessage = function (type, msg, time) {
   ElementUI.Message({
     showClose: true,
@@ -43,16 +43,16 @@ Vue.use(ElementUI, { locale })
 Vue.use(VCharts)
 Vue.config.productionTip = false
 
-router.beforeEach((to, from, next) => {
-  axios.get('/auth/login-info').then(res => {
-    if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
-      sessionStorage.setItem('rlp', 418)
-    } else {
-      sessionStorage.removeItem('rlp')
-    }
-    next()
-  })
-})
+// router.beforeEach((to, from, next) => {
+//   axios.get('/auth/login-info').then(res => {
+//     if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
+//       sessionStorage.setItem('rlp', 418)
+//     } else {
+//       sessionStorage.removeItem('rlp')
+//     }
+//     next()
+//   })
+// })
 
 new Vue({
   router,

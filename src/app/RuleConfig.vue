@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Breadcrumb from '../components/BreadCrumb'
+import Breadcrumb from '../components/common/BreadCrumb.vue'
 import Dnspannel from './Dns.vue'
 import Trafficpannel from './Traffic.vue'
 export default {

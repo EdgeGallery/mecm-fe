@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Navbar from './components/Nav'
+import Navbar from './components/nav/Nav'
 export default {
   name: 'App',
   components: {

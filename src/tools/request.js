@@ -14,222 +14,69 @@
  *  limitations under the License.
  */
 
-import axios from 'axios'
-import ElementUI from 'element-ui'
-import i18n from '../locales/i18n.js'
-import 'element-ui/lib/theme-chalk/index.css'
+//  Mock Data
+//  本地调试替换request.js
 
-let inventoryApi = '/mecm-inventory/inventory/v1'
-let apmApi = '/mecm-apm/apm/v1'
-let appoApi = '/mecm-appo/appo/v1'
+import axios from 'axios'
+require('../mock.js')
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
-axios.interceptors.request.use(
-  config => {
-    config.headers['access_token'] = getToken()
-    return config
-  },
-  error => {
-    ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
-    return Promise.reject(error)
-  }
-)
-
-axios.interceptors.response.use(
-  response => {
-    return response
-  },
-  error => {
-    if (error.response.status === 401) {
-      ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
-      let host = window.location.hostname
-      setTimeout(() => {
-        window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.origin
-      }, 1500)
-    }
-    return Promise.reject(error)
-  }
-)
-
-function getUserId () {
-  return sessionStorage.getItem('userId')
-}
-
-function getToken () {
-  return sessionStorage.getItem('access_token')
-}
-
-function GET (url, params) {
-  return axios.get(url, {
-    params: params
-  })
-}
-
-function POST (url, params) {
-  return axios.post(url, params)
-}
-
-function PUT (url, params) {
-  return axios.put(url, params)
-}
-
-function DELETE (url, params) {
-  return axios.delete(url, {
-    data: params
-  })
-}
-
-function getCookie (name) {
-  let arr = []
-  let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)')
-  if (arr === document.cookie.match(reg)) {
-    return (arr[2])
-  } else {
-    return null
-  }
-}
-
 let user = {
   getUserInfo () {
-    return axios.get('/auth/login-info')
-  },
-  logout () {
-    return axios({
-      method: 'POST',
-      url: '/logout',
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
-      }
-    })
+    return axios.get('/mock/login')
   }
 }
 
+let appstore = {
+  getAppListFromAppStore () {
+    return axios.get('/mock/appPackageList')
+  }
+}
 let apm = {
-  getAppPackageList (appstoreIp) {
-    return GET(apmApi + '/apps/info/appstores/' + appstoreIp)
-  },
-  syncAppFromStore (params) {
-    return POST(apmApi + '/apps/sync', params)
-  },
-  initApmPackages () {
-    return GET(apmApi + '/apps/syncstatus')
-  },
-  getOneSyncStatus (appId, packageId) {
-    return GET(apmApi + '/apps/' + appId + '/packages/' + packageId + '/syncstatus')
-  },
-  confirmToDistribute (params) {
-    return POST(apmApi + '/tenants/' + getUserId() + '/packages', params)
-  },
   getDistributionList () {
-    return GET(apmApi + '/tenants/' + getUserId() + '/packages')
+    return axios.get('/mock/appDistributionList')
   },
-  deleteDistributionApp (type, hostIp, packageId) {
-    let url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId + '/hosts/' + hostIp
-    if (type === 2) {
-      url = apmApi + '/tenants/' + getUserId() + '/packages/' + packageId
-    }
-    return DELETE(url)
-  },
-  syncFromApm () {
-    return POST(apmApi + '/tenants/' + getUserId() + '/app_package_infos/sync')
+  getAppPackageList () {
+    return axios.get('/mock/appPackageList')
   }
 }
-
 let appo = {
-  getNodeKpi (hostip) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostip + '/kpi')
-  },
-  getServiceInfo (instanceId) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
-  },
-  getMepCapabilities (hostip) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostip + '/mep_capabilities')
-  },
-  confirmToDeploy (params) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances', params)
-  },
-  confirmToBatchDeploy (params) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_create', params)
-  },
-  getInstanceInfo (instanceId) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
-  },
-  instantiateApp (instanceId) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
-  },
-  batchInstantiateApp (params) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
-  },
   getInstanceList () {
-    return GET(appoApi + '/tenants/' + getUserId() + '/app_instance_infos')
+    return axios.get('/mock/instanceInfo')
   },
-  getInstanceDetail (appInstanceId) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/app_instances/' + appInstanceId)
+  getInstanceDetail () {
+    return axios.get('/mock/instanceInfo')
   },
-  deleteInstanceApp (instanceId) {
-    return DELETE(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  getAppInfo () {
+    return axios.get('/mock/instanceInfo')
   },
-  batchDeleteInstanceApp (params) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_terminate', params)
+  getMepCapabilities () {
+    return axios.get('/mock/getSwCapability')
   },
-  addConfigRules (type, id, params) {
-    if (type === 2) {
-      return PUT(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
-    } else {
-      return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
-    }
+  getNodeKpi () {
+    return axios.get('/mock/kpiInfo')
   },
-  deleteConfigRules (id, params) {
-    return DELETE(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration', params)
-  },
-  getTaskStatus (id) {
-    return GET(appoApi + '/tenants/' + getUserId() + '/apprule_task_infos/' + id)
-  },
-  syncFromAppo () {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
+  getServiceInfo () {
+    return axios.get('/mock/seviceInfo')
   }
 }
-
 let inventory = {
-  create (type, params) {
-    return POST(inventoryApi + inventoryUrl[type - 1], params)
-  },
   getList (type) {
-    return GET(inventoryApi + inventoryUrl[type - 1])
+    return axios.get('/mock' + inventoryUrl[type - 1])
   },
-  modify (type, params, ip) {
-    return PUT(inventoryApi + inventoryUrl[type - 1] + '/' + ip, params)
+  getHwCapa () {
+    return axios.get('/mock/getHwCapability')
   },
-  delete (type, params) {
-    return DELETE(inventoryApi + inventoryUrl[type - 1] + '/' + params)
-  },
-  uploadConfig (ip, params) {
-    return POST(inventoryApi + '/mechosts/' + ip + '/k8sconfig', params)
-  },
-  getConfigRules (id) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
-  },
-  getHwCapa (hostip) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + hostip + '/capabilities')
-  },
-  syncApprule (ip) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
-  },
-  syncMechost (ip) {
-    return GET(inventoryApi + '/mepms/' + ip + '/mechost/sync')
+  getConfigRules () {
+    return axios.get('/mock/getConfigRules')
   }
 }
 
 export {
-  GET,
-  POST,
-  PUT,
-  DELETE,
   user,
   apm,
   appo,
+  appstore,
   inventory
 }

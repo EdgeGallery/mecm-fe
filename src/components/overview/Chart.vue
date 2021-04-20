@@ -27,7 +27,6 @@
 <script>
 import echarts from 'echarts'
 
-let myChart1
 export default {
   name: 'BarChart',
   props: {
@@ -107,8 +106,8 @@ export default {
       }
     },
     mapChart () {
-      myChart1 = echarts.init(document.getElementById('barChart'), 'dark')
-      myChart1.setOption(this.option, true)
+      this.myChart1 = echarts.init(document.getElementById('barChart'), 'dark')
+      this.myChart1.setOption(this.option, true)
     }
   }
 }

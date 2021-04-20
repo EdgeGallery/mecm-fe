@@ -120,7 +120,7 @@
 </template>
 
 <script>
-import { TYPES, AFFINITY } from '../tools/constant.js'
+import { TYPES, AFFINITY } from '../../tools/constant.js'
 export default {
   props: {
     nameItem: {

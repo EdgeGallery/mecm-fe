@@ -41,8 +41,8 @@
 </template>
 
 <script>
-import CityMap from '../assets/js/CityMap'
-import { inventory } from '../tools/request.js'
+import CityMap from '../../assets/js/CityMap'
+import { inventory } from '../../tools/request.js'
 import echarts from 'echarts'
 
 import 'ol/ol.css'
