@@ -355,14 +355,11 @@ export default {
       })
     },
     getNodeKpi (ip) {
-      inventory.getHwCapa(ip).then(res => {
+      appo.getNodeKpi(ip).then(res => {
         if (res.data) {
           let str = res.data.response
           this.kpiInfo = JSON.parse(str)
-          console.log(this.kpiInfo)
         }
-      }).catch(() => {
-        // this.$message.error(this.$t('tip.getKpiFailed'))
       })
     },
     getServiceInfo (instanceId) {
