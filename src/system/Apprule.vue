@@ -39,7 +39,7 @@
           <el-button
             id="newregBtn"
             type="primary"
-            @click="register"
+            @click="showEditDialog('')"
             class="rt"
           >
             {{ $t('system.appLcm.newReg') }}
@@ -84,7 +84,7 @@
                     size="mini"
                     class="button"
                     id="modifyBtn"
-                    @click="handleEdit(item)"
+                    @click="showEditDialog(item)"
                   >
                     {{ $t('common.modify') }}
                   </el-button>
@@ -108,79 +108,29 @@
       :visible.sync="dialogVisible"
       width="25%"
     >
-      <el-row>
-        <el-col>
-          <el-form
-            label-width="auto"
-
-            :model="form"
-            ref="form"
-            :rules="rules"
-          >
-            <el-form-item
-              :label="$t('system.appLcm.name')"
-              prop="appRuleName"
-            >
-              <el-input
-                id="name"
-                maxlength="20"
-                v-model="form.appRuleName"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('app.packageList.ip')"
-              prop="appRuleIp"
-            >
-              <el-input
-                id="ip"
-                v-model="form.appRuleIp"
-                :disabled="ipDisable"
-              />
-            </el-form-item>
-            <el-form-item
-              :label="$t('system.appLcm.port')"
-              prop="appRulePort"
-            >
-              <el-input
-                id="port"
-                v-model="form.appRulePort"
-              />
-            </el-form-item>
-          </el-form>
-        </el-col>
-      </el-row>
-      <span
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          id="cancelBtn"
-          size="small"
-          @click="dialogVisible = false"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          size="small"
-          @click="confirmToRegister('form')"
-        >{{ $t('common.confirm') }}</el-button>
-      </span>
+      <AppruleDialog
+        :rowdata="formdata"
+        :type="type"
+        @close="closeEditDialog"
+      />
     </el-dialog>
   </div>
 </template>
 
 <script>
 import { inventory } from '../tools/request.js'
-import Search from '../components/Search.vue'
-import pagination from '../components/Pagination.vue'
-import Breadcrumb from '../components/BreadCrumb'
+import Search from '../components/common/Search.vue'
+import pagination from '../components/common/Pagination.vue'
+import Breadcrumb from '../components/common/BreadCrumb.vue'
+import AppruleDialog from '../components/system/AppruleDialog.vue'
 
 export default {
   name: 'SysLcm',
   components: {
     pagination,
     Breadcrumb,
-    Search
+    Search,
+    AppruleDialog
   },
   data () {
     return {
@@ -188,41 +138,30 @@ export default {
       tableData: [],
       currPageTableData: [],
       paginationData: [],
+      formdata: {},
+      type: 0,
       dialogVisible: false,
-      ipDisable: false,
       title: this.$t('app.ruleConfig.appRuleManReg'),
-      form: {
-        appRuleIp: '',
-        appRulePort: 30206,
-        userName: '',
-        appRuleName: ''
-      },
-      editType: 1,
       rlp: sessionStorage.getItem('rlp')
-    }
-  },
-  computed: {
-    rules () {
-      return {
-        appRuleIp: [
-          { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
-          { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        appRulePort: [
-          { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
-          { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
-        ],
-        appRuleName: [
-          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
-          { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
-        ]
-      }
     }
   },
   mounted () {
     this.initList()
   },
   methods: {
+    initList () {
+      inventory.getList(4).then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      }, error => {
+        this.dataLoading = false
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
+      })
+    },
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
         let itemVal = item[key].toLowerCase()
@@ -249,14 +188,6 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    handleEdit (row) {
-      this.editType = 2
-      this.title = this.$t('app.ruleConfig.appRuleManEdit')
-      this.dialogVisible = true
-      this.ipDisable = true
-      let middleData = JSON.parse(JSON.stringify(row))
-      this.form = middleData
-    },
     handleDelete (row) {
       this.$confirm(this.$t('tip.beforeDeleteAppMgr'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
@@ -272,63 +203,20 @@ export default {
         })
       })
     },
-    register () {
-      this.editType = 1
-      this.title = this.$t('app.ruleConfig.appRuleManReg')
-      this.form = {
-        appRuleIp: '',
-        appRulePort: 30206,
-        userName: '',
-        appRuleName: ''
+    showEditDialog (data) {
+      if (data) {
+        this.formdata = data
+        this.type = 2
+        this.title = this.$t('system.appLcm.applcmModify')
+      } else {
+        this.type = 1
+        this.title = this.$t('system.appLcm.applcmReg')
       }
       this.dialogVisible = true
-      this.ipDisable = false
-      this.$nextTick(() => {
-        this.$refs.form.resetFields()
-      })
     },
-    confirmToRegister (form) {
-      console.log(this.form)
-      this.$refs[form].validate(valid => {
-        if (valid) {
-          if (this.editType === 1) {
-            inventory.create(4, this.form).then(res => {
-              this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
-              this.initList()
-              this.dialogVisible = false
-            }, error => {
-              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
-                this.$message.error(error.response.data.details[0])
-              } else if (error.response.status === 403) {
-                this.$message.error(this.$t('tip.loginOperation'))
-              } else {
-                this.$message.error(error.response.data)
-              }
-            })
-          } else {
-            inventory.modify(4, this.form, this.form.appRuleIp).then(res => {
-              this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
-              this.initList()
-              this.dialogVisible = false
-            }, error => {
-              this.$message.error(error.response.data)
-            })
-          }
-        }
-      })
-    },
-    initList () {
-      inventory.getList(4).then(res => {
-        this.tableData = this.paginationData = res.data
-        this.dataLoading = false
-      }, error => {
-        this.dataLoading = false
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
-        }
-      })
+    closeEditDialog () {
+      this.dialogVisible = false
+      this.initList()
     }
   }
 }

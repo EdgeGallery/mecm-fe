@@ -797,31 +797,31 @@ export default {
       trafficFilterData: [],
       dstInterfaceData: [],
       trafficFilter: {
-        srcAddress: '192.168.1.1/32',
+        srcAddress: '127.0.0.1/32',
         srcPort: '8080',
-        dstAddress: '192.168.1.1/32',
+        dstAddress: '127.0.0.1/32',
         dstPort: '8080',
         protocol: 'ANY',
         qCI: '0',
         dSCP: '0',
         tC: '0',
         tag: 'tag',
-        srcTunnelAddress: '1.1.1.1',
+        srcTunnelAddress: '127.0.0.1',
         srcTunnelPort: '8080',
-        dstTunnelAddress: '2.2.2.2',
+        dstTunnelAddress: '127.0.0.1',
         dstTunnelPort: '8080'
       },
       dstInterface: {
         interfaceType: 'TUNNEL',
         tunnelInfo: {
           tunnelType: 'GRE',
-          tunnelDstAddress: '3.3.3.3',
-          tunnelSrcAddress: '4.4.4.4',
+          tunnelDstAddress: '127.0.0.1',
+          tunnelSrcAddress: '127.0.0.1',
           tunnelSpecificData: 'any'
         },
         srcMacAddress: '02-00-00-00-00-00',
         dstMacAddress: '02-00-00-00-00-00',
-        dstIpAddress: '5.5.5.5'
+        dstIpAddress: '127.0.0.1'
       },
       interfaceIndex: -1,
       filterIndex: -1,

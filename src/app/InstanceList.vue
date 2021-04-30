@@ -177,9 +177,9 @@
 </template>
 
 <script>
-import Search from '../components/Search.vue'
-import Pagination from '../components/Pagination.vue'
-import Breadcrumb from '../components/BreadCrumb'
+import Search from '../components/common/Search.vue'
+import Pagination from '../components/common/Pagination.vue'
+import Breadcrumb from '../components/common/BreadCrumb.vue'
 import { appo } from '../tools/request.js'
 
 export default {

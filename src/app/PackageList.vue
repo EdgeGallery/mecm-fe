@@ -342,9 +342,9 @@
 <script>
 import { apm, inventory } from '../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
-import Search from '../components/Search.vue'
-import Pagination from '../components/Pagination.vue'
-import Breadcrumb from '../components/BreadCrumb'
+import Search from '../components/common/Search.vue'
+import Pagination from '../components/common/Pagination.vue'
+import Breadcrumb from '../components/common/BreadCrumb.vue'
 export default {
   name: 'ApacList',
   components: {

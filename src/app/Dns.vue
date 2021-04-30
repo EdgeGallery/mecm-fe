@@ -210,7 +210,7 @@ export default {
         dnsRuleId: '',
         domainName: 'domainname',
         ipAddressType: 'IP_V4',
-        ipAddress: '192.5.14.68',
+        ipAddress: '127.0.0.1',
         ttl: '85000'
       },
       ipAddressType: [
@@ -308,7 +308,7 @@ export default {
         dnsRuleId: '',
         domainName: 'domainname',
         ipAddressType: 'IP_V4',
-        ipAddress: '192.5.14.68',
+        ipAddress: '127.0.0.1',
         ttl: '85000'
       }
     },

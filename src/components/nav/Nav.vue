@@ -29,7 +29,7 @@
         >
           <img
             class="cp"
-            src="../assets/images/logo.png"
+            src="../../assets/images/logo.png"
             alt=""
           >
         </div>
@@ -103,11 +103,11 @@
 </template>
 
 <script>
-import NavData from '../data/NavData.js'
-import NavDataCn from '../data/NavDataCn.js'
-import { user } from '../tools/request.js'
-import Topbar from '../components/Topbar'
-import Topbarsmall from '../components/Topbarsmall'
+import NavData from '../../data/NavData.js'
+import NavDataCn from '../../data/NavDataCn.js'
+import { user } from '../../tools/request.js'
+import Topbar from './Topbar'
+import Topbarsmall from './Topbarsmall'
 export default {
   name: 'Navgation',
   components: {

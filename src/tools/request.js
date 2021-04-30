@@ -19,16 +19,9 @@ import ElementUI from 'element-ui'
 import i18n from '../locales/i18n.js'
 import 'element-ui/lib/theme-chalk/index.css'
 
-let api
-if (window.location.href.indexOf('30093') > -1) {
-  api = 'https://' + window.location.href.split('//')[1].split(':')[0]
-} else {
-  api = 'https://' + window.location.host
-}
-
-let inventoryApi = api + ':30203' + '/inventory/v1'
-let apmApi = api + ':30202' + '/apm/v1'
-let appoApi = api + ':30201' + '/appo/v1'
+let inventoryApi = '/mecm-inventory/inventory/v1'
+let apmApi = '/mecm-apm/apm/v1'
+let appoApi = '/mecm-appo/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
 
@@ -111,15 +104,6 @@ let user = {
         'X-XSRF-TOKEN': getCookie('XSRF-TOKEN')
       }
     })
-  }
-}
-
-let appstore = {
-  getPackageList (appId) {
-    return GET('/mec-appstore/mec/appstore/v1/apps/' + appId + '/packages')
-  },
-  getAppListFromAppStore () {
-    return GET('/mec-appstore/mec/appstore/v1/apps')
   }
 }
 
@@ -245,7 +229,6 @@ export {
   PUT,
   DELETE,
   user,
-  appstore,
   apm,
   appo,
   inventory

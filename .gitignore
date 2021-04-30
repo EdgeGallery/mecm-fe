@@ -1,2 +1,5 @@
 node_modules
 /dist
+copyright.sh
+/src/tools/request1.js
+/src/mock.js
