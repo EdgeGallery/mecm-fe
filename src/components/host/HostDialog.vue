@@ -64,6 +64,27 @@
               </template>
             </el-cascader>
           </el-form-item>
+          <!-- <el-form-item
+            :label="$t('system.edgeNodes.location')"
+            prop="city"
+          >
+            <area-select
+              v-model="selectedArea"
+              :data="$pcaa"
+              :level="3"
+              type="text"
+            />
+          </el-form-item>
+          <el-form-item
+            label="坐标"
+            prop="city"
+          >
+            <el-input
+              id="coord"
+              v-model="currForm.mechostIp"
+              placeholder="请输入经度和纬度，使用英文‘,’分割"
+            />
+          </el-form-item> -->
           <el-form-item
             :label="$t('app.packageList.affinity')"
             prop="affinity"
