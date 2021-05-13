@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.edgeNode')"
-      :path="{ path: '/mecm/systems/external/applcm' }"
+      :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="sysk8s">
       <Search
@@ -209,8 +209,8 @@ import { appo, apm, inventory } from '../tools/request.js'
 import pagination from '../components/common/Pagination.vue'
 import Search from '../components/common/Search.vue'
 import Breadcrumb from '../components/common/BreadCrumb.vue'
-import FormContent from '../components/host/HostDialog.vue'
-import UploadFile from '../components/host/UploadDialog.vue'
+import FormContent from './HostDialog.vue'
+import UploadFile from './UploadDialog.vue'
 export default {
   name: 'Sysk8s',
   components: {

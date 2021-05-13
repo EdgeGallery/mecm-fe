@@ -16,71 +16,53 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '../components/common/Layout.vue'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'mec-overview',
-      component: () => import('../overview/Overview.vue')
-    }, {
-      path: '/index',
-      redirect: '/',
-      component: () => import('../overview/Overview.vue')
+      name: 'overview',
+      component: () => import('../overview/Index.vue')
     },
     {
-      path: '',
-      name: 'layout',
-      component: Layout,
-      children: [
-        {
-          path: 'mecm/apac/list',
-          name: 'apaclist',
-          component: () => import('../app/PackageList.vue')
-        },
-        {
-          path: 'mecm/ruleconfig',
-          name: 'rule',
-          component: () => import('../app/RuleConfig.vue')
-        },
-        {
-          path: 'mecm/edge/list',
-          name: 'edgelist',
-          component: () => import('../app/EdgeList.vue')
-        },
-        {
-          path: 'mecm/apac/detail',
-          name: 'apacdetail',
-          component: () => import('../app/PackageDetail.vue')
-        },
-        {
-          path: 'mecm/ains/list',
-          name: 'ainslist',
-          component: () => import('../app/InstanceList.vue')
-        },
-        {
-          path: 'mecm/node/list',
-          name: 'hostOverview',
-          component: () => import('../host/List.vue')
-        },
-        {
-          path: 'mecm/systems/external/applcm',
-          name: 'externalSystem1',
-          component: () => import('../system/Applcm.vue')
-        },
-        {
-          path: 'mecm/systems/external/apprule',
-          name: 'externalSystem4',
-          component: () => import('../system/Apprule.vue')
-        },
-        {
-          path: 'mecm/systems/external/store',
-          name: 'externalSystem3',
-          component: () => import('../system/Appstore.vue')
-        }
-      ]
+      path: '/mecm/app/package',
+      name: 'package',
+      component: () => import('../app/PackageList.vue')
+    }, {
+      path: '/mecm/app/ruleconfig',
+      name: 'rule',
+      component: () => import('../app/RuleConfig.vue')
+    },
+    {
+      path: '/mecm/app/distribution',
+      name: 'detail',
+      component: () => import('../app/PackageDetail.vue')
+    },
+    {
+      path: '/mecm/app/instance',
+      name: 'instance',
+      component: () => import('../app/InstanceList.vue')
+    },
+    {
+      path: '/mecm/node/index',
+      name: 'hostOverview',
+      component: () => import('../host/Index.vue')
+    },
+    {
+      path: '/mecm/system/applcm',
+      name: 'applcm',
+      component: () => import('../system/Applcm.vue')
+    },
+    {
+      path: '/mecm/system/apprule',
+      name: 'apprule',
+      component: () => import('../system/Apprule.vue')
+    },
+    {
+      path: '/mecm/system/appstore',
+      name: 'appstore',
+      component: () => import('../system/Appstore.vue')
     }
   ]
 })

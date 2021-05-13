@@ -23,10 +23,10 @@
       <el-breadcrumb-item :to="{ path: '/' }">
         {{ $t('nav.overview') }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
         {{ $t('nav.appMana') }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mecm/apac/list' }">
+      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
         {{ $t('nav.packageMana') }}
       </el-breadcrumb-item>
       <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>

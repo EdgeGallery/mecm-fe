@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.appInstance')"
-      :path="{ path: '/mecm/apac/list' }"
+      :path="{ path: '/mecm/app/package' }"
     />
     <div class="ainsList">
       <Search
@@ -218,7 +218,7 @@ export default {
     jump (row) {
       sessionStorage.setItem('instanceId', row.appInstanceId)
       sessionStorage.setItem('instanceName', row.appName)
-      this.$router.push('/mecm/ruleconfig')
+      this.$router.push('/mecm/app/ruleconfig')
     },
     showReason (row) {
       this.$alert(row.operationInfo, this.$t('tip.operationInfo'))
@@ -311,19 +311,20 @@ export default {
       appo.batchDeleteInstanceApp(obj).then(response => {
         this.timeout()
       }).catch((error) => {
-        if (error.response.status === 403) {
-          this.$message.error(this.$t('tip.loginOperation'))
-        }
+        this.loginStatus(error)
       })
+    },
+    loginStatus (error) {
+      if (error.response.status === 403) {
+        this.$message.error(this.$t('tip.loginOperation'))
+      }
     },
     confirmDetlete (appInstanceId) {
       this.dataLoading = true
       appo.deleteInstanceApp(appInstanceId).then(response => {
         this.timeout()
       }).catch((error) => {
-        if (error.response.status === 403) {
-          this.$message.error(this.$t('tip.loginOperation'))
-        }
+        this.loginStatus(error)
       })
     },
     checkDetail (rows) {
@@ -334,9 +335,8 @@ export default {
       }).catch((error) => {
         if (error.response.status === 404) {
           this.$message.warning(this.$t('tip.getStatusDelay'))
-        } else if (error.response.status === 403) {
-          this.$message.error(this.$t('tip.loginOperation'))
         }
+        this.loginStatus(error)
       })
     },
     timeout () {
@@ -430,3 +430,9 @@ export default {
   }
 }
 </style>
+
+  function newFunction(error) {
+    if(error.response.status===403) {
+      this.$message.error(this.$t('tip.loginOperation'))
+    }
+  }

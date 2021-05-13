@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.applcm')"
-      :path="{ path: '/mecm/systems/external/applcm' }"
+      :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="sysLcm">
       <div class="applcmContainer">
@@ -122,7 +122,7 @@ import { inventory } from '../tools/request.js'
 import Search from '../components/common/Search.vue'
 import pagination from '../components/common/Pagination.vue'
 import Breadcrumb from '../components/common/BreadCrumb.vue'
-import ApplcmDialog from '../components/system/ApplcmDialog.vue'
+import ApplcmDialog from './ApplcmDialog.vue'
 
 export default {
   name: 'SysLcm',

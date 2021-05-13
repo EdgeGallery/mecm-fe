@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.ruleConfiguration')"
-      :path="{ path: '/mecm/ains/list' }"
+      :path="{ path: '/mecm/app/instance' }"
     />
     <div class="ruleconfigcontent">
       <el-tabs

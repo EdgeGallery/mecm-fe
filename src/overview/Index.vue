@@ -218,11 +218,11 @@
 
 <script>
 
-import manageDialog from '../components/overview/ManageDialog.vue'
-import Usage from '../components/overview/Usage.vue'
-import Map from '../components/overview/Map.vue'
+import manageDialog from './ManageDialog.vue'
+import Usage from './Usage.vue'
+import Map from './Map.vue'
 import { appo, inventory } from '../tools/request.js'
-import Chart from '../components/overview/Chart.vue'
+import Chart from './Chart.vue'
 export default {
   components: {
     manageDialog,

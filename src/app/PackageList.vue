@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.appMana')"
       :third="$t('nav.packageMana')"
-      :path="{ path: '/mecm/apac/list' }"
+      :path="{ path: '/mecm/app/package' }"
     />
     <div class="apacList">
       <Search
@@ -454,7 +454,7 @@ export default {
     checkDetail (row) {
       sessionStorage.setItem('appId', row.appId)
       this.$nextTick(
-        this.$router.push('/mecm/apac/detail?appId=' + row.appId)
+        this.$router.push('/mecm/app/distribution?appId=' + row.appId)
       )
     },
     distribute (row) {
@@ -613,7 +613,7 @@ export default {
         apm.confirmToDistribute(params).then(response => {
           sessionStorage.setItem('appId', params.appId)
           this.$nextTick(
-            this.$router.push('/mecm/apac/detail?appId=' + params.appId)
+            this.$router.push('/mecm/app/distribution?appId=' + params.appId)
           )
         }).catch(() => {
           this.loading = false

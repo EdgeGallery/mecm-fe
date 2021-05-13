@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.appstore')"
-      :path="{ path: '/mecm/systems/external/applcm' }"
+      :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="appstore">
       <Search
@@ -136,7 +136,7 @@ import { inventory } from '../tools/request.js'
 import Search from '../components/common/Search.vue'
 import pagination from '../components/common/Pagination.vue'
 import Breadcrumb from '../components/common/BreadCrumb.vue'
-import AppstoreDialog from '../components/system/AppstoreDialog.vue'
+import AppstoreDialog from './AppstoreDialog.vue'
 export default {
   name: 'Appstore',
   components: {
