@@ -117,7 +117,6 @@ export default {
   },
   methods: {
     register () {
-      this.editType = 1
       this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
         appRuleIp: '',
@@ -132,7 +131,6 @@ export default {
       })
     },
     handleEdit () {
-      this.editType = 2
       this.title = this.$t('app.ruleConfig.appRuleManEdit')
       this.dialogVisible = true
       this.ipDisable = true
@@ -140,10 +138,9 @@ export default {
       this.form = middleData
     },
     confirmToRegister (form) {
-      console.log(this.form)
       this.$refs[form].validate(valid => {
         if (valid) {
-          if (this.editType === 1) {
+          if (this.type === 1) {
             inventory.create(4, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
               this.initList()

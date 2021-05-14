@@ -94,8 +94,7 @@ export default {
         applcmPort: 30204,
         userName: '',
         applcmName: ''
-      },
-      editType: 1
+      }
     }
   },
   computed: {
@@ -121,7 +120,6 @@ export default {
   },
   methods: {
     register () {
-      this.editType = 1
       this.form = {
         applcmIp: '',
         applcmPort: 30204,
@@ -135,7 +133,6 @@ export default {
       })
     },
     handleEdit () {
-      this.editType = 2
       this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
@@ -144,7 +141,7 @@ export default {
     confirmToRegister (form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          if (this.editType === 1) {
+          if (this.type === 1) {
             inventory.create(1, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppLcmSuc'), 1500)
               this.initList()
