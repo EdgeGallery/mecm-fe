@@ -23,46 +23,46 @@ export default new Router({
     {
       path: '/',
       name: 'overview',
-      component: () => import('../overview/Index.vue')
+      component: () => import('../pages/overview/Index.vue')
     },
     {
       path: '/mecm/app/package',
       name: 'package',
-      component: () => import('../app/PackageList.vue')
+      component: () => import('../pages/app/PackageList.vue')
     }, {
       path: '/mecm/app/ruleconfig',
       name: 'rule',
-      component: () => import('../app/RuleConfig.vue')
+      component: () => import('../pages/app/RuleConfig.vue')
     },
     {
       path: '/mecm/app/distribution',
       name: 'detail',
-      component: () => import('../app/PackageDetail.vue')
+      component: () => import('../pages/app/PackageDetail.vue')
     },
     {
       path: '/mecm/app/instance',
       name: 'instance',
-      component: () => import('../app/InstanceList.vue')
+      component: () => import('../pages/app/InstanceList.vue')
     },
     {
       path: '/mecm/node/index',
       name: 'hostOverview',
-      component: () => import('../host/Index.vue')
+      component: () => import('../pages/host/Index.vue')
     },
     {
       path: '/mecm/system/applcm',
       name: 'applcm',
-      component: () => import('../system/Applcm.vue')
+      component: () => import('../pages/system/Applcm.vue')
     },
     {
       path: '/mecm/system/apprule',
       name: 'apprule',
-      component: () => import('../system/Apprule.vue')
+      component: () => import('../pages/system/Apprule.vue')
     },
     {
       path: '/mecm/system/appstore',
       name: 'appstore',
-      component: () => import('../system/Appstore.vue')
+      component: () => import('../pages/system/Appstore.vue')
     }
   ]
 })

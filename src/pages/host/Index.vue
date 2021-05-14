@@ -23,7 +23,7 @@
       :third="$t('nav.edgeNode')"
       :path="{ path: '/mecm/system/applcm' }"
     />
-    <div class="sysk8s">
+    <div class="contentList">
       <Search
         :status-item="false"
         :affinity-item="false"
@@ -205,10 +205,10 @@
 </template>
 
 <script>
-import { appo, apm, inventory } from '../tools/request.js'
-import pagination from '../components/common/Pagination.vue'
-import Search from '../components/common/Search.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
+import { appo, apm, inventory } from '../../tools/request.js'
+import pagination from '../../components/common/Pagination.vue'
+import Search from '../../components/common/Search.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import FormContent from './HostDialog.vue'
 import UploadFile from './UploadDialog.vue'
 export default {
@@ -360,16 +360,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.sysk8s{
-  margin: 0 5%;
-  height: 100%;
-  background: #fff;
-  padding: 30px 60px;
-  .table {
-    margin-top: 10px;
-  }
-  .tableDiv {
-    margin-top: 10px;
-  }
-}
 </style>

@@ -23,7 +23,7 @@
       :third="$t('nav.appstore')"
       :path="{ path: '/mecm/system/applcm' }"
     />
-    <div class="appstore">
+    <div class="contentList">
       <Search
         :affinity-item="false"
         :ip-item="true"
@@ -44,69 +44,67 @@
           {{ $t('system.appLcm.newReg') }}
         </el-button>
       </p>
-      <div class="">
-        <div class="appstoreList">
-          <el-table
-            :data="currPageTableData"
-            style="width: 100%"
+      <div class="tableDiv">
+        <el-table
+          :data="currPageTableData"
+          style="width: 100%"
+        >
+          <el-table-column
+            sortable
+            prop="appstoreName"
+            :label="$t('system.appstore.appstoreName')"
+          />
+          <el-table-column
+            prop="appstoreIp"
+            :label="$t('system.appstore.ipAddress')"
+          />
+          <el-table-column
+            prop="appstorePort"
+            :label="$t('system.appLcm.port')"
+          />
+          <el-table-column
+            prop="appstoreRepo"
+            :label="$t('system.appstore.appstoreRepo')"
+          />
+          <el-table-column
+            prop="appstoreRepoName"
+            :label="$t('system.appstore.appstoreRepoName')"
+          />
+          <el-table-column
+            prop="appstoreRepoUserName"
+            :label="$t('system.appstore.appstoreRepoUserName')"
+          />
+          <el-table-column
+            prop="producer"
+            :label="$t('system.appstore.vendor')"
+          />
+          <el-table-column
+            header-align="center"
+            align="center"
+            v-if="rlp=='418'"
           >
-            <el-table-column
-              sortable
-              prop="appstoreName"
-              :label="$t('system.appstore.appstoreName')"
-            />
-            <el-table-column
-              prop="appstoreIp"
-              :label="$t('system.appstore.ipAddress')"
-            />
-            <el-table-column
-              prop="appstorePort"
-              :label="$t('system.appLcm.port')"
-            />
-            <el-table-column
-              prop="appstoreRepo"
-              :label="$t('system.appstore.appstoreRepo')"
-            />
-            <el-table-column
-              prop="appstoreRepoName"
-              :label="$t('system.appstore.appstoreRepoName')"
-            />
-            <el-table-column
-              prop="appstoreRepoUserName"
-              :label="$t('system.appstore.appstoreRepoUserName')"
-            />
-            <el-table-column
-              prop="producer"
-              :label="$t('system.appstore.vendor')"
-            />
-            <el-table-column
-              header-align="center"
-              align="center"
-              v-if="rlp=='418'"
-            >
-              <template slot-scope="scope">
-                <el-button
-                  type="text"
-                  size="mini"
-                  class="button"
-                  id="deleteBtn"
-                  @click.native.prevent="handleDelete(scope.row)"
-                >
-                  {{ $t('common.delete') }}
-                </el-button>
-                <el-button
-                  type="text"
-                  size="mini"
-                  class="button"
-                  id="modifyBtn"
-                  @click="showEditDialog(scope.row)"
-                >
-                  {{ $t('common.modify') }}
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="mini"
+                class="button"
+                id="deleteBtn"
+                @click.native.prevent="handleDelete(scope.row)"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+              <el-button
+                type="text"
+                size="mini"
+                class="button"
+                id="modifyBtn"
+                @click="showEditDialog(scope.row)"
+              >
+                {{ $t('common.modify') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
         <div class="pageBar">
           <pagination
             :page-sizes="[10,15,20,25]"
@@ -132,10 +130,10 @@
 </template>
 
 <script>
-import { inventory } from '../tools/request.js'
-import Search from '../components/common/Search.vue'
-import pagination from '../components/common/Pagination.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
+import { inventory } from '../../tools/request.js'
+import Search from '../../components/common/Search.vue'
+import pagination from '../../components/common/Pagination.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import AppstoreDialog from './AppstoreDialog.vue'
 export default {
   name: 'Appstore',
@@ -247,13 +245,4 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.appstore{
-  margin: 0 5%;
-  height: 100%;
-  background: #fff;
-  padding: 30px 60px;
-  .btn-group{
-    margin:15px 0;
-  }
-}
 </style>

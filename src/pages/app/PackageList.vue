@@ -23,7 +23,7 @@
       :third="$t('nav.packageMana')"
       :path="{ path: '/mecm/app/package' }"
     />
-    <div class="apacList">
+    <div class="contentList">
       <Search
         @getSearchData="getSearchData"
         :status-item="false"
@@ -340,11 +340,11 @@
 </template>
 
 <script>
-import { apm, inventory } from '../tools/request.js'
-import { TYPESFORAPP, INDUSTRY } from '../tools/constant.js'
-import Search from '../components/common/Search.vue'
-import Pagination from '../components/common/Pagination.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
+import { apm, inventory } from '../../tools/request.js'
+import { TYPESFORAPP, INDUSTRY } from '../../tools/constant.js'
+import Search from '../../components/common/Search.vue'
+import Pagination from '../../components/common/Pagination.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
 export default {
   name: 'ApacList',
   components: {
@@ -633,29 +633,11 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.apacList {
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
-  .tableDiv {
-    width: 100%;
-  }
-  .el-row-button-input {
-    margin-top: 10px;
-  }
-  .table {
-    margin-top: 15px;
-  }
-  .el-row-table {
-    margin-top: 10px;
-  }
-  .shortdesc{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display:-webkit-box;
-    -webkit-box-orient:vertical;
-    -webkit-line-clamp:2;
-  }
+.shortdesc{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
 }
 </style>

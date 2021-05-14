@@ -20,7 +20,7 @@
       class="breadcrumb"
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
-      :third="$t('nav.appRule')"
+      :third="$t('nav.applcm')"
       :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="sysLcm">
@@ -58,13 +58,13 @@
                 label-width="auto"
               >
                 <el-form-item :label="$t('app.packageList.name')">
-                  {{ item.appRuleName }}
+                  {{ item.applcmName }}
                 </el-form-item>
                 <el-form-item :label="$t('app.packageList.ip')">
-                  {{ item.appRuleIp }}
+                  {{ item.applcmIp }}
                 </el-form-item>
                 <el-form-item :label="$t('system.appLcm.port')">
-                  {{ item.appRulePort }}
+                  {{ item.applcmPort }}
                 </el-form-item>
                 <el-form-item
                   class="rt btn-group"
@@ -95,8 +95,8 @@
         </div>
         <div class="pageBar">
           <pagination
-            :page-sizes="[8,12,16,20]"
             :table-data="paginationData"
+            :page-sizes="[8,12,16,20]"
             @getCurrentPageData="getCurrentPageData"
           />
         </div>
@@ -108,7 +108,7 @@
       :visible.sync="dialogVisible"
       width="25%"
     >
-      <AppruleDialog
+      <ApplcmDialog
         :rowdata="formdata"
         :type="type"
         @close="closeEditDialog"
@@ -118,11 +118,11 @@
 </template>
 
 <script>
-import { inventory } from '../tools/request.js'
-import Search from '../components/common/Search.vue'
-import pagination from '../components/common/Pagination.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
-import AppruleDialog from './AppruleDialog.vue'
+import { inventory } from '../../tools/request.js'
+import Search from '../../components/common/Search.vue'
+import pagination from '../../components/common/Pagination.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
+import ApplcmDialog from './ApplcmDialog.vue'
 
 export default {
   name: 'SysLcm',
@@ -130,7 +130,7 @@ export default {
     pagination,
     Breadcrumb,
     Search,
-    AppruleDialog
+    ApplcmDialog
   },
   data () {
     return {
@@ -138,10 +138,10 @@ export default {
       tableData: [],
       currPageTableData: [],
       paginationData: [],
-      formdata: {},
-      type: 0,
       dialogVisible: false,
-      title: this.$t('app.ruleConfig.appRuleManReg'),
+      type: 0,
+      formdata: {},
+      title: this.$t('system.appLcm.applcmReg'),
       rlp: sessionStorage.getItem('rlp')
     }
   },
@@ -149,19 +149,6 @@ export default {
     this.initList()
   },
   methods: {
-    initList () {
-      inventory.getList(4).then(res => {
-        this.tableData = this.paginationData = res.data
-        this.dataLoading = false
-      }, error => {
-        this.dataLoading = false
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
-        }
-      })
-    },
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
         let itemVal = item[key].toLowerCase()
@@ -177,7 +164,7 @@ export default {
             reset = true
             let dataKey = key
             if (key === 'ip') {
-              dataKey = 'appRuleIp'
+              dataKey = 'applcmIp'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }
@@ -189,18 +176,30 @@ export default {
       this.currPageTableData = data
     },
     handleDelete (row) {
-      this.$confirm(this.$t('tip.beforeDeleteAppMgr'), this.$t('common.warning'), {
+      this.$confirm(this.$t('tip.beforeDeleteApplcm'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
-        inventory.delete(4, row.appRuleIp).then(res => {
-          this.showMessage('success', this.$t('tip.deleteSuc'), 1500)
+        inventory.delete(1, row.applcmIp).then(res => {
           this.initList()
         }, error => {
           this.$message.error(error.response.data)
         })
+      })
+    },
+    initList () {
+      inventory.getList(1).then(res => {
+        this.tableData = this.paginationData = res.data
+        this.dataLoading = false
+      }, error => {
+        this.dataLoading = false
+        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
+          this.tableData = this.paginationData = []
+        } else {
+          this.$message.error(this.$t('tip.getCommonListFailed'))
+        }
       })
     },
     showEditDialog (data) {

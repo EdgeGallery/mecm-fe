@@ -221,7 +221,7 @@
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import Map from './Map.vue'
-import { appo, inventory } from '../tools/request.js'
+import { appo, inventory } from '../../tools/request.js'
 import Chart from './Chart.vue'
 export default {
   components: {
@@ -392,16 +392,16 @@ export default {
 }
 </script>
 <style lang='less'>
-.mecm-overview {
-  position: absolute;
-  top: 65px;
-  width: 100%;
-  height:calc(100% - 65px);
-  overflow: auto;
-  background:#131111;
-  background-size: cover;
-  box-sizing: border-box;
-}
+  .mecm-overview {
+    position: absolute;
+    top: 65px;
+    width: 100%;
+    height:calc(100% - 65px);
+    overflow: auto;
+    background:#131111;
+    background-size: cover;
+    box-sizing: border-box;
+  }
   label.overviewLabel{
     font-family: PingFangSC-Medium,sans-serif;
     font-size: 20px;

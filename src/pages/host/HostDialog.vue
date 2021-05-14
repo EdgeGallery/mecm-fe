@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import { inventory } from '../tools/request.js'
+import { inventory } from '../../tools/request.js'
 export default {
   props: {
     rowdata: {

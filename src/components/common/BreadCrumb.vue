@@ -61,3 +61,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .breadcrumb{
+    line-height: 50px;
+    padding: 25px 5%;
+    margin-top: 60px;
+  }
+</style>

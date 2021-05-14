@@ -23,12 +23,13 @@
       :third="$t('nav.appInstance')"
       :path="{ path: '/mecm/app/package' }"
     />
-    <div class="ainsList">
+    <div class="contentList">
       <Search
         :affinity-item="false"
         :status-item="true"
         :status="status"
         @getSearchData="getSearchData"
+        class="rt"
       />
       <div class="btn-p rt">
         <el-button
@@ -177,10 +178,10 @@
 </template>
 
 <script>
-import Search from '../components/common/Search.vue'
-import Pagination from '../components/common/Pagination.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
-import { appo } from '../tools/request.js'
+import Search from '../../components/common/Search.vue'
+import Pagination from '../../components/common/Pagination.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
+import { appo } from '../../tools/request.js'
 
 export default {
   name: 'AinsList',
@@ -350,66 +351,6 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.ainsList{
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
-    .btn-group{
-      margin:15px 0;
-    }
-  .appStore{
-    width:30%;
-    height:185px;
-    border:1px solid #ddd;
-    border-radius: 8px;
-    padding:15px;
-    .lt{
-      width: 30%;
-      padding:15px;
-      img{
-        position: relative;
-        left:15px;
-      }
-      p{
-        padding-top:20px;
-        text-align: center;
-      }
-    }
-    .rt{
-      width:60%;
-      div{
-        float:left;
-        width:46%;
-        height:80px;
-        border:1px solid #ddd;
-        border-radius: 4px;
-        margin:0 5px 20px 0;
-        text-align: center;
-        line-height:30px;
-        font-size: 15px;
-        font-weight: bold;
-        p:first-child{
-          margin-top:15px;
-        }
-        p:nth-child(2){
-          color:green;
-        }
-      }
-    }
-  }
-  .tableDiv{
-    padding-top:25px;
-    p{
-      padding-bottom:5px;
-      .rt{
-        margin-bottom:15px;
-      }
-    }
-  }
-  i{
-    margin-right: 5px;
-  }
   .detailForm{
     p{
       margin-bottom: 12px;
@@ -428,11 +369,4 @@ export default {
       margin-bottom: 12px!important;
     }
   }
-}
 </style>
-
-  function newFunction(error) {
-    if(error.response.status===403) {
-      this.$message.error(this.$t('tip.loginOperation'))
-    }
-  }

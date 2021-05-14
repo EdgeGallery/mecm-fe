@@ -14,6 +14,7 @@
  *  limitations under the License.
  */
 
+// 全局公共样式
 html,body,p,h1,h2,h3,h4,h5,h6,ul,li{
   margin:0;
   padding:0;
@@ -38,14 +39,6 @@ a{
 }
 .blue{
   color:#409EFF;
-}
-.breadcrumb{
-  line-height: 50px;
-  padding: 25px 5%;
-  margin-top: 60px;
-}
-.pageBar{
-  padding:25px 0;
 }
 .error{
   color:#F56C6C;
@@ -72,7 +65,7 @@ a{
   cursor: pointer;
 }
 
-
+// title样式
 .title{
   margin:15px 3px;
   font-size:18px;
@@ -88,45 +81,35 @@ a{
   top:2px;
 }
 
-.btn-p{
-  height: 40px;
-  padding:15px 0;
-    position: relative;
-    top: -80px;
-    float: left;
-  .rt{
-      margin-bottom:15px;
-    }
+// 搜索样式
+.search .el-button--small,.search .el-button--small.is-round{
+  padding: 8px 15px !important;
+  position: relative !important;
+  top: 0 !important;
+}
+.search .el-input__inner{
+  height: 34px !important;
 }
 
+// dialog样式
 .el-dialog__body{
   padding:20px 20px 0 20px !important;
 }
 .el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close,.el-dialog__title,.el-icon-close,.el-dialog__headerbtn .el-dialog__close{
   color:#fff;
 }
-
 .el-dialog__headerbtn .el-dialog__close{
   color:#fff !important;
   position: relative;
   top: -7px;
 }
-
 .el-dialog__header{
   background: #409EFF;
   padding:10px!important;
 }
-
-.search .el-button--small,.search .el-button--small.is-round{
-  padding: 8px 15px !important;
-  position: relative !important;
-  top: 0 !important;
-}
-
 .el-dialog__title{
   color:#fff !important;
 }
-
 .dialog-footer{
   display: block;
   height: 64px;
@@ -139,16 +122,13 @@ a{
   }
 }
 
+// message样式
 .el-message{
   top: 65px !important;
   z-index:10000 !important;
 }
 
-.el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
-  font-size:14px!important;
-}
-
-/* navBar */
+/* navBar样式 */
 .el-menu--horizontal>.el-submenu .el-submenu__icon-arrow{
   margin-top:3px!important;
 }
@@ -156,13 +136,16 @@ a{
   margin-top:-4px!important;
 }
 
-/* 表格统一样式 */
+/* 表格样式 */
 .el-table .has-gutter th{
   background: #F0F3FA;
   height:32px;
 }
 body .el-table th.gutter{
   display: table-cell !important;
+}
+.el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
+  font-size:14px!important;
 }
 
 /* area-link样式 */
@@ -174,11 +157,14 @@ body .el-table th.gutter{
 .el-upload{
   width:100% !important;
 }
-
 .el-upload-dragger{
   width:100% !important;
 }
-/* system form样式 */
+.el-upload__tip{
+  padding-bottom:15px;
+}
+
+/* 卡片样式 */
 .appstoreList .el-form-item__content,.applcmList .el-form-item__content{
     line-height: 25px;
   }
@@ -186,19 +172,8 @@ body .el-table th.gutter{
   line-height:25px;
   font-weight: bold;
 }
-
-.el-form-item__label{
-  color:#827979;
-}
-
-.el-upload__tip{
-  padding-bottom:15px;
-}
-
-
 .applcmList,.appstoreList{
   width: 100%;
-  padding:15px 0;
   display:flex;
   flex-wrap: wrap;
   .content {
@@ -235,15 +210,33 @@ body .el-table th.gutter{
     }
   }
 }
+.el-form-item__label{
+  color:#827979;
+}
+
+/* 表格页公共样式 */
+.contentList{
+  margin: 0 5%;
+  height: 100%;
+  background: #fff;
+  padding: 30px 60px;
+  .btn-group{
+    margin:15px 0;
+  }
+  .btn-p{
+    height: 40px;
+    float: left;
+    .rt{
+        margin-bottom:15px;
+      }
+  }
+}
 
 
+/* 首页样式 */
 .mecm-overview .el-row{
   margin:0 !important;
 }
-.search .el-input__inner{
-  height: 34px !important;
-}
-
 
 @media (min-width:0px){
   html{font-size:12px;}
