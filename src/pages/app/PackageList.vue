@@ -29,7 +29,7 @@
         :status-item="false"
         :type-item="false"
       />
-      <div class="btn-p rt">
+      <div class="btn-p">
         <el-button
           id="syncBtn"
           style="float:right;"
@@ -195,34 +195,33 @@
             />
           </el-table>
         </div>
-        <div
-          style="margin-top:15px;height:50px;"
-        >
-          <Pagination
-            :page-sizes="[10,15,20,25]"
-            :table-data="paginationPackageData"
-            @getCurrentPageData="getCurrentPagePackageData"
-          />
-        </div>
-        <div
+        <Pagination
+          :page-sizes="[10,15,20,25]"
+          :table-data="paginationPackageData"
+          @getCurrentPageData="getCurrentPagePackageData"
+        />
+        <span
           slot="footer"
           class="dialog-footer"
           style="text-align:right;padding-bottom:15px"
         >
           <el-button
-            @click="cancelToSync"
-            size="small"
-          >
-            {{ $t('common.cancel') }}
-          </el-button>
-          <el-button
             type="primary"
             @click="confirmToSync()"
             size="small"
+            style="margin-right:15px;"
+            class="rt"
           >
             {{ $t('common.confirm') }}
           </el-button>
-        </div>
+          <el-button
+            @click="cancelToSync"
+            size="small"
+            class="rt"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
+        </span>
       </div>
     </el-dialog>
     <!-- 分发 -->
@@ -476,6 +475,7 @@ export default {
       })
     },
     showSyncBox () {
+      this.syncDialogVisible = true
       apm.getAppPackageList(this.appstoreIp).then(response => {
         this.paginationPackageData = response.data
       }).catch(error => {
@@ -483,7 +483,6 @@ export default {
         this.paginationPackageData = []
         this.selectData = []
       })
-      this.syncDialogVisible = true
     },
     cancelToSync () {
       this.syncDialogVisible = false

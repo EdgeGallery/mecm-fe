@@ -25,7 +25,7 @@
       :status="distributionStatus"
       @getSearchData="getSearchData"
     />
-    <div class="btn-p rt">
+    <div class="btn-p">
       <el-button
         type="primary"
         @click="multipleDeploy"
