@@ -31,7 +31,7 @@
         @getSearchData="getSearchData"
         class="rt"
       />
-      <div class="btn-p rt">
+      <div class="btn-p">
         <el-button
           type="primary"
           @click="beforeDelete(selectData,1)"

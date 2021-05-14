@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="my-pagination">
+  <div class="pagination">
     <el-pagination
       background
       class="rt"
@@ -79,3 +79,10 @@ export default {
 }
 
 </script>
+
+<style scoped>
+  .pagination{
+    height: 20px;
+    padding:20px 0;
+  }
+</style>

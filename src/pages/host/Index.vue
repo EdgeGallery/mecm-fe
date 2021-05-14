@@ -322,6 +322,7 @@ export default {
     },
 
     showEditDialog (data) {
+      this.dialogVisible = true
       if (data) {
         this.formdata = data
         this.type = 2
@@ -330,7 +331,6 @@ export default {
         this.type = 1
         this.title = this.$t('system.edgeNodes.nodeReg')
       }
-      this.dialogVisible = true
     },
     closeEditDialog () {
       this.dialogVisible = false

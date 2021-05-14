@@ -33,7 +33,7 @@
           @getSearchData="getSearchData"
         />
         <p
-          class="btn-p"
+          class="btn-p lt"
           v-if="rlp=='418'"
         >
           <el-button
