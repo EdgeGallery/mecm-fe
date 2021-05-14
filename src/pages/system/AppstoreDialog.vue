@@ -188,7 +188,6 @@ export default {
   },
   methods: {
     register () {
-      this.editType = 1
       this.dialogVisible = true
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
@@ -203,12 +202,11 @@ export default {
       this.urlDisable = true
       let middleData = JSON.parse(JSON.stringify(this.appstoreData))
       this.form = middleData
-      this.editType = 2
     },
     confirmToRegister (form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          if (this.editType === 1) {
+          if (this.type === 1) {
             inventory.create(3, this.form).then(res => {
               this.showSuccessTip()
             }, error => {

@@ -26,21 +26,21 @@ const NavData = [
   {
     'id': '2.2',
     'name': 'APP Management',
-    'path': '/mecm/app/pakage',
+    'path': '/app/pakage',
     'pageId': '2.0.1',
     'display': false,
     'children': [
       {
         'id': '2.3',
         'name': 'Package Management',
-        'path': '/mecm/apac/list',
+        'path': '/mecm/app/package',
         'pageId': '2.0.1.1',
         'display': false
       },
       {
         'id': '2.5',
         'name': 'App Instance List',
-        'path': '/mecm/ains/list',
+        'path': '/mecm/app/instance',
         'pageId': '2.0.1.3',
         'display': false
       }
@@ -49,35 +49,35 @@ const NavData = [
   {
     'id': '2.6',
     'name': 'Edge Nodes',
-    'path': '/mecm/node/list',
+    'path': '/mecm/node/index',
     'pageId': '2.0.2',
     'display': false
   },
   {
     'id': '2.9',
     'name': 'Systems',
-    'path': '/mecm/systems',
+    'path': '/systems',
     'pageId': '2.0.3',
     'display': false,
     'children': [
       {
         'id': '2.11',
         'name': 'App LCM',
-        'path': '/mecm/systems/external/applcm',
+        'path': '/mecm/system/applcm',
         'pageId': '2.0.3.1.1',
         'display': false
       },
       {
         'id': '2.14',
         'name': 'App Rule',
-        'path': '/mecm/systems/external/apprule',
+        'path': '/mecm/system/apprule',
         'pageId': '2.0.3.1.4',
         'display': false
       },
       {
         'id': '2.12',
         'name': 'App Store',
-        'path': '/mecm/systems/external/store',
+        'path': '/mecm/system/appstore',
         'pageId': '2.0.3.1.3',
         'display': false
       }

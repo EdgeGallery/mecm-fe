@@ -179,7 +179,6 @@ export default {
 </script>
 <style lang='less' scoped>
 .search{
-  height:65px;
   .el-select{
     width:100%;
   }

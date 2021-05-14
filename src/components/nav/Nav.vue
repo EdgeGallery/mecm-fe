@@ -161,9 +161,6 @@ export default {
     })
   },
   methods: {
-    jumpTo (path) {
-      this.$router.push(path)
-    },
     os () {
       let UserAgent = navigator.userAgent.toLowerCase()
       return {

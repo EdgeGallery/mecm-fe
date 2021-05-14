@@ -5,36 +5,37 @@
         <el-form
           label-width="auto"
           :model="form"
+
           ref="form"
           :rules="rules"
         >
           <el-form-item
             :label="$t('system.appLcm.name')"
-            prop="appRuleName"
+            prop="applcmName"
           >
             <el-input
               id="name"
               maxlength="20"
-              v-model="form.appRuleName"
+              v-model="form.applcmName"
             />
           </el-form-item>
           <el-form-item
             :label="$t('app.packageList.ip')"
-            prop="appRuleIp"
+            prop="applcmIp"
           >
             <el-input
               id="ip"
-              v-model="form.appRuleIp"
+              v-model="form.applcmIp"
               :disabled="ipDisable"
             />
           </el-form-item>
           <el-form-item
             :label="$t('system.appLcm.port')"
-            prop="appRulePort"
+            prop="applcmPort"
           >
             <el-input
               id="port"
-              v-model="form.appRulePort"
+              v-model="form.applcmPort"
             />
           </el-form-item>
         </el-form>
@@ -89,41 +90,41 @@ export default {
     return {
       ipDisable: false,
       form: {
-        appRuleIp: '',
-        appRulePort: 30206,
+        applcmIp: '',
+        applcmPort: 30204,
         userName: '',
-        appRuleName: ''
-      },
-      editType: 1
+        applcmName: ''
+      }
     }
   },
   computed: {
     rules () {
       return {
-        appRuleIp: [
+        applcmIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        appRulePort: [
+        applcmPort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleName: [
-          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
+        applcmName: [
+          { required: true, message: this.$t('verify.applcmNameTip'), trigger: 'blur' },
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
     }
   },
+  mounted () {
+    console.log(this.rowdata)
+  },
   methods: {
     register () {
-      this.editType = 1
-      this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
-        appRuleIp: '',
-        appRulePort: 30206,
+        applcmIp: '',
+        applcmPort: 30204,
         userName: '',
-        appRuleName: ''
+        applcmName: ''
       }
       this.dialogVisible = true
       this.ipDisable = false
@@ -132,20 +133,17 @@ export default {
       })
     },
     handleEdit () {
-      this.editType = 2
-      this.title = this.$t('app.ruleConfig.appRuleManEdit')
       this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.form = middleData
     },
     confirmToRegister (form) {
-      console.log(this.form)
       this.$refs[form].validate(valid => {
         if (valid) {
-          if (this.editType === 1) {
-            inventory.create(4, this.form).then(res => {
-              this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
+          if (this.type === 1) {
+            inventory.create(1, this.form).then(res => {
+              this.showMessage('success', this.$t('tip.regAppLcmSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -158,8 +156,8 @@ export default {
               }
             })
           } else {
-            inventory.modify(4, this.form, this.form.appRuleIp).then(res => {
-              this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
+            inventory.modify(1, this.form, this.form.applcmIp).then(res => {
+              this.showMessage('success', this.$t('tip.modAppLcmSuc'), 1500)
               this.initList()
               this.dialogVisible = false
             }, error => {
@@ -172,8 +170,7 @@ export default {
     cancel () {
       this.$emit('close', 'closeEditDialog')
     }
-  },
-  mounted () {}
+  }
 }
 
 </script>

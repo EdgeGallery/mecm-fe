@@ -15,55 +15,44 @@
   -->
 
 <template>
-  <div class="ruleconfig">
-    <Breadcrumb
+  <div>
+    <el-breadcrumb
+      separator="/"
       class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.ruleConfiguration')"
-      :path="{ path: '/mecm/ains/list' }"
-    />
-    <div class="ruleconfigcontent">
-      <el-tabs
-        v-model="activeName"
-      >
-        <el-tab-pane
-          :label="$t('app.ruleConfig.dnsRule')"
-          name="dns"
-        >
-          <Dnspannel />
-        </el-tab-pane>
-        <el-tab-pane
-          :label="$t('app.ruleConfig.trafficRule')"
-          name="traffic"
-        >
-          <trafficpannel />
-        </el-tab-pane>
-      </el-tabs>
+    >
+      <el-breadcrumb-item :to="{ path: '/' }">
+        {{ $t('nav.overview') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
+        {{ $t('nav.appMana') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
+        {{ $t('nav.packageMana') }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>
+    </el-breadcrumb>
+    <div class="detail">
+      <div>
+        <Edge :appid="appId" />
+      </div>
     </div>
   </div>
 </template>
-
 <script>
-import Breadcrumb from '../components/common/BreadCrumb.vue'
-import Dnspannel from './Dns.vue'
-import Trafficpannel from './Traffic.vue'
+import Edge from './EdgeList'
 export default {
   components: {
-    Breadcrumb,
-    Dnspannel,
-    Trafficpannel
+    Edge
   },
   data () {
     return {
-      activeName: 'dns'
+      appId: window.location.href.split('=')[1] || sessionStorage.getItem('appId')
     }
   }
 }
-
 </script>
-<style lang='less' scoped>
-.ruleconfigcontent {
+<style lang='less' >
+.detail {
     margin: 0 5%;
     height: 100%;
     background: #fff;

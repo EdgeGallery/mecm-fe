@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div class="edgeList">
+  <div class="contentList">
     <Search
       :type-item="false"
       :name-item="false"
@@ -267,9 +267,9 @@
 </template>
 
 <script>
-import Search from '../components/common/Search.vue'
-import Pagination from '../components/common/Pagination.vue'
-import { appo, apm } from '../tools/request.js'
+import Search from '../../components/common/Search.vue'
+import Pagination from '../../components/common/Pagination.vue'
+import { appo, apm } from '../../tools/request.js'
 export default {
   name: 'EdgeList',
   components: {
@@ -544,7 +544,7 @@ export default {
       this.loading = false
       this.dialogVisible = false
       this.$nextTick(() => {
-        this.$router.push('/mecm/ains/list')
+        this.$router.push('/mecm/app/instance')
       })
     },
     catchInstantiateApp () {
@@ -573,67 +573,6 @@ export default {
 </script>
 
 <style lang='less' scoped>
-.edgeList{
-  .btn-group{
-    margin-bottom: 15px;
-  }
-  .appStore{
-    width:30%;
-    height:185px;
-    border:1px solid #ddd;
-    border-radius: 8px;
-    padding:15px;
-    .lt{
-      width: 30%;
-      padding:15px;
-      text-align: center;
-      p{
-        padding-top:20px;
-        text-align: center;
-      }
-    }
-    .rt{
-      width:60%;
-      div{
-        float:left;
-        width:46%;
-        height:80px;
-        border:1px solid #ddd;
-        border-radius: 4px;
-        margin:0 5px 20px 0;
-        text-align: center;
-        line-height:30px;
-        font-size: 15px;
-        font-weight: bold;
-        p:first-child{
-          margin-top:15px;
-        }
-        p:nth-child(2){
-          color:green;
-        }
-      }
-    }
-  }
-  .tableDiv{
-    padding-top:25px;
-    p{
-      position: relative;
-      top:15px;
-      .rt{
-        margin-bottom:15px;
-      }
-    }
-  }
-}
-.createBtn{
-  position: relative;
-  top: 3px;
-}
-.tableStatus{
-  i{
-    margin-right:5px;
-  }
-}
 .configForm{
   p{
     margin-bottom: 12px;
@@ -653,14 +592,6 @@ export default {
   }
   .hostip{
     margin-right:10px;
-  }
-}
-.listItem{
-  border-bottom: 1px solid #ddd;
-  padding-top:10px;
-  .el-button{
-    position: relative;
-    top:-6px;
   }
 }
 </style>

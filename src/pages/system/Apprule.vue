@@ -21,7 +21,7 @@
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.appRule')"
-      :path="{ path: '/mecm/systems/external/applcm' }"
+      :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="sysLcm">
       <div class="applcmContainer">
@@ -118,11 +118,11 @@
 </template>
 
 <script>
-import { inventory } from '../tools/request.js'
-import Search from '../components/common/Search.vue'
-import pagination from '../components/common/Pagination.vue'
-import Breadcrumb from '../components/common/BreadCrumb.vue'
-import AppruleDialog from '../components/system/AppruleDialog.vue'
+import { inventory } from '../../tools/request.js'
+import Search from '../../components/common/Search.vue'
+import pagination from '../../components/common/Pagination.vue'
+import Breadcrumb from '../../components/common/BreadCrumb.vue'
+import AppruleDialog from './AppruleDialog.vue'
 
 export default {
   name: 'SysLcm',
