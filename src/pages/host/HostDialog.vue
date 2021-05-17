@@ -182,11 +182,14 @@ export default {
     }
   },
   watch: {
-    type: function (val) {
-      if (this.type === 1) {
-        this.register()
-      } else {
-        this.handleModify()
+    type: {
+      immediate: true,
+      handler  (val) {
+        if (this.type === 1) {
+          this.register()
+        } else {
+          this.handleModify()
+        }
       }
     }
   },
@@ -309,7 +312,6 @@ export default {
       applcmList: [],
       appRuleIpList: [],
       selectedArea: [],
-      editType: 1,
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
       capability: ['GPU', 'NPU']
@@ -355,7 +357,6 @@ export default {
     },
     handleModify () {
       this.getList()
-      this.editType = 2
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.currForm = middleData
@@ -393,7 +394,6 @@ export default {
       this.capabilities = []
     },
     register () {
-      this.editType = 1
       this.resetForm()
       this.isDisable = false
       this.dialogVisible = true
@@ -401,7 +401,6 @@ export default {
       this.$nextTick(() => {
         this.$refs.currForm.resetFields()
       })
-      this.getList()
     },
     getList () {
       inventory.getList(1).then(res => {
@@ -431,7 +430,7 @@ export default {
             this.capabilityJudgement()
           }
           this.currForm.address = this.selectedArea.join('/')
-          if (this.editType === 1) {
+          if (this.type === 1) {
             inventory.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
               this.afterOperation()
@@ -475,8 +474,8 @@ export default {
       this.$emit('close', 'closeDialog')
     }
   },
-  mounted () {
-    console.log(this.rowdata)
+  created () {
+    this.getList()
   }
 }
 
