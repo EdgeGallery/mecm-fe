@@ -234,8 +234,7 @@
       <el-row class="el-row-search">
         <el-col
           :span="8"
-          :offset="0"
-          class="rt"
+          :offset="16"
         >
           <el-input
             id="nodesearch"
@@ -303,7 +302,7 @@
       <el-row>
         <el-pagination
           background
-          class="pageBar"
+          class="pagination rt"
           @size-change="handleEdgeNodePageSizeChange"
           @current-change="handleEdgeNodeCurrentPageChange"
           :current-page="edgeNodeCurrentPage"
@@ -318,13 +317,6 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancel()"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
@@ -332,6 +324,13 @@
           :loading="loading"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancel()"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </div>
     </el-dialog>

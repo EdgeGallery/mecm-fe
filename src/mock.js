@@ -141,23 +141,29 @@ const hostData = function () {
 }
 
 const packageData = function () {
-  return [ {
-    affinity: 'X86',
-    appId: '73b6f66992ab4798a55350f419a210af',
-    contact: null,
-    createTime: '2020-09-14 20:00:57.29812',
-    details: '',
-    downloadCount: 25,
-    iconUrl: null,
-    industry: 'Smart Park',
-    name: 'zone-swr-test1',
-    provider: 'Huawei',
-    score: 5,
-    shortDesc: 'for testing',
-    type: 'Video Application',
-    userId: '92e5d627-a501-479b-922a-8e63eb92cf57',
-    userName: 'Xxx'
-  }]
+  return [
+    {
+      'appId': 'a3639ec7e74246bab901cda521dfb5ba',
+      'packageId': '08ef4133104845238e98e57f82dd30ce',
+      'name': 'vm_arm',
+      'appstoreEndpoint': '119.8.63.144:30099',
+      'size': '221100358',
+      'version': 'v3.25',
+      'type': 'Video Application',
+      'affinity': 'X86',
+      'industry': 'Smart Park',
+      'contact': null,
+      'userId': '39937079-99fe-4cd8-881f-04ca8c4fe09d',
+      'userName': 'admin',
+      'status': 'Published',
+      'shortDesc': 'test',
+      'testTaskId': '81260c19-59d1-48a0-96a6-55fa6e198fa6',
+      'provider': 'HUAWEI',
+      'syncStatus': 'SYNC_FAILED',
+      'createTime': '2021-04-13T07:38:43.558+0000',
+      'operationalInfo': 'a3639ec7e74246bab901cda521dfb5ba08ef4133104845238e98e57f82dd30ce.csar :fileSize is too big'
+    }
+  ]
 }
 
 const instanceList = function () {

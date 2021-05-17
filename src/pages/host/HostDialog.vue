@@ -113,6 +113,48 @@
             </el-checkbox-group>
           </el-form-item>
           <el-form-item
+            label="GPU Info"
+            v-if="capabilities.includes('GPU')"
+          >
+            <el-row :gutter="24">
+              <el-col :span="5">
+                <el-input
+                  type="text"
+                  v-model="gpuModel"
+                  placeholder="Model"
+                />
+              </el-col>
+              <el-col :span="5">
+                <el-input
+                  type="text"
+                  v-model="gpuVendor"
+                  placeholder="Vendor"
+                />
+              </el-col>
+            </el-row>
+          </el-form-item>
+          <el-form-item
+            label="NPU Info"
+            v-if="capabilities.includes('NPU')"
+          >
+            <el-row :gutter="24">
+              <el-col :span="5">
+                <el-input
+                  type="text"
+                  v-model="npuModel"
+                  placeholder="Model"
+                />
+              </el-col>
+              <el-col :span="5">
+                <el-input
+                  type="text"
+                  v-model="npuVendor"
+                  placeholder="Vendor"
+                />
+              </el-col>
+            </el-row>
+          </el-form-item>
+          <el-form-item
             label="App LCM"
             prop="applcmIp"
           >
@@ -458,11 +500,15 @@ export default {
       if (this.capabilities.includes('GPU')) {
         let obj = {}
         obj.hwType = 'GPU'
+        obj.hwVendor = this.gpuVendor
+        obj.hwModel = this.gpuModel
         this.currForm.hwcapabilities.push(obj)
       }
       if (this.capabilities.includes('NPU')) {
         let obj = {}
         obj.hwType = 'NPU'
+        obj.hwVendor = this.npuVendor
+        obj.hwModel = this.npuModel
         this.currForm.hwcapabilities.push(obj)
       }
     },
