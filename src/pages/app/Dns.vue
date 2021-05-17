@@ -276,7 +276,6 @@ export default {
             appSupportMp1: true
           }
           data.appDNSRule.push(this.dnsRule)
-          console.log(data)
           appo.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
             if (res.data) {
               this.getTaskStatus(res)

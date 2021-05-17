@@ -77,11 +77,14 @@ export default {
     }
   },
   watch: {
-    type: function (val) {
-      if (this.type === 1) {
-        this.register()
-      } else {
-        this.handleEdit()
+    type: {
+      immediate: true,
+      handler  (val) {
+        if (this.type === 1) {
+          this.register()
+        } else {
+          this.handleEdit()
+        }
       }
     }
   },

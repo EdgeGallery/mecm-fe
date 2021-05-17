@@ -944,7 +944,6 @@ export default {
           }
           this.operationDialog = false
           data.appTrafficRule.push(this.appTrafficRule)
-          console.log(data)
           appo.addConfigRules(this.type, sessionStorage.getItem('instanceId'), data).then(res => {
             if (res.data) {
               this.getTaskStatus(res)
