@@ -19,6 +19,7 @@ const cn = {
   nav: {
     login: '登录',
     logout: '注销',
+    userAccountCenter: '我的帐号',
     mecm: '管理平台',
     overview: '概览',
     appMana: '应用管理',

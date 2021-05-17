@@ -73,6 +73,13 @@
               v-if="!ifGuest"
             >|</span>
             <span
+              v-if="!ifGuest"
+              @click="openUserAccountCenter()"
+            >{{ $t('nav.userAccountCenter') }}</span>
+            <span
+              v-if="!ifGuest"
+            >|</span>
+            <span
               @click="beforeLogout()"
               v-if="!ifGuest"
             >{{ $t('nav.logout') }}</span>
@@ -110,6 +117,7 @@ export default {
   data () {
     return {
       loginPage: '',
+      userCenterPage: '',
       ifGuest: true,
       jsonData: [],
       language: 'cn',
@@ -141,6 +149,7 @@ export default {
       sessionStorage.setItem('access_token', res.data.accessToken)
       sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
       this.loginPage = res.data.loginPage
+      this.userCenterPage = res.data.userCenterPage
       if (res.data.userName !== 'guest') {
         this.ifGuest = false
       }
@@ -213,6 +222,9 @@ export default {
           location.reload()
         }
       })
+    },
+    openUserAccountCenter () {
+      window.open(this.userCenterPage)
     }
   }
 }
