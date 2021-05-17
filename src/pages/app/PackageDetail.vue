@@ -31,10 +31,8 @@
       </el-breadcrumb-item>
       <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>
     </el-breadcrumb>
-    <div class="detail">
-      <div>
-        <Edge :appid="appId" />
-      </div>
+    <div>
+      <Edge :appid="appId" />
     </div>
   </div>
 </template>
@@ -51,11 +49,3 @@ export default {
   }
 }
 </script>
-<style lang='less' >
-.detail {
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
-}
-</style>
