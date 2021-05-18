@@ -234,7 +234,7 @@ const en = {
       chooseLocation: 'Please select location',
       vim: 'VIM',
       ifUploaded: 'Upload Status',
-      coordPlaceholder: 'Please enter latitude and longitude, eg: 39.9062170, 116.3912757'
+      coordPlaceholder: 'Please enter longitude and latitude, eg: 116.3912757，39.9062170'
     },
     appstore: {
       appstoreName: 'App Store Name',

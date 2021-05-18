@@ -232,7 +232,7 @@ const cn = {
       chooseLocation: '选择部署位置',
       vim: '虚拟机',
       ifUploaded: '配置文件上传状态',
-      coordPlaceholder: '请输入纬度和经度，例如：39.9062170, 116.3912757'
+      coordPlaceholder: '请输入经纬度，例如：116.3912757,39.9062170'
     },
     appstore: {
       appstoreName: '应用市场',
