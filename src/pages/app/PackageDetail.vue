@@ -16,24 +16,25 @@
 
 <template>
   <div>
-    <el-breadcrumb
-      separator="/"
+    <div
       class="breadcrumb"
     >
-      <el-breadcrumb-item :to="{ path: '/' }">
-        {{ $t('nav.overview') }}
-      </el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
-        {{ $t('nav.appMana') }}
-      </el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
-        {{ $t('nav.packageMana') }}
-      </el-breadcrumb-item>
-      <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>
-    </el-breadcrumb>
-    <div>
-      <Edge :appid="appId" />
+      <el-breadcrumb
+        separator="/"
+      >
+        <el-breadcrumb-item :to="{ path: '/' }">
+          {{ $t('nav.overview') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
+          {{ $t('nav.appMana') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item :to="{ path: '/mecm/app/package' }">
+          {{ $t('nav.packageMana') }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item>{{ $t('nav.appDetail') }}</el-breadcrumb-item>
+      </el-breadcrumb>
     </div>
+    <Edge :appid="appId" />
   </div>
 </template>
 <script>

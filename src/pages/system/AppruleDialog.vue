@@ -127,7 +127,6 @@ export default {
         userName: '',
         appRuleName: ''
       }
-      this.dialogVisible = true
       this.ipDisable = false
       this.$nextTick(() => {
         this.$refs.form.resetFields()
@@ -135,7 +134,6 @@ export default {
     },
     handleEdit () {
       this.title = this.$t('app.ruleConfig.appRuleManEdit')
-      this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.form = middleData
@@ -147,7 +145,7 @@ export default {
             inventory.create(4, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
               this.initList()
-              this.dialogVisible = false
+              this.cancel()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
@@ -161,7 +159,7 @@ export default {
             inventory.modify(4, this.form, this.form.appRuleIp).then(res => {
               this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
               this.initList()
-              this.dialogVisible = false
+              this.cancel()
             }, error => {
               this.$message.error(error.response.data)
             })

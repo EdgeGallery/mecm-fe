@@ -145,7 +145,7 @@ export default {
       form: {
         appstoreIp: '',
         appstoreName: '',
-        appstorePort: '',
+        appstorePort: '30099',
         appstoreRepo: '',
         appstoreRepoName: '',
         appstoreRepoPassword: '',
@@ -191,7 +191,6 @@ export default {
   },
   methods: {
     register () {
-      this.dialogVisible = true
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
       this.resetForm()
@@ -201,7 +200,6 @@ export default {
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
-      this.dialogVisible = true
       this.urlDisable = true
       let middleData = JSON.parse(JSON.stringify(this.appstoreData))
       this.form = middleData
@@ -234,7 +232,7 @@ export default {
     showSuccessTip () {
       this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
       this.initList()
-      this.dialogVisible = false
+      this.cancel()
     },
     cancel () {
       this.$emit('close', 'closeEditDialog')

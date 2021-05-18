@@ -401,7 +401,7 @@ export default {
         if (!allStatus.includes('Error')) {
           this.deploy(this.selectData, 2)
         } else {
-          this.$message.error(this.$t('app.disriList.deleteError'))
+          this.$message.error(this.$t('app.distriList.deleteError'))
         }
       } else {
         this.$message.warning(this.$t('tip.onePackageAtLeast'))
