@@ -142,7 +142,6 @@ export default {
           if (this.type === 1) {
             inventory.create(1, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppLcmSuc'), 1500)
-              this.initList()
               this.cancel()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
@@ -156,7 +155,6 @@ export default {
           } else {
             inventory.modify(1, this.form, this.form.applcmIp).then(res => {
               this.showMessage('success', this.$t('tip.modAppLcmSuc'), 1500)
-              this.initList()
               this.cancel()
             }, error => {
               this.$message.error(error.response.data)

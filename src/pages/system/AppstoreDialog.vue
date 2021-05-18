@@ -231,7 +231,6 @@ export default {
     },
     showSuccessTip () {
       this.showMessage('success', this.$t('tip.regAppStoreSuc'), 1500)
-      this.initList()
       this.cancel()
     },
     cancel () {
