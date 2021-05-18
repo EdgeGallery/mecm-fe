@@ -126,14 +126,12 @@ export default {
         userName: '',
         applcmName: ''
       }
-      this.dialogVisible = true
       this.ipDisable = false
       this.$nextTick(() => {
         this.$refs.form.resetFields()
       })
     },
     handleEdit () {
-      this.dialogVisible = true
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.form = middleData
@@ -145,7 +143,7 @@ export default {
             inventory.create(1, this.form).then(res => {
               this.showMessage('success', this.$t('tip.regAppLcmSuc'), 1500)
               this.initList()
-              this.dialogVisible = false
+              this.cancel()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
@@ -159,7 +157,7 @@ export default {
             inventory.modify(1, this.form, this.form.applcmIp).then(res => {
               this.showMessage('success', this.$t('tip.modAppLcmSuc'), 1500)
               this.initList()
-              this.dialogVisible = false
+              this.cancel()
             }, error => {
               this.$message.error(error.response.data)
             })
