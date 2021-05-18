@@ -373,7 +373,8 @@ const en = {
     idMust: 'Please type right rule ID.',
     domainMust: 'Please type right domain name.',
     beforeDeleteAppMgr: 'Are you sure to delete this data?',
-    noPermession: 'No permission to operate, please login！'
+    noPermession: 'No permission to operate, please login！',
+    recordExist: 'Record already exist!'
   },
   area: {
     beijing: 'Beijing',

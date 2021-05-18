@@ -147,7 +147,7 @@ export default {
               this.cancel()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
-                this.$message.error(error.response.data.details[0])
+                this.$message.error(this.$t('tip.recordExist'))
               } else if (error.response.status === 403) {
                 this.$message.error(this.$t('tip.loginOperation'))
               } else {
