@@ -231,7 +231,8 @@ const cn = {
       coordinates: '坐标',
       chooseLocation: '选择部署位置',
       vim: '虚拟机',
-      ifUploaded: '配置文件上传状态'
+      ifUploaded: '配置文件上传状态',
+      coordPlaceholder: '请输入纬度和经度，例如：39.9062170, 116.3912757'
     },
     appstore: {
       appstoreName: '应用市场',
@@ -286,7 +287,7 @@ const cn = {
     normalVerify: '输入的内容格式不正确',
     hostNameVerify: '4到16位（字母，数字）',
     noSymbol: '长度为1-16位且不能包含特殊符号',
-    coordinates: '坐标不能为空',
+    coordinates: '坐标应该为维度和经度组合，英文逗号连接',
     uriVerify: '请填写正确的Uri',
     descVerify: '描述信息不能为空',
     appNameVerify: '应用名称不能为空',
@@ -371,7 +372,8 @@ const cn = {
     idMust: '请填写正确的规则标识',
     domainMust: '请填写正确的域名',
     beforeDeleteAppMgr: '确认要删除本条数据吗？',
-    noPermession: '当前用户无权操作！'
+    noPermession: '当前用户无权操作！',
+    recordExist: '记录已存在'
   },
   area: {
     beijing: '北京市',

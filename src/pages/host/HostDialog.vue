@@ -51,40 +51,34 @@
             :label="$t('system.edgeNodes.location')"
             prop="city"
           >
-            <el-cascader
-              :options="options"
-              :placeholder="$t('system.edgeNodes.chooseLocation')"
-              v-model="selectedArea"
-              @change="onChanged"
-              ref="myCascader"
-            >
-              <template slot-scope="{ node, data }">
-                <span>{{ data.label }}</span>
-                <span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
-              </template>
-            </el-cascader>
-          </el-form-item>
-          <!-- <el-form-item
-            :label="$t('system.edgeNodes.location')"
-            prop="city"
-          >
             <area-select
-              v-model="selectedArea"
+              v-model="location"
               :data="$pcaa"
-              :level="3"
+              @change="cityChanged"
+              :level="2"
               type="text"
             />
           </el-form-item>
           <el-form-item
-            label="坐标"
-            prop="city"
+            :label="$t('system.edgeNodes.address')"
+            prop="address"
+          >
+            <el-input
+              id="address"
+              v-model="currForm.address"
+              :placeholder="$t('system.edgeNodes.address')"
+            />
+          </el-form-item>
+          <el-form-item
+            :label="$t('system.edgeNodes.coordinates')"
+            prop="coordinates"
           >
             <el-input
               id="coord"
-              v-model="currForm.mechostIp"
-              placeholder="请输入经度和纬度，使用英文‘,’分割"
+              v-model="currForm.coordinates"
+              :placeholder="$t('system.edgeNodes.coordPlaceholder')"
             />
-          </el-form-item> -->
+          </el-form-item>
           <el-form-item
             :label="$t('app.packageList.affinity')"
             prop="affinity"
@@ -248,112 +242,19 @@ export default {
         zipCode: '',
         hwcapabilities: [],
         appRuleIp: '',
-        coordinate: '',
+        coordinates: '',
         vim: 'K8S'
       },
+      location: [],
       falsecapabilities: [],
       capabilities: [],
       gpuModel: '',
       gpuVendor: '',
       npuModel: '',
       npuVendor: '',
-      options: [
-        {
-          value: '1',
-          label: this.$t('area.beijing'),
-          children: [{
-            value: '1.1',
-            label: this.$t('area.haidian'),
-            children: [{
-              value: '116.35,39.979508',
-              label: this.$t('area.caict')
-            }, {
-              value: '116.185087,40.054096',
-              label: this.$t('area.huaweiBeijing')
-            }]
-          }]
-        },
-        {
-          value: '1',
-          label: this.$t('area.shanxi'),
-          children: [{
-            value: '1.1',
-            label: this.$t('area.xian'),
-            children: [{
-              value: '108.839257,34.197356',
-              label: this.$t('area.huaweiXian')
-            }, {
-              value: '108.916787,34.230834',
-              label: this.$t('area.xidian')
-            }]
-          }]
-        }, {
-          value: '2',
-          label: this.$t('area.jiangsu'),
-          children: [{
-            value: '2.1',
-            label: this.$t('area.nanjing'),
-            children: [{
-              label: this.$t('area.zijinshan'),
-              value: '118.822617,31.871027'
-            }]
-          }]
-        }, {
-          value: '3',
-          label: this.$t('area.shanghai'),
-          children: [{
-            value: '3.1',
-            label: this.$t('area.pudong'),
-            children: [
-              {
-                label: this.$t('area.huaweiShanghai'),
-                value: '121.633202,31.26335'
-              }
-            ]
-          }]
-        }, {
-          value: '4',
-          label: this.$t('area.guangdong'),
-          children: [{
-            value: '4.1',
-            label: this.$t('area.shenzhen'),
-            children: [
-              {
-                label: this.$t('area.huaweiBantian'),
-                value: '114.054927,22.658795'
-              },
-              {
-                label: this.$t('area.tiananyungu'),
-                value: '114.064276,22.661791'
-              },
-              {
-                label: this.$t('area.clab'),
-                value: '114.05283,22.656889'
-              },
-              {
-                label: this.$t('area.SUSTech'),
-                value: '113.996625,22.603375'
-              }
-            ]
-          }]
-        }, {
-          value: '5',
-          label: this.$t('area.shandong'),
-          children: [{
-            value: '5.1',
-            label: this.$t('area.qingdao'),
-            children: [{
-              value: '120.4154467,36.1322617',
-              label: this.$t('area.haier')
-            }]
-          }]
-        }
-      ],
       op: false,
-      area: false,
       applcmList: [],
       appRuleIpList: [],
-      selectedArea: [],
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
       capability: ['GPU', 'NPU']
@@ -373,8 +274,12 @@ export default {
         city: [
           { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
         ],
+        address: [
+          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
+        ],
         coordinates: [
-          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
+          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' },
+          { pattern: /^([3-9](?:\.\d{1,6})?|[1234][0-9](?:\.\d{1,6})?|[5][0-4](?:\.\d{1,6})?)[,]\s?([789][3-9](?:\.\d{1,6})?|[1][0-3][0-6](?:\.\d{1,6})?)$/, message: this.$t('verify.coordinates') }
         ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
@@ -392,27 +297,22 @@ export default {
     changeType () {
       this.op = !this.op
     },
-    onChanged (val) {
-      this.currForm.coordinates = this.$refs.myCascader.getCheckedNodes()[0].value
-      this.currForm.city = this.$refs.myCascader.getCheckedNodes()[0].pathLabels.join('/')
-      this.currForm.address = val.join(',')
+    cityChanged (val) {
+      this.currForm.city = val.join('/')
     },
     handleModify () {
       this.getList()
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.currForm = middleData
-      this.selectedArea = this.rowdata.address.split('/')
+      this.location = this.city.split('/')
       this.dialogVisible = true
-      this.area = true
       this.rowdata.hwcapabilities.forEach(item => {
         this.capabilities.push(item.hwType)
       })
     },
     cancel () {
       this.$refs.myCascader.$refs.panel.activePath = []
-      this.area = false
-      this.area = false
       this.isDisable = false
       this.resetForm()
       this.$emit('close', 'closeDialog')
@@ -429,17 +329,15 @@ export default {
         zipCode: '',
         hwcapabilities: [],
         appRuleIp: '',
-        coordinate: '',
+        coordinates: '',
         vim: 'K8S'
       }
-      this.selectedArea = []
       this.capabilities = []
     },
     register () {
       this.resetForm()
       this.isDisable = false
       this.dialogVisible = true
-      this.area = true
       this.$nextTick(() => {
         this.$refs.currForm.resetFields()
       })
@@ -471,7 +369,7 @@ export default {
           if (this.capabilities.length > 0) {
             this.capabilityJudgement()
           }
-          this.currForm.address = this.selectedArea.join('/')
+          console.log(this.currForm)
           if (this.type === 1) {
             inventory.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
@@ -514,7 +412,6 @@ export default {
     },
     afterOperation () {
       this.$refs.myCascader.$refs.panel.activePath = []
-      this.area = false
       this.isDisable = false
       this.resetForm()
       this.$emit('close', 'closeDialog')

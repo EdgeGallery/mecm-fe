@@ -233,7 +233,8 @@ const en = {
       coordinates: 'Coordinates',
       chooseLocation: 'Please select location',
       vim: 'VIM',
-      ifUploaded: 'Upload Status'
+      ifUploaded: 'Upload Status',
+      coordPlaceholder: 'Please enter latitude and longitude, eg: 39.9062170, 116.3912757'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -288,7 +289,7 @@ const en = {
     normalVerify: 'Style is not right',
     hostNameVerify: '4 to 16 digits (letters, numbers)',
     noSymbol: '1-16 characters and not contain special symbols',
-    coordinates: 'Coordinates should not be empty',
+    coordinates: 'Coordinates should be a combination of latitude and longitude, connected by commas',
     uriVerify: 'Try to type right Uri.',
     descVerify: 'Describtion can not be empty.',
     appNameVerify: 'App name can not be empty',
@@ -373,7 +374,8 @@ const en = {
     idMust: 'Please type right rule ID.',
     domainMust: 'Please type right domain name.',
     beforeDeleteAppMgr: 'Are you sure to delete this data?',
-    noPermession: 'No permission to operate, please login！'
+    noPermession: 'No permission to operate, please login！',
+    recordExist: 'Record already exist!'
   },
   area: {
     beijing: 'Beijing',
