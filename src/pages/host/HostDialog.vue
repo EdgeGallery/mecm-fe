@@ -279,7 +279,7 @@ export default {
         ],
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' },
-          { pattern: /^([3-9](?:\.\d{1,6})?|[1234][0-9](?:\.\d{1,6})?|[5][0-4](?:\.\d{1,6})?)[,]\s?([789][3-9](?:\.\d{1,6})?|[1][0-3][0-6](?:\.\d{1,6})?)$/, message: this.$t('verify.coordinates') }
+          { pattern: /^([789][3-9](?:\.\d{1,6})?|[1][0-2][0-9](?:\.\d{1,6})?|[13][0-6](?:\.\d{1,6})?)[,]\s?([3-9](?:\.\d{1,6})?|[1234][0-9](?:\.\d{1,6})?|[5][0-4](?:\.\d{1,6})?)$/, message: this.$t('verify.coordinates') }
         ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
@@ -369,13 +369,12 @@ export default {
           if (this.capabilities.length > 0) {
             this.capabilityJudgement()
           }
-          console.log(this.currForm)
           if (this.type === 1) {
             inventory.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
               this.afterOperation()
             }).catch((error) => {
-              if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
+              if (error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
               } else if (error.response.status === 403) {
                 this.$message.error(this.$t('tip.loginOperation'))
