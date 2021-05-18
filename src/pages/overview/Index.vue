@@ -295,7 +295,7 @@ export default {
       }
       this.nodeList = msg
       this.nodeList.forEach(item => {
-        item.city = item.city.split('/')[0]
+        item.city += '/' + item.address
       })
       this.nodeNum = msg.length
       this.chartData =
