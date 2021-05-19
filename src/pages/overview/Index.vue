@@ -293,7 +293,7 @@ export default {
           this.city = pinyin(city, { style: pinyin.STYLE_NORMAL }).join('').replace(/^\S/, s => s.toUpperCase())
         }
       }
-      this.nodeList = msg
+      this.nodeList = JSON.parse(JSON.stringify(msg))
       this.nodeList.forEach(item => {
         item.city += '/' + item.address
       })
