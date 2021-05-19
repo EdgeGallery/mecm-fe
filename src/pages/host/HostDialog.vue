@@ -78,6 +78,13 @@
               v-model="currForm.coordinates"
               :placeholder="$t('system.edgeNodes.coordPlaceholder')"
             />
+            <p class="referCoord">
+              {{ $t('system.edgeNodes.referCoord') }}
+              <a
+                href="https://www.openstreetmap.org/#map=11/39.9064/116.3913"
+                target="_blank"
+              >OpenStreetMap</a>
+            </p>
           </el-form-item>
           <el-form-item
             :label="$t('app.packageList.affinity')"
@@ -279,7 +286,7 @@ export default {
         ],
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' },
-          { pattern: /^([789][3-9](?:\.\d{1,6})?|[1][0-2][0-9](?:\.\d{1,6})?|[13][0-6](?:\.\d{1,6})?)[,]\s?([3-9](?:\.\d{1,6})?|[1234][0-9](?:\.\d{1,6})?|[5][0-4](?:\.\d{1,6})?)$/, message: this.$t('verify.coordinates') }
+          { pattern: /^([789][3-9](?:\.\d{1,10})?|[1][0-2][0-9](?:\.\d{1,10})?|[13][0-6](?:\.\d{1,10})?)[,]\s?([3-9](?:\.\d{1,10})?|[1234][0-9](?:\.\d{1,10})?|[5][0-4](?:\.\d{1,10})?)$/, message: this.$t('verify.coordinates') }
         ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
@@ -301,7 +308,6 @@ export default {
       this.currForm.city = val.join('/')
     },
     handleModify () {
-      this.getList()
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.currForm = middleData
@@ -417,11 +423,16 @@ export default {
   },
   created () {
     this.getList()
-    this.afterOperation()
   }
 }
 
 </script>
 <style lang='less' scoped>
-
+.referCoord{
+  height:25px;
+  font-size: 12px;
+  a{
+    color: #166bea;
+  }
+}
 </style>
