@@ -312,7 +312,6 @@ export default {
       })
     },
     cancel () {
-      this.$refs.myCascader.$refs.panel.activePath = []
       this.isDisable = false
       this.resetForm()
       this.$emit('close', 'closeDialog')
@@ -386,7 +385,8 @@ export default {
             inventory.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
               this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
               this.afterOperation()
-            }).catch(() => {
+            }).catch((error) => {
+              console.log(error)
               this.$message.error(this.$t('tip.failToModifyNode'))
             })
           }
@@ -410,7 +410,6 @@ export default {
       }
     },
     afterOperation () {
-      this.$refs.myCascader.$refs.panel.activePath = []
       this.isDisable = false
       this.resetForm()
       this.$emit('close', 'closeDialog')
@@ -418,6 +417,7 @@ export default {
   },
   created () {
     this.getList()
+    this.afterOperation()
   }
 }
 
