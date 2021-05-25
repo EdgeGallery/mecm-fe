@@ -5,36 +5,37 @@
         <el-form
           label-width="auto"
           :model="form"
+
           ref="form"
           :rules="rules"
         >
           <el-form-item
-            :label="$t('system.appLcm.name')"
-            prop="appRuleName"
+            :label="$t('system.mepm.name')"
+            prop="applcmName"
           >
             <el-input
               id="name"
               maxlength="20"
-              v-model="form.appRuleName"
+              v-model="form.mepmName"
             />
           </el-form-item>
           <el-form-item
             :label="$t('app.packageList.ip')"
-            prop="appRuleIp"
+            prop="applcmIp"
           >
             <el-input
               id="ip"
-              v-model="form.appRuleIp"
+              v-model="form.mepmIp"
               :disabled="ipDisable"
             />
           </el-form-item>
           <el-form-item
-            :label="$t('system.appLcm.port')"
-            prop="appRulePort"
+            :label="$t('system.mepm.port')"
+            prop="applcmPort"
           >
             <el-input
               id="port"
-              v-model="form.appRulePort"
+              v-model="form.mepmPort"
             />
           </el-form-item>
         </el-form>
@@ -92,27 +93,26 @@ export default {
     return {
       ipDisable: false,
       form: {
-        appRuleIp: '',
-        appRulePort: 30206,
+        mepmIp: '',
+        mepmPort: 30102,
         userName: '',
-        appRuleName: ''
-      },
-      editType: 1
+        mepmName: ''
+      }
     }
   },
   computed: {
     rules () {
       return {
-        appRuleIp: [
+        applcmIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        appRulePort: [
+        applcmPort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        appRuleName: [
-          { required: true, message: this.$t('app.ruleConfig.appRuleMgrMust'), trigger: 'blur' },
+        applcmName: [
+          { required: true, message: this.$t('verify.mepmNameTip'), trigger: 'blur' },
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
       }
@@ -120,12 +120,11 @@ export default {
   },
   methods: {
     register () {
-      this.title = this.$t('app.ruleConfig.appRuleManReg')
       this.form = {
-        appRuleIp: '',
-        appRulePort: 30206,
+        mepmIp: '',
+        mepmPort: 30102,
         userName: '',
-        appRuleName: ''
+        mepmName: ''
       }
       this.ipDisable = false
       this.$nextTick(() => {
@@ -133,7 +132,6 @@ export default {
       })
     },
     handleEdit () {
-      this.title = this.$t('app.ruleConfig.appRuleManEdit')
       this.ipDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.form = middleData
@@ -142,12 +140,12 @@ export default {
       this.$refs[form].validate(valid => {
         if (valid) {
           if (this.type === 1) {
-            inventory.create(4, this.form).then(res => {
-              this.showMessage('success', this.$t('tip.regAppManSuc'), 1500)
+            inventory.create(5, this.form).then(res => {
+              this.showMessage('success', this.$t('tip.regMepmSuc'), 1500)
               this.cancel()
             }, error => {
               if (error.response.status === 400 && error.response.data.details[0] === 'Record already exist') {
-                this.$message.error(this.$t('tip.recordExist'))
+                this.$message.error(error.response.data.details[0])
               } else if (error.response.status === 403) {
                 this.$message.error(this.$t('tip.loginOperation'))
               } else {
@@ -155,8 +153,8 @@ export default {
               }
             })
           } else {
-            inventory.modify(4, this.form, this.form.appRuleIp).then(res => {
-              this.showMessage('success', this.$t('tip.modAppRuleSuc'), 1500)
+            inventory.modify(5, this.form, this.form.applcmIp).then(res => {
+              this.showMessage('success', this.$t('tip.modMepmSuc'), 1500)
               this.cancel()
             }, error => {
               this.$message.error(error.response.data)
@@ -168,8 +166,7 @@ export default {
     cancel () {
       this.$emit('close', 'closeEditDialog')
     }
-  },
-  mounted () {}
+  }
 }
 
 </script>

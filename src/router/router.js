@@ -50,14 +50,9 @@ export default new Router({
       component: () => import('../pages/host/Index.vue')
     },
     {
-      path: '/mecm/system/applcm',
+      path: '/mecm/system/mepm',
       name: 'applcm',
-      component: () => import('../pages/system/Applcm.vue')
-    },
-    {
-      path: '/mecm/system/apprule',
-      name: 'apprule',
-      component: () => import('../pages/system/Apprule.vue')
+      component: () => import('../pages/system/Mepm.vue')
     },
     {
       path: '/mecm/system/appstore',

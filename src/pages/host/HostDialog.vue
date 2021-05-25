@@ -9,7 +9,7 @@
           :rules="rules"
         >
           <el-form-item
-            :label="$t('system.edgeNodes.systemPlatform')"
+            label="VIM"
           >
             <el-radio-group
               v-model="currForm.vim"
@@ -156,36 +156,19 @@
             </el-row>
           </el-form-item>
           <el-form-item
-            label="App LCM"
-            prop="applcmIp"
+            label="MEPM"
+            prop="mepmIp"
           >
             <el-select
-              id="applcmip"
-              v-model="currForm.applcmIp"
-              :placeholder="$t('system.edgeNodes.applcmIp')"
+              id="mepmip"
+              v-model="currForm.mepmIp"
+              :placeholder="$t('system.edgeNodes.mepmIp')"
             >
               <el-option
-                v-for="(item,index) in applcmList"
+                v-for="(item,index) in mepmList"
                 :key="index"
-                :label="item.applcmIp"
-                :value="item.applcmIp"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item
-            label="App Rule MGR"
-            prop="appRuleIp"
-          >
-            <el-select
-              id="apprulemgrip"
-              v-model="currForm.appRuleIp"
-              placeholder="App Rule MGR IP"
-            >
-              <el-option
-                v-for="(item,index) in appRuleIpList"
-                :key="index"
-                :label="item.appRuleIp"
-                :value="item.appRuleIp"
+                :label="item.mepmIp"
+                :value="item.mepmIp"
               />
             </el-select>
           </el-form-item>
@@ -241,7 +224,7 @@ export default {
       currForm: {
         address: '',
         affinity: '',
-        applcmIp: '',
+        mepmIp: '',
         city: '',
         mechostIp: '',
         mechostName: '',
@@ -260,8 +243,7 @@ export default {
       npuModel: '',
       npuVendor: '',
       op: false,
-      applcmList: [],
-      appRuleIpList: [],
+      mepmList: [],
       isDisable: false,
       affinityList: ['X86', 'ARM64', 'ARM32'],
       capability: ['GPU', 'NPU']
@@ -291,8 +273,8 @@ export default {
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
         ],
-        applcmIp: [
-          { required: true, message: this.$t('verify.appLcmIpTip'), trigger: 'change' }
+        mepmIp: [
+          { required: true, message: this.$t('verify.mepmIpTip'), trigger: 'change' }
         ],
         affinity: [
           { required: true, message: this.$t('verify.affinityTip'), trigger: 'change' }
@@ -326,7 +308,7 @@ export default {
       this.currForm = {
         address: '',
         affinity: '',
-        applcmIp: '',
+        mepmIp: '',
         city: '',
         mechostIp: '',
         mechostName: '',
@@ -348,20 +330,11 @@ export default {
       })
     },
     getList () {
-      inventory.getList(1).then(res => {
-        this.applcmList = res.data
+      inventory.getList(5).then(res => {
+        this.mepmList = res.data
       }, error => {
         if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.applcmList = []
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
-        }
-      })
-      inventory.getList(4).then(res => {
-        this.appRuleIpList = res.data
-      }, error => {
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.appRuleIpList = []
+          this.mepmList = []
         } else {
           this.$message.error(this.$t('tip.getCommonListFailed'))
         }

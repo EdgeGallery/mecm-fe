@@ -55,7 +55,7 @@
                     class="el-icon-success"
                     :style="{color: '#67C23A'}"
                   />
-                  <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
+                  <span class="hostName">{{ scope.row.mechostName }}</span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -136,7 +136,6 @@
             <el-col :span="12">
               <el-select
                 v-model="edgeApp"
-                style="width:100%;"
                 @change="appChange"
               >
                 <el-option
@@ -149,7 +148,7 @@
             </el-col>
             <el-col :span="12">
               <div
-                style="float:right;margin-bottom:15px;"
+                class="infoPanel"
               >
                 <el-button
                   id="manageBtn"
@@ -173,7 +172,6 @@
               <el-table
                 :data="mepCapData"
                 class="capaTable"
-                style="width: 100%"
                 header-row-class-name="headerClassName"
               >
                 <el-table-column
@@ -198,7 +196,7 @@
         :md="12"
         :sm="24"
         :xs="24"
-        style="height:100%;padding-left:0!important;"
+        class="mapPanel"
       >
         <Map
           @node="clickNode"
@@ -394,16 +392,16 @@ export default {
 <style lang='less'>
   .mecm-overview {
     position: absolute;
-    top: 65px;
+    top: 64px;
     width: 100%;
-    height:calc(100% - 65px);
+    height:calc(100% - 64px);
     overflow: auto;
     background:#131111;
     background-size: cover;
     box-sizing: border-box;
   }
   label.overviewLabel{
-    font-family: PingFangSC-Medium,sans-serif;
+    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 20px;
     color: #FFFFFF;
     letter-spacing: 0;
@@ -523,5 +521,16 @@ export default {
   .nodelistTable{
     max-height: 350px;
     overflow-y: auto;
+  }
+  .hostName{
+    margin-left: 10px;
+  }
+  .infoPanel{
+    float:right;
+    margin-bottom:15px;
+  }
+  .mapPanel{
+    height:100%;
+    padding-left:0!important;
   }
 </style>

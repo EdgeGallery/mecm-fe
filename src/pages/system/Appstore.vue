@@ -41,13 +41,12 @@
           @click="showEditDialog('')"
           class="rt"
         >
-          {{ $t('system.appLcm.newReg') }}
+          {{ $t('system.mepm.newReg') }}
         </el-button>
       </p>
       <div class="tableDiv">
         <el-table
           :data="currPageTableData"
-          style="width: 100%"
         >
           <el-table-column
             sortable
@@ -60,7 +59,7 @@
           />
           <el-table-column
             prop="appstorePort"
-            :label="$t('system.appLcm.port')"
+            :label="$t('system.mepm.port')"
           />
           <el-table-column
             prop="appstoreRepo"
@@ -80,6 +79,7 @@
           />
           <el-table-column
             header-align="center"
+            :label="$t('common.operation')"
             align="center"
             v-if="rlp=='418'"
           >
@@ -229,10 +229,10 @@ export default {
       if (data) {
         this.appstoreData = data
         this.type = 2
-        this.title = this.$t('system.appLcm.applcmModify')
+        this.title = this.$t('system.mepm.mepmModify')
       } else {
         this.type = 1
-        this.title = this.$t('system.appLcm.applcmReg')
+        this.title = this.$t('system.mepm.mepmReg')
       }
       this.dialogVisible = true
     },

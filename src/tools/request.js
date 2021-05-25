@@ -23,7 +23,7 @@ let inventoryApi = '/mecm-inventory/inventory/v1'
 let apmApi = '/mecm-apm/apm/v1'
 let appoApi = '/mecm-appo/appo/v1'
 
-let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
+let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers', '/mepms']
 
 axios.interceptors.request.use(
   config => {

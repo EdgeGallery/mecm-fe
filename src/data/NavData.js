@@ -62,16 +62,9 @@ const NavData = [
     'children': [
       {
         'id': '2.11',
-        'name': 'App LCM',
-        'path': '/mecm/system/applcm',
+        'name': 'MEPM',
+        'path': '/mecm/system/mepm',
         'pageId': '2.0.3.1.1',
-        'display': false
-      },
-      {
-        'id': '2.14',
-        'name': 'App Rule',
-        'path': '/mecm/system/apprule',
-        'pageId': '2.0.3.1.4',
         'display': false
       },
       {

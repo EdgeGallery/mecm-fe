@@ -40,8 +40,6 @@
         v-loading="loading"
         class="mt20"
         :data="trafficRuleTableData"
-        border
-        style="width: 100%;"
         @selection-change="handleSelectionChange"
       >
         <el-table-column
@@ -208,9 +206,7 @@
           <el-table
             class="mt20"
             :data="trafficFilterData"
-            border
             size="small"
-            style="width: 100%;"
           >
             <el-table-column
               prop="srcAddress"
@@ -313,9 +309,7 @@
             <el-table
               class="mt20"
               :data="dstInterfaceData"
-              border
               size="small"
-              style="width: 100%;"
             >
               <el-table-column
                 prop="interfaceType"

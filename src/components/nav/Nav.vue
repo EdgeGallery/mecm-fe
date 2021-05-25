@@ -232,14 +232,14 @@ export default {
 
 <style lang='less' scoped>
 .navgation{
-  background: #282B33;
-  height: 65px;
+  background: #280B4E;
+  height: 64px;
   top: 0px;
   width: 100%;
   position: fixed;
   z-index: 2;
   .logo{
-    height:65px;
+    height:64px;
     width:430px;
     line-height: 65px;
     margin-left:17px;
@@ -251,7 +251,7 @@ export default {
     span{
       position: relative;
       top:-28px;
-      font-size: 18px;
+      font-size: 16px;
       color:#ffffff;
       left:20px;
       cursor:pointer;
@@ -266,7 +266,7 @@ export default {
     font-size: 14px;
     color: #6c92fa;
     span {
-      width:60px!important;
+      width:64px!important;
       top:3px!important;
     }
     span:hover {
@@ -289,7 +289,7 @@ export default {
   .nav-tabs{
     height:100%;
     font-size:20px;
-    line-height: 50px;
+    line-height: 64px;
     margin-right: 10px;
     span{
       height:24px;

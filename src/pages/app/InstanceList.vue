@@ -42,9 +42,7 @@
       <div class="tableDiv">
         <el-table
           class="mt20"
-          border
           size="small"
-          style="width: 100%;"
           :data="currPageTableData"
           v-loading="dataLoading"
           @selection-change="handleSelectionChange"
@@ -69,7 +67,7 @@
           />
           <el-table-column
             prop="applcmHost"
-            :label="$t('system.edgeNodes.applcmIp')"
+            :label="$t('system.edgeNodes.mepmIp')"
           />
           <el-table-column
             :label="$t('app.distriList.status')"

@@ -28,9 +28,7 @@
         <el-table
           :data="searvicesData"
           class="mt20"
-          border
           size="small"
-          style="width: 100%;"
         >
           <el-table-column
             prop="name"
@@ -168,7 +166,7 @@ export default {
     }
   }
   .el-radio{
-    font-family: Roboto-Regular,sans-serif;
+    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 18px;
     color: #212121;
     line-height: 16px;
@@ -177,7 +175,7 @@ export default {
     text-align: center;
   }
   .nameLable{
-      font-family: HelveticaNeue,sans-serif;
+      font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
       font-size: 18px;
       color: #999999;
       letter-spacing: 0;
@@ -185,7 +183,7 @@ export default {
       margin-right:5px;
   }
   label.dialogLabel{
-    font-family: Roboto-Regular,sans-serif;
+    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 15px;
     color: #212121;
     letter-spacing: 0;

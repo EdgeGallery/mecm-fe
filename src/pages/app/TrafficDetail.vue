@@ -22,9 +22,7 @@
     </p>
     <el-table
       class="mt20"
-      border
       size="small"
-      style="width: 100%;"
       :data="filterData"
     >
       <el-table-column
@@ -83,14 +81,12 @@
 
     <!-- 接口信息 -->
     <p class="title">
-      接口信息
+      {{ $t('app.ruleConfig.interfaceInfo') }}
     </p>
     <el-table
       class="mt20"
       :data="interfaceData"
-      border
       size="small"
-      style="width: 100%;"
     >
       <el-table-column
         prop="interfaceType"

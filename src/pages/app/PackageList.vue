@@ -32,7 +32,7 @@
       <div class="btn-p">
         <el-button
           id="syncBtn"
-          style="float:right;"
+          class="rt"
           type="primary"
           @click="showSyncBox()"
         >
@@ -48,9 +48,7 @@
             <el-table
               v-loading="dataLoading"
               :data="currPageTableData"
-              border
               size="small"
-              style="width: 100%;"
             >
               <el-table-column
                 prop="name"
@@ -159,9 +157,7 @@
             ref="syncPackageTable"
             :data="syncPackageTableData"
             class="mt20"
-            border
             size="small"
-            style="width: 100%;"
             @selection-change="handleSelectionChange"
           >
             <el-table-column
@@ -203,13 +199,11 @@
         <span
           slot="footer"
           class="dialog-footer"
-          style="text-align:right;padding-bottom:15px"
         >
           <el-button
             type="primary"
             @click="confirmToSync()"
             size="small"
-            style="margin-right:15px;"
             class="rt"
           >
             {{ $t('common.confirm') }}
@@ -254,9 +248,7 @@
             ref="multipleEdgeNodeTable"
             :data="currPageEdgeNodeTableData"
             class="mt20"
-            border
             size="small"
-            style="width: 100%;"
             @selection-change="handleEdgeNodeSelectionChange"
           >
             <el-table-column

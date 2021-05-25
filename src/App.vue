@@ -38,10 +38,10 @@ export default {
 
 <style>
 #app {
-  font-family: Huaweisans, Arial, Microsoft YaHei, FZLTXHJW, Microsoft JhengHei, sans-serif;
+  font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
+  background: #0D0D0D;
   background-size:cover;
   overflow: auto;
 }
