@@ -16,7 +16,7 @@
 
 <template>
   <div class="breadcrumb">
-    <el-breadcrumb separator="/">
+    <el-breadcrumb separator=" | ">
       <el-breadcrumb-item :to="{ path: '/' }">
         {{ first }}
       </el-breadcrumb-item>

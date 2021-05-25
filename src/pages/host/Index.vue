@@ -21,7 +21,6 @@
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
       :third="$t('nav.edgeNode')"
-      :path="{ path: '/mecm/system/applcm' }"
     />
     <div class="contentList">
       <Search
@@ -39,7 +38,7 @@
           type="primary"
           @click="showEditDialog()"
         >
-          {{ $t('system.appLcm.newReg') }}
+          {{ $t('system.mepm.newReg') }}
         </el-button>
       </p>
       <div class="tableDiv">
@@ -48,9 +47,8 @@
             :data="currPageTableData"
             v-loading="dataLoading"
             class="mt20"
-            border
+            :highlight-current-row="highlight"
             size="small"
-            style="width: 100%;"
           >
             <el-table-column
               prop="mechostName"
@@ -62,7 +60,7 @@
                   class="el-icon-success"
                   :style="{color: '#67C23A'}"
                 />
-                <span style="margin-left: 10px">{{ scope.row.mechostName }}</span>
+                <span class="hostName">{{ scope.row.mechostName }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -75,19 +73,15 @@
             />
             <el-table-column
               prop="vim"
-              :label="$t('system.edgeNodes.vim')"
+              label="VIM"
             />
             <el-table-column
               prop="affinity"
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="applcmIp"
-              :label="$t('system.edgeNodes.applcmIp')"
-            />
-            <el-table-column
-              prop="appRuleIp"
-              label="App Rule MGR IP"
+              prop="mepmIp"
+              :label="$t('system.edgeNodes.mepmIp')"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
@@ -179,7 +173,6 @@
         :close-on-click-modal="false"
         :title="title"
         :visible.sync="dialogVisible"
-        style="padding-right:30px;"
         width="30%"
       >
         <FormContent
@@ -228,7 +221,8 @@ export default {
       dialogVisibleUpload: false,
       formdata: {},
       hostIp: '',
-      rlp: sessionStorage.getItem('rlp')
+      rlp: sessionStorage.getItem('rlp'),
+      highlight: false
     }
   },
   mounted () {
@@ -360,4 +354,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.hostName{
+  margin-left: 10px;
+}
 </style>

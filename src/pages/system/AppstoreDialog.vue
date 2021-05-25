@@ -30,7 +30,7 @@
             />
           </el-form-item>
           <el-form-item
-            :label="$t('system.appLcm.port')"
+            :label="$t('system.mepm.port')"
             prop="appstorePort"
           >
             <el-input

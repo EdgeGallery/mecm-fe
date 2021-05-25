@@ -36,9 +36,7 @@
     <div class="tableDiv">
       <el-table
         class="mt20"
-        border
         size="small"
-        style="width: 100%;"
         :data="currPageTableData"
         v-loading="dataLoading"
         @selection-change="handleSelectionChange"

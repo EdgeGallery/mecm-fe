@@ -38,8 +38,6 @@
         class="mt20"
         :data="dnsRuleTableData"
         v-loading="loading"
-        border
-        style="width: 100%;"
         @selection-change="handleSelectionChange"
       >
         <el-table-column

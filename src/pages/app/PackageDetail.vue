@@ -20,7 +20,7 @@
       class="breadcrumb"
     >
       <el-breadcrumb
-        separator="/"
+        separator=" | "
       >
         <el-breadcrumb-item :to="{ path: '/' }">
           {{ $t('nav.overview') }}

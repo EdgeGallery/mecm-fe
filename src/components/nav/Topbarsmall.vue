@@ -152,6 +152,7 @@ export default {
   position: relative;
   overflow-y: auto;
   z-index: 9999;
+  background: #280B4E;
   .el-menu{
     background: rgba(0, 0, 0, 0.6);
     border-right: none;

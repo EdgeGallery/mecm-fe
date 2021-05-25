@@ -62,16 +62,9 @@ const NavDataCn = [
     'children': [
       {
         'id': '2.4.1',
-        'name': 'App LCM注册系统',
-        'path': '/mecm/system/applcm',
+        'name': 'MEPM 注册系统',
+        'path': '/mecm/system/mepm',
         'pageId': '2.0.3.1.1',
-        'display': false
-      },
-      {
-        'id': '2.4.2',
-        'name': 'App Rule MGR 注册系统',
-        'path': '/mecm/system/apprule',
-        'pageId': '2.0.3.1.4',
         'display': false
       },
       {

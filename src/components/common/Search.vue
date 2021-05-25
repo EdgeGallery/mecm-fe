@@ -179,6 +179,12 @@ export default {
 </script>
 <style lang='less' scoped>
 .search{
+  #searchBtn{
+    border: 1px solid #3B7CFF;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background: transparent;
+  }
   .el-select{
     width:100%;
   }
