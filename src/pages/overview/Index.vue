@@ -31,54 +31,62 @@
           class="edge-souces"
           v-if="alarmStatus === 'alarms'"
         >
-          <label class="overviewLabel">{{ $t('overview.overview') }}</label>
-          <div class="nodeBasicInfo">
-            <p><span>{{ city }}{{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
-            <p><span>{{ $t('overview.onlineNodes') }}：</span>{{ nodeNum }}</p>
-            <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
+          <div class="blockContent">
+            <p class="overviewLabel">
+              {{ $t('overview.overview') }}
+            </p>
+            <div class="nodeBasicInfo">
+              <p><span>{{ city }}{{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
+              <p><span>{{ $t('overview.onlineNodes') }}：</span>{{ nodeNum }}</p>
+              <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
+            </div>
+            <Chart :chart-data="chartData" />
           </div>
-          <Chart :chart-data="chartData" />
-          <label class="overviewLabel">{{ $t('nav.nodeList') }}</label>
-          <div class="nodeTable">
-            <el-table
-              :data="nodeList"
-              header-row-class-name="headerClassName"
-              class="hwCapData nodelistTable"
-            >
-              <el-table-column
-                prop="mechostName"
-                sortable
-                :label="$t('app.packageList.name')"
+          <div class="blockContent">
+            <p class="overviewLabel">
+              {{ $t('nav.nodeList') }}
+            </p>
+            <div class="nodeTable">
+              <el-table
+                :data="nodeList"
+                header-row-class-name="headerClassName"
+                class="hwCapData nodelistTable"
               >
-                <template slot-scope="scope">
-                  <em
-                    class="el-icon-success"
-                    :style="{color: '#67C23A'}"
-                  />
-                  <span class="hostName">{{ scope.row.mechostName }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="mechostIp"
-                :label="$t('app.packageList.ip')"
-              />
-              <el-table-column
-                prop="city"
-                :label="$t('system.edgeNodes.location')"
-              />
-              <el-table-column
-                :label="$t('common.operation')"
-              >
-                <template slot-scope="scope">
-                  <button
-                    class="cp"
-                    @click="showDetail(scope.row)"
-                  >
-                    {{ $t('common.detail') }}
-                  </button>
-                </template>
-              </el-table-column>
-            </el-table>
+                <el-table-column
+                  prop="mechostName"
+                  sortable
+                  :label="$t('app.packageList.name')"
+                >
+                  <template slot-scope="scope">
+                    <em
+                      class="el-icon-success"
+                      :style="{color: '#67C23A'}"
+                    />
+                    <span class="hostName">{{ scope.row.mechostName }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  prop="mechostIp"
+                  :label="$t('app.packageList.ip')"
+                />
+                <el-table-column
+                  prop="city"
+                  :label="$t('system.edgeNodes.location')"
+                />
+                <el-table-column
+                  :label="$t('common.operation')"
+                >
+                  <template slot-scope="scope">
+                    <button
+                      class="cp"
+                      @click="showDetail(scope.row)"
+                    >
+                      {{ $t('common.detail') }}
+                    </button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </div>
           </div>
         </div>
         <div
@@ -88,106 +96,114 @@
           <el-row
             :gutter="10"
           >
-            <label class="overviewLabel">{{ $t('overview.nodeInfo') }}</label>
-            <div class="nodeBasicInfo">
-              <p>
-                <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
+            <div class="blockContent">
+              <p class="overviewLabel">
+                {{ $t('overview.nodeInfo') }}
               </p>
-              <p>
-                <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
-              </p>
-              <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
-            </div>
-            <label class="overviewLabel">{{ $t('overview.k8sResc') }}</label>
-            <div>
-              <Usage :kpi-info="kpiInfo" />
-            </div>
-          </el-row>
-        </div>
-        <div
-          class="edge-souces"
-          v-if="alarmStatus !== 'alarms'"
-        >
-          <label class="overviewLabel">{{ $t('overview.mepInfo') }}</label>
-          <el-table
-            :data="hwCapData"
-            header-row-class-name="headerClassName"
-            class="hwCapData"
-          >
-            <el-table-column
-              prop="hwType"
-              :label="$t('overview.mepCapa')"
-            />
-            <el-table-column
-              prop="hwVendor"
-              :label="$t('overview.vendor')"
-            />
-            <el-table-column
-              prop="hwModel"
-              :label="$t('overview.model')"
-            />
-          </el-table>
-        </div>
-        <div
-          class="edge-souces"
-          v-if="alarmStatus !== 'alarms'"
-        >
-          <el-row>
-            <el-col :span="12">
-              <el-select
-                v-model="edgeApp"
-                @change="appChange"
-              >
-                <el-option
-                  v-for="item in edgeAppList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-col>
-            <el-col :span="12">
-              <div
-                class="infoPanel"
-              >
-                <el-button
-                  id="manageBtn"
-                  type="primary"
-                  @click="checkServiceInfo()"
-                  :loading="loginBtnLoading"
-                >
-                  {{ $t('overview.manage') }}
-                </el-button>
-                <el-button
-                  id="maintenBtn"
-                  class="ml20"
-                  :disabled="true"
-                  type="primary"
-                >
-                  {{ $t('overview.maintenance') }}
-                </el-button>
+              <div class="nodeBasicInfo">
+                <p>
+                  <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
+                </p>
+                <p>
+                  <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
+                </p>
+                <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
               </div>
-            </el-col>
-            <el-col :span="24">
+            </div>
+            <div class="blockContent">
+              <p class="overviewLabel">
+                {{ $t('overview.k8sResc') }}
+              </p>
+              <div>
+                <Usage :kpi-info="kpiInfo" />
+              </div>
+            </div>
+            <div class="blockContent">
+              <p class="overviewLabel">
+                {{ $t('overview.mepInfo') }}
+              </p>
               <el-table
-                :data="mepCapData"
-                class="capaTable"
+                :data="hwCapData"
                 header-row-class-name="headerClassName"
+                class="hwCapData"
               >
                 <el-table-column
-                  prop="capabilityName"
-                  :label="$t('overview.softwareCapa')"
+                  prop="hwType"
+                  :label="$t('overview.mepCapa')"
                 />
                 <el-table-column
-                  prop="status"
-                  :label="$t('app.packageList.status')"
+                  prop="hwVendor"
+                  :label="$t('overview.vendor')"
                 />
                 <el-table-column
-                  prop="version"
-                  :label="$t('app.packageList.version')"
+                  prop="hwModel"
+                  :label="$t('overview.model')"
                 />
               </el-table>
-            </el-col>
+              <el-row>
+                <el-col
+                  :span="12"
+                  class="mt20"
+                >
+                  <el-select
+                    v-model="edgeApp"
+                    @change="appChange"
+                  >
+                    <el-option
+                      v-for="item in edgeAppList"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
+                    />
+                  </el-select>
+                </el-col>
+                <el-col
+                  :span="12"
+                  class="mt20"
+                >
+                  <div
+                    class="infoPanel"
+                  >
+                    <el-button
+                      id="manageBtn"
+                      type="primary"
+                      @click="checkServiceInfo()"
+                      :loading="loginBtnLoading"
+                    >
+                      {{ $t('overview.manage') }}
+                    </el-button>
+                    <el-button
+                      id="maintenBtn"
+                      class="ml20"
+                      :disabled="true"
+                      type="primary"
+                    >
+                      {{ $t('overview.maintenance') }}
+                    </el-button>
+                  </div>
+                </el-col>
+                <el-col :span="24">
+                  <el-table
+                    :data="mepCapData"
+                    class="capaTable"
+                    header-row-class-name="headerClassName"
+                  >
+                    <el-table-column
+                      prop="capabilityName"
+                      :label="$t('overview.softwareCapa')"
+                    />
+                    <el-table-column
+                      prop="status"
+                      :label="$t('app.packageList.status')"
+                    />
+                    <el-table-column
+                      prop="version"
+                      :label="$t('app.packageList.version')"
+                    />
+                  </el-table>
+                </el-col>
+              </el-row>
+            </div>
           </el-row>
         </div>
       </el-col>
@@ -400,16 +416,17 @@ export default {
     background-size: cover;
     box-sizing: border-box;
   }
-  label.overviewLabel{
-    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
-    font-size: 20px;
-    color: #FFFFFF;
-    letter-spacing: 0;
-    line-height: 24px;
-    display: block;
-    padding:8px 0;
-    background: #494b4e;
-    padding-left: 8px;
+  p.overviewLabel{
+    font-family: FZLanTingHeiS-B-GB;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #5D89DD;
+    border-bottom: 1px solid #0A1446;
+    padding-bottom: 15px;
   }
   .mt20 {
     margin-top: 20px;
@@ -419,6 +436,21 @@ export default {
   }
   .el-table td, .el-table th{
     padding:5px 0;
+  }
+  .el-table .has-gutter th{
+    background: transparent!important;
+  }
+  .el-table__expanded-cell{
+    background: transparent!important;
+  }
+  .el-table, .el-table__expanded-cell{
+    background: transparent!important;
+  }
+  .el-table th, .el-table tr, .el-table__empty-block, .el-table__expanded-cell{
+    background: transparent!important;
+  }
+  .el-table td, .el-table th.is-leaf{
+    border-bottom: none!important;
   }
   .nodeBasicInfo{
     color:#F5F5F5;
@@ -436,57 +468,16 @@ export default {
   }
   .content-right {
       padding: 0!important;
-      background: #2f2d2d;
       height: 100%;
     .my-title {
       color: white;
     }
     .edge-souces {
       padding: 15px 15px 0 15px;
-      .el-table {
-        border-color: #2395db !important;
-        color: white;
-        .el-table__row:nth-child(2n) {
-          background: #102238 !important;
-        }
-        .el-table__row:nth-child(2n + 1) {
-          background: #2D4868 !important;
-        }
-        td {
-          padding: 3px 0;
-          .cell {
-            line-height: 30px !important;
-          }
-        }
-        .headerClassName {
-          th {
-            background: #152437 !important;
-            color: #F5F5F5;
-          }
-          .cell::before{
-            content:'';
-            display:inline-block;
-            height:13px;
-            width:2px;
-            background: #f5f5f5;
-            margin-right:4px;
-            position: relative;
-            top:3px;
-          }
-        }
-      }
-      .el-table::before,
-      .el-table--border::after {
-        height: 0 !important;
-      }
-      .el-table--border th {
-        border-right: 1px solid #2395db !important;
-      }
-      .el-table tbody tr:hover > td {
-        background-color: transparent;
-      }
-      .el-table td, .el-table th.is-leaf{
-        border-bottom: none;
+      .blockContent{
+        padding: 15px 20px;
+        margin: 5px;
+        border: 1px solid #101D61;
       }
       .el-select {
         .el-input {
@@ -511,15 +502,12 @@ export default {
   .headerClassName{
     font-size: 13px;
   }
-  .hwCapData{
-    margin-top:15px;
-  }
   .capaTable{
     max-height: 185px;
     overflow-y: auto;
   }
   .nodelistTable{
-    max-height: 350px;
+    max-height: 300px;
     overflow-y: auto;
   }
   .hostName{

@@ -1,5 +1,5 @@
 node_modules
 /dist
-/src/tools/request1.js
+/src/tools/request.js
 /src/mock.js
 /src/pages/host/hostDialog1.vue
