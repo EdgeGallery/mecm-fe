@@ -355,6 +355,6 @@ export default {
 
 <style lang='less' scoped>
 .hostName{
-  margin-left:10px;
+  margin-left: 10px;
 }
 </style>
