@@ -15,11 +15,11 @@
  */
 
 // 全局公共样式
-html,body,p,h1,h2,h3,h4,h5,h6,ul,li{
+html,body,p,h1,h2,h3,h4,h5,h6,ul,li,div{
   margin:0;
   padding:0;
-  font-size:15px;
   font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
+  box-sizing: border-box;
 }
 #app,html,body{
   height:100%;
@@ -190,11 +190,11 @@ body .el-table th.gutter{
   border-bottom: none!important;
 }
 .el-table th>.cell{
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 400;
 }
 .el-table--border::after, .el-table--group::after, .el-table::before{
-  z-index: 0!important;
+  z-index: -1!important;
 }
 .el-table--enable-row-hover .el-table__body tr:hover>td{
   background: #282b40 !important;

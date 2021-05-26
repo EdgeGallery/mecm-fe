@@ -26,6 +26,11 @@ export default new Router({
       component: () => import('../pages/overview/Index.vue')
     },
     {
+      path: '/index',
+      name: 'overview',
+      component: () => import('../pages/overview/Index.vue')
+    },
+    {
       path: '/mecm/app/package',
       name: 'package',
       component: () => import('../pages/app/PackageList.vue')

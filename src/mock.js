@@ -28,7 +28,7 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      address: '4/4.1/114.059448,22.653555',
+      address: '',
       affinity: 'X86',
       applcmIp: '127.0.0.1',
       appRuleIp: '127.0.0.1',
@@ -56,7 +56,7 @@ const hostData = function () {
       }]
     },
     {
-      address: '2/2.1/118.822617,31.871027',
+      address: '',
       affinity: 'X86',
       applcmIp: '127.0.0.1',
       appRuleIp: '127.0.0.1',
@@ -83,7 +83,7 @@ const hostData = function () {
       }]
     },
     {
-      address: '4/4.1/114.059448,22.653555',
+      address: '',
       affinity: 'X86',
       applcmIp: '127.0.0.1',
       appRuleIp: '127.0.0.1',
@@ -111,7 +111,7 @@ const hostData = function () {
       }]
     },
     {
-      address: '2/2.1/118.822617,31.871027',
+      address: '',
       affinity: 'X86',
       applcmIp: '127.0.0.1',
       appRuleIp: '127.0.0.1',
