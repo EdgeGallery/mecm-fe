@@ -11,7 +11,7 @@
         >
           <el-form-item
             :label="$t('system.mepm.name')"
-            prop="applcmName"
+            prop="mepmName"
           >
             <el-input
               id="name"
@@ -21,7 +21,7 @@
           </el-form-item>
           <el-form-item
             :label="$t('app.packageList.ip')"
-            prop="applcmIp"
+            prop="mepmIp"
           >
             <el-input
               id="ip"
@@ -31,7 +31,7 @@
           </el-form-item>
           <el-form-item
             :label="$t('system.mepm.port')"
-            prop="applcmPort"
+            prop="mepmPort"
           >
             <el-input
               id="port"
@@ -103,15 +103,15 @@ export default {
   computed: {
     rules () {
       return {
-        applcmIp: [
+        mepmIp: [
           { required: true, message: this.$t('verify.ipTip'), trigger: 'blur' },
           { pattern: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        applcmPort: [
+        mepmPort: [
           { required: true, message: this.$t('verify.portTip'), trigger: 'blur' },
           { pattern: /^([0-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5])$/, message: this.$t('verify.normalVerify') }
         ],
-        applcmName: [
+        mepmName: [
           { required: true, message: this.$t('verify.mepmNameTip'), trigger: 'blur' },
           { pattern: /^[\da-zA-Z_\u4e00-\u9f5a]{1,16}$/, message: this.$t('verify.noSymbol') }
         ]
