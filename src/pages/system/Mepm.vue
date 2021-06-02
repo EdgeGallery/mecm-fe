@@ -185,7 +185,7 @@ export default {
         closeOnClickModal: false,
         type: 'warning'
       }).then(() => {
-        inventory.delete(5, row.applcmIp).then(res => {
+        inventory.delete(5, row.mepmIp).then(res => {
           this.initList()
         }, error => {
           this.$message.error(error.response.data)

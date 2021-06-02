@@ -94,7 +94,7 @@ export default {
       ipDisable: false,
       form: {
         mepmIp: '',
-        mepmPort: 30102,
+        mepmPort: 31252,
         userName: '',
         mepmName: ''
       }
@@ -122,7 +122,7 @@ export default {
     register () {
       this.form = {
         mepmIp: '',
-        mepmPort: 30102,
+        mepmPort: 31252,
         userName: '',
         mepmName: ''
       }
@@ -153,7 +153,7 @@ export default {
               }
             })
           } else {
-            inventory.modify(5, this.form, this.form.applcmIp).then(res => {
+            inventory.modify(5, this.form, this.form.mepmIp).then(res => {
               this.showMessage('success', this.$t('tip.modMepmSuc'), 1500)
               this.cancel()
             }, error => {
