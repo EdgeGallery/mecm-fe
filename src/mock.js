@@ -516,12 +516,12 @@ const appRuleData = function () {
   }
 }
 
-const applcmData = function () {
+const mepmData = function () {
   return [
     {
-      'applcmIp': '127.0.0.1',
-      'applcmName': 'APPLCM',
-      'applcmPort': '30101',
+      'mepmIp': '127.0.0.1',
+      'mepmName': 'MEPM',
+      'mepmPort': '30101',
       'userName': 'Xxx'
     }
   ]
@@ -584,7 +584,7 @@ Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
-Mock.mock('/mock/applcms', applcmData)
+Mock.mock('/mock/mepms', mepmData)
 Mock.mock('/mock/apprulemanagers', apprulemanagersData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)

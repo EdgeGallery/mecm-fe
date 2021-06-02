@@ -20,7 +20,7 @@
 import axios from 'axios'
 require('../mock.js')
 
-let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers']
+let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers', '/mepms']
 
 let user = {
   getUserInfo () {
