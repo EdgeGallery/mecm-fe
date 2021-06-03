@@ -15,7 +15,7 @@
  */
 
 //  Mock Data
-//  本地调试替换request.js
+//  Local debugging replacementrequest.js
 
 import axios from 'axios'
 require('../mock.js')
