@@ -118,6 +118,7 @@ export default {
     return {
       loginPage: '',
       userCenterPage: '',
+      forceModifyPwPage: '',
       ifGuest: true,
       jsonData: [],
       language: 'cn',
@@ -157,6 +158,10 @@ export default {
         sessionStorage.setItem('rlp', 418)
       } else {
         sessionStorage.removeItem('rlp')
+      }
+      this.forceModifyPwPage = res.data.forceModifyPwPage
+      if (this.jumpToForceModifyPw()) {
+        return
       }
     })
   },
@@ -225,6 +230,17 @@ export default {
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
+    },
+    jumpToForceModifyPw () {
+      if (this.ifGuest) {
+        return false
+      }
+      if (this.forceModifyPwPage) {
+        window.location.href = this.forceModifyPwPage
+        return true
+      }
+
+      return false
     }
   }
 }
