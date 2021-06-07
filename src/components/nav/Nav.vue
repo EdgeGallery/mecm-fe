@@ -118,6 +118,7 @@ export default {
     return {
       loginPage: '',
       userCenterPage: '',
+      forceModifyPwPage: '',
       ifGuest: true,
       jsonData: [],
       language: 'cn',
@@ -150,8 +151,12 @@ export default {
       sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
+      this.forceModifyPwPage = res.data.forceModifyPwPage
       if (res.data.userName !== 'guest') {
         this.ifGuest = false
+      }
+      if (this.jumpToForceModifyPw()) {
+        return
       }
       if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
         sessionStorage.setItem('rlp', 418)
@@ -225,6 +230,17 @@ export default {
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
+    },
+    jumpToForceModifyPw () {
+      if (this.ifGuest) {
+        return false
+      }
+      if (this.forceModifyPwPage) {
+        window.location.href = this.forceModifyPwPage
+        return true
+      }
+
+      return false
     }
   }
 }
