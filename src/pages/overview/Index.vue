@@ -121,6 +121,16 @@
             <div class="blockContent">
               <p class="overviewLabel">
                 {{ $t('overview.mepInfo') }}
+                <el-button
+                  id="manageBtn"
+                  type="primary"
+                  class="rt"
+                  style="position:relative;top:-5px;"
+                  @click="checkServiceInfo()"
+                  :loading="loginBtnLoading"
+                >
+                  {{ $t('overview.manage') }}
+                </el-button>
               </p>
               <el-table
                 :data="hwCapData"
@@ -140,48 +150,7 @@
                   :label="$t('overview.model')"
                 />
               </el-table>
-              <el-row>
-                <el-col
-                  :span="12"
-                  class="mt20"
-                >
-                  <el-select
-                    v-model="edgeApp"
-                    @change="appChange"
-                  >
-                    <el-option
-                      v-for="item in edgeAppList"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    />
-                  </el-select>
-                </el-col>
-                <el-col
-                  :span="12"
-                  class="mt20"
-                >
-                  <div
-                    class="infoPanel"
-                  >
-                    <el-button
-                      id="manageBtn"
-                      type="primary"
-                      @click="checkServiceInfo()"
-                      :loading="loginBtnLoading"
-                    >
-                      {{ $t('overview.manage') }}
-                    </el-button>
-                    <el-button
-                      id="maintenBtn"
-                      class="ml20"
-                      :disabled="true"
-                      type="primary"
-                    >
-                      {{ $t('overview.maintenance') }}
-                    </el-button>
-                  </div>
-                </el-col>
+              <el-row style="padding-top: 15px;border-top: 1px solid #0A1446;">
                 <el-col :span="24">
                   <el-table
                     :data="mepCapData"
@@ -454,7 +423,6 @@ export default {
   }
   .nodeBasicInfo{
     color:#F5F5F5;
-    padding: 0 0 25px 0;
     margin-top: 15px;
     p{
       font-size: 16px;
@@ -518,7 +486,8 @@ export default {
     margin-bottom:15px;
   }
   .mapPanel{
-    height:100%;
+    margin-top:20px;
+    height:calc(100% - 30px);
     padding-left:0!important;
   }
 </style>
