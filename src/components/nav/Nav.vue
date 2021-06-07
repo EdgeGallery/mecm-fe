@@ -151,17 +151,17 @@ export default {
       sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
       this.loginPage = res.data.loginPage
       this.userCenterPage = res.data.userCenterPage
+      this.forceModifyPwPage = res.data.forceModifyPwPage
       if (res.data.userName !== 'guest') {
         this.ifGuest = false
+      }
+      if (this.jumpToForceModifyPw()) {
+        return
       }
       if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
         sessionStorage.setItem('rlp', 418)
       } else {
         sessionStorage.removeItem('rlp')
-      }
-      this.forceModifyPwPage = res.data.forceModifyPwPage
-      if (this.jumpToForceModifyPw()) {
-        return
       }
     })
   },
