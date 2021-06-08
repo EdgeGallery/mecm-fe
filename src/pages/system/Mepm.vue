@@ -179,7 +179,7 @@ export default {
       this.currPageTableData = data
     },
     handleDelete (row) {
-      this.$confirm(this.$t('tip.beforeDeleteApplcm'), this.$t('common.warning'), {
+      this.$confirm(this.$t('tip.beforeDeleteMepm'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
         cancelButtonText: this.$t('common.cancel'),
         closeOnClickModal: false,

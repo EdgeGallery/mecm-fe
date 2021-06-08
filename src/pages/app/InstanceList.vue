@@ -66,10 +66,6 @@
             :label="$t('app.distriList.mecHost')"
           />
           <el-table-column
-            prop="applcmHost"
-            :label="$t('system.edgeNodes.mepmIp')"
-          />
-          <el-table-column
             :label="$t('app.distriList.status')"
           >
             <template slot-scope="scope">

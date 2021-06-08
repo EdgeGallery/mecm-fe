@@ -31,7 +31,6 @@ const en = {
     mepList: 'MEP List',
     system: 'System',
     externalSysMan: 'External System Manager',
-    applcm: 'App LCM',
     mepm: 'MEPM',
     edgeNode: 'Edge Node',
     appstore: 'App Store',
@@ -186,7 +185,6 @@ const en = {
     affinity: 'Architecture',
     edgeNexusIp: 'Edge Repo IP',
     edgeNexusPort: 'Edge Repo Port',
-    applcmIp: 'App LCM IP',
     k8sUrl: 'K8S URL',
     monitor: 'Monitor',
     vim: 'VIM'
