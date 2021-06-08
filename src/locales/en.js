@@ -355,7 +355,7 @@ const en = {
     typeCity: 'Please select deployment area.',
     confirmToDeleteNode: 'Are you sure to delete this node?',
     deleteAppBeforeDeleteNode: 'You need to delete the application installed on the node first.',
-    beforeDeleteApplcm: 'Are you sure to delete this App LCM?',
+    beforeDeleteMepm: 'Are you sure to delete this MEPM?',
     beforeDeleteAppstore: 'Are you sure to delete this App Store?',
     beforeDeleteFromMechost: 'Are you sure to delete this package from the MEC host?',
     getStatusDelay: 'There is a delay in query details, please wait 30-40S after the deployment is completed!',
