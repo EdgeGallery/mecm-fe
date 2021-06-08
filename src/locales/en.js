@@ -375,7 +375,8 @@ const en = {
     domainMust: 'Please type right domain name.',
     beforeDeleteAppMgr: 'Are you sure to delete this data?',
     noPermession: 'No permission to operate, please login！',
-    recordExist: 'Record already exist!'
+    recordExist: 'Record already exist!',
+    getTemplateListFail: 'Failed to get parameters'
   },
   area: {
     beijing: 'Beijing',
