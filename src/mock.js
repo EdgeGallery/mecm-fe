@@ -30,8 +30,6 @@ const hostData = function () {
     {
       address: '',
       affinity: 'X86',
-      applcmIp: '127.0.0.1',
-      appRuleIp: '127.0.0.1',
       city: '北京市/海淀区/中国信通院',
       edgerepoIp: '127.0.0.1',
       edgerepoName: null,
@@ -58,8 +56,7 @@ const hostData = function () {
     {
       address: '',
       affinity: 'X86',
-      applcmIp: '127.0.0.1',
-      appRuleIp: '127.0.0.1',
+      mepmIp: '127.0.0.1',
       city: '江苏省/南京市/紫金山实验室',
       edgerepoIp: '127.0.0.1',
       edgerepoName: null,
@@ -85,8 +82,7 @@ const hostData = function () {
     {
       address: '',
       affinity: 'X86',
-      applcmIp: '127.0.0.1',
-      appRuleIp: '127.0.0.1',
+      mepmIp: '127.0.0.1',
       city: '北京市/海淀区/中国信通院',
       edgerepoIp: '127.0.0.1',
       edgerepoName: null,
@@ -113,7 +109,7 @@ const hostData = function () {
     {
       address: '',
       affinity: 'X86',
-      applcmIp: '127.0.0.1',
+      mepmIp: '127.0.0.1',
       appRuleIp: '127.0.0.1',
       city: '江苏省/南京市/紫金山实验室',
       edgerepoIp: '127.0.0.1',
@@ -176,7 +172,6 @@ const instanceList = function () {
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
         'mecHost': '127.0.0.1',
-        'applcmHost': '127.0.0.1',
         'operationalStatus': 'Instantiated',
         'operationInfo': 'success'
       }

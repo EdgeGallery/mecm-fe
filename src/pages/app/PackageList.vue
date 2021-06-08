@@ -272,8 +272,8 @@
               :label="$t('app.packageList.affinity')"
             />
             <el-table-column
-              prop="applcmIp"
-              :label="$t('system.edgeNodes.applcmIp')"
+              prop="mepmIp"
+              :label="$t('system.edgeNodes.mepmIp')"
             />
             <el-table-column
               :label="$t('system.edgeNodes.hwCapability')"
