@@ -5,7 +5,7 @@
 # mecm-fe
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker -image-update-daily-master%2F)
+![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker-image-update-daily-master%2F)
 
 #### 介绍
 mecm的前台仓库
