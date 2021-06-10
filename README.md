@@ -4,46 +4,45 @@
 
 # mecm-fe
 
-[![许可证](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![詹金斯](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker -image-update-daily-master%2F)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker -image-update-daily-master%2F)
 
 #### 介绍
-mecm fe 的回购
+mecm的前台仓库
 
-#### 建筑学
-参见【配置参考】(https://cli.vuejs.org/config/)。
-
+#### 架构
+参见[配置参考](https://cli.vuejs.org/config/)
 
 #### 安装
 
 1. npm 安装
 
 
-#### 指示
+#### 介绍
 
-- 项目设置
-安装
-- 为开发编译和热重载
-npm 运行服务
-- 编译和缩小生产
-npm 运行构建
-- 运行你的测试
-npm 运行测试
-- Lints 和修复文件
-npm 运行 lint
-
-
-#### 贡献
-
-1. 分叉回购
-2.新的Feat_xxx分支
-3.推送代码
-4. 新的拉取请求
+- 安装npm  
+npm install
+- 运行服务  
+npm run serve
+- 执行编译  
+npm run build
+- 执行测试  
+npm run test
+- 执行检查
+npm run lint
 
 
-#### 关联
+#### 参与mecm-fe贡献
+
+1. fork mecm-fe的个人分支
+2. 提交代码到个人分支
+3. 创建个人分支到主线分支的PR
+4. 由仓库committer审核合入
+
+
+#### 相关链接
 
 1. MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
-2. EdgeGallery：[http://www.edgegallery.org/](http://www.edgegallery.org/)
-3. EdgeGallery 社区：[https://gitee.com/edgegallery](https://gitee.com/edgegallery)
+2. EdgeGallery官网：[http://www.edgegallery.org/](http://www.edgegallery.org/)
+3. EdgeGallery代码仓库：[https://gitee.com/edgegallery](https://gitee.com/edgegallery)
 4. 电子邮箱：contact@edgegallery.org
