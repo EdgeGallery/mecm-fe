@@ -135,6 +135,9 @@ let apm = {
   },
   syncFromApm () {
     return POST(apmApi + '/tenants/' + getUserId() + '/app_package_infos/sync')
+  },
+  getApptemplateApi (packageId) {
+    return GET(apmApi + '/tenants/' + getUserId() + '/packages/' + packageId + '/apptemplate')
   }
 }
 

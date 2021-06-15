@@ -371,7 +371,8 @@ const cn = {
     domainMust: '请填写正确的域名',
     beforeDeleteAppMgr: '确认要删除本条数据吗？',
     noPermession: '当前用户无权操作！',
-    recordExist: '记录已存在'
+    recordExist: '记录已存在',
+    getTemplateListFail: '获取参数失败'
   },
   area: {
     beijing: '北京市',
