@@ -488,14 +488,14 @@ export default {
             mecHost: this.configForm.mecHost,
             hwCapabilities: this.configForm.hwCapabilities
           }
-          let templateInputsObj={}
+          let templateInputsObj = {}
           this.templateInputs.forEach(item => {
             let key = item.label
             templateInputsObj[key] = item.value
           })
-          if (templateInputs.length>0) {
-            params[parameters] = templateInputsObj
-          } 
+          if (this.templateInputs.length > 0) {
+            params['parameters'] = templateInputsObj
+          }
           this.loading = true
           if (typeof (params.mecHost) === 'string') {
             appo.confirmToDeploy(params).then(res => {
