@@ -493,9 +493,9 @@ export default {
             let key = item.label
             templateInputsObj[key] = item.value
           })
-		  if(templateInputs.length>0){
-			params[parameters] = templateInputsObj
-		  }
+          if(templateInputs.length>0){
+            params[parameters] = templateInputsObj
+          }
           this.loading = true
           if (typeof (params.mecHost) === 'string') {
             appo.confirmToDeploy(params).then(res => {
