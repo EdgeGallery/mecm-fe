@@ -160,8 +160,8 @@ let appo = {
   getInstanceInfo (instanceId) {
     return GET(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/' + instanceId)
   },
-  instantiateApp (instanceId) {
-    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId)
+  instantiateApp (instanceId, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + instanceId, params)
   },
   batchInstantiateApp (params) {
     return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/batch_instantiate', params)
