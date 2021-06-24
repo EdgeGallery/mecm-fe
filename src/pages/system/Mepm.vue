@@ -67,9 +67,6 @@
                 <el-form-item :label="$t('system.mepm.port')">
                   {{ item.mepmPort }}
                 </el-form-item>
-                <el-form-item :label="$t('system.edgeNodes.username')">
-                  {{ item.userName }}
-                </el-form-item>
                 <p
                   class="btn-group flex"
                   v-if="rlp=='418'"

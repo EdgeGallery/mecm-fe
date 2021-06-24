@@ -172,7 +172,6 @@ input{
 
 /* 表格样式 */
 .el-table .has-gutter th{
-  background: #202230!important;
   color:#E5E5E5;
   height:32px;
 }
@@ -182,12 +181,12 @@ body .el-table th.gutter{
 .el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
   font-size:14px!important;
 }
-.el-table th, .el-table tr, .el-table__empty-block{
+.el-table tr, .el-table__empty-block{
   background: #161825!important;
   color:#FFFFFF;
 }
 .el-table td, .el-table th.is-leaf{
-  border-bottom: none!important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03)!important;
 }
 .el-table th>.cell{
   font-size: 16px;
@@ -196,7 +195,7 @@ body .el-table th.gutter{
 .el-table--border::after, .el-table--group::after, .el-table::before{
   z-index: -1!important;
 }
-.el-table--enable-row-hover .el-table__body tr:hover>td{
+.el-table th,.el-table--enable-row-hover .el-table__body tr:hover>td{
   background: #282b40 !important;
   color: #ffffff;
 }

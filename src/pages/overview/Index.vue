@@ -78,7 +78,7 @@
                 >
                   <template slot-scope="scope">
                     <button
-                      class="cp"
+                      class="cp showDetails"
                       @click="showDetail(scope.row)"
                     >
                       {{ $t('common.detail') }}
@@ -407,19 +407,13 @@ export default {
     padding:5px 0;
   }
   .el-table .has-gutter th{
-    background: transparent!important;
+    background: #202230!important;
   }
   .el-table__expanded-cell{
     background: transparent!important;
   }
   .el-table, .el-table__expanded-cell{
     background: transparent!important;
-  }
-  .el-table th, .el-table tr, .el-table__empty-block, .el-table__expanded-cell{
-    background: transparent!important;
-  }
-  .el-table td, .el-table th.is-leaf{
-    border-bottom: none!important;
   }
   .nodeBasicInfo{
     color:#F5F5F5;
@@ -489,5 +483,14 @@ export default {
     margin-top:20px;
     height:calc(100% - 30px);
     padding-left:0!important;
+  }
+  .showDetails{
+    width: 39px;
+    height: 20px;
+    background: #3B43FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    line-height: 20px;
   }
 </style>
