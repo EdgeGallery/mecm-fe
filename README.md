@@ -7,43 +7,42 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Jenkins](https://img.shields.io/jenkins/build?jobUrl=http%3A%2F%2Fjenkins.edgegallery.org%2Fview%2FMEC-PLATFORM-BUILD%2Fjob%2Fmecm-meo-frontend-docker-image-update-daily-master%2F)
 
-#### Introduction
-repo for mecm fe
+#### 介绍
+mecm的前台仓库
 
-#### Architecture
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### 架构
+参见[配置参考](https://cli.vuejs.org/config/)
+
+#### 安装
+
+1. npm 安装
 
 
-#### Installation
+#### 介绍
 
-1. npm install
-
-
-#### Instructions
-
-- Project setup  
+- 安装npm  
 npm install
-- Compiles and hot-reloads for development  
+- 运行服务  
 npm run serve
-- Compiles and minifies for production  
+- 执行编译  
 npm run build
-- Run your tests  
+- 执行测试  
 npm run test
-- Lints and fixes files  
+- 执行检查
 npm run lint
 
 
-#### Contribution
+#### 参与mecm-fe贡献
 
-1.  Fork Repo
-2.  New Feat_xxx Branch
-3.  Push Code
-4.  New Pull Request
+1. fork mecm-fe的个人分支
+2. 提交代码到个人分支
+3. 创建个人分支到主线分支的PR
+4. 由仓库committer审核合入
 
 
-#### Link
+#### 相关链接
 
-1.  MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
-2.  EdgeGallery：[http://www.edgegallery.org/](http://www.edgegallery.org/)
-3.  EdgeGallery Community：[https://gitee.com/edgegallery](https://gitee.com/edgegallery)
-4.  E-mail: contact@edgegallery.org
+1. MECM：[http://mecm.edgegallery.org](http://mecm.edgegallery.org)
+2. EdgeGallery官网：[http://www.edgegallery.org/](http://www.edgegallery.org/)
+3. EdgeGallery代码仓库：[https://gitee.com/edgegallery](https://gitee.com/edgegallery)
+4. 电子邮箱：contact@edgegallery.org

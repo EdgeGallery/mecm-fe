@@ -53,6 +53,7 @@
           >
             <div
               class="list"
+              :class="Math.round(Math.random())===0? 'bgImgone': 'bgImgtwo'"
             >
               <el-form
                 label-width="auto"
@@ -69,12 +70,11 @@
                 <el-form-item :label="$t('system.edgeNodes.username')">
                   {{ item.userName }}
                 </el-form-item>
-                <el-form-item
-                  class="rt btn-group"
+                <p
+                  class="btn-group flex"
                   v-if="rlp=='418'"
                 >
                   <el-button
-                    type="warning"
                     size="mini"
                     class="button"
                     id="deleteBtn"
@@ -83,7 +83,6 @@
                     {{ $t('common.delete') }}
                   </el-button>
                   <el-button
-                    type="primary"
                     size="mini"
                     class="button"
                     id="modifyBtn"
@@ -91,7 +90,7 @@
                   >
                     {{ $t('common.modify') }}
                   </el-button>
-                </el-form-item>
+                </p>
               </el-form>
             </div>
           </div>
@@ -224,13 +223,76 @@ export default {
 }
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
 .cardContent{
   margin: 0 5%;
   height: 100%;
   padding: 30px 60px;
   .btn-group{
-    margin:15px 0;
+    margin: 0px 15px 0px 0px;
+    justify-content: center;
+    .el-button{
+      background: none;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-sizing: border-box;
+      border-radius: 4px;
+      font-size: 14px;
+      line-height: 16px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+  .applcmList{
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+    .content {
+      width: 25%;
+      padding: 0 6px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      .list {
+        padding:15px 0 15px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        transition: transform 0.3s ease-in;
+        .el-form{
+          width:100%;
+          .el-form-item{
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            .el-form-item__label{
+              line-height:24px ;
+            }
+            .el-form-item__content{
+              height: 24px;
+              line-height: 24px;
+            }
+          }
+        }
+      }
+      .bgImgone{
+        background-image: url('../../assets/images/cardBgone.png');
+        background-size:100% 100%;
+      }
+      .bgImgtwo{
+        background-image: url('../../assets/images/cardBgtwo.png');
+        background-size:100% 100%;
+      }
+      .bgImgone:hover{
+        transform: translate3d(0,-10px,0);
+        border-radius: 10px;
+        box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
+        background-image: url('../../assets/images/cardBgoneHover.png');
+      }
+      .bgImgtwo:hover{
+        transform: translate3d(0,-10px,0);
+        border-radius: 10px;
+        box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
+        background-image: url('../../assets/images/cardBgtwoHover.png');
+      }
+    }
   }
 }
 </style>

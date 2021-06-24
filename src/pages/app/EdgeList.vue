@@ -157,7 +157,6 @@
         label-width="auto"
         class="configForm"
         :model="configForm"
-
         ref="configForm"
         :rules="rules"
       >
@@ -176,7 +175,6 @@
             ><em class="el-icon-success" />{{ item.status }}</span>
           </div>
         </el-form-item>
-        <p>APP Information</p>
         <el-form-item
           :label="$t('app.distriList.appName')"
           prop="appName"
@@ -213,35 +211,26 @@
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <p>POD Information</p>
-        <el-form-item :label="$t('app.distriList.podName')">
-          <el-input
-            id="podname"
-            maxlength="20"
-            v-model="configForm.podName"
-          />
-        </el-form-item>
-        <el-form-item :label="$t('app.distriList.podKind')">
-          <el-input
-            id="podkind"
-            maxlength="30"
-            v-model="configForm.podKind"
-          />
-        </el-form-item>
-        <el-form-item :label="$t('app.distriList.podNameEspace')">
-          <el-input
-            id="podnameespace"
-            maxlength="30"
-            v-model="configForm.podNameEspace"
-          />
-        </el-form-item>
-        <el-form-item :label="$t('app.distriList.podSel')">
-          <el-input
-            id="podsel"
-            maxlength="30"
-            v-model="configForm.podSelector"
-          />
-        </el-form-item>
+        <p v-if="templateInputs.length>0">
+          Apptemplate Information
+        </p>
+        <el-row>
+          <el-col
+            :span="12"
+            v-for="(item,index) in templateInputs"
+            :key="index"
+          >
+            <el-form-item
+              :label="item.label"
+            >
+              <el-input
+                id="podsel"
+                maxlength="30"
+                v-model="item.value"
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
       </el-form>
       <span
         slot="footer"
@@ -295,10 +284,6 @@ export default {
       provider: '',
       dialogVisible: false,
       configForm: {
-        podName: 'pod1',
-        podKind: 'dployment',
-        podNameEspace: 'default',
-        podSelector: 'martchlabel',
         status: '',
         appPackageId: '',
         appName: '',
@@ -315,6 +300,7 @@ export default {
       distributionStatus: ['Distributed', 'Error'],
       serchData: null,
       hostList: [],
+      templateInputs: [],
       capabilities: ['GPU', 'NPU']
     }
   },
@@ -380,10 +366,6 @@ export default {
     },
     multipleDeploy () {
       this.configForm = {
-        podName: 'pod1',
-        podKind: 'dployment',
-        podNameEspace: 'default',
-        podSelector: 'martchlabel',
         status: '',
         appPackageId: '',
         appName: '',
@@ -448,36 +430,52 @@ export default {
       })
     },
     deploy (row, type) {
-      this.configForm = {
-        podName: 'pod1',
-        podKind: 'dployment',
-        podNameEspace: 'default',
-        podSelector: 'martchlabel',
-        status: '',
-        appPackageId: '',
-        appName: '',
-        appInstanceDescription: '',
-        appId: this.appid,
-        hwCapabilities: []
-      }
-      this.hostList = []
-      this.configForm.appPackageId = this.appPackageId
-      this.configForm.appId = this.appid
-      this.dialogVisible = true
-      this.$nextTick(() => {
-        this.$refs.configForm.resetFields()
-      })
-      if (type === 2) {
-        let array = []
-        row.forEach(item => {
-          array.push(item.hostIp)
+      apm.getApptemplateApi(this.appPackageId).then(res => {
+        this.templateInputs = []
+        let inputs = res.data.inputs
+        inputs.forEach(ele => {
+          let obj = {
+            label: '',
+            value: ''
+          }
+          obj.label = ele.name
+          obj.value = ele.defaultValue
+          this.templateInputs.push(obj)
         })
-        this.configForm.mecHost = array
-        this.hostList = row
-      } else {
-        this.configForm.mecHost = row.hostIp
-        this.hostList.push(row)
-      }
+        this.configForm = {
+          status: '',
+          appPackageId: '',
+          appName: '',
+          appInstanceDescription: '',
+          appId: this.appid,
+          hwCapabilities: []
+        }
+        this.hostList = []
+        this.configForm.appPackageId = this.appPackageId
+        this.configForm.appId = this.appid
+        this.dialogVisible = true
+        this.$nextTick(() => {
+          this.$refs.configForm.resetFields()
+        })
+        if (type === 2) {
+          let array = []
+          row.forEach(item => {
+            array.push(item.hostIp)
+          })
+          this.configForm.mecHost = array
+          this.hostList = row
+        } else {
+          this.configForm.mecHost = row.hostIp
+          this.hostList.push(row)
+        }
+      }).catch(() => {
+        this.$message({
+          showClose: true,
+          type: 'warning',
+          message: this.$t('tip.getTemplateListFail'),
+          duration: 2000
+        })
+      })
     },
     confirmToDeploy (configForm) {
       this.$refs[configForm].validate(valid => {
@@ -532,7 +530,14 @@ export default {
       })
     },
     instaniateApp (instanceId) {
-      appo.instantiateApp(instanceId).then(response => {
+      let params = {
+        parameters: {}
+      }
+      this.templateInputs.forEach(item => {
+        let key = item.label
+        params.parameters[key] = item.value
+      })
+      appo.instantiateApp(instanceId, params).then(response => {
         this.afterInstantiateApp()
       }).catch(() => {
         this.catchInstantiateApp()
