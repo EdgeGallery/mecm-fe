@@ -432,16 +432,18 @@ export default {
     deploy (row, type) {
       apm.getApptemplateApi(this.appPackageId).then(res => {
         this.templateInputs = []
-        let inputs = res.data.inputs
-        inputs.forEach(ele => {
-          let obj = {
-            label: '',
-            value: ''
-          }
-          obj.label = ele.name
-          obj.value = ele.defaultValue
-          this.templateInputs.push(obj)
-        })
+        if (res.data.deployType !== 'container') {
+          let inputs = res.data.inputs
+          inputs.forEach(ele => {
+            let obj = {
+              label: '',
+              value: ''
+            }
+            obj.label = ele.name
+            obj.value = ele.defaultValue
+            this.templateInputs.push(obj)
+          })
+        }
         this.configForm = {
           status: '',
           appPackageId: '',
@@ -530,18 +532,26 @@ export default {
       })
     },
     instaniateApp (instanceId) {
-      let params = {
-        parameters: {}
+      if (this.templateInputs.length > 0) {
+        let params = {
+          parameters: {}
+        }
+        this.templateInputs.forEach(item => {
+          let key = item.label
+          params.parameters[key] = item.value
+        })
+        appo.instantiateApp(instanceId, params).then(response => {
+          this.afterInstantiateApp()
+        }).catch(() => {
+          this.catchInstantiateApp()
+        })
+      } else {
+        appo.instantiateApp(instanceId).then(response => {
+          this.afterInstantiateApp()
+        }).catch(() => {
+          this.catchInstantiateApp()
+        })
       }
-      this.templateInputs.forEach(item => {
-        let key = item.label
-        params.parameters[key] = item.value
-      })
-      appo.instantiateApp(instanceId, params).then(response => {
-        this.afterInstantiateApp()
-      }).catch(() => {
-        this.catchInstantiateApp()
-      })
     },
     afterInstantiateApp () {
       this.loading = false
