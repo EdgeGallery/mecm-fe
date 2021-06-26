@@ -28,110 +28,18 @@ const userData = function () {
 const hostData = function () {
   return [
     {
-      address: '',
-      affinity: 'X86',
-      city: '北京市/海淀区/中国信通院',
-      edgerepoIp: '127.0.0.1',
-      edgerepoName: null,
-      edgerepoPort: '1234',
-      edgerepoUsername: '',
-      mechostIp: '127.0.0.1',
-      mechostName: 'Node',
-      coordinates: '116.35,39.979508',
-      userName: '',
-      zipCode: '',
-      appRuleManagerIp: '127.0.0.1',
-      capability: 'GPU',
-      hwcapabilities: [{
-        'hwType': 'GPU',
-        'hwVendor': 'gpu',
-        'hwModel': 'gpu'
-      },
-      {
-        'hwType': 'NPU',
-        'hwVendor': 'npu',
-        'hwModel': 'npu'
-      }]
-    },
-    {
-      address: '',
-      affinity: 'X86',
-      mepmIp: '127.0.0.1',
-      city: '江苏省/南京市/紫金山实验室',
-      edgerepoIp: '127.0.0.1',
-      edgerepoName: null,
-      edgerepoPort: '1234',
-      edgerepoUsername: '',
-      mechostIp: '127.0.0.1',
-      coordinates: '118.82832,31.876148',
-      mechostName: 'Node',
-      userName: '',
-      zipCode: '',
-      capability: 'GPU',
-      hwcapabilities: [{
-        'hwType': 'GPU',
-        'hwVendor': 'gpu',
-        'hwModel': 'gpu'
-      },
-      {
-        'hwType': 'NPU',
-        'hwVendor': 'npu',
-        'hwModel': 'npu'
-      }]
-    },
-    {
-      address: '',
-      affinity: 'X86',
-      mepmIp: '127.0.0.1',
-      city: '北京市/海淀区/中国信通院',
-      edgerepoIp: '127.0.0.1',
-      edgerepoName: null,
-      edgerepoPort: '1234',
-      edgerepoUsername: '',
-      mechostIp: '127.0.0.1',
-      mechostName: 'Node',
-      coordinates: '116.35,39.979508',
-      userName: '',
-      zipCode: '',
-      appRuleManagerIp: '127.0.0.1',
-      capability: 'GPU',
-      hwcapabilities: [{
-        'hwType': 'GPU',
-        'hwVendor': 'gpu',
-        'hwModel': 'gpu'
-      },
-      {
-        'hwType': 'NPU',
-        'hwVendor': 'npu',
-        'hwModel': 'npu'
-      }]
-    },
-    {
-      address: '',
-      affinity: 'X86',
-      mepmIp: '127.0.0.1',
-      appRuleIp: '127.0.0.1',
-      city: '江苏省/南京市/紫金山实验室',
-      edgerepoIp: '127.0.0.1',
-      edgerepoName: null,
-      edgerepoPort: '1234',
-      edgerepoUsername: '',
-      mechostIp: '127.0.0.1',
-      coordinates: '118.82832,31.876148',
-      mechostName: 'Node',
-      userName: '',
-      zipCode: '',
-      capability: 'GPU',
-      hwcapabilities: [{
-        'hwType': 'GPU',
-        'hwVendor': 'gpu',
-        'hwModel': 'gpu'
-      },
-      {
-        'hwType': 'NPU',
-        'hwVendor': 'npu',
-        'hwModel': 'npu'
-      }]
+      'mechostIp': '127.0.1.0',
+      'mechostName': 'vmde',
+      'zipCode': '',
+      'city': '陕西省/西安市/雁塔区',
+      'address': '华为基地',
+      'affinity': 'X86',
+      'userName': '',
+      'mepmIp': '127.0.1.0',
+      'coordinates': '108.8348,34.1995',
+      'hwcapabilities': [ ],
+      'vim': 'OpenStack',
+      'configUploadStatus': 'Uploaded'
     }
   ]
 }
@@ -139,25 +47,25 @@ const hostData = function () {
 const packageData = function () {
   return [
     {
-      'appId': '******',
-      'packageId': '******',
-      'name': 'vm_arm',
-      'appstoreEndpoint': '******',
-      'size': '221100358',
-      'version': 'v3.25',
-      'type': 'Video Application',
+      'appId': 'xxxx',
+      'packageId': 'xxxx',
+      'name': 'xxx',
+      'appstoreEndpoint': '127.0.0.1:11111',
+      'size': null,
+      'version': 'v1.0',
+      'type': 'zhihui',
       'affinity': 'X86',
-      'industry': 'Smart Park',
+      'industry': 'youxi',
       'contact': null,
-      'userId': '******',
-      'userName': 'admin',
-      'status': 'Published',
-      'shortDesc': 'test',
-      'testTaskId': '******',
-      'provider': 'HUAWEI',
-      'syncStatus': 'SYNC_FAILED',
-      'createTime': '2021-04-13T07:38:43.558+0000',
-      'operationalInfo': '******.csar :fileSize is too big'
+      'userId': null,
+      'userName': null,
+      'status': null,
+      'shortDesc': 'fdsf',
+      'testTaskId': null,
+      'provider': 'Huawei',
+      'syncStatus': 'IN_SYNC',
+      'createTime': null,
+      'operationalInfo': 'success'
     }
   ]
 }
@@ -518,16 +426,10 @@ const mepmData = function () {
       'mepmName': 'MEPM',
       'mepmPort': '30101',
       'userName': 'Xxx'
-    }
-  ]
-}
-
-const apprulemanagersData = function () {
-  return [
-    {
-      'appRuleIp': '127.0.0.1',
-      'appRuleName': 'MGR1',
-      'appRulePort': '30206',
+    }, {
+      'mepmIp': '127.0.0.1',
+      'mepmName': 'MEPM',
+      'mepmPort': '30101',
       'userName': 'Xxx'
     }
   ]
@@ -580,7 +482,6 @@ Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
 Mock.mock('/mock/appDistributionList', distributionData)
 Mock.mock('/mock/mepms', mepmData)
-Mock.mock('/mock/apprulemanagers', apprulemanagersData)
 Mock.mock('/mock/appstores', appstoreData)
 Mock.mock('/mock/seviceInfo', serviceInfoData)
 Mock.mock('/mock/instanceInfo', instanceList)

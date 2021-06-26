@@ -529,6 +529,7 @@
             class="dialog-footer"
           >
             <el-button
+              id="cancelBtn"
               @click="cancelEdit('trafficFilter')"
               size="small"
             >
@@ -537,6 +538,7 @@
             <el-button
               type="primary"
               size="small"
+              id="confirmBtn"
               @click="confirmToAdd('trafficFilter')"
             >
               {{ $t('common.confirm') }}
@@ -658,12 +660,14 @@
             class="dialog-footer"
           >
             <el-button
+              id="cancelBtn"
               @click="cancelEdit('dstInterface')"
               size="small"
             >
               {{ $t('common.cancel') }}
             </el-button>
             <el-button
+              id="confirmBtn"
               type="primary"
               size="small"
               @click="confirmToAdd('dstInterface')"

@@ -32,7 +32,7 @@ let apm = {
   getDistributionList () {
     return axios.get('/mock/appDistributionList')
   },
-  getAppPackageList () {
+  initApmPackages () {
     return axios.get('/mock/appPackageList')
   }
 }

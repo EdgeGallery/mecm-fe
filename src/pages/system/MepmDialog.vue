@@ -5,7 +5,6 @@
         <el-form
           label-width="auto"
           :model="form"
-
           ref="form"
           :rules="rules"
         >
@@ -46,19 +45,19 @@
       class="dialog-footer"
     >
       <el-button
+        id="cancelBtn"
+        size="small"
+        @click="cancel"
+      >
+        {{ $t('common.cancel') }}
+      </el-button>
+      <el-button
         id="confirmBtn"
         type="primary"
         size="small"
         @click="confirmToRegister('form')"
       >
         {{ $t('common.confirm') }}
-      </el-button>
-      <el-button
-        id="cancelBtn"
-        size="small"
-        @click="cancel"
-      >
-        {{ $t('common.cancel') }}
       </el-button>
     </span>
   </div>
@@ -120,6 +119,7 @@ export default {
   },
   methods: {
     register () {
+      this.$refs.form.resetFields()
       this.form = {
         mepmIp: '',
         mepmPort: 31252,
@@ -127,9 +127,6 @@ export default {
         mepmName: ''
       }
       this.ipDisable = false
-      this.$nextTick(() => {
-        this.$refs.form.resetFields()
-      })
     },
     handleEdit () {
       this.ipDisable = true

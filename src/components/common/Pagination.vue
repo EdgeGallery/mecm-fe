@@ -45,7 +45,7 @@ export default {
   },
   data () {
     return {
-      pageSize: 10,
+      pageSize: this.pageSizes[0],
       totalNum: 0,
       currentPage: 1,
       data: []
@@ -55,21 +55,23 @@ export default {
     tableData (val) {
       this.data = val
       this.totalNum = val.length
-      this.returnTableData()
+      this.returnTableData(1)
     }
   },
 
   methods: {
     handlePageSizeChange (val) {
       this.pageSize = val
-      this.returnTableData()
+      this.returnTableData(0)
     },
     handleCurrentPageChange (val) {
       this.currentPage = val
-      this.returnTableData()
-      // sessionStorage.setItem('currentPage', val)
+      this.returnTableData(0)
     },
-    returnTableData () {
+    returnTableData (type) {
+      if (type) {
+        this.currentPage = 1
+      }
       let start = (this.currentPage - 1) * this.pageSize
       let end = this.currentPage * this.pageSize
       let currentPageData = this.data.slice(start, end)

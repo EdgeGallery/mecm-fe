@@ -88,6 +88,7 @@ export default {
   },
   watch: {
     detail () {
+      console.log(this.detail)
       let arr = []
       arr.push(this.detail)
       this.showLayers(arr)
@@ -335,7 +336,7 @@ export default {
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
-          center: data[0].coord,
+          center: data[0].coordinates,
           zoom: 16
         }))
       } else {
@@ -352,7 +353,7 @@ export default {
           ],
           view: new View({
             projection: 'EPSG:4326',
-            center: data[0].coord,
+            center: data[0].coordinates,
             zoom: 16
           })
         })
@@ -435,8 +436,8 @@ export default {
   }
   .return{
     position: absolute !important;
-    top:31px !important;
-    left:28% !important;
+    top:42px !important;
+    left:36% !important;
   }
 }
 </style>

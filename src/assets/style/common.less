@@ -97,11 +97,15 @@ input{
   border: 1px solid #4C4C4C;
   background: transparent;
 }
+.search{
+  position: relative;
+  z-index: 15;
+}
 
 // 面包屑样式
 .breadcrumb{
   line-height: 50px;
-  padding: 25px 5%;
+  padding: 25px 10%;
   margin-top: 60px;
 }
 .el-breadcrumb__inner a, .el-breadcrumb__inner.is-link{
@@ -139,15 +143,34 @@ input{
   font-size: 16px;
 }
 .dialog-footer{
-  display: block;
+  display: flex;
+  justify-content: center;
   height: 64px;
   .el-button--small{
     margin:15px 0;
-    float:right;
   }
   .el-button--default{
     margin-right: 15px;
   }
+  #confirmBtn{
+    background: #3B43FF;
+    color:#ffffff;
+  }
+  #cancelBtn{
+    background: rgba(59, 67, 255, 0.2);
+    color:#ffffff;
+    border: none;
+  }
+}
+.is-disabled input{
+  color: gray!important;
+}
+input,.area-selected-trigger{
+  color: #ffffff !important;
+}
+input::placeholder {
+  color: gray!important;
+  font-size: 14px;
 }
 
 .el-dialog{
@@ -191,12 +214,13 @@ body .el-table th.gutter{
 .el-table th>.cell{
   font-size: 16px;
   font-weight: 400;
+  background: transparent;
 }
 .el-table--border::after, .el-table--group::after, .el-table::before{
   z-index: -1!important;
 }
 .el-table th,.el-table--enable-row-hover .el-table__body tr:hover>td{
-  background: #282b40 !important;
+  background: #202230  !important;
   color: #ffffff;
 }
 
@@ -225,31 +249,31 @@ body .el-table th.gutter{
 .el-form-item__label{
   color: rgba(255, 255, 255, 0.8);
 }
-.cardContent{
-  margin: 0 5%;
-  height: 100%;
-  padding: 30px 60px;
-  .btn-group{
-    margin:15px 0;
-  }
-}
 
 /* 表格页公共样式 */
 .contentList{
-  margin: 0 5%;
+  margin: 0 10%;
   height: 100%;
-  // background: #fff;
-  padding: 30px 60px;
   .btn-group{
     margin:15px 0;
   }
   .btn-p{
     height: 40px;
     float: left;
+    position: relative;
+    z-index: 15;
+    .el-button--primary{
+      background: #3B43FF;
+      border: none;
+    }
     .rt{
         margin-bottom:15px;
       }
   }
+}
+#newregBtn{
+  background: #3B43FF;
+  border: none;
 }
 .tableDiv{
   margin-top: 50px;
@@ -281,4 +305,24 @@ body .el-table th.gutter{
 }
 @media (min-width: 420px){
   html{font-size:16px;}
+}
+
+/* 设置滚动条的样式 */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* 滚动槽 */
+::-webkit-scrollbar-track {
+  height: 45px;
+}
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: #17246A;
+}
+::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
 }

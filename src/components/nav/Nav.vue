@@ -248,6 +248,7 @@ export default {
 
 <style lang='less' scoped>
 .navgation{
+  padding: 0 10%;
   background: #280B4E;
   height: 64px;
   top: 0px;
