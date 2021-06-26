@@ -194,11 +194,7 @@ export default {
         this.dataLoading = false
       }, error => {
         this.dataLoading = false
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.tableData = this.paginationData = []
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
-        }
+        console.log(error)
       })
     },
     showEditDialog (data) {

@@ -112,12 +112,7 @@ export default {
           this.$emit('area', res.data, '')
         }
       }, error => {
-        if (error.response.status === 404 && error.response.data.details[0] === 'Record not found') {
-          this.nodeData = []
-          this.mapChart('mapChart')
-        } else {
-          this.$message.error(this.$t('tip.getCommonListFailed'))
-        }
+        console.log(error)
       })
     },
     showLayers (arr) {
