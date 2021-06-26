@@ -201,19 +201,19 @@
           class="dialog-footer"
         >
           <el-button
+            @click="cancelToSync"
+            size="small"
+            id="cancelBtn"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
+          <el-button
             type="primary"
             @click="confirmToSync()"
             size="small"
-            class="rt"
+            id="confirmBtn"
           >
             {{ $t('common.confirm') }}
-          </el-button>
-          <el-button
-            @click="cancelToSync"
-            size="small"
-            class="rt"
-          >
-            {{ $t('common.cancel') }}
           </el-button>
         </span>
       </div>
@@ -309,6 +309,13 @@
         class="dialog-footer"
       >
         <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancel()"
+        >
+          {{ $t('common.cancel') }}
+        </el-button>
+        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
@@ -316,13 +323,6 @@
           :loading="loading"
         >
           {{ $t('common.confirm') }}
-        </el-button>
-        <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancel()"
-        >
-          {{ $t('common.cancel') }}
         </el-button>
       </div>
     </el-dialog>

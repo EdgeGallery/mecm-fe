@@ -20,7 +20,8 @@
       class="breadcrumb"
       :first="$t('nav.overview')"
       :second="$t('nav.system')"
-      :third="$t('nav.edgeNode')"
+      :third="null"
+      :path="{ path: '' }"
     />
     <div class="contentList">
       <Search

@@ -21,7 +21,7 @@
       style="height: 100%;"
     >
       <el-col
-        :lg="6"
+        :lg="8"
         :md="12"
         :sm="24"
         :xs="24"
@@ -36,13 +36,34 @@
               {{ $t('overview.overview') }}
             </p>
             <div class="nodeBasicInfo">
-              <p><span>{{ city }}{{ $t('overview.edgeNodes') }}：</span>{{ nodeNum }}</p>
-              <p><span>{{ $t('overview.onlineNodes') }}：</span>{{ nodeNum }}</p>
-              <p><span>{{ $t('overview.offlineNodes') }}：</span>0</p>
+              <div class="dataContent">
+                <p class="totalNum defaultNum">
+                  {{ nodeNum }}
+                </p>
+                <p class="onlineNum defaultNum">
+                  {{ nodeNum }}
+                </p>
+                <p class="offlineNum defaultNum">
+                  0
+                </p>
+              </div>
+              <div style="display:flex;flex-direction:row;justify-content:center;">
+                <p class="defaultName">
+                  {{ $t('overview.edgeNodes') }}
+                </p>
+                <p class="defaultName">
+                  {{ $t('overview.onlineNodes') }}
+                </p>
+                <p class="defaultName">
+                  {{ $t('overview.offlineNodes') }}
+                </p>
+              </div>
             </div>
-            <Chart :chart-data="chartData" />
           </div>
-          <div class="blockContent">
+          <div
+            class="blockContent"
+            style="height:565px;"
+          >
             <p class="overviewLabel">
               {{ $t('nav.nodeList') }}
             </p>
@@ -78,7 +99,7 @@
                 >
                   <template slot-scope="scope">
                     <button
-                      class="cp"
+                      class="cp showDetails"
                       @click="showDetail(scope.row)"
                     >
                       {{ $t('common.detail') }}
@@ -118,7 +139,10 @@
                 <Usage :kpi-info="kpiInfo" />
               </div>
             </div>
-            <div class="blockContent">
+            <div
+              class="blockContent"
+              style="height: 365px;"
+            >
               <p class="overviewLabel">
                 {{ $t('overview.mepInfo') }}
                 <el-button
@@ -177,7 +201,7 @@
         </div>
       </el-col>
       <el-col
-        :lg="18"
+        :lg="16"
         :md="12"
         :sm="24"
         :xs="24"
@@ -205,12 +229,10 @@ import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import Map from './Map.vue'
 import { appo, inventory } from '../../tools/request.js'
-import Chart from './Chart.vue'
 export default {
   components: {
     manageDialog,
     Map,
-    Chart,
     Usage
   },
   data () {
@@ -369,7 +391,7 @@ export default {
       }
     },
     async checkServiceInfo () {
-      window.open('http://' + this.edgeIp + ':30095')
+      window.open('http://' + this.edgeIp + ':30097' + '/mepm/mepinfo/' + this.edgeIp)
     }
   }
 }
@@ -384,6 +406,7 @@ export default {
     background:#131111;
     background-size: cover;
     box-sizing: border-box;
+    padding-right: 15px;
   }
   p.overviewLabel{
     font-family: FZLanTingHeiS-B-GB;
@@ -393,9 +416,10 @@ export default {
     line-height: 29px;
     letter-spacing: 0em;
     text-align: left;
-    color: #5D89DD;
+    color: #ffffff;
     border-bottom: 1px solid #0A1446;
     padding-bottom: 15px;
+    margin-bottom: 15px;
   }
   .mt20 {
     margin-top: 20px;
@@ -407,7 +431,7 @@ export default {
     padding:5px 0;
   }
   .el-table .has-gutter th{
-    background: transparent!important;
+    background: #202230!important;
   }
   .el-table__expanded-cell{
     background: transparent!important;
@@ -415,24 +439,9 @@ export default {
   .el-table, .el-table__expanded-cell{
     background: transparent!important;
   }
-  .el-table th, .el-table tr, .el-table__empty-block, .el-table__expanded-cell{
-    background: transparent!important;
-  }
-  .el-table td, .el-table th.is-leaf{
-    border-bottom: none!important;
-  }
   .nodeBasicInfo{
     color:#F5F5F5;
     margin-top: 15px;
-    p{
-      font-size: 16px;
-      line-height: 32px;
-      padding: 0 10px;
-      span{
-        display: inline-block;
-        color:#c0c4cc;
-      }
-    }
   }
   .content-right {
       padding: 0!important;
@@ -446,6 +455,8 @@ export default {
         padding: 15px 20px;
         margin: 5px;
         border: 1px solid #101D61;
+        background: #00041A;
+        margin-top: 15px;
       }
       .el-select {
         .el-input {
@@ -471,7 +482,7 @@ export default {
     font-size: 13px;
   }
   .capaTable{
-    max-height: 185px;
+    max-height: 165px;
     overflow-y: auto;
   }
   .nodelistTable{
@@ -486,8 +497,49 @@ export default {
     margin-bottom:15px;
   }
   .mapPanel{
-    margin-top:20px;
-    height:calc(100% - 30px);
+    margin-top: 30px;
+    height:calc(100% - 40px);
     padding-left:0!important;
+    background: #00041A;
+    border: 1px solid #101D61;
+    box-sizing: border-box;
+  }
+  .showDetails{
+    width: 39px;
+    height: 20px;
+    background: #3B43FF;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    line-height: 20px;
+  }
+  .dataContent{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+  }
+  .defaultNum{
+    font-family: FZLanTingHeiS-B-GB;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 48px;
+    line-height: 59px;
+    text-align: center;
+    width: 90px;
+    height: 80px;
+  }
+  .totalNum{
+    color: #35EDED;
+  }
+  .onlineNum{
+    color: #21D55E;
+  }
+  .offlineNum{
+    color: #E05F17;
+  }
+  .defaultName{
+    text-align: center;
+    width: 90px;
+    height: 80px;
   }
 </style>

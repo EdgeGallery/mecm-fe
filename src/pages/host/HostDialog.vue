@@ -180,16 +180,16 @@
       class="dialog-footer"
     >
       <el-button
+        id="cancelBtn"
+        size="small"
+        @click="cancel()"
+      >{{ $t('common.cancel') }}</el-button>
+      <el-button
         id="confirmBtn"
         type="primary"
         size="small"
         @click="confirm('currForm')"
       >{{ $t('common.confirm') }}</el-button>
-      <el-button
-        id="cancelBtn"
-        size="small"
-        @click="cancel()"
-      >{{ $t('common.cancel') }}</el-button>
     </span>
   </div>
 </template>
@@ -293,7 +293,7 @@ export default {
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.currForm = middleData
-      this.location = this.city.split('/')
+      this.location = this.currForm.city.split('/')
       this.dialogVisible = true
       this.rowdata.hwcapabilities.forEach(item => {
         this.capabilities.push(item.hwType)
@@ -322,12 +322,10 @@ export default {
       this.capabilities = []
     },
     register () {
+      this.$refs.currForm.resetFields()
       this.resetForm()
       this.isDisable = false
       this.dialogVisible = true
-      this.$nextTick(() => {
-        this.$refs.currForm.resetFields()
-      })
     },
     getList () {
       inventory.getList(5).then(res => {

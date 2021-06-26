@@ -198,18 +198,6 @@ export default {
     getCurrentPageData (data) {
       this.currPageTableData = data
     },
-    resetForm () {
-      this.form = {
-        appstoreIp: '',
-        appstoreName: '',
-        appstorePort: '',
-        appstoreRepo: '',
-        appstoreRepoName: '',
-        appstoreRepoPassword: '',
-        appstoreRepoUserName: '',
-        producer: ''
-      }
-    },
     handleDelete (row) {
       this.$confirm(this.$t('tip.beforeDeleteAppstore'), this.$t('common.warning'), {
         confirmButtonText: this.$t('common.confirm'),
@@ -229,10 +217,10 @@ export default {
       if (data) {
         this.appstoreData = data
         this.type = 2
-        this.title = this.$t('system.mepm.mepmModify')
+        this.dialogTitle = this.$t('system.mepm.mepmModify')
       } else {
         this.type = 1
-        this.title = this.$t('system.mepm.mepmReg')
+        this.dialogTitle = this.$t('system.mepm.mepmReg')
       }
       this.dialogVisible = true
     },

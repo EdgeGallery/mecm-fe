@@ -20,10 +20,13 @@
       <el-breadcrumb-item :to="{ path: '/' }">
         {{ first }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item :to="jumpTo(path)">
+      <el-breadcrumb-item
+        :to="jumpTo(path)"
+        v-if="second"
+      >
         {{ second }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item>
+      <el-breadcrumb-item v-if="third">
         {{ third }}
       </el-breadcrumb-item>
     </el-breadcrumb>
@@ -46,11 +49,13 @@ export default {
       type: String
     },
     third: {
-      required: true,
+      default: '',
       type: String
     },
     path: {
-      required: true,
+      default: function () {
+        return null
+      },
       type: Object
     }
   },

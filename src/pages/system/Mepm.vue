@@ -67,9 +67,6 @@
                 <el-form-item :label="$t('system.mepm.port')">
                   {{ item.mepmPort }}
                 </el-form-item>
-                <el-form-item :label="$t('system.edgeNodes.username')">
-                  {{ item.userName }}
-                </el-form-item>
                 <p
                   class="btn-group flex"
                   v-if="rlp=='418'"
@@ -166,7 +163,7 @@ export default {
             reset = true
             let dataKey = key
             if (key === 'ip') {
-              dataKey = 'applcmIp'
+              dataKey = 'mepmIp'
             }
             this.filterTableData(data[key].toLowerCase(), dataKey)
           }
@@ -225,9 +222,9 @@ export default {
 
 <style lang='less'>
 .cardContent{
-  margin: 0 5%;
+  margin: 0 10%;
   height: 100%;
-  padding: 30px 60px;
+  padding-top: 50px;
   .btn-group{
     margin: 0px 15px 0px 0px;
     justify-content: center;
