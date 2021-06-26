@@ -542,4 +542,7 @@ export default {
     width: 90px;
     height: 80px;
   }
+  .mecm-overview .el-table td, .el-table th{
+    height: 36px;
+  }
 </style>
