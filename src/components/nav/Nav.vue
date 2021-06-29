@@ -259,7 +259,6 @@ export default {
     height:64px;
     width:430px;
     line-height: 65px;
-    margin-left:17px;
     img{
       position: relative;
       top: 0px;
