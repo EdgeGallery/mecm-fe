@@ -92,7 +92,6 @@ export default {
     color: #fff;
   }
   .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next{
-    background-color: #f7f3ff  !important;
     color: #717185  !important;
     background: none !important;
   }

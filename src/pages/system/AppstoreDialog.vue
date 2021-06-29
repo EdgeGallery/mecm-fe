@@ -249,10 +249,7 @@ export default {
     cancel () {
       this.$emit('close', 'closeEditDialog')
     }
-  },
-  mounted () {}
+  }
 }
 
 </script>
-<style lang='less' scoped>
-</style>

@@ -344,7 +344,7 @@ export default {
           if (this.type === 1) {
             inventory.create(2, this.currForm).then(response => {
               this.showMessage('success', this.$t('tip.sucToRegNode'), 1500)
-              this.afterOperation()
+              this.cancel()
             }).catch((error) => {
               if (error.response.data.details[0] === 'Record already exist') {
                 this.$message.error(error.response.data.details[0])
@@ -357,7 +357,7 @@ export default {
           } else {
             inventory.modify(2, this.currForm, this.currForm.mechostIp).then(response => {
               this.showMessage('success', this.$t('tip.sucToModNode'), 1500)
-              this.afterOperation()
+              this.cancel()
             }).catch((error) => {
               console.log(error)
               this.$message.error(this.$t('tip.failToModifyNode'))
@@ -381,11 +381,6 @@ export default {
         obj.hwModel = this.npuModel
         this.currForm.hwcapabilities.push(obj)
       }
-    },
-    afterOperation () {
-      this.isDisable = false
-      this.resetForm()
-      this.$emit('close', 'closeDialog')
     }
   },
   created () {
