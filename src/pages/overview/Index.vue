@@ -62,7 +62,7 @@
           </div>
           <div
             class="blockContent"
-            style="height:565px;"
+            id="nodeListDiv"
           >
             <p class="overviewLabel">
               {{ $t('nav.nodeList') }}
@@ -141,7 +141,7 @@
             </div>
             <div
               class="blockContent"
-              style="height: 365px;"
+              id="mepInfoDiv"
             >
               <p class="overviewLabel">
                 {{ $t('overview.mepInfo') }}
@@ -253,7 +253,8 @@ export default {
       city: '',
       edgeIp: '',
       nodeList: [],
-      detail: {}
+      detail: {},
+      screenHeight: 0
     }
   },
   watch: {
@@ -265,7 +266,24 @@ export default {
       }
     }
   },
+  mounted () {
+    this.setcontentHeight()
+  },
+  updated () {
+    let mepInfoDiv = document.getElementById('mepInfoDiv')
+    mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
+    let capaTable = document.getElementsByClassName('capaTable')
+    capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
+  },
   methods: {
+    setcontentHeight (height) {
+      this.screenHeight = window.innerHeight
+      let nodeListDiv = document.getElementById('nodeListDiv')
+      let nodelistTable = document.getElementsByClassName('nodelistTable')
+      nodeListDiv.style.height = (Number(this.screenHeight) - 371) + 'px'
+      console.log(nodelistTable)
+      nodelistTable[0].style.maxHeight = (Number(this.screenHeight) - 307) + 'px'
+    },
     resetData () {
       this.hwCapData = []
       this.edgeAppList = []
@@ -542,7 +560,7 @@ export default {
     width: 90px;
     height: 80px;
   }
-  .mecm-overview .el-table td, .el-table th{
+  .mecm-overview .el-table td,.mecm-overview .el-table th{
     height: 36px;
   }
 </style>
