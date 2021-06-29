@@ -427,7 +427,7 @@ export default {
     padding-right: 15px;
   }
   p.overviewLabel{
-    font-family: FZLanTingHeiS-B-GB;
+    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -537,7 +537,7 @@ export default {
     justify-content:center;
   }
   .defaultNum{
-    font-family: FZLanTingHeiS-B-GB;
+    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 48px;
