@@ -480,37 +480,38 @@ export default {
       this.$refs.syncPackageTable.clearSelection()
     },
     confirmToSync () {
-      let params
       if (this.selectData.length === 0) {
         this.$message.warning(this.$t('app.packageList.syncTip'))
       } else {
-        params = this.selectData
-        apm.syncAppFromStore(params).then(res => {
-          if (res) {
-            let num = 0
-            params.forEach(item => {
-              num++
-              apm.getOneSyncStatus(item.appId, item.packageId).then(response => {
-                if (num === params.length) {
-                  this.$message.success(this.$t('app.packageList.syncSuccess'))
-                  this.$refs.syncPackageTable.clearSelection()
-                }
-              }).catch(error => {
-                console.log(error)
-                this.syncDialogVisible = false
-              })
-            })
-            if (num === params.length) {
-              this.getPackageList()
-            }
-            this.syncDialogVisible = false
-          }
-        }).catch(error => {
-          if (error.response.status === 403) {
-            this.$message.error(this.$t('tip.loginOperation'))
-          }
-        })
+        this.syncAppFromStore()
       }
+    },
+    syncAppFromStore () {
+      apm.syncAppFromStore(this.selectData).then(res => {
+        if (res) {
+          let num = 0
+          this.selectData.forEach(item => {
+            num++
+            apm.getOneSyncStatus(item.appId, item.packageId).then(response => {
+              if (num === this.selectData.length) {
+                this.$message.success(this.$t('app.packageList.syncSuccess'))
+                this.$refs.syncPackageTable.clearSelection()
+              }
+            }).catch(error => {
+              console.log(error)
+              this.syncDialogVisible = false
+            })
+          })
+          if (num === this.selectData.length) {
+            this.getPackageList()
+          }
+          this.syncDialogVisible = false
+        }
+      }).catch(error => {
+        if (error.response.status === 403) {
+          this.$message.error(this.$t('tip.loginOperation'))
+        }
+      })
     },
     handlePackagePageSizeChange (packagePageSize) {
       this.packagePageSize = packagePageSize
