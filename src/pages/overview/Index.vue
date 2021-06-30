@@ -19,9 +19,10 @@
     <el-row
       :gutter="20"
       style="height: 100%;"
+      class="padding-lr"
     >
       <el-col
-        :lg="8"
+        :lg="9"
         :md="12"
         :sm="24"
         :xs="24"
@@ -47,7 +48,7 @@
                   0
                 </p>
               </div>
-              <div style="display:flex;flex-direction:row;justify-content:center;">
+              <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
                 <p class="defaultName">
                   {{ $t('overview.edgeNodes') }}
                 </p>
@@ -122,13 +123,15 @@
                 {{ $t('overview.nodeInfo') }}
               </p>
               <div class="nodeBasicInfo">
-                <p>
+                <p class="nodeInfo">
                   <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
                 </p>
-                <p>
+                <p class="nodeInfo">
                   <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
                 </p>
-                <p><span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}</p>
+                <p class="nodeInfo">
+                  <span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}
+                </p>
               </div>
             </div>
             <div class="blockContent">
@@ -201,7 +204,7 @@
         </div>
       </el-col>
       <el-col
-        :lg="16"
+        :lg="15"
         :md="12"
         :sm="24"
         :xs="24"
@@ -428,13 +431,13 @@ export default {
   }
   p.overviewLabel{
     font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 29px;
     letter-spacing: 0em;
     text-align: left;
-    color: #ffffff;
+    color: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid #0A1446;
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -458,8 +461,14 @@ export default {
     background: transparent!important;
   }
   .nodeBasicInfo{
-    color:#F5F5F5;
+    color:#CCCCCC;
     margin-top: 15px;
+    .nodeInfo{
+      font-size: 14px;
+    }
+    .nodeInfo:nth-child(2){
+      padding: 15px 0;
+    }
   }
   .content-right {
       padding: 0!important;
@@ -496,8 +505,10 @@ export default {
       }
     }
   }
-  .headerClassName{
-    font-size: 13px;
+
+  .nodeTable.headerClassName{
+    font-size: 14px !important;
+    color: rgba(255, 255, 255, 0.9) !important;
   }
   .capaTable{
     max-height: 165px;
@@ -534,7 +545,7 @@ export default {
   .dataContent{
     display:flex;
     flex-direction:row;
-    justify-content:center;
+    justify-content:space-evenly;
   }
   .defaultNum{
     font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
@@ -547,18 +558,20 @@ export default {
     height: 80px;
   }
   .totalNum{
-    color: #35EDED;
-  }
-  .onlineNum{
     color: #21D55E;
   }
+  .onlineNum{
+   color: #E05F17;
+  }
   .offlineNum{
-    color: #E05F17;
+    color: #35EDED;
   }
   .defaultName{
     text-align: center;
     width: 90px;
     height: 80px;
+    font-size: 14px;
+    color: #cccccc;
   }
   .mecm-overview .el-table td,.mecm-overview .el-table th{
     height: 36px;
