@@ -99,7 +99,8 @@ const cn = {
       sync: '同步',
       syncTip: '请至少选择一个应用进行同步！',
       syncSuccess: '同步成功！',
-      industry: '行业'
+      industry: '行业',
+      syncTime: '同步时间'
     },
     distriList: {
       mecHost: 'MEC 主机',
