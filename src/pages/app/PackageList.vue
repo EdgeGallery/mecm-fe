@@ -530,6 +530,9 @@ export default {
     getPackageList () {
       apm.initApmPackages().then(response => {
         this.tableData = response.data
+        this.tableData.forEach(item => {
+          item.createTime = item.createTime.split('T')[0]
+        })
         this.paginationData = this.tableData
         this.checkProjectData()
         if (this.appType) this.filterTableData(this.appType, 'type')
