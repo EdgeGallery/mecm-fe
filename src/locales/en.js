@@ -100,7 +100,8 @@ const en = {
       sync: 'Sync',
       syncTip: 'Select at lease one application for synchronization!',
       syncSuccess: 'Sync succeeded！',
-      industry: 'Industry'
+      industry: 'Industry',
+      syncTime: 'Sync Time'
     },
     distriList: {
       mecHost: 'MEC Hosts',
