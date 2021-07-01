@@ -89,6 +89,14 @@
                 </template>
               </el-table-column>
               <el-table-column
+                prop="appstoreName"
+                :label="$t('system.appstore.appstoreName')"
+              />
+              <el-table-column
+                prop="createTime"
+                :label="$t('app.packageList.syncTime')"
+              />
+              <el-table-column
                 :label="$t('common.operation')"
                 align="center"
               >
@@ -188,14 +196,6 @@
             <el-table-column
               prop="affinity"
               :label="$t('app.packageList.affinity')"
-            />
-            <el-table-column
-              prop="appstoreName"
-              :label="$t('system.appstore.appstoreName')"
-            />
-            <el-table-column
-              prop="createTime"
-              :label="$t('app.packageList.syncTime')"
             />
           </el-table>
         </div>
