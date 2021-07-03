@@ -437,7 +437,16 @@ const mepmData = function () {
 
 const appstoreData = function () {
   return [
-    { 'appstoreIp': '127.0.0.1', 'appstorePort': '443', 'appstoreName': 'appstore', 'appstoreRepoName': 'appstorerepo', 'appstoreRepo': '127.0.0.1:443', 'appstoreRepoUserName': 'xxx', 'appstoreRepoPassword': 'xxx', 'producer': 'huawei' }
+    {
+      'appstoreIp': '127.0.0.1',
+      'appstorePort': '443',
+      'appstoreName': 'appstore1',
+      'appstoreRepoName': 'appstore',
+      'appstoreRepo': '127.0.0.1:443',
+      'appstoreRepoUserName': 'a',
+      'appstoreRepoPassword': 'b',
+      'producer': 'hw'
+    }
   ]
 }
 

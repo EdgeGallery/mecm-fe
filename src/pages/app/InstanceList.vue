@@ -287,6 +287,7 @@ export default {
         }
         this.dataLoading = false
       }).catch((error) => {
+        this.tableData = this.paginationData = []
         this.dataLoading = false
         console.log(error)
       })

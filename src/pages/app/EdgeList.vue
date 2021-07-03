@@ -423,6 +423,7 @@ export default {
       }).catch((error) => {
         console.log(error)
         this.dataLoading = false
+        this.tableData = this.paginationData = []
       })
     },
     deploy (row, type) {
