@@ -120,12 +120,7 @@ export default {
   methods: {
     register () {
       this.$refs.form.resetFields()
-      this.form = {
-        mepmIp: '',
-        mepmPort: 31252,
-        userName: '',
-        mepmName: ''
-      }
+      this.form = {}
       this.ipDisable = false
     },
     handleEdit () {
@@ -161,8 +156,10 @@ export default {
       })
     },
     cancel () {
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
       this.$emit('close', 'closeEditDialog')
-      this.$refs.form.resetFields()
     }
   }
 }

@@ -38,7 +38,7 @@
           id="newregBtn"
           type="primary"
           :disabled="false"
-          @click="showEditDialog('')"
+          @click="showEditDialog(0)"
           class="rt"
         >
           {{ $t('system.mepm.newReg') }}
@@ -216,6 +216,7 @@ export default {
         this.type = 2
         this.dialogTitle = this.$t('system.appstore.appStoreModify')
       } else {
+        this.appstoreData = {}
         this.type = 1
         this.dialogTitle = this.$t('system.appstore.appStoreReg')
       }

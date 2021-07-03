@@ -200,16 +200,7 @@ export default {
       this.resetForm()
     },
     resetForm () {
-      this.form = {
-        appstoreIp: '',
-        appstoreName: '',
-        appstorePort: '',
-        appstoreRepo: '',
-        appstoreRepoName: '',
-        appstoreRepoPassword: '',
-        appstoreRepoUserName: '',
-        producer: ''
-      }
+      this.form = {}
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
@@ -247,8 +238,9 @@ export default {
       this.cancel()
     },
     cancel () {
-      this.$emit('close', 'closeEditDialog')
+      this.resetForm()
       this.$refs.form.resetFields()
+      this.$emit('close', 'closeEditDialog')
     }
   }
 }
