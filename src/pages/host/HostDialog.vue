@@ -287,7 +287,11 @@ export default {
       this.op = !this.op
     },
     cityChanged (val) {
-      this.currForm.city = val.join('/')
+      if (val) {
+        this.currForm.city = val.join('/')
+      } else {
+        this.location = []
+      }
     },
     handleModify () {
       this.isDisable = true
