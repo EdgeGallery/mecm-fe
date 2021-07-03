@@ -303,6 +303,7 @@ export default {
       this.isDisable = false
       this.resetForm()
       this.$emit('close', 'closeDialog')
+      this.$refs.currForm.resetFields()
     },
     resetForm () {
       this.currForm = {
