@@ -162,6 +162,7 @@ export default {
         this.tableData = this.paginationData = res.data
         this.dataLoading = false
       }, error => {
+        this.tableData = this.paginationData = []
         this.dataLoading = false
         console.log(error)
       })
@@ -213,10 +214,10 @@ export default {
       if (data) {
         this.appstoreData = data
         this.type = 2
-        this.dialogTitle = this.$t('system.mepm.mepmModify')
+        this.dialogTitle = this.$t('system.appstore.appStoreModify')
       } else {
         this.type = 1
-        this.dialogTitle = this.$t('system.mepm.mepmReg')
+        this.dialogTitle = this.$t('system.appstore.appStoreReg')
       }
       this.dialogVisible = true
     },

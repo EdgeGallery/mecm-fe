@@ -248,6 +248,7 @@ export default {
     },
     cancel () {
       this.$emit('close', 'closeEditDialog')
+      this.$refs.form.resetFields()
     }
   }
 }

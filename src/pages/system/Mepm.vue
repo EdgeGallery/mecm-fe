@@ -194,6 +194,7 @@ export default {
         this.dataLoading = false
       }, error => {
         this.dataLoading = false
+        this.tableData = this.paginationData = []
         console.log(error)
       })
     },
