@@ -211,13 +211,11 @@ export default {
       })
     },
     showEditDialog (data) {
-      console.log(data)
       if (data) {
         this.appstoreData = data
         this.type = 2
         this.dialogTitle = this.$t('system.appstore.appStoreModify')
       } else {
-        console.log(111)
         this.appstoreData = {}
         this.type = 1
         this.dialogTitle = this.$t('system.appstore.appStoreReg')
