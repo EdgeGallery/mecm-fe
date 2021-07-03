@@ -247,8 +247,8 @@ export default {
       this.cancel()
     },
     cancel () {
-      this.$emit('close', 'closeEditDialog')
       this.$refs.form.resetFields()
+      this.$emit('close', 'closeEditDialog')
     }
   }
 }
