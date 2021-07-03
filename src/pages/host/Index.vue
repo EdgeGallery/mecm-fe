@@ -311,7 +311,6 @@ export default {
         this.$message.error(this.$t('tip.faileToDeleteNode'))
       })
     },
-
     showEditDialog (data) {
       this.dialogVisible = true
       if (data) {
@@ -325,6 +324,7 @@ export default {
     },
     closeEditDialog () {
       this.dialogVisible = false
+      this.type = 0
       this.getNodeListInPage()
     },
     closeUploadDialog () {
