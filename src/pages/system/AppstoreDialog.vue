@@ -142,7 +142,16 @@ export default {
   },
   data () {
     return {
-      form: {},
+      form: {
+        appstoreIp: '',
+        appstoreName: '',
+        appstorePort: '30099',
+        appstoreRepo: '',
+        appstoreRepoName: '',
+        appstoreRepoPassword: '',
+        appstoreRepoUserName: '',
+        producer: ''
+      },
       urlDisable: false
     }
   },
@@ -181,31 +190,13 @@ export default {
       }
     }
   },
-  beforeUpdate () {
-    if (this.type !== 2) {
-      this.resetForm()
-    }
-  },
   methods: {
     register () {
-      this.resetForm()
       this.$nextTick(() => {
         this.$refs.form.resetFields()
       })
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
-    },
-    resetForm () {
-      this.form = {
-        appstoreIp: '',
-        appstoreName: '',
-        appstorePort: '30099',
-        appstoreRepo: '',
-        appstoreRepoName: '',
-        appstoreRepoPassword: '',
-        appstoreRepoUserName: '',
-        producer: ''
-      }
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
@@ -244,7 +235,7 @@ export default {
     },
     cancel () {
       this.$nextTick(() => {
-        this.$refs.form.resetFields()
+        this.$refs['form'].resetFields()
       })
       this.$emit('close', 'closeEditDialog')
     }

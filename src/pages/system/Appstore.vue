@@ -123,6 +123,7 @@
           :appstore-data="appstoreData"
           :type="type"
           @close="closeEditDialog"
+          v-if="ifshow"
         />
       </el-dialog>
     </div>
@@ -150,7 +151,8 @@ export default {
       dataLoading: true,
       appstoreData: {},
       type: 0,
-      rlp: sessionStorage.getItem('rlp')
+      rlp: sessionStorage.getItem('rlp'),
+      ifshow: false
     }
   },
   mounted () {
@@ -221,9 +223,11 @@ export default {
         this.dialogTitle = this.$t('system.appstore.appStoreReg')
       }
       this.dialogVisible = true
+      this.ifshow = true
     },
     closeEditDialog () {
       this.dialogVisible = false
+      this.ifshow = false
       this.initList()
     }
   }
