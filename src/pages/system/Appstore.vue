@@ -117,7 +117,7 @@
         :close-on-click-modal="false"
         :title="dialogTitle"
         :visible.sync="dialogVisible"
-        before-close="closeEditDialog"
+        :before-close="closeEditDialog"
         width="25%"
       >
         <AppstoreDialog
