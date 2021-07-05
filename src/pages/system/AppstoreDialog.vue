@@ -143,14 +143,7 @@ export default {
   data () {
     return {
       form: {
-        appstoreIp: '',
-        appstoreName: '',
-        appstorePort: '30099',
-        appstoreRepo: '',
-        appstoreRepoName: '',
-        appstoreRepoPassword: '',
-        appstoreRepoUserName: '',
-        producer: ''
+
       },
       urlDisable: false
     }
@@ -200,7 +193,14 @@ export default {
       this.resetForm()
     },
     resetForm () {
-      this.form = {}
+      this.form = { appstoreIp: '',
+        appstoreName: '',
+        appstorePort: '30099',
+        appstoreRepo: '',
+        appstoreRepoName: '',
+        appstoreRepoPassword: '',
+        appstoreRepoUserName: '',
+        producer: '' }
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
