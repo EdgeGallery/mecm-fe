@@ -143,7 +143,14 @@ export default {
   data () {
     return {
       form: {
-
+        appstoreIp: '',
+        appstoreName: '',
+        appstorePort: '30099',
+        appstoreRepo: '',
+        appstoreRepoName: '',
+        appstoreRepoPassword: '',
+        appstoreRepoUserName: '',
+        producer: ''
       },
       urlDisable: false
     }
@@ -190,17 +197,6 @@ export default {
       })
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
-      this.resetForm()
-    },
-    resetForm () {
-      this.form = { appstoreIp: '',
-        appstoreName: '',
-        appstorePort: '30099',
-        appstoreRepo: '',
-        appstoreRepoName: '',
-        appstoreRepoPassword: '',
-        appstoreRepoUserName: '',
-        producer: '' }
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
@@ -238,8 +234,9 @@ export default {
       this.cancel()
     },
     cancel () {
-      this.resetForm()
-      this.$refs.form.resetFields()
+      this.$nextTick(() => {
+        this.$refs['form'].resetFields()
+      })
       this.$emit('close', 'closeEditDialog')
     }
   }
