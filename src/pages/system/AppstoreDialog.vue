@@ -142,9 +142,7 @@ export default {
   },
   data () {
     return {
-      form: {
-
-      },
+      form: {},
       urlDisable: false
     }
   },
@@ -183,24 +181,31 @@ export default {
       }
     }
   },
+  beforeUpdate () {
+    if (this.type !== 2) {
+      this.resetForm()
+    }
+  },
   methods: {
     register () {
+      this.resetForm()
       this.$nextTick(() => {
         this.$refs.form.resetFields()
       })
       this.urlDisable = false
       this.dialogTitle = this.$t('system.appstore.appStoreReg')
-      this.resetForm()
     },
     resetForm () {
-      this.form = { appstoreIp: '',
+      this.form = {
+        appstoreIp: '',
         appstoreName: '',
         appstorePort: '30099',
         appstoreRepo: '',
         appstoreRepoName: '',
         appstoreRepoPassword: '',
         appstoreRepoUserName: '',
-        producer: '' }
+        producer: ''
+      }
     },
     handleEdit () {
       this.dialogTitle = this.$t('system.appstore.appStoreModify')
@@ -238,8 +243,9 @@ export default {
       this.cancel()
     },
     cancel () {
-      this.resetForm()
-      this.$refs.form.resetFields()
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+      })
       this.$emit('close', 'closeEditDialog')
     }
   }

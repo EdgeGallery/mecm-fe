@@ -120,7 +120,12 @@ export default {
   methods: {
     register () {
       this.$refs.form.resetFields()
-      this.form = {}
+      this.form = {
+        mepmIp: '',
+        mepmPort: 31252,
+        userName: '',
+        mepmName: ''
+      }
       this.ipDisable = false
     },
     handleEdit () {
