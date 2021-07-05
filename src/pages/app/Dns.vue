@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import { appo, inventory } from '../../tools/request.js'
+import { appo, inventory } from '../../tools/request1.js'
 export default {
   data () {
     return {

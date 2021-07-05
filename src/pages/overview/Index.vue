@@ -231,7 +231,7 @@
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import Map from './Map.vue'
-import { appo, inventory } from '../../tools/request.js'
+import { appo, inventory } from '../../tools/request1.js'
 export default {
   components: {
     manageDialog,

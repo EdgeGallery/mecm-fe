@@ -42,7 +42,7 @@
 
 <script>
 import CityMap from '../../assets/js/CityMap'
-import { inventory } from '../../tools/request.js'
+import { inventory } from '../../tools/request1.js'
 import echarts from 'echarts'
 
 import 'ol/ol.css'

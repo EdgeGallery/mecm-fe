@@ -117,7 +117,7 @@
         :close-on-click-modal="false"
         :title="dialogTitle"
         :visible.sync="dialogVisible"
-        before-close="closeEditDialog"
+        :before-close="closeEditDialog"
         width="25%"
       >
         <AppstoreDialog
@@ -132,7 +132,7 @@
 </template>
 
 <script>
-import { inventory } from '../../tools/request.js'
+import { inventory } from '../../tools/request1.js'
 import Search from '../../components/common/Search.vue'
 import pagination from '../../components/common/Pagination.vue'
 import Breadcrumb from '../../components/common/BreadCrumb.vue'

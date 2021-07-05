@@ -105,7 +105,7 @@
 <script>
 import NavData from '../../data/NavData.js'
 import NavDataCn from '../../data/NavDataCn.js'
-import { user } from '../../tools/request.js'
+import { user } from '../../tools/request1.js'
 import Topbar from './Topbar'
 import Topbarsmall from './Topbarsmall'
 export default {
