@@ -702,7 +702,7 @@
 </template>
 
 <script>
-import { appo, inventory } from '../../tools/request1.js'
+import { appo, inventory } from '../../tools/request.js'
 import Detail from './TrafficDetail.vue'
 export default {
   components: {

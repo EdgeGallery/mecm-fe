@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { inventory } from '../../tools/request1.js'
+import { inventory } from '../../tools/request.js'
 export default {
   props: {
     mechostip: {

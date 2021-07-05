@@ -338,7 +338,7 @@
 </template>
 
 <script>
-import { apm, inventory } from '../../tools/request1.js'
+import { apm, inventory } from '../../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../../tools/constant.js'
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'

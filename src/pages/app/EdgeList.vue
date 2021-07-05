@@ -256,7 +256,7 @@
 <script>
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import { appo, apm } from '../../tools/request1.js'
+import { appo, apm } from '../../tools/request.js'
 export default {
   name: 'EdgeList',
   components: {

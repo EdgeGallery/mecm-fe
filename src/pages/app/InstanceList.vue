@@ -175,7 +175,7 @@
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
 import Breadcrumb from '../../components/common/BreadCrumb.vue'
-import { appo } from '../../tools/request1.js'
+import { appo } from '../../tools/request.js'
 
 export default {
   name: 'AinsList',
