@@ -125,14 +125,14 @@
                 >
                   {{ $t('common.delete') }}
                 </el-button>
-                <el-button
+                <!-- <el-button
                   id="monitorBtn"
                   type="text"
                   size="small"
                   @click="handleMonitor(scope.row)"
                 >
                   {{ $t('edgeNode.monitor') }}
-                </el-button>
+                </el-button> -->
                 <el-button
                   id="uploadBtn"
                   @click.native.prevent="uploadFile(scope.row)"
