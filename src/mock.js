@@ -36,7 +36,7 @@ const hostData = function () {
       'affinity': 'X86',
       'userName': '',
       'mepmIp': '127.0.1.0',
-      'coordinates': '108.8348,34.1995',
+      'coordinates': '108,34',
       'hwcapabilities': [ ],
       'vim': 'OpenStack',
       'configUploadStatus': 'Uploaded'
@@ -74,8 +74,8 @@ const instanceList = function () {
   return {
     'response': [
       {
-        'appInstanceId': '4b6944f1-655c-4f77-9e86-c0c4eb629c9c',
-        'appPackageId': '9eb381e222dd4a3898fc61f7182bba24',
+        'appInstanceId': '79sjkdnfk89h',
+        'appPackageId': 'jshdfk687sydfhi87syfin',
         'appName': 'zone',
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
