@@ -157,13 +157,17 @@ export default {
     background: rgba(0, 0, 0, 0.6);
     border-right: none;
     .el-submenu.is-active, .el-menu-item.is-active{
-      background: rgba(0, 0, 0, 0.3);
+      background: #2d325a;
       .first-menu{
         color: #6c92fa;
       }
     }
     .el-submenu__title{
-      background-color: rgba(0, 0, 0, 0.4) !important;
+      background-color: #2d325a;
+      color: white !important;
+    }
+    .el-submenu__title:hover{
+      color: white !important;
     }
     .el-icon-arrow-down:before{
       color: #fff;
