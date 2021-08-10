@@ -73,6 +73,7 @@
                 :data="nodeList"
                 header-row-class-name="headerClassName"
                 class="hwCapData nodelistTable"
+                @row-click="handleRowSelection"
               >
                 <el-table-column
                   prop="mechostName"
@@ -223,6 +224,15 @@
         :service-info="serviceInfo"
       />
     </div>
+    <el-dialog
+      :title="$t('overview.nodeKPI')"
+      :visible.sync="showUsageDialog"
+      width="25%"
+    >
+      <div>
+        <EdgeNodeUsage :kpi-info="usageData" />
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -230,13 +240,15 @@
 
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
+import EdgeNodeUsage from './EdgeNodeUsage.vue'
 import Map from './Map.vue'
 import { appo, inventory } from '../../tools/request.js'
 export default {
   components: {
     manageDialog,
     Map,
-    Usage
+    Usage,
+    EdgeNodeUsage
   },
   data () {
     return {
@@ -257,7 +269,9 @@ export default {
       edgeIp: '',
       nodeList: [],
       detail: {},
-      screenHeight: 0
+      screenHeight: 0,
+      usageData: {},
+      showUsageDialog: false
     }
   },
   watch: {
@@ -279,6 +293,18 @@ export default {
     capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
   },
   methods: {
+    handleRowSelection (row) {
+      this.showUsageDialog = false
+      appo.getNodeKpi(row.mechostIp).then(res => {
+        if (res.data) {
+          let str = res.data.response
+          this.usageData = JSON.parse(str)
+          this.showUsageDialog = true
+        }
+      }).catch(() => {
+        this.$message.error(this.$t('tip.getAppInfoFailed'))
+      })
+    },
     setcontentHeight (height) {
       this.screenHeight = window.innerHeight
       let nodeListDiv = document.getElementById('nodeListDiv')

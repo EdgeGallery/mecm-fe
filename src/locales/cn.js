@@ -71,7 +71,8 @@ const cn = {
     edgeNodes: '节点总数',
     onlineNodes: '在线节点数',
     offlineNodes: '离线节点数',
-    returnOverview: '返回主视图'
+    returnOverview: '返回主视图',
+    nodeKPI: '节点KPI'
   },
   app: {
     packageList: {
@@ -128,7 +129,8 @@ const cn = {
       addDnsRules: '增加DNS规则',
       addTrafficRules: '增加分流规则',
       addFilter: '新增流过滤规则',
-      batchDelete: '批量删除应用'
+      batchDelete: '批量删除应用',
+      appKPI: '应用KPI'
     },
     ruleConfig: {
       srcAddress: '源IP地址',
