@@ -46,6 +46,7 @@
           :data="currPageTableData"
           v-loading="dataLoading"
           @selection-change="handleSelectionChange"
+          @row-click="handleRowSelection"
         >
           <el-table-column
             type="selection"
@@ -136,6 +137,56 @@
         </div>
       </div>
       <el-dialog
+        :title="$t('app.instanceList.appKPI')"
+        :visible.sync="instanceListVisible"
+        width="width"
+      >
+        <div>
+          <div>
+            <el-row :gutter="10">
+              <el-col
+                :span="4"
+              >
+                <InstanceUsage :kpi-info="kpiInfo" />
+              </el-col>
+              <el-col
+                :span="20"
+              >
+                <el-table
+                  ref="podTable"
+                  :data="podTable"
+                  class="mt20 detailTab"
+                  size="small"
+                >
+                  <el-table-column
+                    prop="podname"
+                    :label="$t('app.distriList.podName')"
+                  />
+                  <el-table-column
+                    prop="podstatus"
+                    :label="$t('app.distriList.status')"
+                  />
+                  <el-table-column
+                    :label="$t('overview.mem')"
+                  >
+                    <template slot-scope="scope">
+                      {{ getMemValue(scope.row) }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    :label="$t('overview.cpu')"
+                  >
+                    <template slot-scope="scope">
+                      {{ getCpuValue(scope.row) }}
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+      </el-dialog>
+      <el-dialog
         :close-on-click-modal="false"
         :title="$t('app.instanceList.instanceDetail')"
         :visible.sync="dialogVisible"
@@ -176,11 +227,14 @@ import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
 import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import { appo } from '../../tools/request.js'
-
+import InstanceUsage from '../overview/InstanceUsage.vue'
 export default {
   name: 'AinsList',
   components: {
-    Search, Pagination, Breadcrumb
+    Search,
+    Pagination,
+    Breadcrumb,
+    InstanceUsage
   },
   data () {
     return {
@@ -197,7 +251,11 @@ export default {
       },
       detailData: [],
       searchData: null,
-      selectData: []
+      selectData: [],
+      podTable: [],
+      instanceListVisible: false,
+      kpiInfo: {},
+      appKPIInfo: {}
     }
   },
   mounted () {
@@ -210,6 +268,17 @@ export default {
     this.clearInterval()
   },
   methods: {
+    getMemValue (rowVal) {
+      let val = rowVal.containers[0].metricsusage.memusage.split('/')
+      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
+    },
+    getCpuValue (rowVal) {
+      let val = rowVal.containers[0].metricsusage.cpuusage.split('/')
+      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
+    },
+    cancelToSync () {
+      this.instanceListVisible = false
+    },
     jump (row) {
       sessionStorage.setItem('instanceId', row.appInstanceId)
       sessionStorage.setItem('instanceName', row.appName)
@@ -253,6 +322,41 @@ export default {
     },
     handleSelectionChange (selection) {
       this.selectData = selection
+    },
+    handleRowSelection (row) {
+      appo.getServiceInfo(row.appInstanceId).then(res => {
+        this.appKPIInfo = JSON.parse(res.data.response)
+        this.podTable = this.appKPIInfo.pods
+        if (this.podTable) {
+          this.instanceListVisible = true
+          this.getUsageData()
+        } else {
+          this.instanceListVisible = false
+          this.$notify.warning({
+            title: 'Info',
+            offset: 50,
+            message: 'There is no data exist.',
+            showClose: false,
+            duration: 2000
+          })
+        }
+      }).catch((error) => {
+        if (error.response && error.response.status === 404) {
+          this.$message.warning(this.$t('tip.getStatusDelay'))
+        }
+        this.loginStatus(error)
+      })
+    },
+    getUsageData () {
+      let matrics = this.appKPIInfo
+      if (matrics) {
+        this.kpiInfo = {
+          'cpuusage': matrics.cpupercent,
+          'memusage': matrics.mempercent
+        }
+      } else {
+        this.kpiInfo = {}
+      }
     },
     beforeDelete (rows, type) {
       if (type === 1) {
@@ -307,7 +411,7 @@ export default {
       })
     },
     loginStatus (error) {
-      if (error.response.status === 403) {
+      if (error.response && error.response.status === 403) {
         this.$message.error(this.$t('tip.loginOperation'))
       }
     },
@@ -359,5 +463,8 @@ export default {
     .el-form-item{
       margin-bottom: 12px!important;
     }
+  }
+  .detailTab {
+    margin-top: -10px
   }
 </style>

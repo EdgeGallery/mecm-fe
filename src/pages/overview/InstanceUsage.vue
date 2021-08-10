@@ -1,39 +1,27 @@
 <template>
   <div>
-    <el-row :gutter="10">
+    <el-row>
       <el-col
-        :span="8"
         class="mt20 progerss-item"
       >
         <ve-gauge
           :data="chartDataCpu"
-          height="150px"
+          height="100px"
           :settings="chartSettings"
         />
         <p>CPU</p>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col
-        :span="8"
         class="mt20 progerss-item"
       >
         <ve-gauge
           :data="chartDataMem"
-          height="150px"
+          height="100px"
           :settings="chartSettings"
         />
         <p>MEM</p>
-      </el-col>
-      <el-col
-        :span="8"
-        class="mt20 progerss-item"
-        v-if="kpiInfo.diskusage"
-      >
-        <ve-gauge
-          :data="chartDataDisk"
-          height="150px"
-          :settings="chartSettings"
-        />
-        <p>DISK</p>
       </el-col>
     </el-row>
   </div>
@@ -109,12 +97,6 @@ export default {
         rows: [
           { type: 'Usage', value: 0 }
         ]
-      },
-      chartDataDisk: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
       }
     }
   },
@@ -125,9 +107,8 @@ export default {
   },
   methods: {
     setData () {
-      this.chartDataCpu.rows[0].value = parseFloat((this.kpiInfo.cpuusage.used * 100).toFixed(2))
-      this.chartDataMem.rows[0].value = parseFloat((this.kpiInfo.memusage.used * 100).toFixed(2))
-      this.chartDataDisk.rows[0].value = isNaN(parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))
+      this.chartDataCpu.rows[0].value = parseFloat(this.kpiInfo.cpuusage).toFixed(2)
+      this.chartDataMem.rows[0].value = parseFloat(this.kpiInfo.memusage).toFixed(2)
     }
   },
   mounted () {
@@ -141,6 +122,7 @@ export default {
 <style lang='less' scoped>
   .progerss-item {
     text-align: center;
+    margin-top:-5px;
     color: white;
     .el-progress__text {
       color: white;
@@ -149,7 +131,7 @@ export default {
       position: relative;
       top:-10px;
       color:#ddd;
-      font-size:18px;
+      font-size:14px;
     }
   }
 </style>

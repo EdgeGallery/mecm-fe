@@ -27,7 +27,7 @@ const en = {
     packageDist: 'Package Distribution',
     appInstance: 'App Instance List',
     edgeNodes: 'Edge Nodes',
-    nodeList: 'Edege Node List',
+    nodeList: 'Edge Node List',
     mepList: 'MEP List',
     system: 'System',
     externalSysMan: 'External System Manager',
@@ -73,7 +73,8 @@ const en = {
     edgeNodes: 'Total Edge Nodes',
     onlineNodes: 'Number of Online Nodes',
     offlineNodes: 'Number of Offline Nodes',
-    returnOverview: 'Back to main view'
+    returnOverview: 'Back to main view',
+    nodeKPI: 'Node KPI'
   },
   app: {
     packageList: {
@@ -129,7 +130,8 @@ const en = {
       addDnsRules: 'Add DNS rules',
       addTrafficRules: 'Add Traffic rules',
       addFilter: 'Add Traffic Filter',
-      batchDelete: 'Batch delete instances'
+      batchDelete: 'Batch delete instances',
+      appKPI: 'Application KPI'
     },
     ruleConfig: {
       srcAddress: 'Src IP Address',

@@ -481,7 +481,9 @@ const serviceInfoData = function () {
           }
         ]
       }
-    ]
+    ],
+    'cpupercent': 0.0005,
+    'mempercent': 0.0015716552738034295
   }
   return { response: JSON.stringify(data) }
 }
