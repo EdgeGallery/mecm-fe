@@ -224,15 +224,26 @@
         :service-info="serviceInfo"
       />
     </div>
-    <el-dialog
-      :title="$t('overview.nodeKPI')"
-      :visible.sync="showUsageDialog"
-      width="25%"
+    <div
+      id="matrixPopDiv"
+      class="popover"
+      v-if="showUsageDialog"
     >
-      <div>
-        <EdgeNodeUsage :kpi-info="usageData" />
+      <div class="el-dialog__header">
+        <span class="el-dialog__title">{{ $t('overview.nodeKPI') }}</span>
+        <button
+          type="button"
+          aria-label="Close"
+          class="el-dialog__headerbtn"
+        >
+          <i
+            class="el-dialog__close el-icon el-icon-close"
+            @click="showUsageDialog = false"
+          />
+        </button>
       </div>
-    </el-dialog>
+      <EdgeNodeUsage :kpi-info="usageData" />
+    </div>
   </div>
 </template>
 
@@ -271,7 +282,8 @@ export default {
       detail: {},
       screenHeight: 0,
       usageData: {},
-      showUsageDialog: false
+      showUsageDialog: false,
+      intervalDialog: {}
     }
   },
   watch: {
@@ -288,11 +300,22 @@ export default {
   },
   updated () {
     let mepInfoDiv = document.getElementById('mepInfoDiv')
-    mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
-    let capaTable = document.getElementsByClassName('capaTable')
-    capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
+    if (mepInfoDiv) {
+      mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
+      let capaTable = document.getElementsByClassName('capaTable')
+      capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
+    }
   },
   methods: {
+    showDialogPosition () {
+      if (this.showUsageDialog) {
+        clearInterval(this.intervalDialog)
+        let nodelistTable = document.getElementsByClassName('nodelistTable')[0]
+        let matrixPopDiv = document.getElementsByClassName('popover')[0]
+        matrixPopDiv.style.top = nodelistTable.offsetTop + 50 + 'px'
+        matrixPopDiv.style.left = nodelistTable.offsetLeft + 100 + 'px'
+      }
+    },
     handleRowSelection (row) {
       this.showUsageDialog = false
       appo.getNodeKpi(row.mechostIp).then(res => {
@@ -300,6 +323,7 @@ export default {
           let str = res.data.response
           this.usageData = JSON.parse(str)
           this.showUsageDialog = true
+          this.intervalDialog = setInterval(() => this.showDialogPosition())
         }
       }).catch(() => {
         this.$message.error(this.$t('tip.getAppInfoFailed'))
@@ -601,5 +625,13 @@ export default {
   }
   .mecm-overview .el-table td,.mecm-overview .el-table th{
     height: 36px;
+  }
+  .popover {
+    width: 250px;
+    transform-origin: center-bottom;
+    z-index: 2007;
+    position: absolute;
+    background: #161825 !important;
+    border: 1px solid #202230;
   }
 </style>

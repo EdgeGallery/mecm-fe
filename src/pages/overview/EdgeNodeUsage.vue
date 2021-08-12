@@ -3,22 +3,22 @@
     <el-row :gutter="10">
       <el-col
         :span="12"
-        class="mt20 progerss-item"
+        class="progerss-item"
       >
         <ve-gauge
           :data="chartDataCpu"
-          height="150px"
+          height="100px"
           :settings="chartSettings"
         />
         <p>CPU</p>
       </el-col>
       <el-col
         :span="12"
-        class="mt20 progerss-item"
+        class="progerss-item"
       >
         <ve-gauge
           :data="chartDataMem"
-          height="150px"
+          height="100px"
           :settings="chartSettings"
         />
         <p>MEM</p>
@@ -128,7 +128,7 @@ export default {
     }
     p{
       position: relative;
-      top:-10px;
+      top:0px;
       color:#ddd;
       font-size:18px;
     }
