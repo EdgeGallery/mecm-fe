@@ -59,7 +59,10 @@
             />
           </div>
           <div class="language rt">
-            <span @click="changeLang">{{ lang }}</span>
+            <img
+              @click="changeLang"
+              src="../../assets/images/Switch_icon.png"
+            >
           </div>
           <div class="user rt">
             <span
@@ -72,10 +75,12 @@
             <span
               v-if="!ifGuest"
             >|</span>
-            <span
+            <img
+              id="usericon"
               v-if="!ifGuest"
               @click="openUserAccountCenter()"
-            >{{ $t('nav.userAccountCenter') }}</span>
+              src="../../assets/images/mine_icon.png"
+            >
             <span
               v-if="!ifGuest"
             >|</span>
@@ -262,8 +267,9 @@ export default {
     line-height: 65px;
     img{
       position: relative;
-      top: 0px;
-      width:150px;
+      top: 13px;
+      width: 147px;
+      height: 40px;
     }
     span{
       position: relative;
@@ -279,9 +285,10 @@ export default {
   }
   .language {
     display: inline-block;
-    line-height: 65px;
+    line-height: 85px;
     font-size: 14px;
     color: #6c92fa;
+    cursor: pointer;
     span {
       width:64px!important;
       top:3px!important;
@@ -302,6 +309,13 @@ export default {
     span:hover {
       text-decoration: underline;
     }
+  }
+  #usericon{
+    position: relative;
+    z-index: 99;
+    top: 8px;
+    padding-right: 10px;
+    cursor: pointer;
   }
   .nav-tabs{
     height:100%;

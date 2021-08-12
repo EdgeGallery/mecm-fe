@@ -83,7 +83,7 @@ export default {
 </script>
 <style  lang='less'>
 .el-pagination.is-background .el-pager li:not(.disabled).active {
-    background: #3B43FF !important;
+    background: #6e35f7 !important;
     border-radius: 4px  !important;
     color: #fff !important;
 }

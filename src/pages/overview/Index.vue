@@ -38,17 +38,38 @@
             </p>
             <div class="nodeBasicInfo">
               <div class="dataContent">
-                <p class="totalNum defaultNum">
+                <div class="totalNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   {{ nodeNum }}
-                </p>
-                <p class="onlineNum defaultNum">
+                  <p class="defaultName">
+                    {{ $t('overview.edgeNodes') }}
+                  </p>
+                </div>
+                <div class="onlineNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   {{ nodeNum }}
-                </p>
-                <p class="offlineNum defaultNum">
+                  <p class="defaultName">
+                    {{ $t('overview.onlineNodes') }}
+                  </p>
+                </div>
+                <div class="offlineNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   0
-                </p>
+                  <p class="defaultName">
+                    {{ $t('overview.offlineNodes') }}
+                  </p>
+                </div>
               </div>
-              <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
+              <!-- <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
                 <p class="defaultName">
                   {{ $t('overview.edgeNodes') }}
                 </p>
@@ -58,7 +79,7 @@
                 <p class="defaultName">
                   {{ $t('overview.offlineNodes') }}
                 </p>
-              </div>
+              </div> -->
             </div>
           </div>
           <div
@@ -481,6 +502,7 @@ export default {
   }
   #nodeListDiv{
     background: #202342;
+    box-shadow: none !important;
   }
   p.overviewLabel{
     font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
@@ -533,7 +555,7 @@ export default {
       padding: 15px 15px 0 15px;
       .blockContent{
         padding: 15px 20px;
-        margin: 5px;
+        margin-bottom: 40px;
         border: 1px solid #2d3258;
         background: #2d3258;
         margin-top: 15px;
@@ -615,20 +637,34 @@ export default {
     height: 80px;
   }
   .totalNum{
-    color: #21D55E;
+    color: #ffff;
+    background-image: url('../../assets/images/Total_number_ofnodes_bg.png');
+    width: 33%;
+    background-repeat: round;
+    height: 120px;
+    padding-top: 10px;
   }
   .onlineNum{
-   color: #E05F17;
+   color: #ffff;
+    background-image: url('../../assets/images/Number_of_onlinenodes_bg.png');
+    width: 27%;
+    background-repeat: round;
+    margin-right: 3%;
+    height: 104px;
+    padding-top: 10px;
   }
   .offlineNum{
-    color: #35EDED;
+     color: #ffff;
+    background-image: url('../../assets/images/Number_of_offlinenodes_bg.png');
+    width: 28%;
+    background-repeat: round;
+    height: 104px;
+    padding-top: 10px;
   }
   .defaultName{
-    text-align: center;
-    width: 90px;
-    height: 80px;
     font-size: 14px;
-    color: #cccccc;
+    color: #ffff;
+    line-height: 20px;
   }
   .mecm-overview .el-table td,.mecm-overview .el-table th{
     height: 36px;
