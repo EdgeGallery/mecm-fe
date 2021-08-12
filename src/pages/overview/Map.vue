@@ -17,6 +17,9 @@
 <template>
   <div style="height:100%;">
     <div class="content">
+      <h1 class="mapTxt">
+        MAP
+      </h1>
       <div
         id="mapChart"
         class="chart"
@@ -426,8 +429,24 @@ export default {
 .content {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .chart,.chart1 {
-    height: 100%;
+    height: 85%;
+    width: 85%;
+    margin: 0%;
+    z-index: 99;
+    background: #2d325a;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+  .mapTxt{
+    color: white;
+    text-align: left;
+    width: 85%;
+    padding: 10px;
   }
   .return{
     position: absolute !important;

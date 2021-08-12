@@ -474,10 +474,13 @@ export default {
     width: 100%;
     height:calc(100% - 64px);
     overflow: auto;
-    background:#131111;
+    background:#252a4a;
     background-size: cover;
     box-sizing: border-box;
     padding-right: 15px;
+  }
+  #nodeListDiv{
+    background: #202342;
   }
   p.overviewLabel{
     font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
@@ -488,7 +491,6 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid #0A1446;
     padding-bottom: 15px;
     margin-bottom: 15px;
   }
@@ -502,13 +504,14 @@ export default {
     padding:5px 0;
   }
   .el-table .has-gutter th{
-    background: #202230!important;
+    background: #2d325a!important;
   }
   .el-table__expanded-cell{
     background: transparent!important;
   }
   .el-table, .el-table__expanded-cell{
     background: transparent!important;
+    border-radius: 10px !important;
   }
   .nodeBasicInfo{
     color:#CCCCCC;
@@ -531,9 +534,11 @@ export default {
       .blockContent{
         padding: 15px 20px;
         margin: 5px;
-        border: 1px solid #101D61;
-        background: #00041A;
+        border: 1px solid #2d3258;
+        background: #2d3258;
         margin-top: 15px;
+        border-radius:30px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
       .el-select {
         .el-input {
@@ -550,8 +555,8 @@ export default {
         }
       }
       .el-button {
-        background-color: #2c58a6;
-        border-color: #0263ff;
+        background-color: #6e33fd;
+        border-color: #6e33fd;
       }
     }
   }
@@ -567,6 +572,7 @@ export default {
   .nodelistTable{
     max-height: 300px;
     overflow-y: auto;
+    border-radius: 10px;
   }
   .hostName{
     margin-left: 10px;
@@ -579,14 +585,15 @@ export default {
     margin-top: 30px;
     height:calc(100% - 40px);
     padding-left:0!important;
-    background: #00041A;
-    border: 1px solid #101D61;
+    background:#202441;
+    border: 1px solid #202441;
     box-sizing: border-box;
+    border-radius: 5%;
   }
   .showDetails{
     width: 39px;
     height: 20px;
-    background: #3B43FF;
+    background: #6e35f4;
     color: #ffffff;
     border: none;
     border-radius: 2px;

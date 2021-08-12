@@ -68,7 +68,7 @@ a{
   padding:  0  10%;
 }
 input{
-  border: 1px solid #3B7CFF !important;
+  border: 1px solid #6e35f4 !important;
   box-sizing: border-box;
   border-radius: 2px!important;
   background: transparent!important;
@@ -178,7 +178,7 @@ input::placeholder {
 }
 
 .el-dialog{
-  background: #161825!important;
+  background: #202441 !important;
 }
 .area-select-wrap .area-select{
   line-height: 34px;
@@ -208,7 +208,7 @@ body .el-table th.gutter{
   font-size:14px!important;
 }
 .el-table tr, .el-table__empty-block{
-  background: #161825!important;
+  background: #2d325a  !important;
   color:#FFFFFF;
 }
 .el-table td, .el-table th.is-leaf{
@@ -216,6 +216,10 @@ body .el-table th.gutter{
 }
 .el-table td, .el-table th{
   height: 72px;
+}
+.el-table, .el-table__expanded-cell{
+  background-color: transparent !important;
+  border-radius: 15px;
 }
 .el-table th>.cell{
   font-size: 16px;
@@ -226,7 +230,7 @@ body .el-table th.gutter{
   z-index: -1!important;
 }
 .el-table th,.el-table--enable-row-hover .el-table__body tr:hover>td{
-  background: #202230  !important;
+  background: #383c6b  !important;
   color: #ffffff;
 }
 
@@ -260,6 +264,9 @@ body .el-table th.gutter{
 .contentList{
   margin: 0 10%;
   height: 100%;
+  padding: 3%;
+  border-radius: 25px;
+  background: #202342;
   .btn-group{
     margin:15px 0;
   }
@@ -269,7 +276,7 @@ body .el-table th.gutter{
     position: relative;
     z-index: 15;
     .el-button--primary{
-      background: #3B43FF;
+      background: #6e35f4;
       border: none;
     }
     .rt{
@@ -278,8 +285,15 @@ body .el-table th.gutter{
   }
 }
 #newregBtn{
-  background: #3B43FF;
+  background: #6e33fd  ;
   border: none;
+}
+.ol-layer canvas{
+  border-radius: 10px !important;
+}
+.el-button--primary{
+  background-color: #6e33fd !important;
+  border:#6e33fd !important;
 }
 .tableDiv{
   margin-top: 50px;
@@ -290,11 +304,17 @@ body .el-table th.gutter{
 .mecm-overview .el-row{
   margin:0 !important;
 }
-.el-notification {
-  background: #161825 !important;border: none !important;
-  h2, p {
-    color: #E5E5E5 !important;
-  }
+
+.el-menu-item {
+  background: #2d325a !important;
+  color: white !important;
+}
+.el-menu--popup{
+  background: #2d325a !important;
+  color: white !important;
+}
+.main-sidebar .el-menu--horizontal > .el-submenu .el-submenu__title{
+  color: white !important;
 }
 @media (min-width:0px){
   html{font-size:12px;}
