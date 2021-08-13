@@ -95,7 +95,7 @@
               <el-button
                 id="deleteBtn"
                 @click="beforeDelete(scope.row,2)"
-                type="text"
+                type="button"
                 size="small"
               >
                 {{ $t('common.delete') }}
@@ -104,13 +104,13 @@
                 id="detailBtn"
                 @click="checkDetail(scope.row)"
                 :disabled="scope.row.operationalStatus !== 'Instantiated'"
-                type="text"
+                type="button"
                 size="small"
               >
                 {{ $t('common.detail') }}
               </el-button>
               <el-button
-                type="text"
+                type="button"
                 size="small"
                 @click="showReason(scope.row)"
                 :disabled="scope.row.operationalStatus === 'Instantiated'"
@@ -118,7 +118,7 @@
                 {{ $t('tip.operationInfo') }}
               </el-button>
               <el-button
-                type="text"
+                type="button"
                 size="small"
                 @click="jump(scope.row)"
                 :disabled="scope.row.operationalStatus !== 'Instantiated'"
@@ -466,5 +466,12 @@ export default {
   }
   .detailTab {
     margin-top: -10px
+  }
+   .el-button--small, .el-button--small.is-round{
+    padding: 6px 6px !important;
+    background-color: #6e35f7 !important;
+    border: none !important;
+    color: white !important;
+    margin-bottom: 5px;
   }
 </style>

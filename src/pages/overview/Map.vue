@@ -17,9 +17,9 @@
 <template>
   <div style="height:100%;">
     <div class="content">
-      <h1 class="mapTxt">
-        MAP
-      </h1>
+      <h3 class="mapTxt">
+        Node Distribution Display
+      </h3>
       <div
         id="mapChart"
         class="chart"
@@ -207,10 +207,10 @@ export default {
             })
             if (localStorage.getItem('language') === 'en') {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+                tipHtml = '<div style="width:310px;height:150px;background:#434780;border:1px solid #434780;border-radius:10px">' +
+              '<div style="height:40px;line-height:40px;border-bottom:1px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + 'Node Information' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
+              '<div style="padding:22px;background:#353c6a; border-bottom-right-radius:10px;border-bottom-left-radius:10px ; border:1px solid #353c6a">' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
               'Node Name：' + '<span style="color:#11ee7d;margin:0 6px;">' + params.data.mechostName + '</span>' + '</p>' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
@@ -219,10 +219,10 @@ export default {
               'Node Location：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+                tipHtml = '<div style="width:240px;height:130px;background:#434780;border:1px solid #414982;border-radius:10px">' +
+              '<div style="height:40px;line-height:40px;border-bottom:1px solid #434780;padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + 'Area Node Info' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
+              '<div style="padding:22px;background:#353c6a; border-bottom-right-radius:10px;border-bottom-left-radius:10px ; border:1px solid #353c6a">' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
               'Online Node：' + '<span style="color:#11ee7d;margin:0 6px;">' + num + '</span>' + '个' + '</p>' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
@@ -231,10 +231,10 @@ export default {
               }
             } else {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+                tipHtml = '<div style="width:310px;height:150px;background:#434780;border:1px solid #434780;border-radius:10px">' +
+              '<div style="height:40px;line-height:40px;border-bottom:1px solid #434780);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '节点信息' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
+              '<div style="padding:22px;background:#353c6a; border-bottom-right-radius:10px;border-bottom-left-radius:10px ; border:1px solid #353c6a">' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
               '节点名称：' + '<span style="color:#11ee7d;margin:0 6px;">' + params.data.mechostName + '</span>' + '</p>' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
@@ -243,10 +243,10 @@ export default {
               '节点地址：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
+                tipHtml = '<div style="width:240px;height:130px;background:#434780;border:1px solid #434780">' +
+              '<div style="height:40px;line-height:40px;border-bottom:1px solid #434780;padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
               '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '地域节点信息' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
+              '<div style="padding:22px;background:#353c6a; border-bottom-right-radius:10px;border-bottom-left-radius:10px ; border:1px solid #353c6a">' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
               '在线节点：' + '<span style="color:#11ee7d;margin:0 6px;">' + num + '</span>' + '个' + '</p>' +
               '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
@@ -293,11 +293,12 @@ export default {
             itemStyle: {
               normal: {
                 // 常规
-                areaColor: '#013C62',
-                borderColor: '#2ab8ff'
+                areaColor: '#122045',
+                borderColor: '#2ab8ff',
+                boxShadow: '10px 20px 30px '
               },
               emphasis: {
-                areaColor: '#5c6ff3'
+                areaColor: '#5c4dfe'
               }
             },
             data: this.initMapData(mapJson),
