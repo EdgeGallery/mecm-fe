@@ -76,10 +76,10 @@
               prop="vim"
               label="VIM"
             />
-            <el-table-column
+            <!-- <el-table-column
               prop="affinity"
               :label="$t('app.packageList.affinity')"
-            />
+            /> -->
             <el-table-column
               prop="mepmIp"
               :label="$t('system.edgeNodes.mepmIp')"

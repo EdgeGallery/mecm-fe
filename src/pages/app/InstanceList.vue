@@ -34,6 +34,7 @@
       <div class="btn-p">
         <el-button
           type="primary"
+          id="deleteInsBtn"
           @click="beforeDelete(selectData,1)"
         >
           {{ this.$t('app.instanceList.batchDelete') }}
@@ -46,7 +47,6 @@
           :data="currPageTableData"
           v-loading="dataLoading"
           @selection-change="handleSelectionChange"
-          @row-click="handleRowSelection"
         >
           <el-table-column
             type="selection"
@@ -97,7 +97,7 @@
               </el-button>
               <el-button
                 id="detailBtn"
-                @click="checkDetail(scope.row)"
+                @click="handleRowSelection(scope.row)"
                 :disabled="scope.row.operationalStatus !== 'Instantiated'"
                 type="button"
                 size="small"
@@ -137,15 +137,17 @@
         width="width"
       >
         <div>
-          <div>
+          <div style="min-height:280px;">
             <el-row :gutter="10">
               <el-col
-                :span="4"
+                :span="5"
+                style="height:200px;"
               >
                 <InstanceUsage :kpi-info="kpiInfo" />
               </el-col>
               <el-col
-                :span="20"
+                :span="19"
+                style="margin-top:15px;"
               >
                 <el-table
                   ref="podTable"
@@ -418,18 +420,18 @@ export default {
         this.loginStatus(error)
       })
     },
-    checkDetail (rows) {
-      appo.getInstanceDetail(rows.appInstanceId).then(response => {
-        let data = JSON.parse(response.data.response)
-        this.detailData = data.pods
-        this.dialogVisible = true
-      }).catch((error) => {
-        if (error.response.status === 404) {
-          this.$message.warning(this.$t('tip.getStatusDelay'))
-        }
-        this.loginStatus(error)
-      })
-    },
+    // checkDetail (rows) {
+    //   appo.getInstanceDetail(rows.appInstanceId).then(response => {
+    //     let data = JSON.parse(response.data.response)
+    //     this.detailData = data.pods
+    //     this.dialogVisible = true
+    //   }).catch((error) => {
+    //     if (error.response.status === 404) {
+    //       this.$message.warning(this.$t('tip.getStatusDelay'))
+    //     }
+    //     this.loginStatus(error)
+    //   })
+    // },
     timeout () {
       setTimeout(() => {
         this.initList()
@@ -467,5 +469,8 @@ export default {
     color: #CDC3F0 ;
     background: #434980;
     border-radius: 6px;
+  }
+  #deleteInsBtn{
+    background: #5E40C8;
   }
 </style>
