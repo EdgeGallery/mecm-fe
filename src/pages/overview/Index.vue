@@ -625,33 +625,20 @@ export default {
     font-size: 48px;
     line-height: 59px;
     text-align: center;
-    width: 90px;
-    height: 80px;
+    width: 23%;
+    height: 110px;
+    color: #ffff;
+    padding-top: 10px;
+    border-radius: 20px;
   }
   .totalNum{
-    color: #ffff;
-    background-image: url('../../assets/images/Total_number_ofnodes_bg.png');
-    width: 33%;
-    background-repeat: round;
-    height: 120px;
-    padding-top: 10px;
+    background:#6E34FA;
   }
   .onlineNum{
-   color: #ffff;
-    background-image: url('../../assets/images/Number_of_onlinenodes_bg.png');
-    width: 27%;
-    background-repeat: round;
-    margin-right: 3%;
-    height: 104px;
-    padding-top: 10px;
+    background:#4C79FF;
   }
   .offlineNum{
-     color: #ffff;
-    background-image: url('../../assets/images/Number_of_offlinenodes_bg.png');
-    width: 28%;
-    background-repeat: round;
-    height: 104px;
-    padding-top: 10px;
+    background:#F14E66;
   }
   .defaultName{
     font-size: 14px;

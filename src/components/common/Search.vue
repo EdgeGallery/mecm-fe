@@ -180,11 +180,11 @@ export default {
 <style lang='less' scoped>
 .search{
   #searchBtn{
-    border: 1px solid #6e35f4;
+    border: 1px solid #54AFED;
     box-sizing: border-box;
     border-radius: 4px;
     color: white;
-    background: transparent;
+    background: #54AFED;
   }
   .el-select{
     width:100%;
