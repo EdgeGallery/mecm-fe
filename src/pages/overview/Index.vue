@@ -38,17 +38,38 @@
             </p>
             <div class="nodeBasicInfo">
               <div class="dataContent">
-                <p class="totalNum defaultNum">
+                <div class="totalNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   {{ nodeNum }}
-                </p>
-                <p class="onlineNum defaultNum">
+                  <p class="defaultName">
+                    {{ $t('overview.edgeNodes') }}
+                  </p>
+                </div>
+                <div class="onlineNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   {{ nodeNum }}
-                </p>
-                <p class="offlineNum defaultNum">
+                  <p class="defaultName">
+                    {{ $t('overview.onlineNodes') }}
+                  </p>
+                </div>
+                <div class="offlineNum defaultNum">
+                  <img
+                    alt="flw"
+                    src="../../assets/images/Nodestatistics_icon.png"
+                  >
                   0
-                </p>
+                  <p class="defaultName">
+                    {{ $t('overview.offlineNodes') }}
+                  </p>
+                </div>
               </div>
-              <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
+              <!-- <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
                 <p class="defaultName">
                   {{ $t('overview.edgeNodes') }}
                 </p>
@@ -58,7 +79,7 @@
                 <p class="defaultName">
                   {{ $t('overview.offlineNodes') }}
                 </p>
-              </div>
+              </div> -->
             </div>
           </div>
           <div
@@ -73,6 +94,7 @@
                 :data="nodeList"
                 header-row-class-name="headerClassName"
                 class="hwCapData nodelistTable"
+                @row-click="handleRowSelection"
               >
                 <el-table-column
                   prop="mechostName"
@@ -223,6 +245,26 @@
         :service-info="serviceInfo"
       />
     </div>
+    <div
+      id="matrixPopDiv"
+      class="popover"
+      v-if="showUsageDialog"
+    >
+      <div class="el-dialog__header">
+        <span class="el-dialog__title">{{ $t('overview.nodeKPI') }}</span>
+        <button
+          type="button"
+          aria-label="Close"
+          class="el-dialog__headerbtn"
+        >
+          <i
+            class="el-dialog__close el-icon el-icon-close"
+            @click="showUsageDialog = false"
+          />
+        </button>
+      </div>
+      <EdgeNodeUsage :kpi-info="usageData" />
+    </div>
   </div>
 </template>
 
@@ -230,13 +272,15 @@
 
 import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
+import EdgeNodeUsage from './EdgeNodeUsage.vue'
 import Map from './Map.vue'
 import { appo, inventory } from '../../tools/request.js'
 export default {
   components: {
     manageDialog,
     Map,
-    Usage
+    Usage,
+    EdgeNodeUsage
   },
   data () {
     return {
@@ -257,7 +301,10 @@ export default {
       edgeIp: '',
       nodeList: [],
       detail: {},
-      screenHeight: 0
+      screenHeight: 0,
+      usageData: {},
+      showUsageDialog: false,
+      intervalDialog: {}
     }
   },
   watch: {
@@ -274,11 +321,35 @@ export default {
   },
   updated () {
     let mepInfoDiv = document.getElementById('mepInfoDiv')
-    mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
-    let capaTable = document.getElementsByClassName('capaTable')
-    capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
+    if (mepInfoDiv) {
+      mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
+      let capaTable = document.getElementsByClassName('capaTable')
+      capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
+    }
   },
   methods: {
+    showDialogPosition () {
+      if (this.showUsageDialog) {
+        clearInterval(this.intervalDialog)
+        let nodelistTable = document.getElementsByClassName('nodelistTable')[0]
+        let matrixPopDiv = document.getElementsByClassName('popover')[0]
+        matrixPopDiv.style.top = nodelistTable.offsetTop + 50 + 'px'
+        matrixPopDiv.style.left = nodelistTable.offsetLeft + 100 + 'px'
+      }
+    },
+    handleRowSelection (row) {
+      this.showUsageDialog = false
+      appo.getNodeKpi(row.mechostIp).then(res => {
+        if (res.data) {
+          let str = res.data.response
+          this.usageData = JSON.parse(str)
+          this.showUsageDialog = true
+          this.intervalDialog = setInterval(() => this.showDialogPosition())
+        }
+      }).catch(() => {
+        this.$message.error(this.$t('tip.getAppInfoFailed'))
+      })
+    },
     setcontentHeight (height) {
       this.screenHeight = window.innerHeight
       let nodeListDiv = document.getElementById('nodeListDiv')
@@ -424,10 +495,14 @@ export default {
     width: 100%;
     height:calc(100% - 64px);
     overflow: auto;
-    background:#131111;
+    background:#252a4a;
     background-size: cover;
     box-sizing: border-box;
     padding-right: 15px;
+  }
+  #nodeListDiv{
+    background: #202342;
+    box-shadow: none !important;
   }
   p.overviewLabel{
     font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
@@ -438,7 +513,6 @@ export default {
     letter-spacing: 0em;
     text-align: left;
     color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid #0A1446;
     padding-bottom: 15px;
     margin-bottom: 15px;
   }
@@ -452,13 +526,14 @@ export default {
     padding:5px 0;
   }
   .el-table .has-gutter th{
-    background: #202230!important;
+    background: #2d325a!important;
   }
   .el-table__expanded-cell{
     background: transparent!important;
   }
   .el-table, .el-table__expanded-cell{
     background: transparent!important;
+    border-radius: 10px !important;
   }
   .nodeBasicInfo{
     color:#CCCCCC;
@@ -480,10 +555,12 @@ export default {
       padding: 15px 15px 0 15px;
       .blockContent{
         padding: 15px 20px;
-        margin: 5px;
-        border: 1px solid #101D61;
-        background: #00041A;
+        margin-bottom: 40px;
+        border: 1px solid #2d3258;
+        background: #2d3258;
         margin-top: 15px;
+        border-radius:30px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
       .el-select {
         .el-input {
@@ -500,8 +577,8 @@ export default {
         }
       }
       .el-button {
-        background-color: #2c58a6;
-        border-color: #0263ff;
+        background-color: #6e33fd;
+        border-color: #6e33fd;
       }
     }
   }
@@ -517,6 +594,7 @@ export default {
   .nodelistTable{
     max-height: 300px;
     overflow-y: auto;
+    border-radius: 10px;
   }
   .hostName{
     margin-left: 10px;
@@ -529,14 +607,15 @@ export default {
     margin-top: 30px;
     height:calc(100% - 40px);
     padding-left:0!important;
-    background: #00041A;
-    border: 1px solid #101D61;
+    background:#202441;
+    border: 1px solid #202441;
     box-sizing: border-box;
+    border-radius: 5%;
   }
   .showDetails{
     width: 39px;
     height: 20px;
-    background: #3B43FF;
+    background: #6e35f4;
     color: #ffffff;
     border: none;
     border-radius: 2px;
@@ -558,22 +637,44 @@ export default {
     height: 80px;
   }
   .totalNum{
-    color: #21D55E;
+    color: #ffff;
+    background-image: url('../../assets/images/Total_number_ofnodes_bg.png');
+    width: 33%;
+    background-repeat: round;
+    height: 120px;
+    padding-top: 10px;
   }
   .onlineNum{
-   color: #E05F17;
+   color: #ffff;
+    background-image: url('../../assets/images/Number_of_onlinenodes_bg.png');
+    width: 27%;
+    background-repeat: round;
+    margin-right: 3%;
+    height: 104px;
+    padding-top: 10px;
   }
   .offlineNum{
-    color: #35EDED;
+     color: #ffff;
+    background-image: url('../../assets/images/Number_of_offlinenodes_bg.png');
+    width: 28%;
+    background-repeat: round;
+    height: 104px;
+    padding-top: 10px;
   }
   .defaultName{
-    text-align: center;
-    width: 90px;
-    height: 80px;
     font-size: 14px;
-    color: #cccccc;
+    color: #ffff;
+    line-height: 20px;
   }
   .mecm-overview .el-table td,.mecm-overview .el-table th{
     height: 36px;
+  }
+  .popover {
+    width: 250px;
+    transform-origin: center-bottom;
+    z-index: 2007;
+    position: absolute;
+    background: #161825 !important;
+    border: 1px solid #202230;
   }
 </style>

@@ -41,7 +41,7 @@ export default {
   font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #0D0D0D;
+  background:#252a4a;
   background-size:cover;
   overflow: auto;
 }

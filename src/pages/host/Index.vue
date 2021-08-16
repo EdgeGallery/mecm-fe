@@ -105,6 +105,10 @@
                   class="success"
                   v-if="scope.row.configUploadStatus"
                 >
+                  <em
+                    class="el-icon-success"
+                    :style="{color: '#67C23A'}"
+                  />
                   {{ scope.row.configUploadStatus }}
                 </span>
                 <span v-else>/</span>
@@ -120,7 +124,7 @@
                 <el-button
                   id="deleteBtn"
                   @click.native.prevent="beforeDelete(scope.row)"
-                  type="text"
+                  type="button"
                   size="small"
                 >
                   {{ $t('common.delete') }}
@@ -136,13 +140,13 @@
                 <el-button
                   id="uploadBtn"
                   @click.native.prevent="uploadFile(scope.row)"
-                  type="text"
+                  type="button"
                   size="small"
                 >
                   {{ $t('system.edgeNodes.uploadFile') }}
                 </el-button>
                 <el-button
-                  type="text"
+                  type="button"
                   size="small"
                   id="syncBtn"
                   @click="syncFromEdge(scope.row)"
@@ -152,7 +156,7 @@
                 <el-button
                   id="modifyBtn"
                   @click="showEditDialog(scope.row)"
-                  type="text"
+                  type="button"
                   size="small"
                 >
                   {{ $t('common.modify') }}
@@ -354,4 +358,10 @@ export default {
 .hostName{
   margin-left: 10px;
 }
+ .el-button--small, .el-button--small.is-round{
+    padding: 6px 6px !important;
+    background-color: #6e35f7 !important;
+    border: none !important;
+    color: white !important;
+  }
 </style>

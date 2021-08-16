@@ -17,6 +17,9 @@
 <template>
   <div class="mapContainer">
     <div class="content">
+      <h3 class="mapTxt">
+        Node Distribution Display
+      </h3>
       <div
         id="mapChart"
         class="chart"
@@ -291,11 +294,12 @@ export default {
             itemStyle: {
               normal: {
                 // 常规
-                areaColor: '#013C62',
-                borderColor: '#2ab8ff'
+                areaColor: '#122045',
+                borderColor: '#2ab8ff',
+                boxShadow: '10px 20px 30px '
               },
               emphasis: {
-                areaColor: '#5c6ff3'
+                areaColor: '#5c4dfe'
               }
             },
             data: this.initMapData(mapJson),
@@ -432,8 +436,24 @@ export default {
 .content {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   .chart,.chart1 {
-    height: 100%;
+    height: 85%;
+    width: 85%;
+    margin: 0%;
+    z-index: 99;
+    background: #2d325a;
+    border-radius: 5%;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+  }
+  .mapTxt{
+    color: white;
+    text-align: left;
+    width: 85%;
+    padding: 10px;
   }
   .return{
     position: absolute !important;
