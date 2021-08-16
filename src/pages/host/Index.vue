@@ -359,9 +359,9 @@ export default {
   margin-left: 10px;
 }
  .el-button--small, .el-button--small.is-round{
-    padding: 6px 6px !important;
-    background-color: #6e35f7 !important;
     border: none !important;
-    color: white !important;
+    color: #CDC3F0 ;
+    background: #434980;
+    border-radius: 6px;
   }
 </style>

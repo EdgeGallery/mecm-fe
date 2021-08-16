@@ -59,10 +59,6 @@
             :label="$t('app.packageList.name')"
           />
           <el-table-column
-            prop="appDescriptor"
-            :label="$t('app.packageList.desc')"
-          />
-          <el-table-column
             prop="mecHost"
             :label="$t('app.distriList.mecHost')"
           />
@@ -89,7 +85,6 @@
           <el-table-column
             :label="$t('common.operation')"
             align="center"
-            width="300"
           >
             <template slot-scope="scope">
               <el-button
@@ -468,10 +463,9 @@ export default {
     margin-top: -10px
   }
    .el-button--small, .el-button--small.is-round{
-    padding: 6px 6px !important;
-    background-color: #6e35f7 !important;
     border: none !important;
-    color: white !important;
-    margin-bottom: 5px;
+    color: #CDC3F0 ;
+    background: #434980;
+    border-radius: 6px;
   }
 </style>

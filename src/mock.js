@@ -74,8 +74,8 @@ const instanceList = function () {
   return {
     'response': [
       {
-        'appInstanceId': '4b6944f1-655c-4f77-9e86-c0c4eb629c9c',
-        'appPackageId': '9eb381e222dd4a3898fc61f7182bba24',
+        'appInstanceId': '79sjkdnfk89h',
+        'appPackageId': 'jshdfk687sydfhi87syfin',
         'appName': 'zone',
         'appId': '73b6f66992ab4798a55350f419a210af',
         'appDescriptor': 'zone',
@@ -93,8 +93,8 @@ const swCapability = function () {
 
 const kpiInfo = function () {
   let data = {
-    'cpuusage': { 'total': 1600653686.904, 'used': '0.68' },
-    'memusage': { 'total': 1600653686.906, 'used': '0.004406774826102075' },
+    'cpuusage': { 'total': 1600653686.904, 'used': '6.81' },
+    'memusage': { 'total': 1600653686.906, 'used': '1.22' },
     'diskusage': { 'total': '0.0', 'used': '0.0' }
   }
   return {
