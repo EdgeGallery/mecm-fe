@@ -36,7 +36,7 @@ const hostData = function () {
       'affinity': 'X86',
       'userName': '',
       'mepmIp': '127.0.1.0',
-      'coordinates': '108,34',
+      'coordinates': '108.8348,34.1995',
       'hwcapabilities': [ ],
       'vim': 'OpenStack',
       'configUploadStatus': 'Uploaded'

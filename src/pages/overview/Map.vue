@@ -15,7 +15,7 @@
   -->
 
 <template>
-  <div style="height:100%;">
+  <div class="mapContainer">
     <div class="content">
       <div
         id="mapChart"
@@ -88,9 +88,9 @@ export default {
   },
   watch: {
     detail () {
-      console.log(this.detail)
       let arr = []
       arr.push(this.detail)
+      console.log(arr)
       this.showLayers(arr)
       this.$emit('node', this.detail)
     },
@@ -116,6 +116,7 @@ export default {
       })
     },
     showLayers (arr) {
+      console.log(arr)
       this.showMainView = false
       this.$nextTick(() => {
         this.openlayers(arr)
@@ -204,50 +205,50 @@ export default {
             })
             if (localStorage.getItem('language') === 'en') {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
-              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + 'Node Information' + '</span>' + '</div>' +
+                tipHtml = '<div class="div1">' +
+              '<div class="div2">' + '<i class="span1">' + '</i>' +
+              '<span class="span2">' + 'Node Information' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              'Node Name：' + '<span style="color:#11ee7d;margin:0 6px;">' + params.data.mechostName + '</span>' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              'Node IP：' + '<span style="color:#f48225;margin:0 6px;">' + params.data.mechostIp + '</span>' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              'Node Location：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              'Node Name：' + '<span class="span7">' + params.data.mechostName + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              'Node IP：' + '<span class="span9">' + params.data.mechostIp + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              'Node Location：' + '<span class="span10">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
-              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + 'Area Node Info' + '</span>' + '</div>' +
+                tipHtml = '<div class="div3">' +
+              '<div class="div4">' + '<i class=="span6">' + '</i>' +
+              '<span class="span8">' + 'Area Node Info' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              'Online Node：' + '<span style="color:#11ee7d;margin:0 6px;">' + num + '</span>' + '个' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              'Offline Node：' + '<span style="color:#f48225;margin:0 6px;">' + 0 + '</span>' + '个' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              'Online Node：' + '<span class="span7">' + num + '</span>' + '个' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              'Offline Node：' + '<span class="span9">' + 0 + '</span>' + '个' + '</p>' +
               '</div>' + '</div>'
               }
             } else {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div style="width:310px;height:150px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
-              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '节点信息' + '</span>' + '</div>' +
+                tipHtml = '<div class="div5">' +
+              '<div class="div6">' + '<i class="i1">' + '</i>' +
+              '<span class="span8">' + '节点信息' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              '节点名称：' + '<span style="color:#11ee7d;margin:0 6px;">' + params.data.mechostName + '</span>' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              '节点IP：' + '<span style="color:#f48225;margin:0 6px;">' + params.data.mechostIp + '</span>' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              '节点地址：' + '<span style="color:#f4e925;margin:0 6px;">' + params.data.city + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              '节点名称：' + '<span class="span7">' + params.data.mechostName + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              '节点IP：' + '<span class="span9">' + params.data.mechostIp + '</span>' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              '节点地址：' + '<span class="span10">' + params.data.city + '</span>' + '</p>' +
               '</div>' + '</div>'
               } else {
-                tipHtml = '<div style="width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)">' +
-              '<div style="height:40px;line-height:40px;border-bottom:2px solid rgba(7,166,255,0.7);padding:0 20px">' + '<i style="display:inline-block;width:8px;height:8px;background:#16d6ff;border-radius:40px;">' + '</i>' +
-              '<span style="margin-left:10px;color:#fff;font-size:16px;">' + '地域节点信息' + '</span>' + '</div>' +
+                tipHtml = '<div class="div7">' +
+              '<div class="div6">' + '<i class="i1">' + '</i>' +
+              '<span class="span8">' + '地域节点信息' + '</span>' + '</div>' +
               '<div style="padding:20px">' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              '在线节点：' + '<span style="color:#11ee7d;margin:0 6px;">' + num + '</span>' + '个' + '</p>' +
-              '<p style="color:#fff;font-size:12px;">' + '<i style="display:inline-block;width:10px;height:10px;background:#16d6ff;border-radius:40px;margin:0 8px">' + '</i>' +
-              '离线节点：' + '<span style="color:#f48225;margin:0 6px;">' + 0 + '</span>' + '个' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              '在线节点：' + '<span class="span7">' + num + '</span>' + '个' + '</p>' +
+              '<p class="p1">' + '<i class="span3">' + '</i>' +
+              '离线节点：' + '<span class="span9">' + 0 + '</span>' + '个' + '</p>' +
               '</div>' + '</div>'
               }
             }
@@ -342,6 +343,9 @@ export default {
               source: new XYZ({
                 // openstreet
                 url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                // 高德地图
+                // url: 'http://webst0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}'
+                // url: 'http://www.google.cn/maps/vt/pb=!1m4!1m3!1i{z}!2i{x}!3i{y}!2m3!1e0!2sm!3i345013117!3m8!2szh-CN!3scn!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0'
               })
 
             })
@@ -359,14 +363,13 @@ export default {
       })
 
       // 创建Feature对象集合
-      var features = []
+      let features = []
       for (let lnglat of lnglats) {
         features.push(
           new OlFeature({
             type: 'icon',
             geometry: new OlGeomPoint(lnglat),
-            eventTarget_: data,
-            style: './style.json'
+            eventTarget_: data
           })
         )
       }
@@ -423,6 +426,9 @@ export default {
 </script>
 
 <style lang='less' scoped>
+.mapContainer{
+  height: 100%;
+}
 .content {
   width: 100%;
   height: 100%;
@@ -435,4 +441,5 @@ export default {
     left:43% !important;
   }
 }
+
 </style>
