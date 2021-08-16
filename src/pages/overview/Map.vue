@@ -17,8 +17,11 @@
 <template>
   <div class="mapContainer">
     <div class="content">
-      <h3 class="mapTxt">
-        Node Distribution Display
+      <h3
+        class="mapTxt"
+        v-show="showMainView"
+      >
+        {{ $t('overview.distributionDisplay') }}
       </h3>
       <div
         id="mapChart"
@@ -450,10 +453,13 @@ export default {
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
   }
   .mapTxt{
+    position: relative;
+    top: -10px;
     color: white;
     text-align: left;
     width: 85%;
     padding: 10px;
+    font-size: 20px;
   }
   .return{
     position: absolute !important;

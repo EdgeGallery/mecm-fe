@@ -94,7 +94,6 @@
                 :data="nodeList"
                 header-row-class-name="headerClassName"
                 class="hwCapData nodelistTable"
-                @row-click="handleRowSelection"
               >
                 <el-table-column
                   prop="mechostName"
@@ -102,11 +101,16 @@
                   :label="$t('app.packageList.name')"
                 >
                   <template slot-scope="scope">
-                    <em
-                      class="el-icon-success"
-                      :style="{color: '#67C23A'}"
-                    />
-                    <span class="hostName">{{ scope.row.mechostName }}</span>
+                    <div
+                      @mouseenter="handleRowSelection(scope.row.mechostIp)"
+                      @mouseleave="showUsageDialog=false"
+                    >
+                      <em
+                        class="el-icon-success"
+                        :style="{color: '#67C23A'}"
+                      />
+                      <span class="hostName">{{ scope.row.mechostName }}</span>
+                    </div>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -167,6 +171,7 @@
             <div
               class="blockContent"
               id="mepInfoDiv"
+              style="height:100%;"
             >
               <p class="overviewLabel">
                 {{ $t('overview.mepInfo') }}
@@ -250,19 +255,6 @@
       class="popover"
       v-if="showUsageDialog"
     >
-      <div class="el-dialog__header">
-        <span class="el-dialog__title">{{ $t('overview.nodeKPI') }}</span>
-        <button
-          type="button"
-          aria-label="Close"
-          class="el-dialog__headerbtn"
-        >
-          <i
-            class="el-dialog__close el-icon el-icon-close"
-            @click="showUsageDialog = false"
-          />
-        </button>
-      </div>
       <EdgeNodeUsage :kpi-info="usageData" />
     </div>
   </div>
@@ -337,9 +329,9 @@ export default {
         matrixPopDiv.style.left = nodelistTable.offsetLeft + 100 + 'px'
       }
     },
-    handleRowSelection (row) {
+    handleRowSelection (ip) {
       this.showUsageDialog = false
-      appo.getNodeKpi(row.mechostIp).then(res => {
+      appo.getNodeKpi(ip).then(res => {
         if (res.data) {
           let str = res.data.response
           this.usageData = JSON.parse(str)
@@ -512,7 +504,7 @@ export default {
     line-height: 29px;
     letter-spacing: 0em;
     text-align: left;
-    color: rgba(255, 255, 255, 0.9);
+    color: #ffffff;
     padding-bottom: 15px;
     margin-bottom: 15px;
   }
@@ -670,11 +662,14 @@ export default {
     height: 36px;
   }
   .popover {
-    width: 250px;
+    width: 310px;
+    height: 180px;
     transform-origin: center-bottom;
     z-index: 2007;
     position: absolute;
-    background: #161825 !important;
-    border: 1px solid #202230;
+    padding: 15px;
+    background: #484F8C;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
   }
 </style>
