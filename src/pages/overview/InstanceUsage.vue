@@ -2,7 +2,7 @@
   <div style="height:100%;">
     <el-row
       :gutter="10"
-      style="height:100%;"
+      style="height:60%;"
     >
       <el-col
         :span="24"
@@ -10,6 +10,13 @@
         style="height:100%;"
       >
         <div id="cpuChart" />
+      </el-col>
+      <el-col
+        :span="24"
+        class="progerss-item"
+        style="height:100%;"
+      >
+        <div id="memChart" />
       </el-col>
     </el-row>
   </div>
@@ -26,11 +33,13 @@ export default {
   },
   data () {
     return {
-      pieData: [
+      cpuData: [
         {
           name: 'CPU',
           value: 0
-        },
+        }
+      ],
+      memData: [
         {
           name: 'MEM',
           value: 0
@@ -44,16 +53,15 @@ export default {
     }
   },
   methods: {
-    regAndSetOption (pieData) {
-      let myChart1 = echarts.init(document.getElementById('cpuChart'))
+    regAndSetOption (id, pieData) {
       var titleArr = []
       var seriesArr = []
 
       pieData.forEach(function (item, index) {
         titleArr.push({
           text: item.name,
-          left: index * 50 + 24 + '%',
-          top: '85%',
+          left: '50%',
+          top: '80%',
           textAlign: 'center',
           textStyle: {
             fontWeight: 'normal',
@@ -66,8 +74,8 @@ export default {
           {
             type: 'pie',
             name: '外层细圆环',
-            radius: ['78%', '80%'],
-            center: [index * 50 + 24 + '%', '40%'],
+            radius: ['72%', '74%'],
+            center: ['50%', '40%'],
             hoverAnimation: false,
             clockWise: false,
             itemStyle: {
@@ -83,8 +91,8 @@ export default {
           {
             type: 'pie',
             name: '内层层细圆环',
-            radius: ['47%', '49%'],
-            center: [index * 50 + 24 + '%', '40%'],
+            radius: ['55%', '57%'],
+            center: ['50%', '40%'],
             hoverAnimation: false,
             clockWise: false,
             itemStyle: {
@@ -101,8 +109,8 @@ export default {
             type: 'pie',
             zlevel: 3,
             silent: true,
-            radius: ['38%', '40%'],
-            center: [index * 50 + 24 + '%', '40%'],
+            radius: ['48%', '50%'],
+            center: ['50%', '40%'],
             label: {
               normal: {
                 show: false
@@ -122,7 +130,7 @@ export default {
           name: pieData[0].name,
           type: 'pie',
           clockWise: false,
-          radius: ['58%', '68%'],
+          radius: ['60%', '66%'],
           itemStyle: {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
@@ -144,7 +152,7 @@ export default {
             }
           },
           hoverAnimation: false,
-          center: [0 * 50 + 24 + '%', '40%'],
+          center: ['50%', '40%'],
           data: [
             {
               value: pieData[0].value,
@@ -157,90 +165,47 @@ export default {
                   show: true,
                   textStyle: {
                     fontSize: '14',
-                    fontWeight: 'bold',
                     color: '#FFE898'
                   }
-                }
-              }
-            }
-          ]
-        },
-        {
-          name: pieData[1].name,
-          type: 'pie',
-          clockWise: false,
-          radius: ['58%', '68%'],
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#6E34FA'
-                },
-                {
-                  offset: 1,
-                  color: '#5467df'
-                }
-              ]),
-              label: {
-                show: false
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          hoverAnimation: false,
-          center: [1 * 50 + 24 + '%', '40%'],
-          data: [
-            {
-              value: pieData[1].value,
-              label: {
-                normal: {
-                  formatter: function (params) {
-                    return params.value + '%'
-                  },
-                  position: 'center',
-                  show: true,
-                  textStyle: {
-                    fontSize: '14',
-                    fontWeight: 'bold',
-                    color: '#FFE898'
-                  }
-                }
-              }
-            },
-            {
-              value: pieData[1].value,
-              name: 'invisible',
-              itemStyle: {
-                normal: {
-                  color: 'rgba(0,0,0,0)'
-                },
-                emphasis: {
-                  color: 'rgba(0,0,0,0)'
                 }
               }
             }
           ]
         }
       )
-      myChart1.setOption({
-        grid: {
-          left: '5%',
-          right: '2%',
-          bottom: '0%',
-          top: '0%',
-          containLabel: true
-        },
-        title: titleArr,
-        series: seriesArr
-      })
+      if (id === 'cpuChart') {
+        let myChart1 = echarts.init(document.getElementById(id))
+        myChart1.setOption({
+          grid: {
+            left: '5%',
+            right: '2%',
+            bottom: '0%',
+            top: '0%',
+            containLabel: true
+          },
+          title: titleArr,
+          series: seriesArr
+        })
+      } else {
+        let myChart2 = echarts.init(document.getElementById(id))
+        myChart2.setOption({
+          grid: {
+            left: '5%',
+            right: '2%',
+            bottom: '0%',
+            top: '0%',
+            containLabel: true
+          },
+          title: titleArr,
+          series: seriesArr
+        })
+      }
     },
     setData () {
-      this.pieData[0].value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
-      this.pieData[1].value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
-      this.regAndSetOption(this.pieData)
+      this.cpuData[0].value = parseFloat(this.kpiInfo.cpuusage).toFixed(2)
+      this.memData[0].value = parseFloat(this.kpiInfo.memusage).toFixed(2)
+      this.regAndSetOption('cpuChart', this.cpuData)
+      this.regAndSetOption('memChart', this.memData)
     }
   },
   mounted () {
@@ -301,6 +266,10 @@ function dotArr () {
     }
   }
   #cpuChart{
+    width:100%;
+    height:100%;
+  }
+  #memChart{
     width:100%;
     height:100%;
   }
