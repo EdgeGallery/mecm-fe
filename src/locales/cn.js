@@ -184,7 +184,7 @@ const cn = {
   edgeNode: {
     ip: 'IP地址',
     city: '城市',
-    address: '地址',
+    address: '详细地址',
     affinity: '架构',
     edgeNexusIp: '边缘仓库地址地址',
     edgeNexusPort: '边缘仓库端口',
@@ -208,7 +208,7 @@ const cn = {
       ip: 'IP地址',
       city: '城市',
       affinity: '架构',
-      address: '地址',
+      address: '详细地址',
       edgeNexusIp: '边缘仓库地址',
       edgeNexusPort: '边缘仓库端口',
       mepmIp: 'MEPM地址',
@@ -235,7 +235,7 @@ const cn = {
       chooseLocation: '选择部署位置',
       vim: '虚拟机',
       ifUploaded: '上传状态',
-      coordPlaceholder: '请输入经纬度，例如：116.3912757,39.9062170',
+      coordPlaceholder: '请按照经度,维度顺序输入，中间使用半角逗号分隔，例如：116,39',
       referCoord: '坐标获取请参考：'
     },
     appstore: {
