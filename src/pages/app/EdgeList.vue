@@ -564,10 +564,16 @@ export default {
     },
     batchInstaniateApp (instanceId) {
       let obj = {
-        appInstanceIds: []
+        instantiationParameters: []
       }
       instanceId.forEach(item => {
-        obj.appInstanceIds.push(item.appInstanceId)
+        let obj1 = {}
+        obj1.appInstanceId = item.appInstanceId
+        this.templateInputs.forEach(item => {
+          let key = item.label
+          obj1.parameters[key] = item.value
+        })
+        obj.instantiationParameters.push(obj1)
       })
       appo.batchInstantiateApp(obj).then(response => {
         this.afterInstantiateApp()
