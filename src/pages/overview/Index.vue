@@ -175,7 +175,7 @@
             >
               <p class="overviewLabel">
                 {{ $t('overview.mepInfo') }}
-                <el-button
+                <!-- <el-button
                   id="manageBtn"
                   type="primary"
                   class="rt"
@@ -184,7 +184,7 @@
                   :loading="loginBtnLoading"
                 >
                   {{ $t('overview.manage') }}
-                </el-button>
+                </el-button> -->
               </p>
               <el-table
                 :data="hwCapData"
@@ -310,14 +310,6 @@ export default {
   },
   mounted () {
     this.setcontentHeight()
-  },
-  updated () {
-    let mepInfoDiv = document.getElementById('mepInfoDiv')
-    if (mepInfoDiv) {
-      mepInfoDiv.style.height = (Number(this.screenHeight) - 573) + 'px'
-      let capaTable = document.getElementsByClassName('capaTable')
-      capaTable[0].style.height = (Number(this.screenHeight) - 175) + 'px'
-    }
   },
   methods: {
     showDialogPosition () {
@@ -578,10 +570,6 @@ export default {
   .nodeTable.headerClassName{
     font-size: 14px !important;
     color: rgba(255, 255, 255, 0.9) !important;
-  }
-  .capaTable{
-    max-height: 165px;
-    overflow-y: auto;
   }
   .nodelistTable{
     max-height: 300px;

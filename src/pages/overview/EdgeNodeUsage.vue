@@ -9,7 +9,7 @@
         class="progerss-item"
         style="height:100%;"
       >
-        <div id="cpuChart" />
+        <div id="chart" />
       </el-col>
     </el-row>
   </div>
@@ -45,7 +45,8 @@ export default {
   },
   methods: {
     regAndSetOption (pieData) {
-      let myChart1 = echarts.init(document.getElementById('cpuChart'))
+      console.log(pieData)
+      let myChart1 = echarts.init(document.getElementById('chart'))
       var titleArr = []
       var seriesArr = []
 
@@ -78,7 +79,7 @@ export default {
             label: {
               show: false
             },
-            data: [100]
+            data: [0]
           },
           {
             type: 'pie',
@@ -95,7 +96,7 @@ export default {
             label: {
               show: false
             },
-            data: [100]
+            data: [0]
           },
           {
             type: 'pie',
@@ -162,6 +163,18 @@ export default {
                   }
                 }
               }
+            },
+            {
+              value: 100 - pieData[0].value,
+              name: 'invisible',
+              itemStyle: {
+                normal: {
+                  color: 'rgba(0,0,0,0)'
+                },
+                emphasis: {
+                  color: 'rgba(0,0,0,0)'
+                }
+              }
             }
           ]
         },
@@ -211,7 +224,7 @@ export default {
               }
             },
             {
-              value: pieData[1].value,
+              value: 100 - pieData[1].value,
               name: 'invisible',
               itemStyle: {
                 normal: {
@@ -300,7 +313,7 @@ function dotArr () {
       color: #DCE0FF;
     }
   }
-  #cpuChart{
+  #chart{
     width:100%;
     height:100%;
   }
