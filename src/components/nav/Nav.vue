@@ -204,7 +204,7 @@ export default {
             _hintInfo = _thisObj.$t('nav.hsInvalidHintForTimeout') + _hintInfo
           }
         }
-        _thisObj.$confirm(_hintInfo, _thisObj.$t('promptMessage.prompt'), {
+        _thisObj.$confirm(_hintInfo, _thisObj.$t('common.warning'), {
           confirmButtonText: _thisObj.$t('nav.reLogin'),
           cancelButtonText: _thisObj.$t('nav.refresh'),
           type: 'warning'
