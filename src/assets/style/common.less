@@ -90,10 +90,13 @@ input{
 }
 
 // 搜索样式
-.search .el-button--small,.search .el-button--small.is-round{
-  padding: 8px 15px !important;
-  position: relative !important;
-  top: 0 !important;
+.el-button--small,.search .el-button--small.is-round{
+  height: 24px;
+  background: #efefef;
+  color: #7a6e8a;
+  border: none;
+  border-radius: 5px;
+  line-height: 24px;
 }
 .search .el-input__inner{
   height: 34px !important;
@@ -124,65 +127,14 @@ input{
   padding:32px 0 !important;
 }
 
-// dialog样式
-.el-dialog__body{
-  padding:20px 20px 0 20px !important;
-}
-.el-dialog__headerbtn:focus .el-dialog__close, .el-dialog__headerbtn:hover .el-dialog__close,.el-dialog__title,.el-icon-close,.el-dialog__headerbtn .el-dialog__close{
-  color:#fff;
-}
-.el-dialog__headerbtn .el-dialog__close{
-  color:#fff !important;
-  position: relative;
-  top: -7px;
-}
-.el-dialog__header{
-  padding:10px!important;
-  font-size: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-.el-dialog__title{
-  color:#fff !important;
-  font-size: 16px;
-}
-.dialog-footer{
-  display: flex;
-  justify-content: center;
-  height: 64px;
-  width: 100%;
-  .el-button--small{
-    margin:15px 0;
-  }
-  .el-button--default{
-    margin-right: 15px;
-  }
-  .nodeTable{
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%) !important;
-  }
-  #confirmBtn{
-    background: #3B43FF;
-    color:#ffffff;
-  }
-  #cancelBtn{
-    background: rgba(59, 67, 255, 0.2);
-    color:#ffffff;
-    border: none;
-  }
-}
 .is-disabled input{
   color: gray!important;
-}
-input,.area-selected-trigger{
-  color: #ffffff !important;
 }
 input::placeholder {
   color: gray!important;
   font-size: 14px;
 }
 
-.el-dialog{
-  background: #202441 !important;
-}
 .area-select-wrap .area-select{
   line-height: 34px;
 }
@@ -204,14 +156,11 @@ input::placeholder {
 body .el-table th.gutter{
   display: table-cell !important;
 }
-// .el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
-//   font-size:14px!important;
-// }
 .el-table tr, .el-table__empty-block{
   color: #62517a;
 }
 .el-table td, .el-table th{
-  height: 72px;
+  height: 60px;
 }
 .el-table th>.cell{
   font-size: 16px;
@@ -226,10 +175,6 @@ body .el-table th.gutter{
   opacity: 60%;
 }
 
-
-.el-table td, .el-table th{
-  padding:5px 0;
-}
 .el-table .has-gutter th{
   background: #edeef8!important;
   .cell{
@@ -279,7 +224,7 @@ body .el-table th.gutter{
   height: 100%;
   padding: 3%;
   border-radius: 25px;
-  background: #202342;
+  background: #ffffff;
   .btn-group{
     margin:15px 0;
   }

@@ -49,6 +49,7 @@ const en = {
     disk: 'DISK',
     mepCapa: 'HW Capabilities',
     mepInfo: 'MEP Information',
+    capaInfo: 'Capabilities',
     softwareCapa: 'SW Capabilities',
     capa: 'Capabilities',
     vendor: 'Vendor',

@@ -358,10 +358,4 @@ export default {
 .hostName{
   margin-left: 10px;
 }
- .el-button--small, .el-button--small.is-round{
-    border: none !important;
-    color: #CDC3F0 ;
-    background: #434980;
-    border-radius: 6px;
-  }
 </style>

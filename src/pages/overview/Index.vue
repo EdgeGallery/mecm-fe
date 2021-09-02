@@ -202,11 +202,12 @@
                 id="mepInfoDiv"
               >
                 <div class="secondLabel">
-                  {{ $t('overview.mepInfo') }}
+                  {{ $t('overview.capaInfo') }}
                   <div class="selectCapa rt">
                     <el-select
                       v-model="capaType"
                       placeholder="请选择"
+                      @change="selectBD"
                     >
                       <el-option
                         v-for="item in options"
@@ -353,6 +354,9 @@ export default {
 
   },
   methods: {
+    selectBD () {
+      this.$forceUpdate()
+    },
     showDialogPosition () {
       if (this.showUsageDialog) {
         clearInterval(this.intervalDialog)
