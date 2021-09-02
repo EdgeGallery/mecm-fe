@@ -590,14 +590,16 @@ export default {
     height: 150px;
     color: #ffff;
     background: url('../../assets/images/jdzs_bg.png') center no-repeat;
-    background-size: cover;
+    background-size: 120% 150%;
     padding: 20px 50px;
     .numLeft{
       width: 50%;
-      padding-left: 40px;
+      padding-left: 8%;
     }
     .numRight{
       width: 50%;
+      position: relative;
+      top: -15px;
       p{
         color: #6040c8;
         text-align: center;
@@ -608,6 +610,7 @@ export default {
       }
       .defaultName{
         font-size: 20px;
+        font-weight: bold;
       }
     }
   }

@@ -193,15 +193,15 @@ const cn = {
   },
   system: {
     mepm: {
-      ip: 'IP地址',
-      port: '端口',
+      ip: 'IP地址：',
+      port: '端 口：',
       manageMecHost: 'MEC主机管理',
       userNmae: '用户名',
       password: '密码',
       newReg: '新增注册',
       mepmReg: 'MEPM 注册',
       mepmModify: 'MEPM 编辑',
-      name: '名称'
+      name: '名 称：'
     },
     edgeNodes: {
       systemPlatform: 'systemPlatform',

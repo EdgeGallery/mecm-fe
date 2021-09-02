@@ -29,7 +29,8 @@
         type="primary"
         @click="showEditDialog()"
       >
-        {{ $t('system.mepm.newReg') }}
+        <span class="iconcont add" />
+        <span>{{ $t('system.mepm.newReg') }}</span>
       </el-button>
     </p>
     <div class="contentList">
@@ -168,11 +169,13 @@
       </div>
       <!-- 新增/编辑节点 -->
       <el-dialog
-        :close-on-click-modal="false"
-        :title="title"
+        :show-close="false"
         :visible.sync="dialogVisible"
         width="30%"
       >
+        <div class="secondLabel">
+          {{ title }}
+        </div>
         <FormContent
           :rowdata="formdata"
           :type="type"
@@ -181,11 +184,13 @@
       </el-dialog>
       <!-- 上传文件 -->
       <el-dialog
-        :close-on-click-modal="false"
-        :title="$t('system.edgeNodes.uploadFile')"
+        :show-close="false"
         :visible.sync="dialogVisibleUpload"
         width="30%"
       >
+        <div class="secondLabel">
+          {{ $t('system.edgeNodes.uploadFile') }}
+        </div>
         <UploadFile
           :mechostip="hostIp"
           @close="closeUploadDialog"

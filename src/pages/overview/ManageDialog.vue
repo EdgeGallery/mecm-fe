@@ -17,12 +17,14 @@
 <template>
   <div class="manage-dialog">
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('overview.manage')"
+      :show-close="false"
       :visible.sync="dialogVisible"
       width="50%"
       :before-close="handleClose"
     >
+      <div class="secondLabel">
+        {{ $t('overview.manage') }}
+      </div>
       <div class="mt20">
         <label class="title">{{ $t('overview.services') }}</label>
         <el-table

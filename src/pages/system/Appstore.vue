@@ -31,7 +31,8 @@
         @click="showEditDialog(0)"
         class="rt"
       >
-        {{ $t('system.mepm.newReg') }}
+        <span class="iconcont add" />
+        <span>{{ $t('system.mepm.newReg') }}</span>
       </el-button>
     </p>
     <div class="contentList">
@@ -111,12 +112,14 @@
         </div>
       </div>
       <el-dialog
-        :close-on-click-modal="false"
-        :title="dialogTitle"
+        :show-close="false"
         :visible.sync="dialogVisible"
         :before-close="closeEditDialog"
         width="25%"
       >
+        <div class="secondLabel">
+          {{ dialogTitle }}
+        </div>
         <AppstoreDialog
           :appstore-data="appstoreData"
           :type="type"

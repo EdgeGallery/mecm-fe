@@ -27,7 +27,8 @@
         type="primary"
         @click="showSyncBox()"
       >
-        {{ $t('app.packageList.synchronize') }}
+        <span class="iconcont sync" />
+        <span>{{ $t('app.packageList.synchronize') }}</span>
       </el-button>
     </div>
     <div class="contentList">
@@ -138,11 +139,14 @@
     </div>
     <!-- 同步 -->
     <el-dialog
-      :title="$t('app.packageList.synchronize')"
+      :show-close="false"
       :visible.sync="syncDialogVisible"
       width="width"
     >
       <div>
+        <div class="secondLabel">
+          {{ $t('app.packageList.synchronize') }}
+        </div>
         <div>
           <el-select
             v-model="appstoreIp"
@@ -206,13 +210,6 @@
           class="dialog-footer"
         >
           <el-button
-            @click="cancelToSync"
-            size="small"
-            id="cancelBtn"
-          >
-            {{ $t('common.cancel') }}
-          </el-button>
-          <el-button
             type="primary"
             @click="confirmToSync()"
             size="small"
@@ -220,16 +217,25 @@
           >
             {{ $t('common.confirm') }}
           </el-button>
+          <el-button
+            @click="cancelToSync"
+            size="small"
+            id="cancelBtn"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
         </span>
       </div>
     </el-dialog>
     <!-- 分发 -->
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('app.packageList.slectEdgeNodes')"
+      :show-close="false"
       :visible.sync="dialogVisible"
       v-loading="loading"
     >
+      <div class="secondLabel">
+        {{ $t('app.packageList.slectEdgeNodes') }}
+      </div>
       <el-row class="el-row-search">
         <el-col
           :span="8"
@@ -314,13 +320,6 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancel()"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
@@ -328,6 +327,13 @@
           :loading="loading"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancel()"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </div>
     </el-dialog>

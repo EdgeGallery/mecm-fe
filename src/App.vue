@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div id="app">
+  <div
+    id="app"
+    class="appView"
+  >
     <Navbar />
     <router-view id="container" />
   </div>

@@ -26,7 +26,11 @@
         id="deleteInsBtn"
         @click="beforeDelete(selectData,1)"
       >
-        {{ this.$t('app.instanceList.batchDelete') }}
+        <span
+          class="iconcont"
+          style="top:0;"
+        >X</span>
+        <span>{{ this.$t('app.instanceList.batchDelete') }}</span>
       </el-button>
     </div>
     <div class="contentList">
@@ -127,10 +131,13 @@
         </div>
       </div>
       <el-dialog
-        :title="$t('app.instanceList.appKPI')"
+        :show-close="false"
         :visible.sync="instanceListVisible"
         width="width"
       >
+        <div class="secondLabel">
+          {{ $t('app.instanceList.appKPI') }}
+        </div>
         <div>
           <div style="min-height:280px;">
             <el-row :gutter="10">
@@ -179,11 +186,13 @@
         </div>
       </el-dialog>
       <el-dialog
-        :close-on-click-modal="false"
-        :title="$t('app.instanceList.instanceDetail')"
+        :show-close="false"
         :visible.sync="dialogVisible"
         width="40%"
       >
+        <div class="secondLabel">
+          {{ $t('app.instanceList.instanceDetail') }}
+        </div>
         <el-form
           label-width="auto"
           class="detailForm"

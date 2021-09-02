@@ -97,19 +97,19 @@
       class="dialog-footer"
     >
       <el-button
-        id="cancelBtn"
-        size="small"
-        @click="cancel"
-      >
-        {{ $t('common.cancel') }}
-      </el-button>
-      <el-button
         id="confirmBtn"
         type="primary"
         size="small"
         @click="confirmToRegister('form')"
       >
         {{ $t('common.confirm') }}
+      </el-button>
+      <el-button
+        id="cancelBtn"
+        size="small"
+        @click="cancel"
+      >
+        {{ $t('common.cancel') }}
       </el-button>
     </span>
   </div>

@@ -90,7 +90,7 @@ input{
 }
 
 // 表格按钮样式
-#app{
+.appView{
   .el-button--small, .el-button--small.is-round{
     height: 24px;
     background: #efefef;
@@ -101,8 +101,33 @@ input{
     padding: 2px 10px;
   }
 }
+
+
+// dialog
+.el-dialog{
+  border-radius: 12px!important;
+}
+.el-dialog__header{
+  height: 0;
+  padding: 0 !important;
+}
+.dialog-footer{
+  display: block;
+  height: 30px;
+  .el-button--small, .el-button--small.is-round{
+    height: 30px;
+    background: #5844be;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    float: right;
+    margin-left: 15px;
+  }
+}
 .search .el-input__inner{
   height: 34px !important;
+  border-radius: 8px!important;
   border: 1px solid #4C4C4C;
   background: transparent;
 }
@@ -196,7 +221,6 @@ body .el-table th.gutter{
 /* area-link样式 */
 .area-select>.area-selected-trigger{
   padding-top:0px !important;
-  background: #161825 !important;
   border: 1px solid #3B7CFF !important;
   border-radius: 2px;
 }
@@ -215,10 +239,6 @@ body .el-table th.gutter{
   padding-bottom:15px;
 }
 
-.el-form-item__label{
-  color: rgba(255, 255, 255, 0.8);
-}
-
 /* 表格页公共样式 */
 .btn-p{
   height: 50px;
@@ -232,6 +252,23 @@ body .el-table th.gutter{
     border: none;
     border-radius: 25px;
     float: right;
+    font-size: 20px;   
+    padding: 0 30px;
+  }
+  .iconcont{
+    display: inline-block;
+    width: 19px;
+    height: 19px;
+    background-size: cover;
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+  }
+  .add{
+    background: url('../images/addNew.png') center no-repeat;
+  }
+  .sync{
+    background: url('../images/sync.png') center no-repeat;
   }
 }
 .contentList{
@@ -241,9 +278,8 @@ body .el-table th.gutter{
   border-radius: 25px;
   background: #ffffff;
 }
-#newregBtn{
-  background: #5E40C8  ;
-  border: none;
+.tableDiv{
+  margin-top: 10px;
 }
 .ol-layer canvas{
   border-radius: 10px !important;
@@ -406,4 +442,9 @@ div.overviewLabel{
   position: relative;
   top: 2px;
   margin-right: 10px;
+}
+.el-dialog{
+  .secondLabel{
+    font-weight: normal;
+  }
 }

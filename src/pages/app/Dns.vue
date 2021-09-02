@@ -93,11 +93,13 @@
 
     <!-- dialog -->
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('app.instanceList.addRule')"
+      :show-close="false"
       :visible.sync="dialog"
       width="30%"
     >
+      <div class="secondLabel">
+        {{ $t('app.instanceList.addRule') }}
+      </div>
       <div class="dialogContent">
         <el-form
           label-width="auto"
@@ -174,19 +176,19 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="resetForm('dnsRule')"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
           @click="confirmToAddDnsRules"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="resetForm('dnsRule')"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </span>
     </el-dialog>
