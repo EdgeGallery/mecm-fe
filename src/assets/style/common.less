@@ -89,14 +89,17 @@ input{
   top:2px;
 }
 
-// 搜索样式
-.el-button--small,.search .el-button--small.is-round{
-  height: 24px;
-  background: #efefef;
-  color: #7a6e8a;
-  border: none;
-  border-radius: 5px;
-  line-height: 24px;
+// 表格按钮样式
+#app{
+  .el-button--small, .el-button--small.is-round{
+    height: 24px;
+    background: #efefef;
+    color: #7a6e8a;
+    border: none;
+    border-radius: 5px;
+    line-height: 20px;
+    padding: 2px 10px;
+  }
 }
 .search .el-input__inner{
   height: 34px !important;
@@ -170,9 +173,7 @@ body .el-table th.gutter{
   z-index: -1!important;
 }
 .el-table--enable-row-hover .el-table__body tr:hover>td{
-  background: #383c6b  !important;
-  color: #ffffff;
-  opacity: 60%;
+  background: #faf9fc  !important;
 }
 
 .el-table .has-gutter th{
@@ -219,28 +220,26 @@ body .el-table th.gutter{
 }
 
 /* 表格页公共样式 */
+.btn-p{
+  height: 50px;
+  z-index: 15;
+  margin: 0px 10%;
+  position: relative;
+  top: -30px;
+  .el-button--primary{
+    height: 50px;
+    background: #5e40c8;
+    border: none;
+    border-radius: 25px;
+    float: right;
+  }
+}
 .contentList{
   margin: 0 10%;
   height: 100%;
-  padding: 3%;
+  padding: 30px 3%;
   border-radius: 25px;
   background: #ffffff;
-  .btn-group{
-    margin:15px 0;
-  }
-  .btn-p{
-    height: 40px;
-    float: left;
-    position: relative;
-    z-index: 15;
-    .el-button--primary{
-      background: #434980;
-      border: none;
-    }
-    .rt{
-        margin-bottom:15px;
-      }
-  }
 }
 #newregBtn{
   background: #5E40C8  ;
@@ -249,8 +248,8 @@ body .el-table th.gutter{
 .ol-layer canvas{
   border-radius: 10px !important;
 }
-.tableDiv{
-  margin-top: 50px;
+.el-table--mini, .el-table--small, .el-table__expand-icon{
+  font-size: 14px!important;
 }
 
 
@@ -377,9 +376,10 @@ body .el-table th.gutter{
 // label
 div.overviewLabel{
   font-weight: bold;
-  font-size: 26px;
+  font-size: 30px;
   text-align: left;
-  color: #5d3da0;
+  color: #380879;
+  margin: 145px 0 0 15%;
   .block{
     width: 80px;
     height:8px;

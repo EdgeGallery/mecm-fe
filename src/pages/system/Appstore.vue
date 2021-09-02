@@ -16,13 +16,24 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.system')"
-      :third="$t('nav.appstore')"
-      :path="{ path: '/mecm/system/applcm' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.appstore') }}
+      <div class="block" />
+    </div>
+    <p
+      class="btn-p"
+      v-if="rlp=='418'"
+    >
+      <el-button
+        id="newregBtn"
+        type="primary"
+        :disabled="false"
+        @click="showEditDialog(0)"
+        class="rt"
+      >
+        {{ $t('system.mepm.newReg') }}
+      </el-button>
+    </p>
     <div class="contentList">
       <Search
         :affinity-item="false"
@@ -30,20 +41,6 @@
         :status-item="false"
         @getSearchData="getSearchData"
       />
-      <p
-        class="btn-p"
-        v-if="rlp=='418'"
-      >
-        <el-button
-          id="newregBtn"
-          type="primary"
-          :disabled="false"
-          @click="showEditDialog(0)"
-          class="rt"
-        >
-          {{ $t('system.mepm.newReg') }}
-        </el-button>
-      </p>
       <div class="tableDiv">
         <el-table
           :data="currPageTableData"
@@ -135,12 +132,11 @@
 import { inventory } from '../../tools/request.js'
 import Search from '../../components/common/Search.vue'
 import pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import AppstoreDialog from './AppstoreDialog.vue'
 export default {
   name: 'Appstore',
   components: {
-    Search, pagination, Breadcrumb, AppstoreDialog
+    Search, pagination, AppstoreDialog
   },
   data () {
     return {

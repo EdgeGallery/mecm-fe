@@ -16,29 +16,26 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.packageMana')"
-      :path="{ path: '/mecm/app/package' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.packageMana') }}
+      <div class="block" />
+    </div>
+    <div class="btn-p">
+      <el-button
+        id="syncBtn"
+        class="rt"
+        type="primary"
+        @click="showSyncBox()"
+      >
+        {{ $t('app.packageList.synchronize') }}
+      </el-button>
+    </div>
     <div class="contentList">
       <Search
         @getSearchData="getSearchData"
         :status-item="false"
         :type-item="false"
       />
-      <div class="btn-p">
-        <el-button
-          id="syncBtn"
-          class="rt"
-          type="primary"
-          @click="showSyncBox()"
-        >
-          {{ $t('app.packageList.synchronize') }}
-        </el-button>
-      </div>
       <div class="tableDiv">
         <el-row>
           <el-col
@@ -342,11 +339,10 @@ import { apm, inventory } from '../../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../../tools/constant.js'
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 export default {
   name: 'ApacList',
   components: {
-    Search, Pagination, Breadcrumb
+    Search, Pagination
   },
   data () {
     return {

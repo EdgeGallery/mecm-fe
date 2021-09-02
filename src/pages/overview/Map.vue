@@ -30,7 +30,6 @@
       <el-button
         type="primary"
         class="return"
-        size="small"
         v-if="btnShow"
         @click="returnOverviewModel"
       >
@@ -451,6 +450,8 @@ export default {
     width: 125px;
     height: 35px;
     font-size: 16px;
+    line-height: 35px;
+    padding: 0;
   }
 }
 

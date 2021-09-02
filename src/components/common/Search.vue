@@ -16,7 +16,7 @@
 
 <template>
   <div class="search">
-    <div class="rt">
+    <div>
       <el-form
         :model="formData"
         ref="formData"

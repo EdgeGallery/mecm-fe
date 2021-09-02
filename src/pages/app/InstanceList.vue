@@ -16,33 +16,28 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.appInstance')"
-      :path="{ path: '/mecm/app/package' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.appInstance') }}
+      <div class="block" />
+    </div>
+    <div class="btn-p">
+      <el-button
+        type="primary"
+        id="deleteInsBtn"
+        @click="beforeDelete(selectData,1)"
+      >
+        {{ this.$t('app.instanceList.batchDelete') }}
+      </el-button>
+    </div>
     <div class="contentList">
       <Search
         :affinity-item="false"
         :status-item="true"
         :status="status"
         @getSearchData="getSearchData"
-        class="rt"
       />
-      <div class="btn-p">
-        <el-button
-          type="primary"
-          id="deleteInsBtn"
-          @click="beforeDelete(selectData,1)"
-        >
-          {{ this.$t('app.instanceList.batchDelete') }}
-        </el-button>
-      </div>
       <div class="tableDiv">
         <el-table
-          class="mt20"
           size="small"
           :data="currPageTableData"
           v-loading="dataLoading"
@@ -222,7 +217,6 @@
 <script>
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import { appo } from '../../tools/request.js'
 import InstanceUsage from '../overview/InstanceUsage.vue'
 export default {
@@ -230,7 +224,6 @@ export default {
   components: {
     Search,
     Pagination,
-    Breadcrumb,
     InstanceUsage
   },
   data () {

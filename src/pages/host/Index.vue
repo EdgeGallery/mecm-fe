@@ -16,13 +16,22 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.system')"
-      :third="null"
-      :path="{ path: '' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.edgeNodes') }}
+      <div class="block" />
+    </div>
+    <p
+      class="btn-p"
+      v-if="rlp=='418'"
+    >
+      <el-button
+        id="newregBtn"
+        type="primary"
+        @click="showEditDialog()"
+      >
+        {{ $t('system.mepm.newReg') }}
+      </el-button>
+    </p>
     <div class="contentList">
       <Search
         :status-item="false"
@@ -30,24 +39,11 @@
         :ip-item="true"
         @getSearchData="getSearchData"
       />
-      <p
-        class="btn-p"
-        v-if="rlp=='418'"
-      >
-        <el-button
-          id="newregBtn"
-          type="primary"
-          @click="showEditDialog()"
-        >
-          {{ $t('system.mepm.newReg') }}
-        </el-button>
-      </p>
       <div class="tableDiv">
         <el-row class="table">
           <el-table
             :data="currPageTableData"
             v-loading="dataLoading"
-            class="mt20"
             :highlight-current-row="highlight"
             size="small"
           >
@@ -71,15 +67,12 @@
             <el-table-column
               prop="city"
               :label="$t('system.edgeNodes.location')"
+              width="200"
             />
             <el-table-column
               prop="vim"
               label="VIM"
             />
-            <!-- <el-table-column
-              prop="affinity"
-              :label="$t('app.packageList.affinity')"
-            /> -->
             <el-table-column
               prop="mepmIp"
               :label="$t('system.edgeNodes.mepmIp')"
@@ -206,13 +199,12 @@
 import { appo, apm, inventory } from '../../tools/request.js'
 import pagination from '../../components/common/Pagination.vue'
 import Search from '../../components/common/Search.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import FormContent from './HostDialog.vue'
 import UploadFile from './UploadDialog.vue'
 export default {
   name: 'Sysk8s',
   components: {
-    Search, pagination, Breadcrumb, FormContent, UploadFile
+    Search, pagination, FormContent, UploadFile
   },
   data () {
     return {

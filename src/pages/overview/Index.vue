@@ -155,12 +155,12 @@
                   :label="$t('common.operation')"
                 >
                   <template slot-scope="scope">
-                    <button
-                      class="cp showDetails"
+                    <el-button
+                      size="small"
                       @click="showDetail(scope.row)"
                     >
                       {{ $t('common.detail') }}
-                    </button>
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -400,7 +400,8 @@ export default {
     },
     clickMap (msg, city) {
       let bottom = document.getElementsByClassName('bottom')
-      bottom[0].style.height = '68%'
+      bottom[0].style.height = '72%'
+      bottom[0].style.marginTop = '0px'
       this.showType = 'overview'
       if (this.$i18n.locale === 'en') {
         this.city = city
@@ -455,8 +456,6 @@ export default {
           })
           this.edgeApp = this.edgeAppList[0].value
         }
-      }).catch(() => {
-        // this.$message.error(this.$t('tip.getAppInfoFailed'))
       })
     },
     getHwCapa (host) {
@@ -484,32 +483,6 @@ export default {
           this.kpiInfo = JSON.parse(str)
         }
       })
-    },
-    getServiceInfo (instanceId) {
-      if (this.edgeAppList.length > 0) {
-        this.loginBtnLoading = true
-        appo.getServiceInfo(instanceId).then(res => {
-          this.serviceInfo = JSON.parse(res.data.response)
-          this.manageDialogStatus = true
-          this.loginBtnLoading = false
-        }).catch((error) => {
-          if (error.response.status === 412) {
-            this.$message.error(error.response.data.response)
-          } else if (error.response.status === 404) {
-            this.$message.warning(this.$t('tip.getStatusDelay'))
-          } else {
-            this.$message.error('Network Error')
-          }
-          this.loginBtnLoading = false
-          // this.$message.error(this.$t('tip.getServiceFailed'))
-        })
-      } else {
-        this.loginBtnLoading = false
-        // this.$message.warning(this.$t('tip.noPackage'))
-      }
-    },
-    async checkServiceInfo () {
-      window.open('http://' + this.edgeIp + ':30097' + '/mepm/mepinfo/' + this.edgeIp)
     }
   }
 }
@@ -571,10 +544,6 @@ export default {
             }
           }
         }
-      }
-      .el-button {
-        background-color: #6e33fd;
-        border-color: #6e33fd;
       }
     }
   }
@@ -675,7 +644,7 @@ export default {
     }
   }
   .top{
-    height: 30%;
+    height: 26%;
   }
   .bottom{
     height: 68%;
