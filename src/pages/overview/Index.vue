@@ -16,79 +16,102 @@
 
 <template>
   <div class="mecm-overview">
-    <el-row
-      :gutter="20"
-      style="height: 100%;"
-      class="padding-lr"
+    <div
+      class="top"
+      v-if="showType === 'overview'"
     >
-      <el-col
-        :lg="9"
-        :md="12"
-        :sm="24"
-        :xs="24"
-        class="content-right"
+      <el-row
+        :gutter="20"
+        style="height: 100%;"
+        class="padding-lr"
       >
-        <div
-          class="edge-souces"
-          v-if="alarmStatus === 'alarms'"
+        <el-col
+          :lg="24"
+          :md="24"
+          :sm="24"
+          :xs="24"
+          class="content-right"
         >
-          <div class="blockContent">
-            <p class="overviewLabel">
-              {{ $t('overview.overview') }}
-            </p>
-            <div class="nodeBasicInfo">
-              <div class="dataContent">
-                <div class="totalNum defaultNum">
-                  <img
-                    alt="flw"
-                    src="../../assets/images/Nodestatistics_icon.png"
-                  >
-                  {{ nodeNum }}
-                  <p class="defaultName">
-                    {{ $t('overview.edgeNodes') }}
-                  </p>
-                </div>
-                <div class="onlineNum defaultNum">
-                  <img
-                    alt="flw"
-                    src="../../assets/images/Nodestatistics_icon.png"
-                  >
-                  {{ nodeNum }}
-                  <p class="defaultName">
-                    {{ $t('overview.onlineNodes') }}
-                  </p>
-                </div>
-                <div class="offlineNum defaultNum">
-                  <img
-                    alt="flw"
-                    src="../../assets/images/Nodestatistics_icon.png"
-                  >
-                  0
-                  <p class="defaultName">
-                    {{ $t('overview.offlineNodes') }}
-                  </p>
+          <div
+            class="edge-souces"
+          >
+            <div class="blockContent">
+              <div class="nodeBasicInfo">
+                <div class="dataContent">
+                  <div class="totalNum defaultNum">
+                    <div class="numLeft lt">
+                      <img
+                        alt="flw"
+                        src="../../assets/images/zongshu_icon.png"
+                      >
+                    </div>
+                    <div class="numRight lt">
+                      <p class="num">
+                        {{ nodeNum }}
+                      </p>
+                      <p class="defaultName">
+                        {{ $t('overview.edgeNodes') }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="onlineNum defaultNum">
+                    <div class="numLeft lt">
+                      <img
+                        alt="flw"
+                        src="../../assets/images/zxjds_icon.png"
+                      >
+                    </div>
+                    <div class="numRight lt">
+                      <p class="num">
+                        {{ nodeNum }}
+                      </p>
+                      <p class="defaultName">
+                        {{ $t('overview.onlineNodes') }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="offlineNum defaultNum">
+                    <div class="numLeft lt">
+                      <img
+                        alt="flw"
+                        src="../../assets/images/lxjds_icon.png"
+                      >
+                    </div>
+                    <div class="numRight lt">
+                      <p class="num">
+                        {{ nodeNum }}
+                      </p>
+                      <p class="defaultName">
+                        {{ $t('overview.offlineNodes') }}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- <div style="display:flex;flex-direction:row;justify-content:space-evenly;">
-                <p class="defaultName">
-                  {{ $t('overview.edgeNodes') }}
-                </p>
-                <p class="defaultName">
-                  {{ $t('overview.onlineNodes') }}
-                </p>
-                <p class="defaultName">
-                  {{ $t('overview.offlineNodes') }}
-                </p>
-              </div> -->
             </div>
           </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="bottom">
+      <el-row
+        :gutter="20"
+        style="height:100%;"
+      >
+        <el-col
+          :lg="10"
+          :md="10"
+          :sm="24"
+          :xs="24"
+        >
           <div
             class="blockContent"
             id="nodeListDiv"
+            v-if="showType === 'overview'"
           >
-            <p class="overviewLabel">
+            <div class="secondLabel">
               {{ $t('nav.nodeList') }}
-            </p>
+            </div>
             <div class="nodeTable">
               <el-table
                 :data="nodeList"
@@ -105,10 +128,6 @@
                       @mouseenter="handleRowSelection(scope.row.mechostIp)"
                       @mouseleave="showUsageDialog=false"
                     >
-                      <em
-                        class="el-icon-success"
-                        :style="{color: '#67C23A'}"
-                      />
                       <span class="hostName">{{ scope.row.mechostName }}</span>
                     </div>
                   </template>
@@ -117,6 +136,17 @@
                   prop="mechostIp"
                   :label="$t('app.packageList.ip')"
                 />
+                <el-table-column
+                  prop="mechostIp"
+                  :label="$t('app.packageList.status')"
+                >
+                  <template>
+                    <span><em
+                      class="el-icon-success"
+                      :style="{color: '#67C23A'}"
+                    /> Online</span>
+                  </template>
+                </el-table-column>
                 <el-table-column
                   prop="city"
                   :label="$t('system.edgeNodes.location')"
@@ -136,114 +166,115 @@
               </el-table>
             </div>
           </div>
-        </div>
-        <div
-          class="edge-souces"
-          v-if="alarmStatus !== 'alarms'"
-        >
-          <el-row
-            :gutter="10"
+          <div
+            class="edge-souces"
+            v-if="showType === 'details'"
           >
-            <div class="blockContent">
-              <p class="overviewLabel">
-                {{ $t('overview.nodeInfo') }}
-              </p>
-              <div class="nodeBasicInfo">
-                <p class="nodeInfo">
-                  <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
-                </p>
-                <p class="nodeInfo">
-                  <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
-                </p>
-                <p class="nodeInfo">
-                  <span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}
-                </p>
-              </div>
-            </div>
-            <div class="blockContent">
-              <p class="overviewLabel">
-                {{ $t('overview.k8sResc') }}
-              </p>
-              <div>
-                <Usage :kpi-info="kpiInfo" />
-              </div>
-            </div>
-            <div
-              class="blockContent"
-              id="mepInfoDiv"
-              style="height:100%;"
+            <el-row
+              :gutter="10"
             >
-              <p class="overviewLabel">
-                {{ $t('overview.mepInfo') }}
-                <!-- <el-button
-                  id="manageBtn"
-                  type="primary"
-                  class="rt"
-                  style="position:relative;top:-5px;"
-                  @click="checkServiceInfo()"
-                  :loading="loginBtnLoading"
-                >
-                  {{ $t('overview.manage') }}
-                </el-button> -->
-              </p>
-              <el-table
-                :data="hwCapData"
-                header-row-class-name="headerClassName"
-                class="hwCapData"
+              <div class="blockContent">
+                <div class="secondLabel">
+                  {{ $t('overview.nodeInfo') }}
+                </div>
+                <div class="nodeBasicInfo">
+                  <p class="nodeInfo">
+                    <span>{{ $t('overview.nodeName') }}</span>{{ nodeBasicInfo.mechostName }}
+                  </p>
+                  <p class="nodeInfo">
+                    <span>{{ $t('overview.nodeIp') }}</span>{{ nodeBasicInfo.mechostIp }}
+                  </p>
+                  <p class="nodeInfo">
+                    <span>{{ $t('overview.nodeAddress') }}</span>{{ nodeBasicInfo.city }}
+                  </p>
+                </div>
+              </div>
+              <div class="blockContent">
+                <div class="secondLabel">
+                  {{ $t('overview.k8sResc') }}
+                </div>
+                <div>
+                  <Usage :kpi-info="kpiInfo" />
+                </div>
+              </div>
+              <div
+                class="blockContent"
+                id="mepInfoDiv"
               >
-                <el-table-column
-                  prop="hwType"
-                  :label="$t('overview.mepCapa')"
-                />
-                <el-table-column
-                  prop="hwVendor"
-                  :label="$t('overview.vendor')"
-                />
-                <el-table-column
-                  prop="hwModel"
-                  :label="$t('overview.model')"
-                />
-              </el-table>
-              <el-row style="padding-top: 15px;border-top: 1px solid #0A1446;">
-                <el-col :span="24">
-                  <el-table
-                    :data="mepCapData"
-                    class="capaTable"
-                    header-row-class-name="headerClassName"
-                  >
-                    <el-table-column
-                      prop="capabilityName"
-                      :label="$t('overview.softwareCapa')"
-                    />
-                    <el-table-column
-                      prop="status"
-                      :label="$t('app.packageList.status')"
-                    />
-                    <el-table-column
-                      prop="version"
-                      :label="$t('app.packageList.version')"
-                    />
-                  </el-table>
-                </el-col>
-              </el-row>
-            </div>
-          </el-row>
-        </div>
-      </el-col>
-      <el-col
-        :lg="15"
-        :md="12"
-        :sm="24"
-        :xs="24"
-        class="mapPanel"
-      >
-        <Map
-          @node="clickNode"
-          @area="clickMap"
-          :detail="detail"
-        />
-      </el-col>
-    </el-row>
+                <div class="secondLabel">
+                  {{ $t('overview.mepInfo') }}
+                  <div class="selectCapa rt">
+                    <el-select
+                      v-model="capaType"
+                      placeholder="请选择"
+                    >
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value"
+                      />
+                    </el-select>
+                  </div>
+                </div>
+                <el-table
+                  :data="hwCapData"
+                  header-row-class-name="headerClassName"
+                  class="hwCapData"
+                  v-show="capaType==='hardware'"
+                >
+                  <el-table-column
+                    prop="hwType"
+                    :label="$t('overview.mepCapa')"
+                  />
+                  <el-table-column
+                    prop="hwVendor"
+                    :label="$t('overview.vendor')"
+                  />
+                  <el-table-column
+                    prop="hwModel"
+                    :label="$t('overview.model')"
+                  />
+                </el-table>
+                <el-table
+                  :data="mepCapData"
+                  class="mepCapaTable"
+                  header-row-class-name="headerClassName"
+                  v-show="capaType==='software'"
+                >
+                  <el-table-column
+                    prop="capabilityName"
+                    :label="$t('overview.softwareCapa')"
+                  />
+                  <el-table-column
+                    prop="status"
+                    :label="$t('app.packageList.status')"
+                  />
+                  <el-table-column
+                    prop="version"
+                    :label="$t('app.packageList.version')"
+                  />
+                </el-table>
+              </div>
+            </el-row>
+          </div>
+        </el-col>
+        <el-col
+          :lg="14"
+          :md="14"
+          :sm="24"
+          :xs="24"
+          class="mapPanel"
+        >
+          <Map
+            @node="clickNode"
+            @area="clickMap"
+            :detail="detail"
+          />
+        </el-col>
+      </el-row>
+    </div>
+
     <div v-if="manageDialogStatus">
       <manageDialog
         v-model="manageDialogStatus"
@@ -277,7 +308,7 @@ export default {
   data () {
     return {
       serviceInfo: {},
-      alarmStatus: 'alarms',
+      showType: 'overview',
       hwCapData: [],
       mepCapData: [],
       edgeApp: '',
@@ -296,7 +327,17 @@ export default {
       screenHeight: 0,
       usageData: {},
       showUsageDialog: false,
-      intervalDialog: {}
+      intervalDialog: {},
+      options: [
+        {
+          value: 'hardware',
+          label: '硬件能力'
+        }, {
+          value: 'software',
+          label: '软件能力'
+        }
+      ],
+      capaType: 'hardware'
     }
   },
   watch: {
@@ -309,7 +350,7 @@ export default {
     }
   },
   mounted () {
-    this.setcontentHeight()
+
   },
   methods: {
     showDialogPosition () {
@@ -334,14 +375,6 @@ export default {
         this.$message.error(this.$t('tip.getAppInfoFailed'))
       })
     },
-    setcontentHeight (height) {
-      this.screenHeight = window.innerHeight
-      let nodeListDiv = document.getElementById('nodeListDiv')
-      let nodelistTable = document.getElementsByClassName('nodelistTable')
-      nodeListDiv.style.height = (Number(this.screenHeight) - 371) + 'px'
-      console.log(nodelistTable)
-      nodelistTable[0].style.maxHeight = (Number(this.screenHeight) - 307) + 'px'
-    },
     resetData () {
       this.hwCapData = []
       this.edgeAppList = []
@@ -350,7 +383,10 @@ export default {
     },
     clickNode (val) {
       this.nodeBasicInfo = val
-      this.alarmStatus = 'nodeinfo'
+      let bottom = document.getElementsByClassName('bottom')
+      bottom[0].style.height = '94%'
+      bottom[0].style.marginTop = '2%'
+      this.showType = 'details'
       this.resetData()
       this.getNodeKpi(val.mechostIp)
       this.getHwCapa(val.mechostIp)
@@ -359,7 +395,9 @@ export default {
       this.edgeIp = val.mechostIp
     },
     clickMap (msg, city) {
-      this.alarmStatus = 'alarms'
+      let bottom = document.getElementsByClassName('bottom')
+      bottom[0].style.height = '68%'
+      this.showType = 'overview'
       if (this.$i18n.locale === 'en') {
         this.city = city
       } else {
@@ -479,26 +517,14 @@ export default {
     width: 100%;
     height:calc(100% - 64px);
     overflow: auto;
-    background:#252a4a;
+    background: url('../../assets/images/overview_bg.png') center no-repeat;
     background-size: cover;
     box-sizing: border-box;
     padding-right: 15px;
   }
   #nodeListDiv{
-    background: #202342;
+    background: #fff;
     box-shadow: none !important;
-  }
-  p.overviewLabel{
-    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 29px;
-    letter-spacing: 0em;
-    text-align: left;
-    color: #ffffff;
-    padding-bottom: 15px;
-    margin-bottom: 15px;
   }
   .mt20 {
     margin-top: 20px;
@@ -506,32 +532,17 @@ export default {
   .ml20 {
     margin-left: 20px;
   }
-  .el-table td, .el-table th{
-    padding:5px 0;
-  }
-  .el-table .has-gutter th{
-    background: #2d325a!important;
-  }
-  .el-table__expanded-cell{
-    background: transparent!important;
-  }
-  .el-table, .el-table__expanded-cell{
-    background: transparent!important;
-    border-radius: 10px !important;
-  }
   .nodeBasicInfo{
-    color:#CCCCCC;
-    margin-top: 15px;
-    .nodeInfo{
-      font-size: 14px;
-    }
+    color:#380879;
+
+    font-size: 18px;
+    margin: 15px 0 15px 30px;
     .nodeInfo:nth-child(2){
       padding: 15px 0;
     }
   }
   .content-right {
       padding: 0!important;
-      height: 100%;
     .my-title {
       color: white;
     }
@@ -540,11 +551,8 @@ export default {
       .blockContent{
         padding: 15px 20px;
         margin-bottom: 40px;
-        border: 1px solid #2d3258;
-        background: #2d3258;
         margin-top: 15px;
         border-radius:30px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       }
       .el-select {
         .el-input {
@@ -574,7 +582,6 @@ export default {
   .nodelistTable{
     max-height: 300px;
     overflow-y: auto;
-    border-radius: 10px;
   }
   .hostName{
     margin-left: 10px;
@@ -584,22 +591,20 @@ export default {
     margin-bottom:15px;
   }
   .mapPanel{
-    margin-top: 30px;
-    height:calc(100% - 40px);
+    height: 100%;
     padding-left:0!important;
-    background:#202441;
-    border: 1px solid #202441;
+    background:#fff;
     box-sizing: border-box;
     border-radius: 5%;
   }
   .showDetails{
-    width: 39px;
-    height: 20px;
-    background: #6e35f4;
-    color: #ffffff;
+    width: 43px;
+    height: 24px;
+    background: #efefef;
+    color: #7a6e8a;
     border: none;
-    border-radius: 2px;
-    line-height: 20px;
+    border-radius: 5px;
+    line-height: 24px;
   }
   .dataContent{
     display:flex;
@@ -607,34 +612,31 @@ export default {
     justify-content:space-evenly;
   }
   .defaultNum{
-    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
-    font-style: normal;
-    font-weight: normal;
     font-size: 48px;
-    line-height: 59px;
-    text-align: center;
-    width: 23%;
-    height: 110px;
+    width: 30%;
+    height: 150px;
     color: #ffff;
-    padding-top: 10px;
-    border-radius: 20px;
-  }
-  .totalNum{
-    background:#6E34FA;
-  }
-  .onlineNum{
-    background:#4C79FF;
-  }
-  .offlineNum{
-    background:#F14E66;
-  }
-  .defaultName{
-    font-size: 14px;
-    color: #ffff;
-    line-height: 20px;
-  }
-  .mecm-overview .el-table td,.mecm-overview .el-table th{
-    height: 36px;
+    background: url('../../assets/images/jdzs_bg.png') center no-repeat;
+    background-size: cover;
+    padding: 20px 50px;
+    .numLeft{
+      width: 50%;
+      padding-left: 40px;
+    }
+    .numRight{
+      width: 50%;
+      p{
+        color: #6040c8;
+        text-align: center;
+      }
+      .num{
+        font-size: 76px;
+        font-weight: bold;
+      }
+      .defaultName{
+        font-size: 20px;
+      }
+    }
   }
   .popover {
     width: 310px;
@@ -646,5 +648,36 @@ export default {
     background: #484F8C;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
+  }
+  .bottom{
+    height: 100%;
+    margin: 0 10%;
+    padding: 40px 35px;
+    background: #fff;
+    border-radius: 20px;
+  }
+  .selectCapa{
+    display: inline-block;
+    .el-select{
+      width: 137px;
+      height: 30px;
+      .el-input__inner{
+        height: 30px;
+        border-radius: 8px !important;
+      }
+      .el-input__icon{
+        line-height: 30px;
+      }
+    }
+  }
+  .top{
+    height: 30%;
+  }
+  .bottom{
+    height: 68%;
+  }
+  .mepCapaTable{
+    max-height: 300px;
+    overflow-y: auto;
   }
 </style>

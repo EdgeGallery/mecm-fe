@@ -18,7 +18,7 @@
 html,body,p,h1,h2,h3,h4,h5,h6,ul,li,div{
   margin:0;
   padding:0;
-  font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
+  font-family: HarmonyHeiTi, Arial, sans-serif;
   box-sizing: border-box;
 }
 #app,html,body{
@@ -201,40 +201,50 @@ input::placeholder {
 }
 
 /* 表格样式 */
-.el-table .has-gutter th{
-  color:#E5E5E5;
-}
 body .el-table th.gutter{
   display: table-cell !important;
 }
-.el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
-  font-size:14px!important;
-}
+// .el-table--mini, .el-table--small, .el-table__expand-icon ,.el-form-item__label,.el-button--mini, .el-button--small, .el-button ,.el-breadcrumb{
+//   font-size:14px!important;
+// }
 .el-table tr, .el-table__empty-block{
-  background: #2d325a  !important;
-  color:#FFFFFF;
-}
-.el-table td, .el-table th.is-leaf{
-  border-bottom: 1px solid rgba(255, 255, 255, 0.03)!important;
+  color: #62517a;
 }
 .el-table td, .el-table th{
   height: 72px;
 }
-.el-table, .el-table__expanded-cell{
-  background-color: transparent !important;
-  border-radius: 15px;
-}
 .el-table th>.cell{
   font-size: 16px;
   font-weight: 400;
-  background: transparent;
 }
 .el-table--border::after, .el-table--group::after, .el-table::before{
   z-index: -1!important;
 }
-.el-table th,.el-table--enable-row-hover .el-table__body tr:hover>td{
+.el-table--enable-row-hover .el-table__body tr:hover>td{
   background: #383c6b  !important;
   color: #ffffff;
+  opacity: 60%;
+}
+
+
+.el-table td, .el-table th{
+  padding:5px 0;
+}
+.el-table .has-gutter th{
+  background: #edeef8!important;
+  .cell{
+    font-weight: bold!important;
+    color: #62517a !important;
+  }
+}
+
+.el-table td,.mecm-overview .el-table th{
+  height: 36px;
+}
+
+
+.el-table__header-wrapper{
+  border-radius: 6px!important;
 }
 
 /* area-link样式 */
@@ -417,4 +427,38 @@ body .el-table th.gutter{
 }
 .div7{
   width:240px;height:130px;background:rgba(22,80,158,0.8);border:1px solid rgba(7,166,255,0.7)
+}
+
+// label
+div.overviewLabel{
+  font-weight: bold;
+  font-size: 26px;
+  text-align: left;
+  color: #5d3da0;
+  .block{
+    width: 80px;
+    height:8px;
+    border-radius: 3px;
+    background: #9e7bcd;
+    margin: 5px 0 15px 0;
+    opacity: 20%;
+  }
+}
+
+.secondLabel{
+  color:#380879;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: left;
+  padding: 0 0 20px 0;
+}
+.secondLabel::before{
+  display: inline-block;
+  content:'';
+  width:17px;
+  height:17px;
+  background: #55d8bf;
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
 }

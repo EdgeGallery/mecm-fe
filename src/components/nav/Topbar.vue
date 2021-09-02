@@ -154,14 +154,14 @@ export default {
   .el-menu-item{
     height: 64px;
     line-height: 64px;
-    background: #2d325a !important;
+    background: #5e40c8 !important;
     color: white;
   }
 }
 .el-menu--horizontal>.el-submenu .el-submenu__title{
   height: 64px !important;
   line-height: 64px !important;
-  background-color: #2d325a !important;
+  background-color: #5e40c8 !important;
   color: white;
 }
 .el-menu{

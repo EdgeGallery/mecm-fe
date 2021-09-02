@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="usageDiv">
     <el-row :gutter="10">
       <el-col
         :span="8"
@@ -57,28 +57,36 @@ export default {
           max: 100,
           pointer: {
             show: true,
-            width: 3,
-            length: '60%',
-            color: '#0067d1'
+            width: 5,
+            length: '60%'
+          },
+          axisTick: {
+            show: true,
+            splitNumber: 7, // 刻度的段落数
+            lineStyle: {
+              color: '#8254f8',
+              width: 1 // 刻度的宽度
+            },
+            length: 6 // 刻度的长度
           },
           axisLine: {
             show: true,
             lineStyle: {
-              width: 8,
+              width: 10,
               color: [
-                [0.3, '#20ea71'],
-                [0.7, '#23a7f5'],
-                [1, '#f919d3']
+                [0.3, '#61caa6'],
+                [0.7, '#fcb35d'],
+                [1, '#da2d2d']
               ],
-              borderColor: '#000',
+              borderColor: '#8254f8',
               borderWidth: '2'
             }
           },
           splitLine: {
-            show: false,
+            show: true,
             length: '28%',
             lineStyle: {
-              color: '#fff',
+              color: '#8254f8',
               width: 2
             }
           },
@@ -139,6 +147,8 @@ export default {
 
 </script>
 <style lang='less' scoped>
+.usageDiv{
+  margin-bottom: 15px;
   .progerss-item {
     text-align: center;
     color: white;
@@ -146,10 +156,9 @@ export default {
       color: white;
     }
     p{
-      position: relative;
-      top:-10px;
-      color:#ddd;
-      font-size:18px;
+      color:#5b4ad1;
+      font-size:16px;
     }
   }
+}
 </style>

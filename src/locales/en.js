@@ -63,7 +63,6 @@ const en = {
     containerUsage: 'Container Usage',
     name: 'Name: ',
     register: 'Register',
-    alarms: 'Alarms',
     nodeinfo: 'Node Info',
     statistics: 'Statistics',
     nodeIp: 'Node IP: ',
