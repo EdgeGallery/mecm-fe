@@ -84,12 +84,20 @@ export default {
 <style  lang='less'>
 .el-pagination.is-background .el-pager li:not(.disabled).active {
     background: #6e35f7 !important;
-    border-radius: 4px  !important;
     color: #fff !important;
+    border-radius: 10px!important;
 }
   .el-pagination.is-background .el-pager li {
     background-color: #0d0d0d;
     color: #fff;
+    border-radius: 10px!important;
+    width: 20px!important;
+    min-width: 20px;
+    height: 20px!important;
+    line-height: 20px!important;
+    padding: 0 !important;
+    position: relative;
+    top: 3px;
   }
   .el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next{
     color: #717185  !important;

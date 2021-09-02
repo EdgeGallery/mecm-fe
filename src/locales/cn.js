@@ -54,6 +54,7 @@ const cn = {
     disk: 'DISK',
     mepCapa: 'MEP硬件能力',
     mepInfo: 'MEP能力信息',
+    capaInfo: '能力信息',
     softwareCapa: 'MEP软件能力',
     capa: '能力',
     vendor: '提供商',
@@ -68,7 +69,6 @@ const cn = {
     containerUsage: '容器占用率',
     name: '名称：',
     register: '注册',
-    alarms: '告警',
     statistics: '统计表',
     nodeIp: '节点IP：',
     nodeName: '节点名称：',
@@ -199,15 +199,15 @@ const cn = {
   },
   system: {
     mepm: {
-      ip: 'IP地址',
-      port: '端口',
+      ip: 'IP地址：',
+      port: '端 口：',
       manageMecHost: 'MEC主机管理',
       userNmae: '用户名',
       password: '密码',
       newReg: '新增注册',
       mepmReg: 'MEPM 注册',
       mepmModify: 'MEPM 编辑',
-      name: '名称'
+      name: '名 称：'
     },
     edgeNodes: {
       systemPlatform: 'systemPlatform',

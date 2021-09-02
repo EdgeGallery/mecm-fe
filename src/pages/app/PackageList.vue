@@ -16,29 +16,27 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.packageMana')"
-      :path="{ path: '/mecm/app/package' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.packageMana') }}
+      <div class="block" />
+    </div>
+    <div class="btn-p">
+      <el-button
+        id="syncBtn"
+        class="rt"
+        type="primary"
+        @click="showSyncBox()"
+      >
+        <span class="iconcont sync" />
+        <span>{{ $t('app.packageList.synchronize') }}</span>
+      </el-button>
+    </div>
     <div class="contentList">
       <Search
         @getSearchData="getSearchData"
         :status-item="false"
         :type-item="false"
       />
-      <div class="btn-p">
-        <el-button
-          id="syncBtn"
-          class="rt"
-          type="primary"
-          @click="showSyncBox()"
-        >
-          {{ $t('app.packageList.synchronize') }}
-        </el-button>
-      </div>
       <div class="tableDiv">
         <el-row>
           <el-col
@@ -141,11 +139,14 @@
     </div>
     <!-- 同步 -->
     <el-dialog
-      :title="$t('app.packageList.synchronize')"
+      :show-close="false"
       :visible.sync="syncDialogVisible"
       width="width"
     >
       <div>
+        <div class="secondLabel">
+          {{ $t('app.packageList.synchronize') }}
+        </div>
         <div>
           <el-select
             v-model="appstoreIp"
@@ -209,13 +210,6 @@
           class="dialog-footer"
         >
           <el-button
-            @click="cancelToSync"
-            size="small"
-            id="cancelBtn"
-          >
-            {{ $t('common.cancel') }}
-          </el-button>
-          <el-button
             type="primary"
             @click="confirmToSync()"
             size="small"
@@ -223,16 +217,25 @@
           >
             {{ $t('common.confirm') }}
           </el-button>
+          <el-button
+            @click="cancelToSync"
+            size="small"
+            id="cancelBtn"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
         </span>
       </div>
     </el-dialog>
     <!-- 分发 -->
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('app.packageList.slectEdgeNodes')"
+      :show-close="false"
       :visible.sync="dialogVisible"
       v-loading="loading"
     >
+      <div class="secondLabel">
+        {{ $t('app.packageList.slectEdgeNodes') }}
+      </div>
       <el-row class="el-row-search">
         <el-col
           :span="8"
@@ -317,13 +320,6 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancel()"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
@@ -331,6 +327,13 @@
           :loading="loading"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancel()"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </div>
     </el-dialog>
@@ -342,11 +345,10 @@ import { apm, inventory } from '../../tools/request.js'
 import { TYPESFORAPP, INDUSTRY } from '../../tools/constant.js'
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 export default {
   name: 'ApacList',
   components: {
-    Search, Pagination, Breadcrumb
+    Search, Pagination
   },
   data () {
     return {

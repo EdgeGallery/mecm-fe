@@ -16,13 +16,23 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.system')"
-      :third="null"
-      :path="{ path: '' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.edgeNodes') }}
+      <div class="block" />
+    </div>
+    <p
+      class="btn-p"
+      v-if="rlp=='418'"
+    >
+      <el-button
+        id="newregBtn"
+        type="primary"
+        @click="showEditDialog()"
+      >
+        <span class="iconcont add" />
+        <span>{{ $t('system.mepm.newReg') }}</span>
+      </el-button>
+    </p>
     <div class="contentList">
       <Search
         :status-item="false"
@@ -30,24 +40,11 @@
         :ip-item="true"
         @getSearchData="getSearchData"
       />
-      <p
-        class="btn-p"
-        v-if="rlp=='418'"
-      >
-        <el-button
-          id="newregBtn"
-          type="primary"
-          @click="showEditDialog()"
-        >
-          {{ $t('system.mepm.newReg') }}
-        </el-button>
-      </p>
       <div class="tableDiv">
         <el-row class="table">
           <el-table
             :data="currPageTableData"
             v-loading="dataLoading"
-            class="mt20"
             :highlight-current-row="highlight"
             size="small"
           >
@@ -71,15 +68,12 @@
             <el-table-column
               prop="city"
               :label="$t('system.edgeNodes.location')"
+              width="200"
             />
             <el-table-column
               prop="vim"
               label="VIM"
             />
-            <!-- <el-table-column
-              prop="affinity"
-              :label="$t('app.packageList.affinity')"
-            /> -->
             <el-table-column
               prop="mepmIp"
               :label="$t('system.edgeNodes.mepmIp')"
@@ -175,11 +169,13 @@
       </div>
       <!-- 新增/编辑节点 -->
       <el-dialog
-        :close-on-click-modal="false"
-        :title="title"
+        :show-close="false"
         :visible.sync="dialogVisible"
         width="30%"
       >
+        <div class="secondLabel">
+          {{ title }}
+        </div>
         <FormContent
           :rowdata="formdata"
           :type="type"
@@ -188,11 +184,13 @@
       </el-dialog>
       <!-- 上传文件 -->
       <el-dialog
-        :close-on-click-modal="false"
-        :title="$t('system.edgeNodes.uploadFile')"
+        :show-close="false"
         :visible.sync="dialogVisibleUpload"
         width="30%"
       >
+        <div class="secondLabel">
+          {{ $t('system.edgeNodes.uploadFile') }}
+        </div>
         <UploadFile
           :mechostip="hostIp"
           @close="closeUploadDialog"
@@ -206,13 +204,12 @@
 import { appo, apm, inventory } from '../../tools/request.js'
 import pagination from '../../components/common/Pagination.vue'
 import Search from '../../components/common/Search.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import FormContent from './HostDialog.vue'
 import UploadFile from './UploadDialog.vue'
 export default {
   name: 'Sysk8s',
   components: {
-    Search, pagination, Breadcrumb, FormContent, UploadFile
+    Search, pagination, FormContent, UploadFile
   },
   data () {
     return {
@@ -358,10 +355,4 @@ export default {
 .hostName{
   margin-left: 10px;
 }
- .el-button--small, .el-button--small.is-round{
-    border: none !important;
-    color: #CDC3F0 ;
-    background: #434980;
-    border-radius: 6px;
-  }
 </style>

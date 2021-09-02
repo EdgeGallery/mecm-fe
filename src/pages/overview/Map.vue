@@ -17,26 +17,19 @@
 <template>
   <div class="mapContainer">
     <div class="content">
-      <h3
-        class="mapTxt"
-        v-show="showMainView"
-      >
-        {{ $t('overview.distributionDisplay') }}
-      </h3>
       <div
         id="mapChart"
         class="chart"
         v-show="showMainView"
       />
       <div
-        id="mapChart1"
-        class="chart1"
+        id="mapDetailMap"
+        class="detailMap"
         v-show="!showMainView"
       />
       <el-button
         type="primary"
         class="return"
-        size="small"
         v-if="btnShow"
         @click="returnOverviewModel"
       >
@@ -91,6 +84,8 @@ export default {
   },
   mounted () {
     this.getNodeList()
+    let detailMap = document.getElementById('mapDetailMap')
+    detailMap.style.height = window.innerHeight
   },
   watch: {
     detail () {
@@ -122,7 +117,6 @@ export default {
       })
     },
     showLayers (arr) {
-      console.log(arr)
       this.showMainView = false
       this.$nextTick(() => {
         this.openlayers(arr)
@@ -183,13 +177,13 @@ export default {
           console.log(err)
         })
     },
-    regAndSetOption (myChart1, name, mapJson, flag) {
+    regAndSetOption (myDetailMap, name, mapJson, flag) {
       let data = this.nodeData
       data.forEach(item => {
         item.coord = item.coordinates
       })
       echarts.registerMap(name, mapJson)
-      myChart1.setOption({
+      myDetailMap.setOption({
         visualMap: {
           show: false
         },
@@ -265,14 +259,16 @@ export default {
           {
             type: 'map',
             map: name,
-            zoom: 1.2,
+            zoom: 1,
             aspectScale: 0.75,
             animationDelayUpdate: 300,
+            top: '8%',
             label: {
               normal: {
                 show: true,
-                color: '#fff',
+                color: '#252525',
                 fontSize: 12,
+                fontFamily: 'HarmonyHeiTi',
                 formatter: function (params) {
                   if (localStorage.getItem('language') === 'en') {
                     let pinyin = require('pinyin')
@@ -296,13 +292,12 @@ export default {
             },
             itemStyle: {
               normal: {
-                // 常规
-                areaColor: '#122045',
-                borderColor: '#2ab8ff',
+                areaColor: '#e7e5ec',
+                borderColor: '#000000',
                 boxShadow: '10px 20px 30px '
               },
               emphasis: {
-                areaColor: '#5c4dfe'
+                areaColor: '#5d3ec6'
               }
             },
             data: this.initMapData(mapJson),
@@ -344,15 +339,11 @@ export default {
         }))
       } else {
         this.map = new Map({
-          target: 'mapChart1',
+          target: 'mapDetailMap',
           layers: [
             new TileLayer({
               source: new XYZ({
-                // openstreet
                 url: 'http://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-                // 高德地图
-                // url: 'http://webst0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}'
-                // url: 'http://www.google.cn/maps/vt/pb=!1m4!1m3!1i{z}!2i{x}!3i{y}!2m3!1e0!2sm!3i345013117!3m8!2szh-CN!3scn!5e1105!12m4!1e68!2m2!1sset!2sRoadmap!4e0'
               })
 
             })
@@ -439,32 +430,28 @@ export default {
 .content {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .chart,.chart1 {
-    height: 85%;
-    width: 85%;
-    margin: 0%;
+  .chart,.detailMap {
+    height: 100%;
+    width: 100%;
     z-index: 99;
-    background: #2d325a;
-    border-radius: 5%;
+    background: #f6f6f6;
+    border-radius: 20px;
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
   }
-  .mapTxt{
-    position: relative;
-    top: -10px;
-    color: white;
-    text-align: left;
-    width: 85%;
-    padding: 10px;
-    font-size: 20px;
-  }
   .return{
-    position: absolute !important;
-    top:42px !important;
-    left:43% !important;
+    position: relative;
+    top: -55px;
+    left: 80%;
+    z-index: 999;
+    background: #000000;
+    opacity: 40%;
+    color: #ffff;
+    border-radius: 6px;
+    width: 125px;
+    height: 35px;
+    font-size: 16px;
+    line-height: 35px;
+    padding: 0;
   }
 }
 

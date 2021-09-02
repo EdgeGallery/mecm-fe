@@ -17,12 +17,14 @@
 <template>
   <div class="manage-dialog">
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('overview.manage')"
+      :show-close="false"
       :visible.sync="dialogVisible"
       width="50%"
       :before-close="handleClose"
     >
+      <div class="secondLabel">
+        {{ $t('overview.manage') }}
+      </div>
       <div class="mt20">
         <label class="title">{{ $t('overview.services') }}</label>
         <el-table
@@ -166,7 +168,6 @@ export default {
     }
   }
   .el-radio{
-    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 18px;
     color: #212121;
     line-height: 16px;
@@ -175,7 +176,6 @@ export default {
     text-align: center;
   }
   .nameLable{
-      font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
       font-size: 18px;
       color: #999999;
       letter-spacing: 0;
@@ -183,7 +183,6 @@ export default {
       margin-right:5px;
   }
   label.dialogLabel{
-    font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
     font-size: 15px;
     color: #212121;
     letter-spacing: 0;

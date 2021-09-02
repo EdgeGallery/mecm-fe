@@ -30,7 +30,7 @@
         type="primary"
         @click="multipleDeploy"
       >
-        {{ $t('app.distriList.multipleDeploy') }}
+        <span>{{ $t('app.distriList.multipleDeploy') }}</span>
       </el-button>
     </div>
     <div class="tableDiv">
@@ -148,11 +148,13 @@
       </div>
     </div>
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('app.distriList.deploymentConf')"
+      :show-close="false"
       :visible.sync="dialogVisible"
       width="40%"
     >
+      <div class="secondLabel">
+        {{ $t('app.distriList.deploymentConf') }}
+      </div>
       <el-form
         label-width="auto"
         class="configForm"
@@ -237,17 +239,17 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="dialogVisible = false,loading=false"
-        >{{ $t('common.cancel') }}</el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
           @click="confirmToDeploy('configForm')"
           :loading="loading"
         >{{ $t('common.confirm') }}</el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="dialogVisible = false,loading=false"
+        >{{ $t('common.cancel') }}</el-button>
       </span>
     </el-dialog>
   </div>

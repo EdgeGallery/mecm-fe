@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div id="app">
+  <div
+    id="app"
+    class="appView"
+  >
     <Navbar />
     <router-view id="container" />
   </div>
@@ -38,10 +41,9 @@ export default {
 
 <style>
 #app {
-  font-family: FZLanTingHeiS-B-GB, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:#252a4a;
+  background:#efefef;
   background-size:cover;
   overflow: auto;
 }

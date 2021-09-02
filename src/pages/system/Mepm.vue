@@ -16,14 +16,25 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.system')"
-      :third="$t('nav.mepm')"
-      :path="{ path: '/mecm/system/mepm' }"
-    />
-    <div class="cardContent">
+    <div class="overviewLabel">
+      {{ $t('nav.appstore') }}
+      <div class="block" />
+    </div>
+    <p
+      class="btn-p"
+      v-if="rlp=='418'"
+    >
+      <el-button
+        id="newregBtn"
+        type="primary"
+        @click="showEditDialog('')"
+        class="rt"
+      >
+        <span class="iconcont add" />
+        <span>{{ $t('system.mepm.newReg') }}</span>
+      </el-button>
+    </p>
+    <div class="contentList">
       <div class="applcmContainer">
         <Search
           :affinity-item="false"
@@ -32,36 +43,22 @@
           :status-item="false"
           @getSearchData="getSearchData"
         />
-        <p
-          class="btn-p lt"
-          v-if="rlp=='418'"
-        >
-          <el-button
-            id="newregBtn"
-            type="primary"
-            @click="showEditDialog('')"
-            class="rt"
-          >
-            {{ $t('system.mepm.newReg') }}
-          </el-button>
-        </p>
-        <div class="applcmList">
+        <div class="mepmList">
           <div
             v-for="(item,index) in currPageTableData"
             :key="index"
             class="content"
           >
             <div
-              class="list"
-              :class="Math.round(Math.random())===0? 'bgImgone': 'bgImgtwo'"
+              class="list bgImgone"
             >
               <el-form
                 label-width="auto"
               >
-                <el-form-item :label="$t('app.packageList.name')">
+                <el-form-item :label="$t('system.mepm.name')">
                   {{ item.mepmName }}
                 </el-form-item>
-                <el-form-item :label="$t('app.packageList.ip')">
+                <el-form-item :label="$t('system.mepm.ip')">
                   {{ item.mepmIp }}
                 </el-form-item>
                 <el-form-item :label="$t('system.mepm.port')">
@@ -102,11 +99,13 @@
       </div>
     </div>
     <el-dialog
-      :close-on-click-modal="false"
-      :title="title"
+      :show-close="false"
       :visible.sync="dialogVisible"
       width="25%"
     >
+      <div class="secondLabel">
+        {{ title }}
+      </div>
       <ApplcmDialog
         :rowdata="formdata"
         :type="type"
@@ -120,14 +119,12 @@
 import { inventory } from '../../tools/request.js'
 import Search from '../../components/common/Search.vue'
 import pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import ApplcmDialog from './MepmDialog.vue'
 
 export default {
-  name: 'CardContent',
+  name: 'ContentList',
   components: {
     pagination,
-    Breadcrumb,
     Search,
     ApplcmDialog
   },
@@ -218,27 +215,28 @@ export default {
 </script>
 
 <style lang='less'>
-.cardContent{
+.contentList{
   margin: 0 10%;
   height: 100%;
-  padding-top: 50px;
   .btn-group{
-    margin: 0px 15px 0px 0px;
-    justify-content: center;
+    margin: 0px 10% 0px 0px;
+    justify-content: flex-end;
+    position: relative;
+    top: 3px;
     .el-button{
-      background: none;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-sizing: border-box;
-      border-radius: 4px;
-      font-size: 14px;
-      line-height: 16px;
-      color: rgba(255, 255, 255, 0.8);
+      height: 30px;
+      background: #5844be;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 15px;
     }
   }
-  .applcmList{
+  .mepmList{
     width: 100%;
     display:flex;
     flex-wrap: wrap;
+    margin-top: 10px;
     .content {
       width: 25%;
       padding: 0 6px;
@@ -250,14 +248,16 @@ export default {
         align-items: center;
         justify-content: space-around;
         transition: transform 0.3s ease-in;
+        padding-left: 15%;
         .el-form{
           width:100%;
           .el-form-item{
             margin-bottom: 8px;
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
+            color: #ffffff;
             .el-form-item__label{
               line-height:24px ;
+              color: #ffffff;
             }
             .el-form-item__content{
               height: 24px;
@@ -267,24 +267,14 @@ export default {
         }
       }
       .bgImgone{
-        background-image: url('../../assets/images/cardBgone.png');
-        background-size:100% 100%;
-      }
-      .bgImgtwo{
-        background-image: url('../../assets/images/cardBgtwo.png');
-        background-size:100% 100%;
+        background-image: url('../../assets/images/mepm_bg.png');
+        background-size:100% 105%;
       }
       .bgImgone:hover{
         transform: translate3d(0,-10px,0);
         border-radius: 10px;
         box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
         background-image: url('../../assets/images/cardBgoneHover.png');
-      }
-      .bgImgtwo:hover{
-        transform: translate3d(0,-10px,0);
-        border-radius: 10px;
-        box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
-        background-image: url('../../assets/images/cardBgtwoHover.png');
       }
     }
   }

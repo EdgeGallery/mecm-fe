@@ -16,33 +16,32 @@
 
 <template>
   <div>
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.appInstance')"
-      :path="{ path: '/mecm/app/package' }"
-    />
+    <div class="overviewLabel">
+      {{ $t('nav.appInstance') }}
+      <div class="block" />
+    </div>
+    <div class="btn-p">
+      <el-button
+        type="primary"
+        id="deleteInsBtn"
+        @click="beforeDelete(selectData,1)"
+      >
+        <span
+          class="iconcont"
+          style="top:0;"
+        >X</span>
+        <span>{{ this.$t('app.instanceList.batchDelete') }}</span>
+      </el-button>
+    </div>
     <div class="contentList">
       <Search
         :affinity-item="false"
         :status-item="true"
         :status="status"
         @getSearchData="getSearchData"
-        class="rt"
       />
-      <div class="btn-p">
-        <el-button
-          type="primary"
-          id="deleteInsBtn"
-          @click="beforeDelete(selectData,1)"
-        >
-          {{ this.$t('app.instanceList.batchDelete') }}
-        </el-button>
-      </div>
       <div class="tableDiv">
         <el-table
-          class="mt20"
           size="small"
           :data="currPageTableData"
           v-loading="dataLoading"
@@ -132,10 +131,13 @@
         </div>
       </div>
       <el-dialog
-        :title="$t('app.instanceList.appKPI')"
+        :show-close="false"
         :visible.sync="instanceListVisible"
         width="width"
       >
+        <div class="secondLabel">
+          {{ $t('app.instanceList.appKPI') }}
+        </div>
         <div>
           <div style="min-height:280px;">
             <el-row :gutter="10">
@@ -184,11 +186,13 @@
         </div>
       </el-dialog>
       <el-dialog
-        :close-on-click-modal="false"
-        :title="$t('app.instanceList.instanceDetail')"
+        :show-close="false"
         :visible.sync="dialogVisible"
         width="40%"
       >
+        <div class="secondLabel">
+          {{ $t('app.instanceList.instanceDetail') }}
+        </div>
         <el-form
           label-width="auto"
           class="detailForm"
@@ -222,7 +226,6 @@
 <script>
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
 import { appo } from '../../tools/request.js'
 import InstanceUsage from '../overview/InstanceUsage.vue'
 export default {
@@ -230,7 +233,6 @@ export default {
   components: {
     Search,
     Pagination,
-    Breadcrumb,
     InstanceUsage
   },
   data () {
@@ -463,12 +465,6 @@ export default {
   }
   .detailTab {
     margin-top: -10px
-  }
-   .el-button--small, .el-button--small.is-round{
-    border: none !important;
-    color: #CDC3F0 ;
-    background: #434980;
-    border-radius: 6px;
   }
   #deleteInsBtn{
     background: #5E40C8;

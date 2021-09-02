@@ -98,11 +98,13 @@
     </div>
     <!-- check Detail dialog-->
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('common.detail')"
+      :show-close="false"
       :visible.sync="showDetail"
       width="45%"
     >
+      <div class="secondLabel">
+        {{ $t('common.detail') }}
+      </div>
       <div class="dialogContent">
         <Detail
           :data="detail"
@@ -112,11 +114,13 @@
 
     <!-- all operation dialog -->
     <el-dialog
-      :close-on-click-modal="false"
-      :title="$t('app.instanceList.addRule')"
+      :show-close="false"
       :visible.sync="operationDialog"
       width="75%"
     >
+      <div class="secondLabel">
+        {{ $t('app.instanceList.addRule') }}
+      </div>
       <div class="dialogContent">
         <p class="title">
           {{ $t('app.ruleConfig.trafficRule') }}
@@ -375,12 +379,14 @@
 
         <!-- Filter dialog -->
         <el-dialog
-          :close-on-click-modal="false"
+          :show-close="false"
           width="50%"
-          :title="$t('app.ruleConfig.trafficRule')"
           :visible.sync="innerFilterVisible"
           append-to-body
         >
+          <div class="secondLabel">
+            {{ $t('app.ruleConfig.trafficRule') }}
+          </div>
           <el-row>
             <el-form
               label-width="auto"
@@ -529,13 +535,6 @@
             class="dialog-footer"
           >
             <el-button
-              id="cancelBtn"
-              @click="cancelEdit('trafficFilter')"
-              size="small"
-            >
-              {{ $t('common.cancel') }}
-            </el-button>
-            <el-button
               type="primary"
               size="small"
               id="confirmBtn"
@@ -543,17 +542,26 @@
             >
               {{ $t('common.confirm') }}
             </el-button>
+            <el-button
+              id="cancelBtn"
+              @click="cancelEdit('trafficFilter')"
+              size="small"
+            >
+              {{ $t('common.cancel') }}
+            </el-button>
           </div>
         </el-dialog>
 
         <!-- interface dialog -->
         <el-dialog
-          :close-on-click-modal="false"
+          :show-close="false"
           width="30%"
-          :title="$t('app.ruleConfig.interfaceInfo')"
           :visible.sync="innerInterfaceVisible"
           append-to-body
         >
+          <div class="secondLabel">
+            {{ $t('app.ruleConfig.interfaceInfo') }}
+          </div>
           <el-row>
             <el-form
               label-width="auto"
@@ -660,19 +668,19 @@
             class="dialog-footer"
           >
             <el-button
-              id="cancelBtn"
-              @click="cancelEdit('dstInterface')"
-              size="small"
-            >
-              {{ $t('common.cancel') }}
-            </el-button>
-            <el-button
               id="confirmBtn"
               type="primary"
               size="small"
               @click="confirmToAdd('dstInterface')"
             >
               {{ $t('common.confirm') }}
+            </el-button>
+            <el-button
+              id="cancelBtn"
+              @click="cancelEdit('dstInterface')"
+              size="small"
+            >
+              {{ $t('common.cancel') }}
             </el-button>
           </div>
         </el-dialog>
@@ -682,19 +690,19 @@
         class="dialog-footer"
       >
         <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancelAddRule"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-        <el-button
           id="confirmBtn"
           type="primary"
           size="small"
           @click="confirmToAddTraRules"
         >
           {{ $t('common.confirm') }}
+        </el-button>
+        <el-button
+          id="cancelBtn"
+          size="small"
+          @click="cancelAddRule"
+        >
+          {{ $t('common.cancel') }}
         </el-button>
       </span>
     </el-dialog>
