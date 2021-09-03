@@ -7,6 +7,7 @@
           :model="form"
           ref="form"
           :rules="rules"
+          :inline="true"
         >
           <el-form-item
             :label="$t('system.mepm.name')"

@@ -20,7 +20,7 @@
       {{ $t('nav.packageMana') }}
       <div class="block" />
     </div>
-    <div class="btn-p">
+    <div class="btnMain">
       <el-button
         id="syncBtn"
         class="rt"
