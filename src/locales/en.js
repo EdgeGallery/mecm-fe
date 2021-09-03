@@ -75,7 +75,8 @@ const en = {
     onlineNodes: 'No. Online Nodes',
     offlineNodes: 'No.ffline Nodes',
     returnOverview: 'Back to main view',
-    nodeKPI: 'Node KPI'
+    nodeKPI: 'Node KPI',
+    monitor: 'Status Monitoring'
   },
   app: {
     packageList: {

@@ -73,7 +73,8 @@ const cn = {
     onlineNodes: '在线节点数',
     offlineNodes: '离线节点数',
     returnOverview: '返回主视图',
-    nodeKPI: '节点KPI'
+    nodeKPI: '节点KPI',
+    monitor: '运行状态监控'
   },
   app: {
     packageList: {

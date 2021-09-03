@@ -1,5 +1,8 @@
 <template>
   <div style="height:100%;">
+    <div class="secondLabel">
+      {{ $t('overview.monitor') }}
+    </div>
     <el-row
       :gutter="10"
       style="height:100%;"
@@ -45,7 +48,6 @@ export default {
   },
   methods: {
     regAndSetOption (pieData) {
-      console.log(pieData)
       let myChart1 = echarts.init(document.getElementById('chart'))
       var titleArr = []
       var seriesArr = []

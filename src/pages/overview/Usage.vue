@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import echarts from 'echarts'
 export default {
   props: {
     kpiInfo: {
@@ -48,6 +49,7 @@ export default {
     }
   },
   data () {
+    // var color =
     this.chartSettings = {
       seriesMap: {
         'Usage': {
@@ -70,14 +72,23 @@ export default {
             length: 6 // 刻度的长度
           },
           axisLine: {
-            show: true,
             lineStyle: {
               width: 10,
-              color: [
-                [0.3, '#61caa6'],
-                [0.7, '#fcb35d'],
-                [1, '#da2d2d']
-              ],
+              color: [[1, new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                offset: 0,
+                color: '#61caa6'
+              },
+
+              {
+                offset: 0.62,
+                color: '#fcb35d'
+              },
+
+              {
+                offset: 1,
+                color: '#da2d2d'
+              }
+              ])]],
               borderColor: '#8254f8',
               borderWidth: '2'
             }
