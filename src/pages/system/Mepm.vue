@@ -50,7 +50,8 @@
             class="content"
           >
             <div
-              class="list bgImgone"
+              class="list"
+              :class="rlp==='418'?'bgImgone':'bgImgtwo'"
             >
               <el-form
                 label-width="auto"
@@ -66,7 +67,7 @@
                 </el-form-item>
                 <p
                   class="btn-group flex"
-                  v-if="rlp=='418'"
+                  v-if="rlp==='418'"
                 >
                   <el-button
                     size="mini"
@@ -270,7 +271,11 @@ export default {
         background-image: url('../../assets/images/mepm_bg.png');
         background-size:100% 105%;
       }
-      .bgImgone:hover{
+      .bgImgtwo{
+        background-image: url('../../assets/images/mepm_bg1.png');
+        background-size:100% 100%;
+      }
+      .bgImgone:hover,.bgImgtwo:hover{
         transform: translate3d(0,-10px,0);
         border-radius: 10px;
         box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);

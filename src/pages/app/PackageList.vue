@@ -73,7 +73,7 @@
                 prop="affinity"
                 :label="$t('app.packageList.affinity')"
               />
-              <el-table-column
+              <!-- <el-table-column
                 prop="shortDesc"
                 :label="$t('app.packageList.desc')"
               >
@@ -85,7 +85,7 @@
                     {{ scope.row.shortDesc }}
                   </p>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column
                 prop="appstoreName"
                 :label="$t('system.appstore.appstoreName')"
@@ -97,6 +97,7 @@
               <el-table-column
                 :label="$t('common.operation')"
                 align="center"
+                width="230"
               >
                 <template slot-scope="scope">
                   <el-button
