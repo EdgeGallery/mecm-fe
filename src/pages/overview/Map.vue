@@ -205,51 +205,49 @@ export default {
             })
             if (localStorage.getItem('language') === 'en') {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div class="div1">' +
-              '<div class="div2">' + '<i class="span1">' + '</i>' +
-              '<span class="span2">' + 'Node Information' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              'Node Name：' + '<span class="span7">' + params.data.mechostName + '</span>' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              'Node IP：' + '<span class="span9">' + params.data.mechostIp + '</span>' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              'Node Location：' + '<span class="span10">' + params.data.city + '</span>' + '</p>' +
-              '</div>' + '</div>'
+                tipHtml = `<div class="showLabelArea">
+                            <div class="secondLabel">
+                              Node Info
+                            </div>
+                            <div class="labelContent">
+                              <p>Name：${params.data.mechostName}</p>
+                              <p>IP：${params.data.mechostIp}</p>
+                              <p>Address：${params.data.city}</p>
+                            </div>
+                          </div>`
               } else {
-                tipHtml = '<div class="div3">' +
-              '<div class="div4">' + '<i class=="span6">' + '</i>' +
-              '<span class="span8">' + 'Area Node Info' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              'Online Node：' + '<span class="span7">' + num + '</span>' + '个' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              'Offline Node：' + '<span class="span9">' + 0 + '</span>' + '个' + '</p>' +
-              '</div>' + '</div>'
+                tipHtml = `<div class="showLabelArea">
+                            <div class="secondLabel">
+                              Area Node Info
+                            </div>
+                            <div class="labelContent">
+                              <p>Online：${num}</p>
+                              <p>Offline：0</p>
+                            </div>
+                          </div>`
               }
             } else {
               if (params.componentType === 'markPoint') {
-                tipHtml = '<div class="div5">' +
-              '<div class="div6">' + '<i class="i1">' + '</i>' +
-              '<span class="span8">' + '节点信息' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              '节点名称：' + '<span class="span7">' + params.data.mechostName + '</span>' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              '节点IP：' + '<span class="span9">' + params.data.mechostIp + '</span>' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              '节点地址：' + '<span class="span10">' + params.data.city + '</span>' + '</p>' +
-              '</div>' + '</div>'
+                tipHtml = `<div class="showLabelArea">
+                            <div class="secondLabel">
+                              节点信息
+                            </div>
+                            <div class="labelContent">
+                              <p>名称：${params.data.mechostName}</p>
+                              <p>IP：${params.data.mechostIp}</p>
+                              <p>地址：${params.data.city}</p>
+                            </div>
+                          </div>`
               } else {
-                tipHtml = '<div class="div7">' +
-              '<div class="div6">' + '<i class="i1">' + '</i>' +
-              '<span class="span8">' + '地域节点信息' + '</span>' + '</div>' +
-              '<div style="padding:20px">' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              '在线节点：' + '<span class="span7">' + num + '</span>' + '个' + '</p>' +
-              '<p class="p1">' + '<i class="span3">' + '</i>' +
-              '离线节点：' + '<span class="span9">' + 0 + '</span>' + '个' + '</p>' +
-              '</div>' + '</div>'
+                tipHtml = `<div class="showLabelArea">
+                            <div class="secondLabel">
+                              地域节点信息
+                            </div>
+                            <div class="labelContent">
+                              <p>在线节点：${num}</p>
+                              <p>离线节点：0</p>
+                            </div>
+                          </div>`
               }
             }
             return tipHtml

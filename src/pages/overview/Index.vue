@@ -210,7 +210,6 @@
                     <el-select
                       v-model="capaType"
                       placeholder="请选择"
-                      @change="selectBD"
                     >
                       <el-option
                         v-for="item in options"
@@ -283,7 +282,10 @@
       class="popover"
       v-if="showUsageDialog"
     >
-      <EdgeNodeUsage :kpi-info="usageData" />
+      <EdgeNodeUsage
+        :kpi-info="usageData"
+        @closePopover="showUsageDialog=false"
+      />
     </div>
   </div>
 </template>
@@ -343,13 +345,7 @@ export default {
       }
     }
   },
-  mounted () {
-
-  },
   methods: {
-    selectBD () {
-      this.$forceUpdate()
-    },
     showDialogPosition () {
       if (this.showUsageDialog) {
         clearInterval(this.intervalDialog)
@@ -608,8 +604,8 @@ export default {
     }
   }
   .popover {
-    width: 350px;
-    height: 230px;
+    width: 370px;
+    height: 250px;
     transform-origin: center-bottom;
     z-index: 2007;
     position: absolute;
@@ -632,6 +628,7 @@ export default {
       height: 30px;
       .el-input__inner{
         height: 30px;
+        border: 1px solid #5e40c8 !important;
         border-radius: 8px !important;
       }
       .el-input__icon{
