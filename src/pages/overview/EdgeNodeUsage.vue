@@ -1,15 +1,37 @@
 <template>
   <div style="height:100%;">
+    <div class="secondLabel">
+      {{ $t('overview.monitor') }}
+      <span
+        class="popoverClose"
+        @click="close()"
+      >×</span>
+    </div>
     <el-row
       :gutter="10"
       style="height:100%;"
     >
       <el-col
-        :span="24"
+        :span="12"
         class="progerss-item"
-        style="height:100%;"
       >
-        <div id="chart" />
+        <ve-gauge
+          :data="chartDataCpu"
+          height="150px"
+          :settings="chartSettings"
+        />
+        <p>CPU</p>
+      </el-col>
+      <el-col
+        :span="12"
+        class="progerss-item"
+      >
+        <ve-gauge
+          :data="chartDataMem"
+          height="150px"
+          :settings="chartSettings"
+        />
+        <p>MEM</p>
       </el-col>
     </el-row>
   </div>
@@ -25,17 +47,86 @@ export default {
     }
   },
   data () {
-    return {
-      pieData: [
-        {
-          name: 'CPU',
-          value: 0
-        },
-        {
-          name: 'MEM',
-          value: 0
+    // var color =
+    this.chartSettings = {
+      seriesMap: {
+        'Usage': {
+          splitNumber: 4,
+          radius: '90%',
+          min: 0,
+          max: 100,
+          pointer: {
+            show: true,
+            width: 5,
+            length: '60%'
+          },
+          axisTick: {
+            show: true,
+            splitNumber: 7, // 刻度的段落数
+            lineStyle: {
+              color: '#8254f8',
+              width: 1 // 刻度的宽度
+            },
+            length: 6 // 刻度的长度
+          },
+          axisLine: {
+            lineStyle: {
+              width: 10,
+              color: [[1, new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                offset: 0,
+                color: '#61caa6'
+              },
+
+              {
+                offset: 0.62,
+                color: '#fcb35d'
+              },
+
+              {
+                offset: 1,
+                color: '#da2d2d'
+              }
+              ])]],
+              borderColor: '#8254f8',
+              borderWidth: '2'
+            }
+          },
+          splitLine: {
+            show: true,
+            length: '28%',
+            lineStyle: {
+              color: '#8254f8',
+              width: 2
+            }
+          },
+          axisLabel: {
+            show: true,
+            distance: 5,
+            color: '#fff',
+            fontSize: 10
+          },
+          detail: {
+            show: true,
+            fontSize: 15,
+            offsetCenter: [0, '70%'],
+            formatter: '{value}%'
+          }
         }
-      ]
+      }
+    }
+    return {
+      chartDataCpu: {
+        columns: ['type', 'value'],
+        rows: [
+          { type: 'Usage', value: 0 }
+        ]
+      },
+      chartDataMem: {
+        columns: ['type', 'value'],
+        rows: [
+          { type: 'Usage', value: 0 }
+        ]
+      }
     }
   },
   watch: {
@@ -44,216 +135,12 @@ export default {
     }
   },
   methods: {
-    regAndSetOption (pieData) {
-      console.log(pieData)
-      let myChart1 = echarts.init(document.getElementById('chart'))
-      var titleArr = []
-      var seriesArr = []
-
-      pieData.forEach(function (item, index) {
-        titleArr.push({
-          text: item.name,
-          left: index * 50 + 24 + '%',
-          top: '85%',
-          textAlign: 'center',
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: '16',
-            color: '#DCE0FF',
-            textAlign: 'center'
-          }
-        })
-        seriesArr.push(
-          {
-            type: 'pie',
-            name: '外层细圆环',
-            radius: ['78%', '80%'],
-            center: [index * 50 + 24 + '%', '40%'],
-            hoverAnimation: false,
-            clockWise: false,
-            itemStyle: {
-              normal: {
-                color: '#9DA3D3'
-              }
-            },
-            label: {
-              show: false
-            },
-            data: [0]
-          },
-          {
-            type: 'pie',
-            name: '内层层细圆环',
-            radius: ['47%', '49%'],
-            center: [index * 50 + 24 + '%', '40%'],
-            hoverAnimation: false,
-            clockWise: false,
-            itemStyle: {
-              normal: {
-                color: '#9DA3D3'
-              }
-            },
-            label: {
-              show: false
-            },
-            data: [0]
-          },
-          {
-            type: 'pie',
-            zlevel: 3,
-            silent: true,
-            radius: ['38%', '40%'],
-            center: [index * 50 + 24 + '%', '40%'],
-            label: {
-              normal: {
-                show: false
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: dotArr()
-          }
-        )
-      })
-      seriesArr.push(
-        {
-          name: pieData[0].name,
-          type: 'pie',
-          clockWise: false,
-          radius: ['58%', '68%'],
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#6E34FA'
-                },
-                {
-                  offset: 1,
-                  color: '#5467df'
-                }
-              ]),
-              label: {
-                show: false
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          hoverAnimation: false,
-          center: [0 * 50 + 24 + '%', '40%'],
-          data: [
-            {
-              value: pieData[0].value,
-              label: {
-                normal: {
-                  formatter: function (params) {
-                    return params.value + '%'
-                  },
-                  position: 'center',
-                  show: true,
-                  textStyle: {
-                    fontSize: '14',
-                    fontWeight: 'bold',
-                    color: '#FFE898'
-                  }
-                }
-              }
-            },
-            {
-              value: 100 - pieData[0].value,
-              name: 'invisible',
-              itemStyle: {
-                normal: {
-                  color: 'rgba(0,0,0,0)'
-                },
-                emphasis: {
-                  color: 'rgba(0,0,0,0)'
-                }
-              }
-            }
-          ]
-        },
-        {
-          name: pieData[1].name,
-          type: 'pie',
-          clockWise: false,
-          radius: ['58%', '68%'],
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#6E34FA'
-                },
-                {
-                  offset: 1,
-                  color: '#5467df'
-                }
-              ]),
-              label: {
-                show: false
-              },
-              labelLine: {
-                show: false
-              }
-            }
-          },
-          hoverAnimation: false,
-          center: [1 * 50 + 24 + '%', '40%'],
-          data: [
-            {
-              value: pieData[1].value,
-              label: {
-                normal: {
-                  formatter: function (params) {
-                    return params.value + '%'
-                  },
-                  position: 'center',
-                  show: true,
-                  textStyle: {
-                    fontSize: '14',
-                    fontWeight: 'bold',
-                    color: '#FFE898'
-                  }
-                }
-              }
-            },
-            {
-              value: 100 - pieData[1].value,
-              name: 'invisible',
-              itemStyle: {
-                normal: {
-                  color: 'rgba(0,0,0,0)'
-                },
-                emphasis: {
-                  color: 'rgba(0,0,0,0)'
-                }
-              }
-            }
-          ]
-        }
-      )
-      myChart1.setOption({
-        grid: {
-          left: '5%',
-          right: '2%',
-          bottom: '0%',
-          top: '0%',
-          containLabel: true
-        },
-        title: titleArr,
-        series: seriesArr
-      })
-    },
     setData () {
-      this.pieData[0].value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
-      this.pieData[1].value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
-      this.regAndSetOption(this.pieData)
+      this.chartDataCpu.rows[0].value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
+      this.chartDataMem.rows[0].value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
+    },
+    close () {
+      this.$emit('closePopover', 'close')
     }
   },
   mounted () {
@@ -263,37 +150,6 @@ export default {
   }
 }
 
-function dotArr () {
-  let dataArr = []
-  for (var i = 0; i < 80; i++) {
-    if (i % 2 === 0) {
-      dataArr.push({
-        name: (i + 1).toString(),
-        value: 1,
-        itemStyle: {
-          normal: {
-            color: '#676a6c',
-            borderWidth: 1,
-            borderColor: '#9DA3D3'
-          }
-        }
-      })
-    } else {
-      dataArr.push({
-        name: (i + 1).toString(),
-        value: 2,
-        itemStyle: {
-          normal: {
-            color: 'rgba(0,0,0,0)',
-            borderWidth: 0,
-            borderColor: 'rgba(0,0,0,0)'
-          }
-        }
-      })
-    }
-  }
-  return dataArr
-}
 </script>
 <style lang='less' scoped>
   .progerss-item {
@@ -309,7 +165,7 @@ function dotArr () {
       font-weight: normal;
       font-size: 16px;
       line-height: 21px;
-      color: #DCE0FF;
+      color: #5b4ad1;
     }
   }
   #chart{

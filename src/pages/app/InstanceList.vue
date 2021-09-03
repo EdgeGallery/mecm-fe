@@ -20,7 +20,7 @@
       {{ $t('nav.appInstance') }}
       <div class="block" />
     </div>
-    <div class="btn-p">
+    <div class="btnMain">
       <el-button
         type="primary"
         id="deleteInsBtn"

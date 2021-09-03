@@ -21,7 +21,7 @@
       <div class="block" />
     </div>
     <p
-      class="btn-p"
+      class="btnMain"
       v-if="rlp=='418'"
     >
       <el-button
@@ -171,7 +171,7 @@
       <el-dialog
         :show-close="false"
         :visible.sync="dialogVisible"
-        width="30%"
+        width="50%"
       >
         <div class="secondLabel">
           {{ title }}

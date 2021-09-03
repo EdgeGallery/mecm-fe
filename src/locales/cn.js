@@ -79,7 +79,8 @@ const cn = {
     onlineNodes: '在线节点数',
     offlineNodes: '离线节点数',
     returnOverview: '返回主视图',
-    nodeKPI: '节点KPI'
+    nodeKPI: '节点KPI',
+    monitor: '运行状态监控'
   },
   app: {
     packageList: {
@@ -254,9 +255,9 @@ const cn = {
       appStoreReg: '应用市场注册',
       appStoreModify: '应用市场编辑',
       appstoreRepo: '应用仓库',
-      appstoreRepoName: '应用仓库名称',
-      appstoreRepoUserName: '应用仓库用户名',
-      appstoreRepoPassword: '应用仓库密码'
+      appstoreRepoName: '仓库名称',
+      appstoreRepoUserName: '仓库用户名',
+      appstoreRepoPassword: '仓库密码'
     }
   },
   common: {

@@ -123,12 +123,15 @@
                   sortable
                   :label="$t('app.packageList.name')"
                 >
-                  <template slot-scope="scope">
+                  <template
+                    slot-scope="scope"
+                  >
                     <div
-                      @mouseenter="handleRowSelection(scope.row.mechostIp)"
-                      @mouseleave="showUsageDialog=false"
+                      @click="handleRowSelection(scope.row.mechostIp)"
                     >
-                      <span class="hostName">{{ scope.row.mechostName }}</span>
+                      <span
+                        class="hostName name"
+                      >{{ scope.row.mechostName }}</span>
                     </div>
                   </template>
                 </el-table-column>
@@ -207,7 +210,6 @@
                     <el-select
                       v-model="capaType"
                       placeholder="请选择"
-                      @change="selectBD"
                     >
                       <el-option
                         v-for="item in options"
@@ -280,7 +282,10 @@
       class="popover"
       v-if="showUsageDialog"
     >
-      <EdgeNodeUsage :kpi-info="usageData" />
+      <EdgeNodeUsage
+        :kpi-info="usageData"
+        @closePopover="showUsageDialog=false"
+      />
     </div>
   </div>
 </template>
@@ -340,20 +345,14 @@ export default {
       }
     }
   },
-  mounted () {
-
-  },
   methods: {
-    selectBD () {
-      this.$forceUpdate()
-    },
     showDialogPosition () {
       if (this.showUsageDialog) {
         clearInterval(this.intervalDialog)
         let nodelistTable = document.getElementsByClassName('nodelistTable')[0]
         let matrixPopDiv = document.getElementsByClassName('popover')[0]
-        matrixPopDiv.style.top = nodelistTable.offsetTop + 50 + 'px'
-        matrixPopDiv.style.left = nodelistTable.offsetLeft + 100 + 'px'
+        matrixPopDiv.style.top = nodelistTable.offsetTop + 300 + 'px'
+        matrixPopDiv.style.left = nodelistTable.offsetLeft + 360 + 'px'
       }
     },
     handleRowSelection (ip) {
@@ -605,13 +604,13 @@ export default {
     }
   }
   .popover {
-    width: 310px;
-    height: 180px;
+    width: 370px;
+    height: 250px;
     transform-origin: center-bottom;
     z-index: 2007;
     position: absolute;
     padding: 15px;
-    background: #484F8C;
+    background: #ffffff;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
   }
@@ -629,6 +628,7 @@ export default {
       height: 30px;
       .el-input__inner{
         height: 30px;
+        border: 1px solid #5e40c8 !important;
         border-radius: 8px !important;
       }
       .el-input__icon{

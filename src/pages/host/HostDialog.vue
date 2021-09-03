@@ -7,9 +7,11 @@
           :model="currForm"
           ref="currForm"
           :rules="rules"
+          :inline="true"
         >
           <el-form-item
             label="VIM"
+            style="width:100%;"
           >
             <el-radio-group
               v-model="currForm.vim"
@@ -50,6 +52,7 @@
           <el-form-item
             :label="$t('system.edgeNodes.location')"
             prop="city"
+            style="width:100%;"
           >
             <area-select
               v-model="location"
@@ -62,6 +65,7 @@
           <el-form-item
             :label="$t('system.edgeNodes.address')"
             prop="address"
+            style="width:100%;"
           >
             <el-input
               id="address"
@@ -72,6 +76,7 @@
           <el-form-item
             :label="$t('system.edgeNodes.coordinates')"
             prop="coordinates"
+            style="width:100%;"
           >
             <el-input
               id="coord"

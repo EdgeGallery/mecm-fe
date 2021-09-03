@@ -16,7 +16,7 @@
 
 <template>
   <div>
-    <div class="btn-p">
+    <div class="btnMain">
       <el-button
         type="primary"
         @click="multipleDeploy"

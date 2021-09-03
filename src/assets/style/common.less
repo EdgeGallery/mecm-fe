@@ -67,12 +67,8 @@ a{
 .padding-lr{
   padding:  0  10%;
 }
-input{
-  border: 1px solid #6e35f4 !important;
-  box-sizing: border-box;
-  border-radius: 2px!important;
-  background: transparent!important;
-}
+
+
 // title样式
 .title{
   margin:15px 3px;
@@ -89,6 +85,7 @@ input{
   top:2px;
 }
 
+
 // 表格按钮样式
 .appView{
   .el-button--small, .el-button--small.is-round{
@@ -102,10 +99,33 @@ input{
   }
 }
 
+// radio
+.el-radio__input.is-checked .el-radio__inner{
+  border-color: #55d8bf !important;
+  background: #55d8bf !important;
+}
+
 
 // dialog
 .el-dialog{
   border-radius: 12px!important;
+  background: #efefef !important;
+  input{
+    border-radius: 8px;
+  }
+  .secondLabel{
+    font-weight: normal;
+  }
+  .el-form{
+    padding: 0 50px;
+  }
+  .el-form-item__label{
+    color: #5e40c8;
+    font-size: 16px;
+  }
+  .el-input__inner{
+    border: none;
+  }
 }
 .el-dialog__header{
   height: 0;
@@ -125,6 +145,18 @@ input{
     margin-left: 15px;
   }
 }
+.popoverClose{
+  float: right;
+  position: relative;
+  right: 8px;
+  color: #000000;
+  opacity: 0.4;
+  font-size: 25px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+// search
 .search .el-input__inner{
   height: 34px !important;
   border-radius: 8px!important;
@@ -134,19 +166,6 @@ input{
 .search{
   position: relative;
   z-index: 15;
-}
-
-// 面包屑样式
-.breadcrumb{
-  line-height: 50px;
-  padding: 25px 10%;
-  margin-top: 60px;
-}
-.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link{
-  color:#808080!important;
-}
-.el-breadcrumb__item:last-child{
-  color:#ffffff!important;
 }
 
 // 分页样式
@@ -163,9 +182,7 @@ input::placeholder {
   font-size: 14px;
 }
 
-.area-select-wrap .area-select{
-  line-height: 34px;
-}
+
 // message样式
 .el-message{
   top: 64px !important;
@@ -200,7 +217,6 @@ body .el-table th.gutter{
 .el-table--enable-row-hover .el-table__body tr:hover>td{
   background: #faf9fc  !important;
 }
-
 .el-table .has-gutter th{
   background: #edeef8!important;
   .cell{
@@ -208,39 +224,17 @@ body .el-table th.gutter{
     color: #62517a !important;
   }
 }
-
 .el-table td,.mecm-overview .el-table th{
   height: 36px;
 }
-
-
 .el-table__header-wrapper{
   border-radius: 6px!important;
 }
-
-/* area-link样式 */
-.area-select>.area-selected-trigger{
-  padding-top:0px !important;
-  border: 1px solid #3B7CFF !important;
-  border-radius: 2px;
+.name{
+  color:#6b68f3;
+  cursor: pointer;
 }
-.area-select{
-  background: transparent;
-  border:none !important;
-}
-/* el-upload样式 */
-.el-upload{
-  width:100% !important;
-}
-.el-upload-dragger{
-  width:100% !important;
-}
-.el-upload__tip{
-  padding-bottom:15px;
-}
-
-/* 表格页公共样式 */
-.btn-p{
+.btnMain{
   height: 50px;
   z-index: 15;
   margin: 0px 10%;
@@ -286,6 +280,34 @@ body .el-table th.gutter{
 }
 .el-table--mini, .el-table--small, .el-table__expand-icon{
   font-size: 14px!important;
+}
+
+/* area-link样式 */
+.area-select>.area-selected-trigger{
+  padding-top:0px !important;
+  border: none !important;
+  line-height: 40px;
+}
+.area-select-wrap .area-select{
+  line-height: 34px;
+  height: 40px;
+  background: #fff;
+  border:none !important;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-left: 0!important;
+}
+
+
+/* el-upload样式 */
+.el-upload{
+  width:100% !important;
+}
+.el-upload-dragger{
+  width:100% !important;
+}
+.el-upload__tip{
+  padding-bottom:15px;
 }
 
 
@@ -443,8 +465,22 @@ div.overviewLabel{
   top: 2px;
   margin-right: 10px;
 }
-.el-dialog{
+
+// popover
+
+.showLabelArea{
+  border-radius: 6px;
+  background: #e5e1f0;
+  padding: 15px;
+  width: 280px;
   .secondLabel{
-    font-weight: normal;
+    font-size: 16px;
+  }
+  .labelContent{
+    p{
+      color:#380879;
+      font-size: 14px;
+      line-height: 25px;
+    }
   }
 }
