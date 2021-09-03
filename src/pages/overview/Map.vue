@@ -444,7 +444,7 @@ export default {
     left: 80%;
     z-index: 999;
     background: #000000;
-    opacity: 40%;
+    opacity: 0.4;
     color: #ffff;
     border-radius: 6px;
     width: 125px;

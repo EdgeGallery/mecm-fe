@@ -15,243 +15,249 @@
   -->
 
 <template>
-  <div class="contentList">
-    <Search
-      :type-item="false"
-      :name-item="false"
-      :affinity-item="false"
-      :ip-item="true"
-      :status-item="true"
-      :status="distributionStatus"
-      @getSearchData="getSearchData"
-    />
+  <div>
     <div class="btn-p">
       <el-button
         type="primary"
         @click="multipleDeploy"
       >
+        <span
+          class="iconcont"
+          style="top:0;"
+        >√</span>
         <span>{{ $t('app.distriList.multipleDeploy') }}</span>
       </el-button>
     </div>
-    <div class="tableDiv">
-      <el-table
-        class="mt20"
-        size="small"
-        :data="currPageTableData"
-        v-loading="dataLoading"
-        @selection-change="handleSelectionChange"
-      >
-        <el-table-column
-          type="selection"
-          revers-selection
-          width="50"
-        />
-        <el-table-column
-          prop="appPackageName"
-          :label="$t('app.packageList.name')"
-          width="180"
+    <div class="contentList">
+      <Search
+        :type-item="false"
+        :name-item="false"
+        :affinity-item="false"
+        :ip-item="true"
+        :status-item="true"
+        :status="distributionStatus"
+        @getSearchData="getSearchData"
+      />
+      <div class="tableDiv">
+        <el-table
+          class="mt20"
+          size="small"
+          :data="currPageTableData"
+          v-loading="dataLoading"
+          @selection-change="handleSelectionChange"
         >
-          <template>
-            <div>
-              {{ this.appPackageName }}
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="appVersion"
-          :label="$t('app.packageList.version')"
-          width="130"
-        >
-          <template>
-            <div>
-              {{ this.appVersion }}
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="provider"
-          :label="$t('app.packageList.vendor')"
-          width="160"
-        >
-          <template>
-            <div>
-              {{ this.provider }}
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="appAffinity"
-          :label="$t('app.packageList.affinity')"
-          width="120"
-        >
-          <template>
-            <div>
-              {{ this.appAffinity }}
-            </div>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="hostIp"
-          :label=" $t('app.distriList.hostIp')"
-        />
-        <el-table-column
-          prop="status"
-          :label=" $t('app.distriList.status')"
-        >
-          <template slot-scope="scope">
-            <span
-              v-if="scope.row.status === 'Distributed'"
-              class="success"
-            ><em class="el-icon-success" />{{ scope.row.status }}</span>
-            <span
-              v-else-if="scope.row.status === 'Processing'"
-              class="primary"
-            ><em class="el-icon-loading" />{{ scope.row.status }}</span>
-            <span
-              v-else
-              class="error"
-            ><em class="el-icon-error" />{{ scope.row.status }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          prop="status"
-          :label="$t('common.operation')"
-          align="center"
-        >
-          <template slot-scope="scope">
-            <el-button
-              id="deleteBtn"
-              @click.native.prevent="beforeDelete(scope.row)"
-              type="text"
-              size="small"
-            >
-              {{ $t('common.delete') }}
-            </el-button>
-            <el-button
-              id="deployBtn"
-              @click="deploy(scope.row,1)"
-              :disabled="scope.row.status !=='Distributed'"
-              type="text"
-              size="small"
-            >
-              {{ $t('app.distriList.deploy') }}
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="pageBar">
-        <Pagination
-          :page-sizes="[10,15,20,25]"
-          :table-data="paginationData"
-          @getCurrentPageData="getCurrentPageData"
-        />
+          <el-table-column
+            type="selection"
+            revers-selection
+            width="50"
+          />
+          <el-table-column
+            prop="appPackageName"
+            :label="$t('app.packageList.name')"
+            width="180"
+          >
+            <template>
+              <div>
+                {{ this.appPackageName }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="appVersion"
+            :label="$t('app.packageList.version')"
+            width="130"
+          >
+            <template>
+              <div>
+                {{ this.appVersion }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="provider"
+            :label="$t('app.packageList.vendor')"
+            width="160"
+          >
+            <template>
+              <div>
+                {{ this.provider }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="appAffinity"
+            :label="$t('app.packageList.affinity')"
+            width="120"
+          >
+            <template>
+              <div>
+                {{ this.appAffinity }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="hostIp"
+            :label=" $t('app.distriList.hostIp')"
+          />
+          <el-table-column
+            prop="status"
+            :label=" $t('app.distriList.status')"
+          >
+            <template slot-scope="scope">
+              <span
+                v-if="scope.row.status === 'Distributed'"
+                class="success"
+              ><em class="el-icon-success" />{{ scope.row.status }}</span>
+              <span
+                v-else-if="scope.row.status === 'Processing'"
+                class="primary"
+              ><em class="el-icon-loading" />{{ scope.row.status }}</span>
+              <span
+                v-else
+                class="error"
+              ><em class="el-icon-error" />{{ scope.row.status }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column
+            prop="status"
+            :label="$t('common.operation')"
+            align="center"
+          >
+            <template slot-scope="scope">
+              <el-button
+                id="deleteBtn"
+                @click.native.prevent="beforeDelete(scope.row)"
+                type="text"
+                size="small"
+              >
+                {{ $t('common.delete') }}
+              </el-button>
+              <el-button
+                id="deployBtn"
+                @click="deploy(scope.row,1)"
+                :disabled="scope.row.status !=='Distributed'"
+                type="text"
+                size="small"
+              >
+                {{ $t('app.distriList.deploy') }}
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+        <div class="pageBar">
+          <Pagination
+            :page-sizes="[10,15,20,25]"
+            :table-data="paginationData"
+            @getCurrentPageData="getCurrentPageData"
+          />
+        </div>
       </div>
+      <el-dialog
+        :show-close="false"
+        :visible.sync="dialogVisible"
+        width="40%"
+      >
+        <div class="secondLabel">
+          {{ $t('app.distriList.deploymentConf') }}
+        </div>
+        <el-form
+          label-width="auto"
+          class="configForm"
+          :model="configForm"
+          ref="configForm"
+          :rules="rules"
+        >
+          <p>MEC Host</p>
+          <el-form-item :label="$t('app.packageList.ip')">
+            <div
+              v-for="(item,index) in hostList"
+              :key="index"
+            >
+              <span
+                class="hostip"
+              >{{ item.hostIp }}</span>
+              <span
+                v-if="item.status === 'Distributed'"
+                class="success"
+              ><em class="el-icon-success" />{{ item.status }}</span>
+            </div>
+          </el-form-item>
+          <el-form-item
+            :label="$t('app.distriList.appName')"
+            prop="appName"
+          >
+            <el-input
+              id="appname"
+              maxlength="20"
+              v-model="configForm.appName"
+            />
+          </el-form-item>
+          <el-form-item
+            :label="$t('app.distriList.appDesc')"
+            prop="appInstanceDescription"
+          >
+            <el-input
+              id="appdesc"
+              maxlength="120"
+              v-model="configForm.appInstanceDescription"
+            />
+          </el-form-item>
+          <el-form-item
+            :label="$t('system.edgeNodes.hwCapability')"
+            prop="hwCapabilities"
+          >
+            <el-checkbox-group
+              v-model="configForm.hwCapabilities"
+            >
+              <el-checkbox
+                v-for="item in capabilities"
+                :label="item"
+                :key="item"
+              >
+                {{ item }}
+              </el-checkbox>
+            </el-checkbox-group>
+          </el-form-item>
+          <p v-if="templateInputs.length>0">
+            Apptemplate Information
+          </p>
+          <el-row>
+            <el-col
+              :span="12"
+              v-for="(item,index) in templateInputs"
+              :key="index"
+            >
+              <el-form-item
+                :label="item.label"
+              >
+                <el-input
+                  id="podsel"
+                  maxlength="30"
+                  v-model="item.value"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            size="small"
+            @click="confirmToDeploy('configForm')"
+            :loading="loading"
+          >{{ $t('common.confirm') }}</el-button>
+          <el-button
+            id="cancelBtn"
+            size="small"
+            @click="dialogVisible = false,loading=false"
+          >{{ $t('common.cancel') }}</el-button>
+        </span>
+      </el-dialog>
     </div>
-    <el-dialog
-      :show-close="false"
-      :visible.sync="dialogVisible"
-      width="40%"
-    >
-      <div class="secondLabel">
-        {{ $t('app.distriList.deploymentConf') }}
-      </div>
-      <el-form
-        label-width="auto"
-        class="configForm"
-        :model="configForm"
-        ref="configForm"
-        :rules="rules"
-      >
-        <p>MEC Host</p>
-        <el-form-item :label="$t('app.packageList.ip')">
-          <div
-            v-for="(item,index) in hostList"
-            :key="index"
-          >
-            <span
-              class="hostip"
-            >{{ item.hostIp }}</span>
-            <span
-              v-if="item.status === 'Distributed'"
-              class="success"
-            ><em class="el-icon-success" />{{ item.status }}</span>
-          </div>
-        </el-form-item>
-        <el-form-item
-          :label="$t('app.distriList.appName')"
-          prop="appName"
-        >
-          <el-input
-            id="appname"
-            maxlength="20"
-            v-model="configForm.appName"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('app.distriList.appDesc')"
-          prop="appInstanceDescription"
-        >
-          <el-input
-            id="appdesc"
-            maxlength="120"
-            v-model="configForm.appInstanceDescription"
-          />
-        </el-form-item>
-        <el-form-item
-          :label="$t('system.edgeNodes.hwCapability')"
-          prop="hwCapabilities"
-        >
-          <el-checkbox-group
-            v-model="configForm.hwCapabilities"
-          >
-            <el-checkbox
-              v-for="item in capabilities"
-              :label="item"
-              :key="item"
-            >
-              {{ item }}
-            </el-checkbox>
-          </el-checkbox-group>
-        </el-form-item>
-        <p v-if="templateInputs.length>0">
-          Apptemplate Information
-        </p>
-        <el-row>
-          <el-col
-            :span="12"
-            v-for="(item,index) in templateInputs"
-            :key="index"
-          >
-            <el-form-item
-              :label="item.label"
-            >
-              <el-input
-                id="podsel"
-                maxlength="30"
-                v-model="item.value"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <span
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          size="small"
-          @click="confirmToDeploy('configForm')"
-          :loading="loading"
-        >{{ $t('common.confirm') }}</el-button>
-        <el-button
-          id="cancelBtn"
-          size="small"
-          @click="dialogVisible = false,loading=false"
-        >{{ $t('common.cancel') }}</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
