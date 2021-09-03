@@ -275,13 +275,6 @@
         </el-col>
       </el-row>
     </div>
-
-    <div v-if="manageDialogStatus">
-      <manageDialog
-        v-model="manageDialogStatus"
-        :service-info="serviceInfo"
-      />
-    </div>
     <div
       id="matrixPopDiv"
       class="popover"
@@ -294,14 +287,12 @@
 
 <script>
 
-import manageDialog from './ManageDialog.vue'
 import Usage from './Usage.vue'
 import EdgeNodeUsage from './EdgeNodeUsage.vue'
 import Map from './Map.vue'
 import { appo, inventory } from '../../tools/request.js'
 export default {
   components: {
-    manageDialog,
     Map,
     Usage,
     EdgeNodeUsage
@@ -314,7 +305,6 @@ export default {
       mepCapData: [],
       edgeApp: '',
       edgeAppList: [],
-      manageDialogStatus: false,
       infoList: [],
       kpiInfo: {},
       loginBtnLoading: false,
