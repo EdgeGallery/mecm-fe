@@ -377,7 +377,8 @@ const cn = {
     beforeDeleteAppMgr: '确认要删除本条数据吗？',
     noPermession: '当前用户无权操作！',
     recordExist: '记录已存在',
-    getTemplateListFail: '获取参数失败'
+    getTemplateListFail: '获取参数失败',
+    fuzzyQuery: '输入内容进行搜索'
   },
   area: {
     beijing: '北京市',

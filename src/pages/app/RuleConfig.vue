@@ -16,28 +16,35 @@
 
 <template>
   <div class="ruleconfig">
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.ruleConfiguration')"
-      :path="{ path: '/mecm/app/instance' }"
-    />
-    <div class="ruleconfigcontent">
+    <div class="topLabel">
+      {{ $t('nav.ruleConfiguration') }}
+      <div class="block" />
+    </div>
+    <div class="btnMain">
+      <el-button
+        type="primary"
+        id="deleteInsBtn"
+      >
+        <span class="iconcont add" />
+        <span>新增规则</span>
+      </el-button>
+    </div>
+    <div class="contentList">
       <el-tabs
         v-model="activeName"
+        type="card"
       >
         <el-tab-pane
           :label="$t('app.ruleConfig.dnsRule')"
           name="dns"
         >
-          <Dnspannel />
+          <DnsPannel />
         </el-tab-pane>
         <el-tab-pane
           :label="$t('app.ruleConfig.trafficRule')"
           name="traffic"
         >
-          <trafficpannel />
+          <TrafficPannel />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -45,14 +52,12 @@
 </template>
 
 <script>
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
-import Dnspannel from './Dns.vue'
-import Trafficpannel from './Traffic.vue'
+import DnsPannel from './Dns.vue'
+import TrafficPannel from './Traffic.vue'
 export default {
   components: {
-    Breadcrumb,
-    Dnspannel,
-    Trafficpannel
+    DnsPannel,
+    TrafficPannel
   },
   data () {
     return {
@@ -63,10 +68,5 @@ export default {
 
 </script>
 <style lang='less' scoped>
-.ruleconfigcontent {
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
-}
+
 </style>

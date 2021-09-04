@@ -16,7 +16,7 @@
 
 <template>
   <div>
-    <div class="overviewLabel">
+    <div class="topLabel">
       {{ $t('nav.edgeNodes') }}
       <div class="block" />
     </div>
@@ -35,9 +35,7 @@
     </p>
     <div class="contentList">
       <Search
-        :status-item="false"
-        :affinity-item="false"
-        :ip-item="true"
+        :placeholder="$t('tip.fuzzyQuery')"
         @getSearchData="getSearchData"
       />
       <div class="tableDiv">
@@ -243,27 +241,18 @@ export default {
     },
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
-        let itemVal = item[key]
-        if (itemVal) return itemVal.toLowerCase().indexOf(val) > -1
+        return Object.keys(item).some(key => {
+          return String(item[key]).toLowerCase().indexOf(val) > -1
+        })
       })
     },
     getSearchData (data) {
+      this.searchData = data
       this.paginationData = this.tableData
-      if (this.paginationData && this.paginationData.length > 0) {
-        let reset = false
-        for (let key in data) {
-          if (data[key]) {
-            reset = true
-            let dataKey = key
-            if (key === 'ip') {
-              dataKey = 'mechostIp'
-            } else if (key === 'name') {
-              dataKey = 'mechostName'
-            }
-            this.filterTableData(data[key].toLowerCase(), dataKey)
-          }
-        }
-        if (!reset) this.paginationData = this.tableData
+      if (data) {
+        this.filterTableData(data.toLowerCase())
+      } else {
+        this.getNodeListInPage()
       }
     },
     getCurrentPageData (data) {

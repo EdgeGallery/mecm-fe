@@ -19,25 +19,28 @@
     <div class="btnMain">
       <el-button
         type="primary"
-        @click="multipleDeploy"
+        @click="distribute"
       >
         <span
           class="iconcont"
           style="top:0;"
         >√</span>
-        <span>{{ $t('app.distriList.multipleDeploy') }}</span>
+        <span>{{ $t('app.packageList.distribute') }}</span>
       </el-button>
     </div>
     <div class="contentList">
       <Search
-        :type-item="false"
-        :name-item="false"
-        :affinity-item="false"
-        :ip-item="true"
-        :status-item="true"
-        :status="distributionStatus"
+        :placeholder="$t('tip.fuzzyQuery')"
         @getSearchData="getSearchData"
       />
+      <span class="btnSearch">
+        <el-button
+          type="primary"
+          @click="multipleDeploy"
+        >
+          <span>{{ $t('app.distriList.multipleDeploy') }}</span>
+        </el-button>
+      </span>
       <div class="tableDiv">
         <el-table
           class="mt20"
@@ -257,6 +260,117 @@
           >{{ $t('common.cancel') }}</el-button>
         </span>
       </el-dialog>
+
+      <!-- 分发 -->
+      <el-dialog
+        :show-close="false"
+        :visible.sync="distributionDialogVisible"
+        v-loading="loading"
+      >
+        <div class="secondLabel">
+          {{ $t('app.packageList.slectEdgeNodes') }}
+        </div>
+        <el-row class="el-row-search">
+          <el-col
+            :span="8"
+            :offset="16"
+          >
+            <el-input
+              id="nodesearch"
+              class="el-input-search"
+              v-model="edgeNodeSearchInput"
+            >
+              <em
+                slot="suffix"
+                class="el-input__icon el-icon-search"
+              />
+            </el-input>
+          </el-col>
+        </el-row>
+        <el-row class="el-row-table">
+          <el-col :span="24">
+            <el-table
+              ref="multipleEdgeNodeTable"
+              :data="currPageEdgeNodeTableData"
+              class="mt20"
+              size="small"
+              @selection-change="handleEdgeNodeSelectionChange"
+            >
+              <el-table-column
+                type="selection"
+              />
+              <el-table-column
+                prop="mechostName"
+                sortable
+                :label="$t('app.packageList.name')"
+              />
+              <el-table-column
+                prop="mechostIp"
+                :label="$t('app.packageList.ip')"
+              />
+              <el-table-column
+                prop="city"
+                :label="$t('app.packageList.city')"
+              />
+              <el-table-column
+                prop="affinity"
+                :label="$t('app.packageList.affinity')"
+              />
+              <el-table-column
+                prop="mepmIp"
+                :label="$t('system.edgeNodes.mepmIp')"
+              />
+              <el-table-column
+                :label="$t('system.edgeNodes.hwCapability')"
+                width="200"
+              >
+                <template slot-scope="scope">
+                  <span
+                    v-for="(item,index) in scope.row.hwcapabilities"
+                    :key="index"
+                  >
+                    {{ item.hwType }}
+                  </span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-col>
+        </el-row>
+        <el-row>
+          <el-pagination
+            background
+            class="pagination rt"
+            @size-change="handleEdgeNodePageSizeChange"
+            @current-change="handleEdgeNodeCurrentPageChange"
+            :current-page="edgeNodeCurrentPage"
+            :page-sizes="[5, 10, 15, 20]"
+            :page-size="edgeNodePageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="edgeNodeTotalNum"
+          />
+        </el-row>
+        <div
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button
+            id="confirmBtn"
+            type="primary"
+            size="small"
+            @click="confirm()"
+            :loading="loading"
+          >
+            {{ $t('common.confirm') }}
+          </el-button>
+          <el-button
+            id="cancelBtn"
+            size="small"
+            @click="cancel()"
+          >
+            {{ $t('common.cancel') }}
+          </el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -264,17 +378,11 @@
 <script>
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import { appo, apm } from '../../tools/request.js'
+import { appo, apm, inventory } from '../../tools/request.js'
 export default {
   name: 'EdgeList',
   components: {
     Search, Pagination
-  },
-  props: {
-    appid: {
-      required: true,
-      type: String
-    }
   },
   data () {
     return {
@@ -282,7 +390,6 @@ export default {
       currPageTableData: [],
       paginationData: [],
       searchVal: '',
-      selectedNum: 0,
       selectData: null,
       selectedData: [],
       appPackageId: '',
@@ -296,7 +403,7 @@ export default {
         appPackageId: '',
         appName: '',
         appInstanceDescription: '',
-        appId: this.appid,
+        appId: this.appId,
         hwCapabilities: []
       },
       dataLoading: true,
@@ -309,10 +416,32 @@ export default {
       serchData: null,
       hostList: [],
       templateInputs: [],
-      capabilities: ['GPU', 'NPU']
+      capabilities: ['GPU', 'NPU'],
+      // 分发
+      appId: window.location.href.split('=')[1] || sessionStorage.getItem('appId'),
+      edgeNodesData: [],
+      distributionDialogVisible: false,
+      packageSearchInput: '',
+      edgeNodeSearchInput: '',
+      edgeNodeCurrentPage: 1,
+      edgeNodePageSize: 5,
+      rowSelection: [],
+      nodeSelection: [],
+      selectedNodeNum: 0,
+      currentRowData: '',
+      dialogLoading: false
     }
   },
   computed: {
+    edgeNodeTotalNum: function () {
+      return this.edgeNodesData.length
+    },
+    totalNum: function () {
+      return this.tableData.length
+    },
+    currPageEdgeNodeTableData: function () {
+      return this.edgeNodesData.filter(data => !this.edgeNodeSearchInput || data.mechostName.toLowerCase().includes(this.edgeNodeSearchInput.toLowerCase()))
+    },
     rules () {
       return {
         appName: [
@@ -342,31 +471,21 @@ export default {
       this.timer = null
     },
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
-    filterTableData (val, key) {
+    filterTableData (val) {
       this.paginationData = this.paginationData.filter(item => {
-        let itemVal = item[key].toLowerCase()
-        return itemVal.indexOf(val) > -1
+        return Object.keys(item).some(key => {
+          return String(item[key]).toLowerCase().indexOf(val) > -1
+        })
       })
     },
     // 根据搜索组件进行筛选
     getSearchData (data) {
       this.serchData = data
       this.paginationData = this.tableData
-      if (this.paginationData && this.paginationData.length > 0) {
-        let reset = false
-        for (let key in data) {
-          if (data[key]) {
-            reset = true
-            let dataKey = ''
-            if (key === 'status') {
-              dataKey = 'status'
-            } else if (key === 'ip') {
-              dataKey = 'hostIp'
-            }
-            this.filterTableData(data[key].toLowerCase(), dataKey)
-          }
-        }
-        if (!reset) this.paginationData = this.tableData
+      if (data) {
+        this.filterTableData(data.toLowerCase())
+      } else {
+        this.initList()
       }
     },
     getCurrentPageData (data) {
@@ -378,7 +497,7 @@ export default {
         appPackageId: '',
         appName: '',
         appInstanceDescription: '',
-        appId: this.appid,
+        appId: this.appId,
         hwCapabilities: []
       }
       if (this.selectData !== null && this.selectData.length > 0) {
@@ -414,7 +533,7 @@ export default {
       apm.getDistributionList().then(res => {
         this.paginationData = []
         res.data.forEach(item => {
-          if (item.appId === this.appid) {
+          if (item.appId === this.appId) {
             this.appPackageId = item.appPkgId
             this.appPackageName = item.appPkgName
             this.appVersion = item.appPkgVersion
@@ -454,12 +573,12 @@ export default {
           appPackageId: '',
           appName: '',
           appInstanceDescription: '',
-          appId: this.appid,
+          appId: this.appId,
           hwCapabilities: []
         }
         this.hostList = []
         this.configForm.appPackageId = this.appPackageId
-        this.configForm.appId = this.appid
+        this.configForm.appId = this.appId
         this.dialogVisible = true
         this.$nextTick(() => {
           this.$refs.configForm.resetFields()
@@ -591,6 +710,85 @@ export default {
     },
     handleSelectionChange (selection) {
       this.selectData = selection
+    },
+
+    // 分发
+    distribute () {
+      let row = JSON.parse(sessionStorage.getItem('appRow'))
+      console.log(row)
+      this.currentRowData = row
+      this.distributionDialogVisible = true
+      this.getNodeList(row)
+    },
+    handleEdgeNodeSelectionChange (val) {
+      this.nodeSelection = val
+      this.selectedNodeNum = val.length
+    },
+    async getNodeList (row) {
+      sessionStorage.setItem('appId', row.appId)
+      await inventory.getList(2).then(response => {
+        this.edgeNodesData = response.data
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    handleEdgeNodePageSizeChange (edgeNodePageSize) {
+      this.edgeNodePageSize = edgeNodePageSize
+    },
+    handleEdgeNodeCurrentPageChange (edgeNodeCurrentPage) {
+      this.edgeNodeCurrentPage = edgeNodeCurrentPage
+    },
+    cancel () {
+      this.distributionDialogVisible = false
+      this.$refs.multipleEdgeNodeTable.clearSelection()
+    },
+    async confirm () {
+      this.loading = true
+      let selectedMecHost = []
+      this.nodeSelection.forEach(data => {
+        let obj = {}
+        obj.hostIp = data.mechostIp
+        selectedMecHost.push(obj)
+      })
+      this.$refs.multipleEdgeNodeTable.clearSelection()
+      this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
+      let address = 'http://'
+      if (this.isSecureBackend === 'true') {
+        address = 'https://'
+      }
+      let params = {
+        appPkgId: this.currentRowData.packageId,
+        appId: this.currentRowData.appId,
+        appPkgName: this.currentRowData.name,
+        appPkgVersion: this.currentRowData.version,
+        appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
+        appPkgAffinity: this.currentRowData.affinity,
+        appPkgPath: address + this.currentRowData.appstoreEndpoint + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
+        appProvider: this.currentRowData.provider,
+        mecHostInfo: selectedMecHost,
+        createdTime: new Date().toString(),
+        modifiedTime: new Date().toString()
+      }
+      console.log(params)
+      if (params.appPkgVersion && params.mecHostInfo.length > 0) {
+        apm.confirmToDistribute(params).then(response => {
+          sessionStorage.setItem('appId', params.appId)
+          this.distributionDialogVisible = false
+          this.$nextTick(
+            this.initList()
+          )
+        }).catch(() => {
+          this.loading = false
+          this.$message.error(this.$t('tip.failedToDownload'), 3000)
+        })
+      } else {
+        this.loading = false
+        if (params.mecHostInfo.length === 0) {
+          this.$message.warning(this.$t('tip.mecHost'))
+        } else {
+          this.$message.warning(this.$t('tip.version'))
+        }
+      }
     }
   }
 }

@@ -73,7 +73,7 @@ const en = {
     overview: 'Node Statistics',
     edgeNodes: 'Total Edge Nodes',
     onlineNodes: 'No. Online Nodes',
-    offlineNodes: 'No.ffline Nodes',
+    offlineNodes: 'No. Offline Nodes',
     returnOverview: 'Back to main view',
     nodeKPI: 'Node KPI',
     monitor: 'Status Monitoring'
@@ -381,7 +381,8 @@ const en = {
     beforeDeleteAppMgr: 'Are you sure to delete this data?',
     noPermession: 'No permission to operate, please login！',
     recordExist: 'Record already exist!',
-    getTemplateListFail: 'Failed to get parameters'
+    getTemplateListFail: 'Failed to get parameters',
+    fuzzyQuery: 'Enter content to search'
   },
   area: {
     beijing: 'Beijing',

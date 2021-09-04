@@ -16,7 +16,7 @@
 
 <template>
   <div>
-    <div class="overviewLabel">
+    <div class="topLabel">
       {{ $t('nav.packageMana') }}
       <div class="block" />
     </div>
@@ -34,8 +34,7 @@
     <div class="contentList">
       <Search
         @getSearchData="getSearchData"
-        :status-item="false"
-        :type-item="false"
+        :placeholder="$t('tip.fuzzyQuery')"
       />
       <div class="tableDiv">
         <el-row>
@@ -73,19 +72,6 @@
                 prop="affinity"
                 :label="$t('app.packageList.affinity')"
               />
-              <!-- <el-table-column
-                prop="shortDesc"
-                :label="$t('app.packageList.desc')"
-              >
-                <template slot-scope="scope">
-                  <p
-                    :title="scope.row.shortDesc"
-                    class="shortdesc"
-                  >
-                    {{ scope.row.shortDesc }}
-                  </p>
-                </template>
-              </el-table-column> -->
               <el-table-column
                 prop="appstoreName"
                 :label="$t('system.appstore.appstoreName')"
@@ -101,28 +87,12 @@
               >
                 <template slot-scope="scope">
                   <el-button
-                    id="detailBtn"
-                    @click="checkDetail(scope.row)"
-                    type="text"
-                    size="small"
-                  >
-                    {{ $t('common.detail') }}
-                  </el-button>
-                  <el-button
-                    id="distributeBtn"
-                    @click="distribute(scope.row)"
-                    type="text"
-                    size="small"
-                  >
-                    {{ $t('app.packageList.distribute') }}
-                  </el-button>
-                  <el-button
                     id="deployBtn"
                     @click="checkDetail(scope.row)"
                     type="text"
                     size="small"
                   >
-                    {{ $t('app.distriList.deploy') }}
+                    分发&部署
                   </el-button>
                 </template>
               </el-table-column>
@@ -228,116 +198,6 @@
         </span>
       </div>
     </el-dialog>
-    <!-- 分发 -->
-    <el-dialog
-      :show-close="false"
-      :visible.sync="dialogVisible"
-      v-loading="loading"
-    >
-      <div class="secondLabel">
-        {{ $t('app.packageList.slectEdgeNodes') }}
-      </div>
-      <el-row class="el-row-search">
-        <el-col
-          :span="8"
-          :offset="16"
-        >
-          <el-input
-            id="nodesearch"
-            class="el-input-search"
-            v-model="edgeNodeSearchInput"
-          >
-            <em
-              slot="suffix"
-              class="el-input__icon el-icon-search"
-            />
-          </el-input>
-        </el-col>
-      </el-row>
-      <el-row class="el-row-table">
-        <el-col :span="24">
-          <el-table
-            ref="multipleEdgeNodeTable"
-            :data="currPageEdgeNodeTableData"
-            class="mt20"
-            size="small"
-            @selection-change="handleEdgeNodeSelectionChange"
-          >
-            <el-table-column
-              type="selection"
-            />
-            <el-table-column
-              prop="mechostName"
-              sortable
-              :label="$t('app.packageList.name')"
-            />
-            <el-table-column
-              prop="mechostIp"
-              :label="$t('app.packageList.ip')"
-            />
-            <el-table-column
-              prop="city"
-              :label="$t('app.packageList.city')"
-            />
-            <el-table-column
-              prop="affinity"
-              :label="$t('app.packageList.affinity')"
-            />
-            <el-table-column
-              prop="mepmIp"
-              :label="$t('system.edgeNodes.mepmIp')"
-            />
-            <el-table-column
-              :label="$t('system.edgeNodes.hwCapability')"
-              width="200"
-            >
-              <template slot-scope="scope">
-                <span
-                  v-for="(item,index) in scope.row.hwcapabilities"
-                  :key="index"
-                >
-                  {{ item.hwType }}
-                </span>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-pagination
-          background
-          class="pagination rt"
-          @size-change="handleEdgeNodePageSizeChange"
-          @current-change="handleEdgeNodeCurrentPageChange"
-          :current-page="edgeNodeCurrentPage"
-          :page-sizes="[5, 10, 15, 20]"
-          :page-size="edgeNodePageSize"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="edgeNodeTotalNum"
-        />
-      </el-row>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          id="confirmBtn"
-          type="primary"
-          size="small"
-          @click="confirm()"
-          :loading="loading"
-        >
-          {{ $t('common.confirm') }}
-        </el-button>
-        <el-button
-          id="cancelBtn"
-          size="small"
-          @click="cancel()"
-        >
-          {{ $t('common.cancel') }}
-        </el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -357,20 +217,8 @@ export default {
       tableData: [],
       paginationData: [],
       currPageTableData: [],
-      edgeNodesData: [],
-      dialogVisible: false,
-      packageSearchInput: '',
-      edgeNodeSearchInput: '',
-      edgeNodeCurrentPage: 1,
-      edgeNodePageSize: 5,
-      rowSelection: [],
-      selectedNum: 0,
-      nodeSelection: [],
-      selectedNodeNum: 0,
-      currentRowData: '',
       appType: '',
       loading: false,
-      dialogLoading: false,
       appId: '',
       language: localStorage.getItem('language'),
       selectData: [],
@@ -386,17 +234,6 @@ export default {
     this.getPackageList()
     this.getAppstoreList()
   },
-  computed: {
-    edgeNodeTotalNum: function () {
-      return this.edgeNodesData.length
-    },
-    totalNum: function () {
-      return this.tableData.length
-    },
-    currPageEdgeNodeTableData: function () {
-      return this.edgeNodesData.filter(data => !this.edgeNodeSearchInput || data.mechostName.toLowerCase().includes(this.edgeNodeSearchInput.toLowerCase()))
-    }
-  },
   watch: {
     '$i18n.locale': function () {
       let language = localStorage.getItem('language')
@@ -408,24 +245,18 @@ export default {
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
-        if (item[key] !== null) {
-          let itemType = item[key].toLowerCase()
-          return itemType.indexOf(val) > -1
-        }
+        return Object.keys(item).some(key => {
+          return String(item[key]).toLowerCase().indexOf(val) > -1
+        })
       })
     },
     // 根据搜索组件进行筛选
     getSearchData (data) {
       this.paginationData = this.tableData
-      if (this.paginationData && this.paginationData.length > 0) {
-        let reset = false
-        for (let key in data) {
-          if (data[key]) {
-            reset = true
-            this.filterTableData(data[key].toLowerCase(), key)
-          }
-        }
-        if (!reset) this.paginationData = this.tableData
+      if (data) {
+        this.filterTableData(data.toLowerCase())
+      } else {
+        this.initList()
       }
     },
     // 列表根据分页组件显示数据
@@ -453,19 +284,11 @@ export default {
       this.$refs.syncPackageTable.clearSelection()
     },
     checkDetail (row) {
+      sessionStorage.setItem('appRow', JSON.stringify(row))
       sessionStorage.setItem('appId', row.appId)
       this.$nextTick(
         this.$router.push('/mecm/app/distribution?appId=' + row.appId)
       )
-    },
-    distribute (row) {
-      this.currentRowData = row
-      this.dialogVisible = true
-      this.getNodeList(row)
-    },
-    handleEdgeNodeSelectionChange (val) {
-      this.nodeSelection = val
-      this.selectedNodeNum = val.length
     },
     async getAppstoreList () {
       this.dataLoading = true
@@ -562,70 +385,6 @@ export default {
           }
         })
       })
-    },
-    async getNodeList (row) {
-      sessionStorage.setItem('appId', row.appId)
-      await inventory.getList(2).then(response => {
-        this.edgeNodesData = response.data
-      }).catch((error) => {
-        console.log(error)
-      })
-    },
-    handleEdgeNodePageSizeChange (edgeNodePageSize) {
-      this.edgeNodePageSize = edgeNodePageSize
-    },
-    handleEdgeNodeCurrentPageChange (edgeNodeCurrentPage) {
-      this.edgeNodeCurrentPage = edgeNodeCurrentPage
-    },
-    cancel () {
-      this.dialogVisible = false
-      this.$refs.multipleEdgeNodeTable.clearSelection()
-    },
-    async confirm () {
-      this.loading = true
-      let selectedMecHost = []
-      this.nodeSelection.forEach(data => {
-        let obj = {}
-        obj.hostIp = data.mechostIp
-        selectedMecHost.push(obj)
-      })
-      this.$refs.multipleEdgeNodeTable.clearSelection()
-      this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
-      let address = 'http://'
-      if (this.isSecureBackend === 'true') {
-        address = 'https://'
-      }
-      let params = {
-        appPkgId: this.currentRowData.packageId,
-        appId: this.currentRowData.appId,
-        appPkgName: this.currentRowData.name,
-        appPkgVersion: this.currentRowData.version,
-        appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
-        appPkgAffinity: this.currentRowData.affinity,
-        appPkgPath: address + this.currentRowData.appstoreEndpoint + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
-        appProvider: this.currentRowData.provider,
-        mecHostInfo: selectedMecHost,
-        createdTime: new Date().toString(),
-        modifiedTime: new Date().toString()
-      }
-      if (params.appPkgVersion && params.mecHostInfo.length > 0) {
-        apm.confirmToDistribute(params).then(response => {
-          sessionStorage.setItem('appId', params.appId)
-          this.$nextTick(
-            this.$router.push('/mecm/app/distribution?appId=' + params.appId)
-          )
-        }).catch(() => {
-          this.loading = false
-          this.$message.error(this.$t('tip.failedToDownload'), 3000)
-        })
-      } else {
-        this.loading = false
-        if (params.mecHostInfo.length === 0) {
-          this.$message.warning(this.$t('tip.mecHost'))
-        } else {
-          this.$message.warning(this.$t('tip.version'))
-        }
-      }
     }
   }
 }
