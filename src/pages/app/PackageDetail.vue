@@ -17,7 +17,7 @@
 <template>
   <div>
     <div class="topLabel">
-      分发&部署
+      {{ $t('app.appPackageList.distriAndDeploy') }}
       <div class="block" />
     </div>
     <Edge />

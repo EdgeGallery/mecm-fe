@@ -24,9 +24,10 @@
       <el-button
         type="primary"
         id="deleteInsBtn"
+        @click="addNew"
       >
         <span class="iconcont add" />
-        <span>新增规则</span>
+        <span>{{ $t('app.instanceList.newRules') }}</span>
       </el-button>
     </div>
     <div class="contentList">
@@ -38,13 +39,13 @@
           :label="$t('app.ruleConfig.dnsRule')"
           name="dns"
         >
-          <DnsPannel />
+          <DnsPannel :showtype="type" />
         </el-tab-pane>
         <el-tab-pane
           :label="$t('app.ruleConfig.trafficRule')"
           name="traffic"
         >
-          <TrafficPannel />
+          <TrafficPannel :showtype="type" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -61,7 +62,17 @@ export default {
   },
   data () {
     return {
-      activeName: 'dns'
+      activeName: 'dns',
+      type: 0
+    }
+  },
+  methods: {
+    addNew () {
+      if (this.activeName === 'dns') {
+        this.type = 1
+      } else if (this.activeName === 'traffic') {
+        this.type = 2
+      }
     }
   }
 }

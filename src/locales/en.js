@@ -104,7 +104,8 @@ const en = {
       syncTip: 'Select at lease one application for synchronization!',
       syncSuccess: 'Sync succeeded！',
       industry: 'Industry',
-      syncTime: 'Sync Time'
+      syncTime: 'Sync Time',
+      distriAndDeploy: 'Distribution&Instantiate'
     },
     distriList: {
       mecHost: 'MEC Hosts',
@@ -133,7 +134,8 @@ const en = {
       addTrafficRules: 'Add Traffic rules',
       addFilter: 'Add Traffic Filter',
       batchDelete: 'Batch delete instances',
-      appKPI: 'Application KPI'
+      appKPI: 'Application KPI',
+      newRules: 'Add new rules'
     },
     ruleConfig: {
       srcAddress: 'Src IP Address',

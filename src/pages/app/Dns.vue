@@ -198,6 +198,12 @@
 <script>
 import { appo, inventory } from '../../tools/request.js'
 export default {
+  props: {
+    showtype: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       dialog: false,
@@ -230,6 +236,13 @@ export default {
         'appDNSRule': [],
         'appName': '',
         'appSupportMp1': true
+      }
+    }
+  },
+  watch: {
+    showtype () {
+      if (this.showtype === 1) {
+        this.showDialog()
       }
     }
   },

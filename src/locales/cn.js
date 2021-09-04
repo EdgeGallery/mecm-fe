@@ -103,7 +103,8 @@ const cn = {
       syncTip: '请至少选择一个应用进行同步！',
       syncSuccess: '同步成功！',
       industry: '行业',
-      syncTime: '同步时间'
+      syncTime: '同步时间',
+      distriAndDeploy: '分发&部署'
     },
     distriList: {
       mecHost: 'MEC 主机',
@@ -132,7 +133,8 @@ const cn = {
       addTrafficRules: '增加分流规则',
       addFilter: '新增流过滤规则',
       batchDelete: '批量删除应用',
-      appKPI: '应用KPI'
+      appKPI: '应用KPI',
+      newRules: '新增规则'
     },
     ruleConfig: {
       srcAddress: '源IP地址',
