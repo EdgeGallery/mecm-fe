@@ -122,7 +122,6 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="status"
             :label="$t('common.operation')"
             align="center"
           >

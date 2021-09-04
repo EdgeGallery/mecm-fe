@@ -46,10 +46,19 @@
             width="50"
           />
           <el-table-column
-            prop="appName"
             sortable
             :label="$t('app.packageList.name')"
-          />
+          >
+            <template slot-scope="scope">
+              <div
+                class="name"
+                @click="handleRowSelection(scope.row)"
+                :disabled="scope.row.operationalStatus !== 'Instantiated'"
+              >
+                {{ scope.row.appName }}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="mecHost"
             :label="$t('app.distriList.mecHost')"
@@ -75,6 +84,10 @@
             </template>
           </el-table-column>
           <el-table-column
+            :label="$t('app.distriList.appDesc')"
+            prop="appDescriptor"
+          />
+          <el-table-column
             :label="$t('common.operation')"
             align="center"
           >
@@ -86,15 +99,6 @@
                 size="small"
               >
                 {{ $t('common.delete') }}
-              </el-button>
-              <el-button
-                id="detailBtn"
-                @click="handleRowSelection(scope.row)"
-                :disabled="scope.row.operationalStatus !== 'Instantiated'"
-                type="button"
-                size="small"
-              >
-                {{ $t('common.detail') }}
               </el-button>
               <el-button
                 type="button"
