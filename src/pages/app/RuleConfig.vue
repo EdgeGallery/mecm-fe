@@ -16,28 +16,36 @@
 
 <template>
   <div class="ruleconfig">
-    <Breadcrumb
-      class="breadcrumb"
-      :first="$t('nav.overview')"
-      :second="$t('nav.appMana')"
-      :third="$t('nav.ruleConfiguration')"
-      :path="{ path: '/mecm/app/instance' }"
-    />
-    <div class="ruleconfigcontent">
+    <div class="topLabel">
+      {{ $t('nav.ruleConfiguration') }}
+      <div class="block" />
+    </div>
+    <div class="btnMain">
+      <el-button
+        type="primary"
+        id="deleteInsBtn"
+        @click="addNew"
+      >
+        <span class="iconcont add" />
+        <span>{{ $t('app.instanceList.newRules') }}</span>
+      </el-button>
+    </div>
+    <div class="contentList">
       <el-tabs
         v-model="activeName"
+        type="card"
       >
         <el-tab-pane
           :label="$t('app.ruleConfig.dnsRule')"
           name="dns"
         >
-          <Dnspannel />
+          <DnsPannel :showtype="type" />
         </el-tab-pane>
         <el-tab-pane
           :label="$t('app.ruleConfig.trafficRule')"
           name="traffic"
         >
-          <trafficpannel />
+          <TrafficPannel :showtype="type" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -45,28 +53,31 @@
 </template>
 
 <script>
-import Breadcrumb from '../../components/common/BreadCrumb.vue'
-import Dnspannel from './Dns.vue'
-import Trafficpannel from './Traffic.vue'
+import DnsPannel from './Dns.vue'
+import TrafficPannel from './Traffic.vue'
 export default {
   components: {
-    Breadcrumb,
-    Dnspannel,
-    Trafficpannel
+    DnsPannel,
+    TrafficPannel
   },
   data () {
     return {
-      activeName: 'dns'
+      activeName: 'dns',
+      type: 0
+    }
+  },
+  methods: {
+    addNew () {
+      if (this.activeName === 'dns') {
+        this.type = 1
+      } else if (this.activeName === 'traffic') {
+        this.type = 2
+      }
     }
   }
 }
 
 </script>
 <style lang='less' scoped>
-.ruleconfigcontent {
-    margin: 0 5%;
-    height: 100%;
-    background: #fff;
-    padding: 30px 60px;
-}
+
 </style>

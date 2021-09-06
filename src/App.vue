@@ -47,4 +47,7 @@ export default {
   background-size:cover;
   overflow: auto;
 }
+#container{
+  position: relative;
+}
 </style>

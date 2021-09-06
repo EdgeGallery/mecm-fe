@@ -45,29 +45,32 @@ const hostData = function () {
 }
 
 const packageData = function () {
-  return [
+  let data = [
     {
-      'appId': 'xxxx',
-      'packageId': 'xxxx',
-      'name': 'xxx',
-      'appstoreEndpoint': '127.0.0.1:11111',
-      'size': null,
-      'version': 'v1.0',
-      'type': 'zhihui',
+      'appId': '3741feeeb24c45e9a550799fb5ab1a89',
+      'packageId': '848a11ee4c524304b7a8b2bfc5c95a8d',
+      'name': 'location',
+      'appstoreEndpoint': '119.8.63.144:30099',
+      'size': '9784',
+      'version': 'v1.2',
+      'type': 'Video Application',
       'affinity': 'X86',
-      'industry': 'youxi',
+      'industry': 'Smart Park',
       'contact': null,
-      'userId': null,
-      'userName': null,
-      'status': null,
-      'shortDesc': 'fdsf',
-      'testTaskId': null,
-      'provider': 'Huawei',
+      'userId': '39937079-99fe-4cd8-881f-04ca8c4fe09d',
+      'userName': 'admin',
+      'status': 'Published',
+      'shortDesc': 'location',
+      'testTaskId': '7e407f18-9010-4111-811b-8d8b931ba100',
+      'provider': 'HUAWEI',
       'syncStatus': 'IN_SYNC',
-      'createTime': null,
+      'appstoreName': 'appstore1',
+      'createTime': '2021-07-01T11:42:15.754',
+      'updateTime': '2021-07-01T11:42:15.962',
       'operationalInfo': 'success'
     }
   ]
+  return data
 }
 
 const instanceList = function () {
@@ -147,29 +150,11 @@ const distributionData = function () {
     'appIconUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/icon',
     'createdTime': '2020-09-19T07:31:33.267',
     'modifiedTime': '2020-09-19T07:31:33.455',
-    'appId': '73b6f66992ab4798a55350f419a210af',
+    'appId': '3741feeeb24c45e9a550799fb5ab1a89',
     'mecHostInfo': [
       { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
       { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' }
-    ]
-  },
-  {
-    'appPkgId': '9eb381e222dd4a3898fc61f7182bba24',
-    'appPkgName': 'zone-swr-test1',
-    'appPkgVersion': '1.0',
-    'appPkgPath': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/packages/9eb381e222dd4a3898fc61f7182bba24/action/download',
-    'appProvider': 'Huawei',
-    'appPkgDesc': 'for testing',
-    'appPkgAffinity': 'X86',
-    'appIconUrl': 'https://appstore-be-svc:8099/mec/appstore/v1/apps/73b6f66992ab4798a55350f419a210af/icon',
-    'createdTime': '2020-09-19T07:31:33.267',
-    'modifiedTime': '2020-09-19T07:31:33.455',
-    'appId': '73b6f66992ab4798a55350f419a210af',
-    'mecHostInfo': [
-      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '127.0.0.1', 'status': 'Distributed', 'error': '' },
-      { 'hostIp': '127.0.0.1', 'status': 'Error', 'error': '' }
     ]
   }]
 }
@@ -488,6 +473,13 @@ const serviceInfoData = function () {
   return { response: JSON.stringify(data) }
 }
 
+const pacList = function () {
+  let data = [
+
+  ]
+  return data
+}
+
 Mock.mock('/mock/login', userData)
 Mock.mock('/mock/mechosts', hostData)
 Mock.mock('/mock/appPackageList', packageData)
@@ -501,3 +493,4 @@ Mock.mock('/mock/kpiInfo', kpiInfo)
 Mock.mock('/mock/getHwCapability', hwCapability)
 Mock.mock('/mock/getSwCapability', swCapability)
 Mock.mock('/mock/getConfigRules', appRuleData)
+Mock.mock('/mock/appPackagefromAppstoreList', pacList)

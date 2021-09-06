@@ -18,100 +18,26 @@
   <div class="search">
     <div>
       <el-form
-        :model="formData"
-        ref="formData"
         label-width="auto"
         :inline="true"
         class="clearfix"
       >
         <el-form-item
           prop="name"
-          v-if="nameItem"
         >
           <el-input
             id="name"
             maxlength="20"
-            v-model="formData.name"
-            :placeholder="$t('app.packageList.name')"
+            v-model="value"
+            :placeholder="placeholder"
             @keyup.enter.native="search"
-          />
-        </el-form-item>
-        <el-form-item
-          prop="affinity"
-          v-if="affinityItem"
-        >
-          <el-select
-            id="affinity"
-            v-model="formData.affinity"
-            :placeholder="$t('app.packageList.affinity')"
-            @change="search"
+            @input="check()"
           >
-            <el-option
-              v-for="item in affinity"
-              :label="item.label"
-              :value="item.value"
-              :key="item.label"
+            <em
+              slot="suffix"
+              class="el-input__icon el-icon-search"
             />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          prop="type"
-          v-if="typeItem"
-        >
-          <el-select
-            id="type"
-            v-model="formData.type"
-            :placeholder="$t('app.packageList.type')"
-            @change="search"
-          >
-            <el-option
-              v-for="item in types"
-              :label="item.label"
-              :value="item.value"
-              :key="item.label"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          prop="status"
-          v-if="statusItem"
-        >
-          <el-select
-            id="status"
-            v-model="formData.status"
-            :placeholder="$t('app.distriList.status')"
-            @change="search"
-          >
-            <el-option
-              v-for="item in status"
-              :label="item"
-              :value="item"
-              :key="item"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item
-          prop="ip"
-          v-if="ipItem"
-        >
-          <el-input
-            id="ip"
-            maxlength="15"
-            v-model="formData.ip"
-            :placeholder="$t('app.packageList.ip')"
-            @keyup.enter.native="search"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button
-            id="searchBtn"
-            type="primary"
-            plain
-            size="small"
-            @click="search"
-          >
-            {{ $t('common.search') }}
-          </el-button>
+          </el-input>
         </el-form-item>
         <div class="clearfix" />
       </el-form>
@@ -120,74 +46,27 @@
 </template>
 
 <script>
-import { TYPES, AFFINITY } from '../../tools/constant.js'
 export default {
   props: {
-    nameItem: {
-      type: Boolean,
-      default: true
-    },
-    affinityItem: {
-      type: Boolean,
-      default: true
-    },
-    statusItem: {
-      type: Boolean,
-      default: true
-    },
-    typeItem: {
-      type: Boolean,
-      default: false
-    },
-    ipItem: {
-      type: Boolean,
-      default: false
-    },
-    status: {
-      type: Array,
-      default () {
-        return [
-          'progress',
-          'completed',
-          'error'
-        ]
-      }
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
-      types: TYPES,
-      affinity: AFFINITY,
-      formData: {
-        name: '',
-        affinity: '',
-        type: '',
-        status: ''
-      }
+      value: ''
     }
   },
   methods: {
     search () {
-      this.$emit('getSearchData', this.formData)
+      this.$emit('getSearchData', this.value)
     },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
-      this.$emit('getSearchData', this.formData)
+    check () {
+      if (this.value === '') {
+        this.$emit('getSearchData', '')
+      }
     }
   }
 }
 </script>
-<style lang='less' scoped>
-.search{
-  #searchBtn{
-    border: 1px solid #54AFED;
-    box-sizing: border-box;
-    border-radius: 4px;
-    color: white;
-    background: #54AFED;
-  }
-  .el-select{
-    width:100%;
-  }
-}
-</style>

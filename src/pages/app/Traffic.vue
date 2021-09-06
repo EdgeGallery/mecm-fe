@@ -716,6 +716,12 @@ export default {
   components: {
     Detail
   },
+  props: {
+    showtype: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       dialog: false,
@@ -833,6 +839,13 @@ export default {
       filterIndex: -1,
       selectedData: [],
       type: 1
+    }
+  },
+  watch: {
+    showtype () {
+      if (this.showtype === 2) {
+        this.showDialog()
+      }
     }
   },
   computed: {

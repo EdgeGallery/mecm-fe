@@ -16,11 +16,11 @@
 
 <template>
   <div>
-    <div class="overviewLabel">
-      {{ $t('nav.appDetail') }}
+    <div class="topLabel">
+      {{ $t('app.appPackageList.distriAndDeploy') }}
       <div class="block" />
     </div>
-    <Edge :appid="appId" />
+    <Edge />
   </div>
 </template>
 <script>
@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      appId: window.location.href.split('=')[1] || sessionStorage.getItem('appId')
+
     }
   }
 }

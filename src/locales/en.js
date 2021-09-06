@@ -79,7 +79,7 @@ const en = {
     overview: 'Node Statistics',
     edgeNodes: 'Total Edge Nodes',
     onlineNodes: 'No. Online Nodes',
-    offlineNodes: 'No.ffline Nodes',
+    offlineNodes: 'No. Offline Nodes',
     returnOverview: 'Back to main view',
     nodeKPI: 'Node KPI',
     monitor: 'Status Monitoring'
@@ -110,7 +110,8 @@ const en = {
       syncTip: 'Select at lease one application for synchronization!',
       syncSuccess: 'Sync succeeded！',
       industry: 'Industry',
-      syncTime: 'Sync Time'
+      syncTime: 'Sync Time',
+      distriAndDeploy: 'Distribution&Instantiate'
     },
     distriList: {
       mecHost: 'MEC Hosts',
@@ -139,7 +140,8 @@ const en = {
       addTrafficRules: 'Add Traffic rules',
       addFilter: 'Add Traffic Filter',
       batchDelete: 'Batch delete instances',
-      appKPI: 'Application KPI'
+      appKPI: 'Application KPI',
+      newRules: 'Add new rules'
     },
     ruleConfig: {
       srcAddress: 'Src IP Address',
@@ -387,7 +389,8 @@ const en = {
     beforeDeleteAppMgr: 'Are you sure to delete this data?',
     noPermession: 'No permission to operate, please login！',
     recordExist: 'Record already exist!',
-    getTemplateListFail: 'Failed to get parameters'
+    getTemplateListFail: 'Failed to get parameters',
+    fuzzyQuery: 'Enter content to search'
   },
   area: {
     beijing: 'Beijing',

@@ -15,10 +15,9 @@
         :span="12"
         class="progerss-item"
       >
-        <ve-gauge
-          :data="chartDataCpu"
-          height="150px"
-          :settings="chartSettings"
+        <div
+          id="cpuChart"
+          class="chart"
         />
         <p>CPU</p>
       </el-col>
@@ -26,10 +25,9 @@
         :span="12"
         class="progerss-item"
       >
-        <ve-gauge
-          :data="chartDataMem"
-          height="150px"
-          :settings="chartSettings"
+        <div
+          id="memChart"
+          class="chart"
         />
         <p>MEM</p>
       </el-col>
@@ -47,10 +45,61 @@ export default {
     }
   },
   data () {
-    // var color =
-    this.chartSettings = {
-      seriesMap: {
-        'Usage': {
+    return {
+      chartDataCpu: {
+        value: 0
+      },
+      chartDataMem: {
+        value: 0
+      }
+    }
+  },
+  watch: {
+    kpiInfo: function () {
+      this.setData()
+    }
+  },
+  methods: {
+    regAndSetOption (id, data) {
+      let seriesArr = [
+        {
+          type: 'gauge',
+          radius: '98%',
+          min: 0,
+          max: 100,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              width: 1,
+              color: [
+                [1, '#8254f8']
+              ]
+            }
+          },
+          axisTick: {
+            show: true,
+            splitNumber: 5,
+            lineStyle: {
+              color: '#ffffff',
+              width: 2
+            },
+            length: 1
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          pointer: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
+        },
+        {
+          type: 'gauge',
           splitNumber: 4,
           radius: '90%',
           min: 0,
@@ -62,12 +111,12 @@ export default {
           },
           axisTick: {
             show: true,
-            splitNumber: 7, // 刻度的段落数
+            splitNumber: 7,
             lineStyle: {
               color: '#8254f8',
-              width: 1 // 刻度的宽度
+              width: 1
             },
-            length: 6 // 刻度的长度
+            length: 6
           },
           axisLine: {
             lineStyle: {
@@ -100,44 +149,33 @@ export default {
             }
           },
           axisLabel: {
-            show: true,
-            distance: 5,
-            color: '#fff',
-            fontSize: 10
+            show: false
           },
           detail: {
             show: true,
             fontSize: 15,
             offsetCenter: [0, '70%'],
             formatter: '{value}%'
-          }
+          },
+          data: [{
+            value: data.value
+          }]
         }
-      }
-    }
-    return {
-      chartDataCpu: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
-      },
-      chartDataMem: {
-        columns: ['type', 'value'],
-        rows: [
-          { type: 'Usage', value: 0 }
-        ]
-      }
-    }
-  },
-  watch: {
-    kpiInfo: function () {
-      this.setData()
-    }
-  },
-  methods: {
+      ]
+      let myChart1 = echarts.init(document.getElementById(id))
+      myChart1.setOption({
+        series: seriesArr
+      })
+      let myChart2 = echarts.init(document.getElementById(id))
+      myChart2.setOption({
+        series: seriesArr
+      })
+    },
     setData () {
-      this.chartDataCpu.rows[0].value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
-      this.chartDataMem.rows[0].value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
+      this.chartDataCpu.value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
+      this.chartDataMem.value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
+      this.regAndSetOption('cpuChart', this.chartDataCpu)
+      this.regAndSetOption('memChart', this.chartDataMem)
     },
     close () {
       this.$emit('closePopover', 'close')
@@ -168,8 +206,7 @@ export default {
       color: #5b4ad1;
     }
   }
-  #chart{
-    width:100%;
-    height:100%;
+  .chart{
+    height: 150px;
   }
 </style>

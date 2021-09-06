@@ -16,7 +16,7 @@
 
 <template>
   <div>
-    <div class="overviewLabel">
+    <div class="topLabel">
       {{ $t('nav.appstore') }}
       <div class="block" />
     </div>
@@ -37,9 +37,7 @@
     </p>
     <div class="contentList">
       <Search
-        :affinity-item="false"
-        :ip-item="true"
-        :status-item="false"
+        :placeholder="$t('tip.fuzzyQuery')"
         @getSearchData="getSearchData"
       />
       <div class="tableDiv">
@@ -171,27 +169,17 @@ export default {
     },
     filterTableData (val, key) {
       this.paginationData = this.paginationData.filter(item => {
-        let itemVal = item[key].toLowerCase()
-        return itemVal.indexOf(val) > -1
+        return Object.keys(item).some(key => {
+          return String(item[key]).toLowerCase().indexOf(val) > -1
+        })
       })
     },
     getSearchData (data) {
       this.paginationData = this.tableData
-      if (this.paginationData && this.paginationData.length > 0) {
-        let reset = false
-        for (let key in data) {
-          if (data[key]) {
-            reset = true
-            let dataKey = key
-            if (key === 'ip') {
-              dataKey = 'appstoreIp'
-            } else if (key === 'name') {
-              dataKey = 'appstoreName'
-            }
-            this.filterTableData(data[key].toLowerCase(), dataKey)
-          }
-        }
-        if (!reset) this.paginationData = this.tableData
+      if (data) {
+        this.filterTableData(data.toLowerCase())
+      } else {
+        this.initList()
       }
     },
     getCurrentPageData (data) {

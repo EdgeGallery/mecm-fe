@@ -16,30 +16,23 @@
 
 <template>
   <div>
-    <div class="overviewLabel">
+    <div class="topLabel">
       {{ $t('nav.appInstance') }}
       <div class="block" />
     </div>
-    <div class="btnMain">
-      <el-button
-        type="primary"
-        id="deleteInsBtn"
-        @click="beforeDelete(selectData,1)"
-      >
-        <span
-          class="iconcont"
-          style="top:0;"
-        >X</span>
-        <span>{{ this.$t('app.instanceList.batchDelete') }}</span>
-      </el-button>
-    </div>
     <div class="contentList">
       <Search
-        :affinity-item="false"
-        :status-item="true"
-        :status="status"
+        :placeholder="$t('tip.fuzzyQuery')"
         @getSearchData="getSearchData"
       />
+      <span class="btnSearch">
+        <el-button
+          type="primary"
+          @click="beforeDelete(selectData,1)"
+        >
+          <span>{{ $t('app.instanceList.batchDelete') }}</span>
+        </el-button>
+      </span>
       <div class="tableDiv">
         <el-table
           size="small"
@@ -53,10 +46,19 @@
             width="50"
           />
           <el-table-column
-            prop="appName"
             sortable
             :label="$t('app.packageList.name')"
-          />
+          >
+            <template slot-scope="scope">
+              <div
+                class="name"
+                @click="handleRowSelection(scope.row)"
+                :disabled="scope.row.operationalStatus !== 'Instantiated'"
+              >
+                {{ scope.row.appName }}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="mecHost"
             :label="$t('app.distriList.mecHost')"
@@ -82,6 +84,10 @@
             </template>
           </el-table-column>
           <el-table-column
+            :label="$t('app.distriList.appDesc')"
+            prop="appDescriptor"
+          />
+          <el-table-column
             :label="$t('common.operation')"
             align="center"
           >
@@ -93,15 +99,6 @@
                 size="small"
               >
                 {{ $t('common.delete') }}
-              </el-button>
-              <el-button
-                id="detailBtn"
-                @click="handleRowSelection(scope.row)"
-                :disabled="scope.row.operationalStatus !== 'Instantiated'"
-                type="button"
-                size="small"
-              >
-                {{ $t('common.detail') }}
               </el-button>
               <el-button
                 type="button"
@@ -290,30 +287,20 @@ export default {
       clearTimeout(this.interval)
       this.interval = null
     },
-    filterTableData (val, key) {
+    filterTableData (val) {
       this.paginationData = this.paginationData.filter(item => {
-        let itemVal = item[key].toLowerCase()
-        return itemVal.indexOf(val) > -1
+        return Object.keys(item).some(key => {
+          return String(item[key]).toLowerCase().indexOf(val) > -1
+        })
       })
     },
     getSearchData (data) {
       this.searchData = data
       this.paginationData = this.tableData
-      if (this.paginationData && this.paginationData.length > 0) {
-        let reset = false
-        for (let key in data) {
-          if (data[key]) {
-            reset = true
-            let dataKey = ''
-            if (key === 'status') {
-              dataKey = 'operationalStatus'
-            } else if (key === 'name') {
-              dataKey = 'appName'
-            }
-            this.filterTableData(data[key].toLowerCase(), dataKey)
-          }
-        }
-        if (!reset) this.paginationData = this.tableData
+      if (data) {
+        this.filterTableData(data.toLowerCase())
+      } else {
+        this.initList()
       }
     },
     getCurrentPageData (data) {

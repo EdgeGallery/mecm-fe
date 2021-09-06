@@ -33,18 +33,15 @@ export default {
   },
   data () {
     return {
-      cpuData: [
-        {
-          name: 'CPU',
-          value: 0
-        }
-      ],
-      memData: [
-        {
-          name: 'MEM',
-          value: 0
-        }
-      ]
+      cpuData: {
+        name: 'CPU',
+        value: 0
+      },
+      memData: {
+        name: 'MEM',
+        value: 0
+      }
+
     }
   },
   watch: {
@@ -53,157 +50,120 @@ export default {
     }
   },
   methods: {
-    regAndSetOption (id, pieData) {
-      var titleArr = []
-      var seriesArr = []
-
-      pieData.forEach(function (item, index) {
-        titleArr.push({
-          text: item.name,
-          left: '50%',
-          top: '80%',
-          textAlign: 'center',
-          textStyle: {
-            fontWeight: 'normal',
-            fontSize: '16',
-            color: '#DCE0FF',
-            textAlign: 'center'
-          }
-        })
-        seriesArr.push(
-          {
-            type: 'pie',
-            name: '外层细圆环',
-            radius: ['72%', '74%'],
-            center: ['50%', '40%'],
-            hoverAnimation: false,
-            clockWise: false,
-            itemStyle: {
-              normal: {
-                color: '#9DA3D3'
-              }
-            },
-            label: {
-              show: false
-            },
-            data: [100]
-          },
-          {
-            type: 'pie',
-            name: '内层层细圆环',
-            radius: ['55%', '57%'],
-            center: ['50%', '40%'],
-            hoverAnimation: false,
-            clockWise: false,
-            itemStyle: {
-              normal: {
-                color: '#9DA3D3'
-              }
-            },
-            label: {
-              show: false
-            },
-            data: [100]
-          },
-          {
-            type: 'pie',
-            zlevel: 3,
-            silent: true,
-            radius: ['48%', '50%'],
-            center: ['50%', '40%'],
-            label: {
-              normal: {
-                show: false
-              }
-            },
-            labelLine: {
-              normal: {
-                show: false
-              }
-            },
-            data: dotArr()
-          }
-        )
-      })
-      seriesArr.push(
+    regAndSetOption (id, data) {
+      let seriesArr = [
         {
-          name: pieData[0].name,
-          type: 'pie',
-          clockWise: false,
-          radius: ['60%', '66%'],
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                {
-                  offset: 0,
-                  color: '#6E34FA'
-                },
-                {
-                  offset: 1,
-                  color: '#5467df'
-                }
-              ]),
-              label: {
-                show: false
+          type: 'gauge',
+          radius: '98%',
+          min: 0,
+          max: 100,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              width: 1,
+              color: [
+                [1, '#8254f8']
+              ]
+            }
+          },
+          axisTick: {
+            show: true,
+            splitNumber: 5,
+            lineStyle: {
+              color: '#ffffff',
+              width: 2
+            },
+            length: 1
+          },
+          splitLine: {
+            show: false
+          },
+          axisLabel: {
+            show: false
+          },
+          pointer: {
+            show: false
+          },
+          detail: {
+            show: false
+          }
+        },
+        {
+          type: 'gauge',
+          splitNumber: 4,
+          radius: '90%',
+          min: 0,
+          max: 100,
+          pointer: {
+            show: true,
+            width: 5,
+            length: '60%'
+          },
+          axisTick: {
+            show: true,
+            splitNumber: 7,
+            lineStyle: {
+              color: '#8254f8',
+              width: 1
+            },
+            length: 6
+          },
+          axisLine: {
+            lineStyle: {
+              width: 10,
+              color: [[1, new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                offset: 0,
+                color: '#61caa6'
               },
-              labelLine: {
-                show: false
+
+              {
+                offset: 0.62,
+                color: '#fcb35d'
+              },
+
+              {
+                offset: 1,
+                color: '#da2d2d'
               }
+              ])]],
+              borderColor: '#8254f8',
+              borderWidth: '2'
             }
           },
-          hoverAnimation: false,
-          center: ['50%', '40%'],
-          data: [
-            {
-              value: pieData[0].value,
-              label: {
-                normal: {
-                  formatter: function (params) {
-                    return params.value + '%'
-                  },
-                  position: 'center',
-                  show: true,
-                  textStyle: {
-                    fontSize: '14',
-                    color: '#FFE898'
-                  }
-                }
-              }
+          splitLine: {
+            show: true,
+            length: '28%',
+            lineStyle: {
+              color: '#8254f8',
+              width: 2
             }
-          ]
+          },
+          axisLabel: {
+            show: false
+          },
+          detail: {
+            show: true,
+            fontSize: 15,
+            offsetCenter: [0, '70%'],
+            formatter: '{value}%'
+          },
+          data: [{
+            value: data.value
+          }]
         }
-      )
-      if (id === 'cpuChart') {
-        let myChart1 = echarts.init(document.getElementById(id))
-        myChart1.setOption({
-          grid: {
-            left: '5%',
-            right: '2%',
-            bottom: '0%',
-            top: '0%',
-            containLabel: true
-          },
-          title: titleArr,
-          series: seriesArr
-        })
-      } else {
-        let myChart2 = echarts.init(document.getElementById(id))
-        myChart2.setOption({
-          grid: {
-            left: '5%',
-            right: '2%',
-            bottom: '0%',
-            top: '0%',
-            containLabel: true
-          },
-          title: titleArr,
-          series: seriesArr
-        })
-      }
+      ]
+      let myChart1 = echarts.init(document.getElementById(id))
+      myChart1.setOption({
+        series: seriesArr
+      })
+      let myChart2 = echarts.init(document.getElementById(id))
+      myChart2.setOption({
+        series: seriesArr
+      })
     },
     setData () {
-      this.cpuData[0].value = parseFloat(this.kpiInfo.cpuusage).toFixed(2)
-      this.memData[0].value = parseFloat(this.kpiInfo.memusage).toFixed(2)
+      this.cpuData.value = parseFloat(this.kpiInfo.cpuusage).toFixed(2)
+      this.memData.value = parseFloat(this.kpiInfo.memusage).toFixed(2)
       this.regAndSetOption('cpuChart', this.cpuData)
       this.regAndSetOption('memChart', this.memData)
     }
@@ -213,38 +173,6 @@ export default {
       this.setData()
     }
   }
-}
-
-function dotArr () {
-  let dataArr = []
-  for (var i = 0; i < 80; i++) {
-    if (i % 2 === 0) {
-      dataArr.push({
-        name: (i + 1).toString(),
-        value: 1,
-        itemStyle: {
-          normal: {
-            color: '#676a6c',
-            borderWidth: 1,
-            borderColor: '#9DA3D3'
-          }
-        }
-      })
-    } else {
-      dataArr.push({
-        name: (i + 1).toString(),
-        value: 2,
-        itemStyle: {
-          normal: {
-            color: 'rgba(0,0,0,0)',
-            borderWidth: 0,
-            borderColor: 'rgba(0,0,0,0)'
-          }
-        }
-      })
-    }
-  }
-  return dataArr
 }
 </script>
 <style lang='less' scoped>
