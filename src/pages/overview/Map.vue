@@ -80,16 +80,13 @@ export default {
       map: null,
       showMainView: true,
       language: localStorage.getItem('language'),
-      statusInterval: null,
+      getNodeTimeout: null,
       nodeStatusList: []
     }
   },
   mounted () {
     this.getNodeStatus()
-    setTimeout(() => { this.getNodeList() })
-    this.statusInterval = setInterval(() => {
-      this.getNodeStatus()
-    }, 600000)
+    this.getNodeTimeout = setTimeout(() => { this.getNodeList() })
     let detailMap = document.getElementById('mapDetailMap')
     detailMap.style.height = window.innerHeight
   },
@@ -97,7 +94,6 @@ export default {
     detail () {
       let arr = []
       arr.push(this.detail)
-      console.log(arr)
       this.showLayers(arr)
       this.$emit('node', this.detail)
     },
@@ -108,8 +104,8 @@ export default {
     }
   },
   beforeDestroy () {
-    this.statusInterval = null
-    clearInterval(this.statusInterval)
+    this.getNodeTimeout = null
+    clearInterval(this.getNodeTimeout)
   },
   methods: {
     getNodeList () {
@@ -117,7 +113,6 @@ export default {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')
-            console.log(this.nodeStatusList)
             this.nodeStatusList.forEach(val => {
               if (val.checkedIp === item.mechostIp) {
                 item.status = val.condition
@@ -133,7 +128,6 @@ export default {
       })
     },
     getNodeStatus () {
-      console.log(123)
       check.healthCheck().then(res => {
         this.nodeStatusList = res.data
       })
