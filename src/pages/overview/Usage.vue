@@ -24,7 +24,6 @@
       <el-col
         :span="8"
         class="mt20 progerss-item"
-        v-if="kpiInfo.diskusage"
       >
         <div
           id="diskChart"

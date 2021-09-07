@@ -41,7 +41,7 @@
 
 <script>
 import CityMap from '../../assets/js/CityMap'
-import { inventory } from '../../tools/request.js'
+import { inventory, check } from '../../tools/request.js'
 import echarts from 'echarts'
 
 import 'ol/ol.css'
@@ -79,11 +79,14 @@ export default {
       btnShow: false,
       map: null,
       showMainView: true,
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      getNodeTimeout: null,
+      nodeStatusList: []
     }
   },
   mounted () {
-    this.getNodeList()
+    this.getNodeStatus()
+    this.getNodeTimeout = setTimeout(() => { this.getNodeList() })
     let detailMap = document.getElementById('mapDetailMap')
     detailMap.style.height = window.innerHeight
   },
@@ -91,7 +94,6 @@ export default {
     detail () {
       let arr = []
       arr.push(this.detail)
-      console.log(arr)
       this.showLayers(arr)
       this.$emit('node', this.detail)
     },
@@ -101,12 +103,21 @@ export default {
       this.getNodeList()
     }
   },
+  beforeDestroy () {
+    this.getNodeTimeout = null
+    clearInterval(this.getNodeTimeout)
+  },
   methods: {
     getNodeList () {
       inventory.getList(2).then(res => {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')
+            this.nodeStatusList.forEach(val => {
+              if (val.checkedIp === item.mechostIp) {
+                item.status = val.condition
+              }
+            })
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
@@ -114,6 +125,11 @@ export default {
         }
       }, error => {
         console.log(error)
+      })
+    },
+    getNodeStatus () {
+      check.healthCheck().then(res => {
+        this.nodeStatusList = res.data
       })
     },
     showLayers (arr) {

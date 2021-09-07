@@ -40,6 +40,32 @@ const hostData = function () {
       'hwcapabilities': [ ],
       'vim': 'OpenStack',
       'configUploadStatus': 'Uploaded'
+    },
+    {
+      'mechostIp': '127.0.1.2',
+      'mechostName': 'vmde',
+      'zipCode': '',
+      'city': '陕西省/西安市/雁塔区',
+      'address': '华为基地',
+      'affinity': 'X86',
+      'userName': '',
+      'mepmIp': '127.0.1.0',
+      'coordinates': '108.8348,34.1995',
+      'hwcapabilities': [ ],
+      'vim': 'OpenStack',
+      'configUploadStatus': 'Uploaded'
+    }
+  ]
+}
+
+const checkHealth = function () {
+  return [
+    {
+      checkedIp: '127.0.1.2',
+      condition: false
+    }, {
+      checkedIp: '127.0.1.0',
+      condition: true
     }
   ]
 }
@@ -494,3 +520,4 @@ Mock.mock('/mock/getHwCapability', hwCapability)
 Mock.mock('/mock/getSwCapability', swCapability)
 Mock.mock('/mock/getConfigRules', appRuleData)
 Mock.mock('/mock/appPackagefromAppstoreList', pacList)
+Mock.mock('/mock/getNodeStatus', checkHealth)

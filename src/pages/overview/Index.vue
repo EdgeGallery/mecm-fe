@@ -143,11 +143,11 @@
                   prop="mechostIp"
                   :label="$t('app.packageList.status')"
                 >
-                  <template>
+                  <template slot-scope="scope">
                     <span><em
-                      class="el-icon-success"
-                      :style="{color: '#67C23A'}"
-                    /> Online</span>
+                      :class="scope.row.status?'el-icon-success':'el-icon-error'"
+                      :style="scope.row.status?{color: '#67C23A'}:{color: 'red'}"
+                    /> {{ scope.row.status?'Online':'Offline' }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -407,6 +407,7 @@ export default {
         }
       }
       this.nodeList = JSON.parse(JSON.stringify(msg))
+      console.log(this.nodeList)
       this.nodeList.forEach(item => {
         item.city += '/' + item.address
       })

@@ -17,7 +17,7 @@
 <template>
   <div>
     <div class="topLabel">
-      {{ $t('nav.appstore') }}
+      {{ $t('nav.mepm') }}
       <div class="block" />
     </div>
     <p
