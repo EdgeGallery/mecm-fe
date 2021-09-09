@@ -131,6 +131,15 @@ export default {
       } else if (this.indexName === '/mecm/app/ruleconfig') {
         this.indexName = '/mecm/app/instance'
       }
+      // post message to unified platform
+      window.parent.postMessage({
+        cmd: 'routeTo',
+        params: {
+          module: 'mecm',
+          path: to.path,
+          activeMenuPath: this.indexName
+        }
+      }, '*')
     }
   },
   mounted () {

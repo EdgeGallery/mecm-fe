@@ -173,6 +173,25 @@ export default {
       }
       this.startHttpSessionInvalidListener(res.data.sessId)
     })
+    // Switch language
+    let lanIndex = window.location.href.search('language')
+    if (lanIndex > 0) {
+      let lan = window.location.href.substring(lanIndex + 9, lanIndex + 11)
+      if (lan === 'en') {
+        this.changeLang(lan)
+      }
+    }
+    // message listener, message from unified platform
+    window.addEventListener('message', (event) => {
+      var data = event.data
+      console.log('handleMessage, message info: ' + JSON.stringify(data))
+      switch (data.cmd) {
+        case 'iframeLanguageChange':
+          let lang = data.params.lang
+          this.changeLang(lang)
+          break
+      }
+    })
   },
   beforeDestroy () {
     clearTimeout(this.wsMsgSendInterval)
@@ -231,8 +250,16 @@ export default {
     closeMenu (data) {
       this.smallMenu = data
     },
-    changeLang () {
-      if (this.language === 'en') {
+    changeLang (lang) {
+      if (lang === 'en') {
+        this.language = 'en'
+        this.lang = '简体中文'
+        this.jsonData = NavData
+      } else if (lang === 'cn') {
+        this.language = 'cn'
+        this.lang = 'English'
+        this.jsonData = NavDataCn
+      } else if (this.language === 'en') {
         this.language = 'cn'
         this.lang = 'English'
         this.jsonData = NavDataCn
