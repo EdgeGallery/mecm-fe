@@ -92,7 +92,7 @@
                     type="text"
                     size="small"
                   >
-                    分发&部署
+                    {{ $t('app.packageList.distribute') }}
                   </el-button>
                 </template>
               </el-table-column>
