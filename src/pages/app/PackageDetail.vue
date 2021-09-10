@@ -17,7 +17,7 @@
 <template>
   <div>
     <div class="topLabel">
-      {{ $t('app.appPackageList.distriAndDeploy') }}
+      {{ $t('app.packageList.distriAndDeploy') }}
       <div class="block" />
     </div>
     <Edge />
