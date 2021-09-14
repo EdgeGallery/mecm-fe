@@ -226,6 +226,12 @@ let inventory = {
   }
 }
 
+let check = {
+  healthCheck () {
+    return GET('http' + window.location.host.split(':')[0] + ':32757/health-check/v1/center/action/start')
+  }
+}
+
 export {
   GET,
   POST,
@@ -234,5 +240,6 @@ export {
   user,
   apm,
   appo,
-  inventory
+  inventory,
+  check
 }
