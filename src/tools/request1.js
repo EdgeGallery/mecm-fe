@@ -34,6 +34,9 @@ let apm = {
   },
   initApmPackages () {
     return axios.get('/mock/appPackageList')
+  },
+  getAppPackageList () {
+    return axios.get('/mock/appPackagefromAppstoreList')
   }
 }
 let appo = {
@@ -68,9 +71,16 @@ let inventory = {
   }
 }
 
+let check = {
+  healthCheck  () {
+    return axios.get('/mock/getNodeStatus')
+  }
+}
+
 export {
   user,
   apm,
   appo,
-  inventory
+  inventory,
+  check
 }
