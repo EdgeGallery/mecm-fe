@@ -359,8 +359,7 @@ export default {
       this.showUsageDialog = false
       appo.getNodeKpi(ip).then(res => {
         if (res.data) {
-          let str = res.data.response
-          this.usageData = JSON.parse(str)
+          this.usageData = res.data
           this.showUsageDialog = true
           this.intervalDialog = setInterval(() => this.showDialogPosition())
         }
@@ -469,8 +468,7 @@ export default {
     getNodeKpi (ip) {
       appo.getNodeKpi(ip).then(res => {
         if (res.data) {
-          let str = res.data.response
-          this.kpiInfo = JSON.parse(str)
+          this.kpiInfo = res.data
         }
       })
     }
