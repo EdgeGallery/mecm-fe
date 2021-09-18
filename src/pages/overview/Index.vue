@@ -140,10 +140,10 @@
                   :label="$t('app.packageList.ip')"
                 />
                 <el-table-column
-                  prop="mechostIp"
+                  prop="status"
                   :label="$t('app.packageList.status')"
                 >
-                  <template>
+                  <template slot-scope="scope">
                     <!-- <span><em
                       :class="scope.row.status?'el-icon-success':'el-icon-error'"
                       :style="scope.row.status?{color: '#67C23A'}:{color: 'red'}"
@@ -151,7 +151,7 @@
                     <span><em
                       class="el-icon-success"
                       style="color:#67C23A;"
-                    /> Online</span>
+                    /> {{ scope.row.status }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
