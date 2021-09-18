@@ -113,11 +113,11 @@ export default {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')
-            this.nodeStatusList.forEach(val => {
-              if (val.checkedIp === item.mechostIp) {
-                item.status = val.condition
-              }
-            })
+            // this.nodeStatusList.forEach(val => {
+            //   if (val.checkedIp === item.mechostIp) {
+            //     item.status = val.condition
+            //   }
+            // })
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
