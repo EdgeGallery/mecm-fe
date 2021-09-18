@@ -85,7 +85,7 @@ export default {
     }
   },
   mounted () {
-    this.getNodeStatus()
+    // this.getNodeStatus()
     this.getNodeTimeout = setTimeout(() => { this.getNodeList() })
     let detailMap = document.getElementById('mapDetailMap')
     detailMap.style.height = window.innerHeight
@@ -113,11 +113,12 @@ export default {
         if (res.data && res.data.length > 0) {
           res.data.forEach((item, index) => {
             item.coordinates = item.coordinates.split(',')
-            this.nodeStatusList.forEach(val => {
-              if (val.checkedIp === item.mechostIp) {
-                item.status = val.condition
-              }
-            })
+            item.status = 'Online'
+            // this.nodeStatusList.forEach(val => {
+            //   if (val.checkedIp === item.mechostIp) {
+            //     item.status = val.condition
+            //   }
+            // })
           })
           this.nodeData = res.data
           this.mapChart('mapChart')

@@ -140,14 +140,18 @@
                   :label="$t('app.packageList.ip')"
                 />
                 <el-table-column
-                  prop="mechostIp"
+                  prop="status"
                   :label="$t('app.packageList.status')"
                 >
                   <template slot-scope="scope">
-                    <span><em
+                    <!-- <span><em
                       :class="scope.row.status?'el-icon-success':'el-icon-error'"
                       :style="scope.row.status?{color: '#67C23A'}:{color: 'red'}"
-                    /> {{ scope.row.status?'Online':'Offline' }}</span>
+                    /> {{ scope.row.status?'Online':'Offline' }}</span> -->
+                    <span><em
+                      class="el-icon-success"
+                      style="color:#67C23A;"
+                    /> {{ scope.row.status }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -209,7 +213,7 @@
                   <div class="selectCapa rt">
                     <el-select
                       v-model="capaType"
-                      placeholder="请选择"
+                      :placeholder="$t('tip.pleaseSelect')"
                     >
                       <el-option
                         v-for="item in options"
