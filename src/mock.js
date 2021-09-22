@@ -121,14 +121,8 @@ const swCapability = function () {
 }
 
 const kpiInfo = function () {
-  let data = {
-    'cpuusage': { 'total': 1600653686.904, 'used': '6.81' },
-    'memusage': { 'total': 1600653686.906, 'used': '1.22' },
-    'diskusage': { 'total': '12.0', 'used': '18.6' }
-  }
-  return {
-    response: JSON.stringify(data)
-  }
+  let data = { 'cpuusage': { 'total': 354819894, 'used': 106112506 }, 'memusage': { 'total': 10656432, 'used': 9098832 } }
+  return data
 }
 
 const hwCapability = function () {
