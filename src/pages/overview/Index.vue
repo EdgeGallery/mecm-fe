@@ -79,7 +79,7 @@
                     </div>
                     <div class="numRight lt">
                       <p class="num">
-                        {{ nodeNum }}
+                        0
                       </p>
                       <p class="defaultName">
                         {{ $t('overview.offlineNodes') }}
