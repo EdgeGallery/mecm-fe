@@ -177,7 +177,7 @@ export default {
     setData () {
       this.chartDataCpu.value = parseFloat(((this.kpiInfo.cpuusage.used / this.kpiInfo.cpuusage.total) * 100).toFixed(2))
       this.chartDataMem.value = parseFloat(((this.kpiInfo.memusage.used / this.kpiInfo.memusage.total) * 100).toFixed(2))
-      this.chartDataDisk.value = isNaN(parseFloat(((this.kpiInfo.diskusage.used / this.kpiInfo.diskusage.total) * 100).toFixed(2))) ? 0 : parseFloat((this.kpiInfo.diskusage.used * 100).toFixed(2))
+      this.chartDataDisk.value = 0
 
       this.regAndSetOption('cpuChart', this.chartDataCpu)
       this.regAndSetOption('memChart', this.chartDataMem)
@@ -185,6 +185,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.kpiInfo)
     if (JSON.stringify(this.kpiInfo) !== '{}') {
       this.setData()
     }
