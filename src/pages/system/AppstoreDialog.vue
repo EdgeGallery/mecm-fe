@@ -31,7 +31,7 @@
             />
           </el-form-item>
           <el-form-item
-            :label="$t('system.mepm.port')"
+            :label="$t('system.appstore.port')"
             prop="appstorePort"
           >
             <el-input
