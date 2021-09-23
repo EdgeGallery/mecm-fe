@@ -253,7 +253,8 @@ const cn = {
       appstoreRepo: '应用仓库',
       appstoreRepoName: '仓库名称',
       appstoreRepoUserName: '仓库用户名',
-      appstoreRepoPassword: '仓库密码'
+      appstoreRepoPassword: '仓库密码',
+      port: '端口'
     }
   },
   common: {
