@@ -55,7 +55,7 @@
           />
           <el-table-column
             prop="appstorePort"
-            :label="$t('system.mepm.port')"
+            :label="$t('system.appstore.port')"
           />
           <el-table-column
             prop="appstoreRepo"

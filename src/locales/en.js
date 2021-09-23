@@ -261,7 +261,8 @@ const en = {
       appstoreRepo: 'Appstore Repo',
       appstoreRepoName: 'Repo Name',
       appstoreRepoUserName: 'Repo Username',
-      appstoreRepoPassword: 'Repo Password'
+      appstoreRepoPassword: 'Repo Password',
+      port: 'Port'
     }
   },
   common: {
