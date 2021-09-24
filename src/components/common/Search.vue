@@ -21,6 +21,7 @@
         label-width="auto"
         :inline="true"
         class="clearfix"
+        @submit.native.prevent
       >
         <el-form-item
           prop="name"
@@ -30,7 +31,6 @@
             maxlength="20"
             v-model="value"
             :placeholder="placeholder"
-            @submit.native.prevent
             @keyup.enter.native="search"
             @input="check()"
           >
