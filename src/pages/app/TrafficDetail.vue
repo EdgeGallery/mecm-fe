@@ -119,7 +119,7 @@
       />
       <el-table-column
         prop="dstIpAddress"
-        label="目的IP地址"
+        :label="$t('app.ruleConfig.dstAddress')"
       />
     </el-table>
   </div>
