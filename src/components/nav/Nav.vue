@@ -61,6 +61,7 @@
           <div class="language rt">
             <img
               @click="changeLang"
+              alt="user"
               src="../../assets/images/Switch_icon.png"
             >
           </div>
@@ -78,6 +79,7 @@
             <img
               id="usericon"
               v-if="!ifGuest"
+              alt="usercenter"
               @click="openUserAccountCenter()"
               src="../../assets/images/mine_icon.png"
             >
