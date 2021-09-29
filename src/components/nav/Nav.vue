@@ -143,55 +143,13 @@ export default {
     }
   },
   mounted () {
-    this.jsonData = NavDataCn
-    this.language = localStorage.getItem('language') || 'cn'
-    this.$i18n.locale = this.language
-    if (this.language === 'cn') {
-      this.lang = 'English'
-      this.jsonData = NavDataCn
-    } else {
-      this.lang = '简体中文'
-      this.jsonData = NavData
-    }
-    if (!localStorage.getItem('language')) { localStorage.setItem('language', 'cn') }
-    user.getUserInfo().then(res => {
-      this.userName = res.data.userName
-      sessionStorage.setItem('userId', res.data.userId)
-      sessionStorage.setItem('access_token', res.data.accessToken)
-      sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
-      this.loginPage = res.data.loginPage
-      this.userCenterPage = res.data.userCenterPage
-      this.forceModifyPwPage = res.data.forceModifyPwPage
-      if (res.data.userName !== 'guest') {
-        this.ifGuest = false
-      }
-      if (this.jumpToForceModifyPw()) {
-        return
-      }
-      if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
-        sessionStorage.setItem('rlp', 418)
-      } else {
-        sessionStorage.removeItem('rlp')
-      }
-      this.startHttpSessionInvalidListener(res.data.sessId)
-    })
-    // Switch language
-    let lanIndex = window.location.href.search('language')
-    if (lanIndex > 0) {
-      let lan = window.location.href.substring(lanIndex + 9, lanIndex + 11)
-      if (lan === 'en') {
-        this.changeLang(lan)
-      }
-    }
+    this.lanMethods()
     // message listener, message from unified platform
     window.addEventListener('message', (event) => {
       var data = event.data
-      console.log('handleMessage, message info: ' + JSON.stringify(data))
-      switch (data.cmd) {
-        case 'iframeLanguageChange':
-          let lang = data.params.lang
-          this.changeLang(lang)
-          break
+      if (data.cmd === 'iframeLanguageChange') {
+        let lang = data.params.lang
+        this.changeLang(lang)
       }
     })
   },
@@ -200,6 +158,54 @@ export default {
     this.wsMsgSendInterval = null
   },
   methods: {
+    lanMethods () {
+      this.jsonData = NavDataCn
+      this.language = localStorage.getItem('language') || 'cn'
+      this.$i18n.locale = this.language
+      if (this.language === 'cn') {
+        this.lang = 'English'
+        this.jsonData = NavDataCn
+      } else {
+        this.lang = '简体中文'
+        this.jsonData = NavData
+      }
+      if (!localStorage.getItem('language')) { localStorage.setItem('language', 'cn') }
+      this.getuserInfo()
+    },
+    getuserInfo () {
+      user.getUserInfo().then(res => {
+        this.userName = res.data.userName
+        sessionStorage.setItem('userId', res.data.userId)
+        sessionStorage.setItem('access_token', res.data.accessToken)
+        sessionStorage.setItem('isSecureBackend', res.data.isSecureBackend)
+        this.loginPage = res.data.loginPage
+        this.userCenterPage = res.data.userCenterPage
+        this.forceModifyPwPage = res.data.forceModifyPwPage
+        if (res.data.userName !== 'guest') {
+          this.ifGuest = false
+        }
+        if (this.jumpToForceModifyPw()) {
+          return
+        }
+        if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
+          sessionStorage.setItem('rlp', 418)
+        } else {
+          sessionStorage.removeItem('rlp')
+        }
+        this.startHttpSessionInvalidListener(res.data.sessId)
+      })
+      this.switchLan()
+    },
+    switchLan () {
+      // Switch language
+      let lanIndex = window.location.href.search('language')
+      if (lanIndex > 0) {
+        let lan = window.location.href.substring(lanIndex + 9, lanIndex + 11)
+        if (lan === 'en') {
+          this.changeLang(lan)
+        }
+      }
+    },
     startHttpSessionInvalidListener (sessId) {
       if (typeof (WebSocket) === 'undefined') {
         return
@@ -252,23 +258,21 @@ export default {
     closeMenu (data) {
       this.smallMenu = data
     },
+    languageConfirmEn () {
+      this.language = 'en'
+      this.lang = '简体中文'
+      this.jsonData = NavData
+    },
+    languageConfirmCn () {
+      this.language = 'cn'
+      this.lang = 'English'
+      this.jsonData = NavDataCn
+    },
     changeLang (lang) {
-      if (lang === 'en') {
-        this.language = 'en'
-        this.lang = '简体中文'
-        this.jsonData = NavData
-      } else if (lang === 'cn') {
-        this.language = 'cn'
-        this.lang = 'English'
-        this.jsonData = NavDataCn
-      } else if (this.language === 'en') {
-        this.language = 'cn'
-        this.lang = 'English'
-        this.jsonData = NavDataCn
+      if (lang === 'en' || this.language === 'en') {
+        this.languageConfirmEn()
       } else {
-        this.language = 'en'
-        this.lang = '简体中文'
-        this.jsonData = NavData
+        this.languageConfirmCn()
       }
       this.$i18n.locale = this.language
       localStorage.setItem('language', this.language)

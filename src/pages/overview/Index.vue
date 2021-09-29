@@ -618,7 +618,7 @@ export default {
     border-radius: 8px;
   }
   .bottom{
-    height: 100%;
+    height: 68%;
     margin: 0 10%;
     padding: 40px 35px;
     background: #fff;
@@ -641,9 +641,6 @@ export default {
   }
   .top{
     height: 26%;
-  }
-  .bottom{
-    height: 68%;
   }
   .mepCapaTable{
     max-height: 300px;
