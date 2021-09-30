@@ -263,17 +263,17 @@ export default {
       this.smallMenu = data
     },
     languageConfirmEn () {
-      this.language = 'en'
-      this.lang = '简体中文'
-      this.jsonData = NavData
-    },
-    languageConfirmCn () {
       this.language = 'cn'
       this.lang = 'English'
       this.jsonData = NavDataCn
     },
+    languageConfirmCn () {
+      this.language = 'en'
+      this.lang = '简体中文'
+      this.jsonData = NavData
+    },
     changeLang (lang) {
-      if (lang === 'en' || this.language === 'en') {
+      if (lang === 'cn' || this.language === 'en') {
         this.languageConfirmEn()
       } else {
         this.languageConfirmCn()
