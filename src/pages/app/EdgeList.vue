@@ -264,7 +264,7 @@
       <el-dialog
         :show-close="false"
         :visible.sync="distributionDialogVisible"
-        v-loading="loading"
+        v-loading="disLoading"
       >
         <div class="secondLabel">
           {{ $t('app.packageList.slectEdgeNodes') }}
@@ -742,7 +742,7 @@ export default {
       this.$refs.multipleEdgeNodeTable.clearSelection()
     },
     async confirm () {
-      this.loading = true
+      this.disLoading = true
       let selectedMecHost = []
       this.nodeSelection.forEach(data => {
         let obj = {}
@@ -768,7 +768,6 @@ export default {
         createdTime: new Date().toString(),
         modifiedTime: new Date().toString()
       }
-      console.log(params)
       if (params.appPkgVersion && params.mecHostInfo.length > 0) {
         apm.confirmToDistribute(params).then(response => {
           sessionStorage.setItem('appId', params.appId)
@@ -777,11 +776,11 @@ export default {
             this.initList()
           )
         }).catch(() => {
-          this.loading = false
+          this.disLoading = false
           this.$message.error(this.$t('tip.failedToDownload'), 3000)
         })
       } else {
-        this.loading = false
+        this.disLoading = false
         if (params.mecHostInfo.length === 0) {
           this.$message.warning(this.$t('tip.mecHost'))
         } else {
