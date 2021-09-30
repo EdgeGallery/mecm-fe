@@ -269,13 +269,11 @@ export default {
       this.jsonData = NavData
     },
     changeLang (lang) {
-      console.log(this.language)
-      if (lang === 'en' || this.language === 'en') {
+      if (lang === 'cn' || this.language === 'en') {
         this.languageConfirmEn()
       } else {
         this.languageConfirmCn()
       }
-      console.log(this.language)
       this.$i18n.locale = this.language
       localStorage.setItem('language', this.language)
       let appDom = document.getElementById('app')
