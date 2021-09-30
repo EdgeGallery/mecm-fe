@@ -244,7 +244,7 @@ const cn = {
       chooseLocation: '选择部署位置',
       vim: '虚拟机',
       ifUploaded: '上传状态',
-      coordPlaceholder: '请按照经度,维度顺序输入，中间使用半角逗号分隔，例如：116,39',
+      coordPlaceholder: '经,纬度，例如：116,39',
       referCoord: '坐标获取请参考：'
     },
     appstore: {
