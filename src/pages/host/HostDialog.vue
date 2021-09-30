@@ -357,11 +357,9 @@ export default {
               this.cancel()
             }).catch((error) => {
               if (error.response.data.details[0] === 'Record already exist') {
-                this.$message.error(error.response.data.details[0])
+                this.$message.error('Record already exist')
               } else if (error.response.status === 403) {
                 this.$message.error(this.$t('tip.loginOperation'))
-              } else {
-                this.$message.error(error.response.data)
               }
             })
           } else {

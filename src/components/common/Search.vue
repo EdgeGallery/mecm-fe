@@ -21,6 +21,7 @@
         label-width="auto"
         :inline="true"
         class="clearfix"
+        @submit.native.prevent
       >
         <el-form-item
           prop="name"

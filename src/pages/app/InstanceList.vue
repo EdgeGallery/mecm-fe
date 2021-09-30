@@ -264,14 +264,6 @@ export default {
     this.clearInterval()
   },
   methods: {
-    getMemValue (rowVal) {
-      let val = rowVal.containers[0].metricsusage.memusage.split('/')
-      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
-    },
-    getCpuValue (rowVal) {
-      let val = rowVal.containers[0].metricsusage.cpuusage.split('/')
-      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
-    },
     cancelToSync () {
       this.instanceListVisible = false
     },
@@ -309,6 +301,14 @@ export default {
     handleSelectionChange (selection) {
       this.selectData = selection
     },
+    getMemValue (rowVal) {
+      let val = rowVal.containers[0].metricsusage.memusage.split('/')
+      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
+    },
+    getCpuValue (rowVal) {
+      let val = rowVal.containers[0].metricsusage.cpuusage.split('/')
+      return ((val[0] / val[1]) * 100).toFixed(2) + '%'
+    },
     handleRowSelection (row) {
       appo.getServiceInfo(row.appInstanceId).then(res => {
         this.appKPIInfo = JSON.parse(res.data.response)
@@ -316,7 +316,18 @@ export default {
         if (this.podTable) {
           this.instanceListVisible = true
           this.getUsageData()
+          let metricsCpu = 0
+          let metricsMem = 0
+          this.podTable.forEach(item => {
+            metricsCpu += (item.containers[0].metricsusage.memusage.split('/')[0] / item.containers[0].metricsusage.memusage.split('/')[1] * 100).toFixed(2)
+            metricsMem += (item.containers[0].metricsusage.cpuusage.split('/')[0] / item.containers[0].metricsusage.cpuusage.split('/')[1] * 100).toFixed(2)
+          })
+          this.kpiInfo = {
+            'cpuusage': metricsCpu + '%',
+            'memusage': metricsMem + '%'
+          }
         } else {
+          this.kpiInfo = {}
           this.instanceListVisible = false
           this.$notify.warning({
             title: 'Info',

@@ -167,7 +167,7 @@ export default {
         console.log(error)
       })
     },
-    filterTableData (val, key) {
+    filterTableData (val) {
       this.paginationData = this.paginationData.filter(item => {
         return Object.keys(item).some(key => {
           return String(item[key]).toLowerCase().indexOf(val) > -1

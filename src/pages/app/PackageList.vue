@@ -243,7 +243,7 @@ export default {
   },
   methods: {
     // 对app表格进行筛选 val：需要查询的值  key: 数据对应的字段
-    filterTableData (val, key) {
+    filterTableData (val) {
       this.paginationData = this.paginationData.filter(item => {
         return Object.keys(item).some(key => {
           return String(item[key]).toLowerCase().indexOf(val) > -1
