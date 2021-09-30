@@ -695,9 +695,9 @@ export default {
       instanceId.forEach(item => {
         let obj1 = {}
         obj1.appInstanceId = item.appInstanceId
-        this.templateInputs.forEach(item => {
-          let key = item.label
-          obj1.parameters[key] = item.value
+        this.templateInputs.forEach(val => {
+          let key = val.label
+          obj1.parameters[key] = val.value
         })
         obj.instantiationParameters.push(obj1)
       })

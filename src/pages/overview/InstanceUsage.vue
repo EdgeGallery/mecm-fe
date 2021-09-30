@@ -10,6 +10,9 @@
         style="height:100%;"
       >
         <div id="cpuChart" />
+        <div class="chartName">
+          CPU
+        </div>
       </el-col>
       <el-col
         :span="24"
@@ -17,6 +20,9 @@
         style="height:100%;"
       >
         <div id="memChart" />
+        <div class="chartName">
+          MEM
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -199,5 +205,12 @@ export default {
   #memChart{
     width:100%;
     height:100%;
+  }
+  .chartName{
+    color: #000000;
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+    top: -17%;
   }
 </style>

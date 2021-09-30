@@ -77,6 +77,7 @@
             <el-input
               id="appstoreRepoPassword"
               maxlength="80"
+              type="password"
               v-model="form.appstoreRepoPassword"
             />
           </el-form-item>
