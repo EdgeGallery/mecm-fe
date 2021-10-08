@@ -15,7 +15,10 @@
   -->
 
 <template>
-  <div class="main-sidebar-small">
+  <div
+    class="main-sidebar-small"
+    id="topbar_small"
+  >
     <el-menu
       :default-active="indexName"
       :unique-opened="true"
@@ -133,8 +136,8 @@ export default {
         this.indexName = '/mecm/app/instance'
       }
       // post message to unified platform
-      let content = window
-      content.parent.postMessage({
+      let content = document.getElementById('topbar_small')
+      content.contentWindow.postMessage({
         cmd: 'routeTo',
         params: {
           module: 'mecm',
