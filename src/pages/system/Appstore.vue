@@ -113,7 +113,7 @@
         :show-close="false"
         :visible.sync="dialogVisible"
         :before-close="closeEditDialog"
-        width="40%"
+        width="45%"
       >
         <div class="secondLabel">
           {{ dialogTitle }}

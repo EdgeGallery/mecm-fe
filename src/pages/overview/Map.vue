@@ -403,7 +403,7 @@ export default {
             scale: 0.3
           })
         }),
-        zIndex: 999
+        zIndex: 66
       })
 
       this.map.addLayer(clusters)

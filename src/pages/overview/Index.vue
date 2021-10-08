@@ -144,10 +144,6 @@
                   :label="$t('app.packageList.status')"
                 >
                   <template slot-scope="scope">
-                    <!-- <span><em
-                      :class="scope.row.status?'el-icon-success':'el-icon-error'"
-                      :style="scope.row.status?{color: '#67C23A'}:{color: 'red'}"
-                    /> {{ scope.row.status?'Online':'Offline' }}</span> -->
                     <span><em
                       class="el-icon-success"
                       style="color:#67C23A;"
@@ -638,9 +634,6 @@ export default {
         line-height: 30px;
       }
     }
-  }
-  .top{
-    height: 26%;
   }
   .mepCapaTable{
     max-height: 300px;
