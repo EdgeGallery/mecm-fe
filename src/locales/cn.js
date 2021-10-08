@@ -365,6 +365,7 @@ const cn = {
     typeApp: '请先输入节点IP!',
     uploadConf: '请上传config文件',
     typeCity: '请选择部署位置',
+    typeAddress: '请输入详细地址',
     confirmToDeleteNode: '确认要删除该节点吗？',
     deleteAppBeforeDeleteNode: '你需要先删除安装在该节点上的应用',
     beforeDeleteMepm: '确认要删除MEPM？',

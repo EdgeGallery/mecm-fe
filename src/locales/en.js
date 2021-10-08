@@ -367,6 +367,7 @@ const en = {
     typeApp: 'Please type MEC host ip first!',
     uploadConf: 'Please upload config file first.',
     typeCity: 'Please select deployment area.',
+    typeAddress: 'Please type address details. ',
     confirmToDeleteNode: 'Are you sure to delete this node?',
     deleteAppBeforeDeleteNode: 'You need to delete the application installed on the node first.',
     beforeDeleteMepm: 'Are you sure to delete this MEPM?',
