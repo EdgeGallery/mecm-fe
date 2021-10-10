@@ -341,7 +341,7 @@ export default {
   top: 0px;
   width: 100%;
   position: fixed;
-  z-index: 2;
+  z-index: 999;
   .logo{
     height:64px;
     width:430px;
