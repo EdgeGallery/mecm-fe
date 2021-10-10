@@ -46,6 +46,7 @@ export default {
       params.append('file', content.file)
       inventory.uploadConfig(this.mechostip, params).then(response => {
         this.showMessage('success', this.$t('tip.uploadSuc'), 1500)
+        this.fileList = []
         this.$emit('close', 'closeUploadDialog')
       }).catch((error) => {
         console.log(error)
