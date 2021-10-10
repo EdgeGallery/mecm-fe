@@ -70,16 +70,16 @@
               <span
                 v-if="scope.row.operationalStatus === 'Instantiated'"
                 class="success"
-              ><em class="el-icon-success" />{{ scope.row.operationalStatus }}</span>
+              ><em class="el-icon-success" />{{ language==='en'?scope.row.operationalStatus:'实例化成功' }}</span>
               <span
                 v-else-if="scope.row.operationalStatus === 'Created'"
                 class="primary"
-              ><em class="el-icon-loading" />{{ scope.row.operationalStatus }}</span>
+              ><em class="el-icon-loading" />{{ language==='en'?scope.row.operationalStatus:'已创建' }}</span>
               <span
                 v-else
                 class="error"
               ><em class="el-icon-error" />
-                {{ scope.row.operationalStatus }}
+                {{ language==='en'?scope.row.operationalStatus:'创建失败' }}
               </span>
             </template>
           </el-table-column>
@@ -251,7 +251,8 @@ export default {
       podTable: [],
       instanceListVisible: false,
       kpiInfo: {},
-      appKPIInfo: {}
+      appKPIInfo: {},
+      language: localStorage.getItem('language')
     }
   },
   mounted () {
@@ -262,6 +263,12 @@ export default {
   },
   beforeDestroy () {
     this.clearInterval()
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    }
   },
   methods: {
     cancelToSync () {

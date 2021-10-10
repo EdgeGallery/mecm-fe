@@ -135,8 +135,8 @@ export default {
         this.indexName = '/mecm/app/instance'
       }
       // post message to unified platform
-      let content = document.getElementById('topBar')
-      content.contentWindow.postMessage({
+      let content = window
+      content.parent.postMessage({
         cmd: 'routeTo',
         params: {
           module: 'mecm',

@@ -269,7 +269,7 @@ export default {
           { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
         ],
         address: [
-          { required: true, message: this.$t('tip.typeCity'), trigger: 'change' }
+          { required: true, message: this.$t('tip.typeAddress'), trigger: 'change' }
         ],
         coordinates: [
           { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' },
@@ -297,6 +297,7 @@ export default {
       } else {
         this.location = []
       }
+      console.log(this.currForm.city)
     },
     handleModify () {
       this.isDisable = true
