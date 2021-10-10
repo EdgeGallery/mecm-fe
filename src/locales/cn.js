@@ -48,7 +48,7 @@ const cn = {
   overview: {
     regionEdge: '边缘节点',
     distributionDisplay: '节点分布展示',
-    k8sResc: 'K8S资源',
+    k8sResc: '资源详情',
     cpu: 'CPU',
     mem: 'MEM', // memory
     disk: 'DISK',
