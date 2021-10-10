@@ -48,7 +48,7 @@ const en = {
   },
   overview: {
     regionEdge: 'Edge Nodes',
-    k8sResc: 'K8S Resource',
+    k8sResc: 'Resource',
     distributionDisplay: 'Node Distribution Display',
     cpu: 'CPU',
     mem: 'MEM', // memory

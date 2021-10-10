@@ -324,7 +324,6 @@ export default {
       })
     },
     uploadFile (row) {
-      this.fileList = []
       this.dialogVisibleUpload = true
       this.hostIp = row.mechostIp
     }
