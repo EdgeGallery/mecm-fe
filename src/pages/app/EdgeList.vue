@@ -179,7 +179,7 @@
                 class="hostip"
               >{{ item.hostIp }}</span>
               <span
-                v-if="item.status === 'Distributed'"
+                v-if="item.status === 'Distributed'||'uploaded'"
                 class="success"
               ><em class="el-icon-success" />{{ item.status }}</span>
             </div>
