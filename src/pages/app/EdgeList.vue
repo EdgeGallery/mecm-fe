@@ -108,7 +108,7 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="scope.row.status === 'Distributed'"
+                v-if="item.status === 'Distributed'||item.status === 'uploaded'"
                 class="success"
               ><em class="el-icon-success" />{{ scope.row.status }}</span>
               <span
@@ -137,7 +137,7 @@
               <el-button
                 id="deployBtn"
                 @click="deploy(scope.row,1)"
-                :disabled="scope.row.status !=='Distributed'"
+                :disabled="scope.row.status !=='Distributed'||scope.row.status !=='uploaded'"
                 type="text"
                 size="small"
               >
@@ -179,7 +179,7 @@
                 class="hostip"
               >{{ item.hostIp }}</span>
               <span
-                v-if="item.status === 'Distributed'||'uploaded'"
+                v-if="item.status === 'Distributed'||item.status === 'uploaded'"
                 class="success"
               ><em class="el-icon-success" />{{ item.status }}</span>
             </div>
