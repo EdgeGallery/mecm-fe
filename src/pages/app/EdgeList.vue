@@ -108,7 +108,7 @@
           >
             <template slot-scope="scope">
               <span
-                v-if="item.status === 'Distributed'||item.status === 'uploaded'"
+                v-if="scope.row.status === 'Distributed'||scope.row.status === 'uploaded'"
                 class="success"
               ><em class="el-icon-success" />{{ scope.row.status }}</span>
               <span
