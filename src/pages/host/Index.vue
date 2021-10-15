@@ -158,20 +158,23 @@
         </div>
       </div>
       <!-- 新增/编辑节点 -->
-      <el-dialog
-        :show-close="false"
-        :visible.sync="dialogVisible"
-        width="50%"
-      >
-        <div class="secondLabel">
-          {{ title }}
-        </div>
-        <FormContent
-          :rowdata="formdata"
-          :type="type"
-          @close="closeEditDialog"
-        />
-      </el-dialog>
+      <div v-if="dialogVisible">
+        <el-dialog
+          :show-close="false"
+          :visible.sync="dialogVisible"
+          width="50%"
+        >
+          <div class="secondLabel">
+            {{ title }}
+          </div>
+          <FormContent
+            :rowdata="formdata"
+            :type="type"
+            @close="closeEditDialog"
+          />
+        </el-dialog>
+      </div>
+
       <!-- 上传文件 -->
       <el-dialog
         :show-close="false"

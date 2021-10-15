@@ -137,7 +137,7 @@
               <el-button
                 id="deployBtn"
                 @click="deploy(scope.row,1)"
-                :disabled="scope.row.status !=='Distributed'&&scope.row.status !=='uploaded'"
+                :disabled="scope.row.status !=='Distributed' && scope.row.status !=='uploaded'"
                 type="text"
                 size="small"
               >

@@ -297,7 +297,6 @@ export default {
       } else {
         this.location = []
       }
-      console.log(this.currForm.city)
     },
     handleModify () {
       this.isDisable = true
@@ -311,6 +310,7 @@ export default {
     },
     cancel () {
       this.isDisable = false
+      this.location.length = 0
       this.resetForm()
       this.$refs.currForm.resetFields()
       this.$emit('close', 'closeDialog')
@@ -338,7 +338,7 @@ export default {
       this.isDisable = false
       this.dialogVisible = true
     },
-    getList () {
+    getMepmList () {
       inventory.getList(5).then(res => {
         this.mepmList = res.data
       }, error => {
@@ -393,7 +393,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    this.getMepmList()
   }
 }
 
