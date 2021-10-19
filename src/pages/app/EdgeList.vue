@@ -644,7 +644,7 @@ export default {
           this.dialogVisible = false
           this.loading = false
         } else {
-          this.queryInstanceStatus()
+          this.queryInstanceStatus(instanceids)
         }
       }).catch(err => {
         if (err.name === 'Error' && err.message === 'Request failed with status code 404') {
