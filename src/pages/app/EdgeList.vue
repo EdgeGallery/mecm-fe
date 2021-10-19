@@ -644,7 +644,7 @@ export default {
           this.dialogVisible = false
           this.loading = false
         } else {
-          this.queryInstanceStatus(instanceids)
+          this.timer = setTimeout(() => { this.queryInstanceStatus(instanceids) }, 1000)
         }
       }).catch(err => {
         if (err.name === 'Error' && err.message === 'Request failed with status code 404') {
