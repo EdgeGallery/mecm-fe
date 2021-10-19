@@ -1,3 +1,19 @@
+<!--
+  -  Copyright 2020-2021 Huawei Technologies Co., Ltd.
+  -
+  -  Licensed under the Apache License, Version 2.0 (the "License");
+  -  you may not use this file except in compliance with the License.
+  -  You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  -  Unless required by applicable law or agreed to in writing, software
+  -  distributed under the License is distributed on an "AS IS" BASIS,
+  -  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  -  See the License for the specific language governing permissions and
+  -  limitations under the License.
+  -->
+
 <template>
   <div>
     <div class="k8s">
@@ -297,7 +313,6 @@ export default {
       } else {
         this.location = []
       }
-      console.log(this.currForm.city)
     },
     handleModify () {
       this.isDisable = true
@@ -311,6 +326,7 @@ export default {
     },
     cancel () {
       this.isDisable = false
+      this.location.length = 0
       this.resetForm()
       this.$refs.currForm.resetFields()
       this.$emit('close', 'closeDialog')
@@ -338,7 +354,7 @@ export default {
       this.isDisable = false
       this.dialogVisible = true
     },
-    getList () {
+    getMepmList () {
       inventory.getList(5).then(res => {
         this.mepmList = res.data
       }, error => {
@@ -393,7 +409,7 @@ export default {
     }
   },
   created () {
-    this.getList()
+    this.getMepmList()
   }
 }
 

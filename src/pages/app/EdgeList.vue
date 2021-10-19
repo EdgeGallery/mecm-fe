@@ -137,7 +137,7 @@
               <el-button
                 id="deployBtn"
                 @click="deploy(scope.row,1)"
-                :disabled="scope.row.status !=='Distributed'&&scope.row.status !=='uploaded'"
+                :disabled="scope.row.status !=='Distributed' && scope.row.status !=='uploaded'"
                 type="text"
                 size="small"
               >
@@ -644,7 +644,7 @@ export default {
           this.dialogVisible = false
           this.loading = false
         } else {
-          this.queryInstanceStatus()
+          this.timer = setTimeout(() => { this.queryInstanceStatus(instanceids) }, 1000)
         }
       }).catch(err => {
         if (err.name === 'Error' && err.message === 'Request failed with status code 404') {
