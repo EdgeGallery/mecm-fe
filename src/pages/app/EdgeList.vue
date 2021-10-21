@@ -626,7 +626,7 @@ export default {
             appo.confirmToBatchDeploy(params).then(res => {
               let instanceIds = res.data.response
               let len = instanceIds.length
-              this.timer = setTimeout(() => { this.batchInstaniateApp(instanceIds) }, 5000 * len)
+              this.timer = setTimeout(() => { this.batchInstaniateApp(instanceIds) }, 6000 * len)
             }).catch(() => {
               this.$message.error(this.$t('tip.deployFailed'))
               this.dialogVisible = false
