@@ -76,6 +76,10 @@
                 class="primary"
               ><em class="el-icon-loading" />{{ language==='en'?scope.row.operationalStatus:'已创建' }}</span>
               <span
+                v-else-if="scope.row.operationalStatus === 'Creating'"
+                class="primary"
+              ><em class="el-icon-loading" />{{ language==='en'?scope.row.operationalStatus:'正在创建' }}</span>
+              <span
                 v-else
                 class="error"
               ><em class="el-icon-error" />
