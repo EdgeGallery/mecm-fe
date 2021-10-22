@@ -694,7 +694,9 @@ export default {
         instantiationParameters: []
       }
       instanceId.forEach(item => {
-        let obj1 = {}
+        let obj1 = {
+          parameters: {}
+        }
         obj1.appInstanceId = item.appInstanceId
         this.templateInputs.forEach(val => {
           let key = val.label
