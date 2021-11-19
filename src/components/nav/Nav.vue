@@ -112,9 +112,9 @@
 <script>
 import NavData from '../../data/NavData.js'
 import NavDataCn from '../../data/NavDataCn.js'
-import { user } from '../../tools/request.js'
-import Topbar from './Topbar'
-import Topbarsmall from './Topbarsmall'
+import { user, PROXY_PREFIX_CURRENTSERVER } from '../../tools/request.js'
+import Topbar from './Topbar.vue'
+import Topbarsmall from './Topbarsmall.vue'
 export default {
   name: 'Navgation',
   components: {
@@ -315,8 +315,7 @@ export default {
       })
     },
     enterLoginPage () {
-      let _protocol = window.location.href.indexOf('https') > -1 ? 'https://' : 'http://'
-      window.location.href = this.loginPage + '&return_to=' + _protocol + window.location.host
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
