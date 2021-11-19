@@ -19,9 +19,13 @@ import ElementUI from 'element-ui'
 import i18n from '../locales/i18n.js'
 import 'element-ui/lib/theme-chalk/index.css'
 
-let inventoryApi = '/mecm-inventory/inventory/v1'
-let apmApi = '/mecm-apm/apm/v1'
-let appoApi = '/mecm-appo/appo/v1'
+const PROXY_PREFIX_CURRENTSERVER = window.location.pathname.slice(0, window.location.pathname.length - 1)
+const PROXY_PREFIX_USERMGMT = '/edgegallery/usermgmt'
+const PROXY_PREFIX_HEALTHCHECK = '/edgegallery/healthcheck'
+
+let inventoryApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-inventory/inventory/v1'
+let apmApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-apm/apm/v1'
+let appoApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-appo/appo/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers', '/mepms']
 
@@ -45,7 +49,11 @@ axios.interceptors.response.use(
       ElementUI.Message.error(i18n.t('tip.loginStatusFailed'))
       let host = window.location.hostname
       setTimeout(() => {
-        window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.origin
+        if (PROXY_PREFIX_CURRENTSERVER) {
+          window.location.href = window.location.origin + PROXY_PREFIX_USERMGMT + '/index.html?enable_sms=false&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
+        } else {
+          window.location.href = 'https://' + host + ':30067/index.html?enable_sms=false&return_to=' + window.location.origin
+        }
       }, 1500)
     }
     return Promise.reject(error)
@@ -92,12 +100,12 @@ function getCookie (name) {
 
 let user = {
   getUserInfo () {
-    return axios.get('/auth/login-info')
+    return axios.get(PROXY_PREFIX_CURRENTSERVER + '/auth/login-info')
   },
   logout () {
     return axios({
       method: 'POST',
-      url: '/logout',
+      url: PROXY_PREFIX_CURRENTSERVER + '/logout',
       withCredentials: true,
       headers: {
         'Content-Type': 'application/json',
@@ -228,7 +236,11 @@ let inventory = {
 
 let check = {
   healthCheck () {
-    return GET('http://' + window.location.host.split(':')[0] + ':32757/health-check/v1/center/action/start')
+    let _healthCheckUrlPrefix = 'http://' + window.location.host.split(':')[0] + ':32757'
+    if (PROXY_PREFIX_CURRENTSERVER) {
+      _healthCheckUrlPrefix = window.location.origin + PROXY_PREFIX_HEALTHCHECK
+    }
+    return GET(_healthCheckUrlPrefix + '/health-check/v1/center/action/start')
   }
 }
 
@@ -241,5 +253,6 @@ export {
   apm,
   appo,
   inventory,
-  check
+  check,
+  PROXY_PREFIX_CURRENTSERVER
 }
