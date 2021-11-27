@@ -327,10 +327,10 @@ export default {
       options: [
         {
           value: 'hardware',
-          label: '硬件能力'
+          label: this.$t('overview.mepCapa')
         }, {
           value: 'software',
-          label: '软件能力'
+          label: this.$t('overview.softwareCapa')
         }
       ],
       capaType: 'hardware'
@@ -406,7 +406,6 @@ export default {
         }
       }
       this.nodeList = JSON.parse(JSON.stringify(msg))
-      console.log(this.nodeList)
       this.nodeList.forEach(item => {
         item.city += '/' + item.address
       })
@@ -459,9 +458,7 @@ export default {
     getMepCapa (host) {
       appo.getMepCapabilities(host).then(res => {
         if (res && res.data) {
-          if (res.data.status !== 500) {
-            this.mepCapData = JSON.parse(res.data.response)
-          }
+          this.mepCapData = res.data.response
         }
       })
     },
