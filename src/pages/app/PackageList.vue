@@ -303,6 +303,7 @@ export default {
       this.syncDialogVisible = true
       apm.getAppPackageList(this.appstoreIp).then(response => {
         this.paginationPackageData = response.data
+        this.selectData = []
       }).catch(error => {
         console.log(error)
         this.paginationPackageData = []
