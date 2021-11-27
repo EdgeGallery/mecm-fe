@@ -234,7 +234,7 @@ let inventory = {
     }
   },
   uploadConfig (ip, params) {
-    return POST(inventoryApi + '/mechosts/' + ip + '/k8sconfig', params)
+    return POST(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
   },
   getConfigRules (id) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
