@@ -198,19 +198,35 @@ let appo = {
 
 let inventory = {
   create (type, params) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+    if (type === 2) {
+      return POST(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
+    } else {
+      return POST(inventoryApi + inventoryUrl[type - 1], params)
+    }
   },
   getList (type) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1])
+    if (type === 2) {
+      return GET(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1])
+    } else {
+      return GET(inventoryApi + inventoryUrl[type - 1])
+    }
   },
   modify (type, params, ip) {
-    return PUT(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
+    if (type === 2) {
+      return PUT(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
+    } else {
+      return PUT(inventoryApi + inventoryUrl[type - 1] + '/' + ip, params)
+    }
   },
   delete (type, params) {
-    return DELETE(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
+    if (type === 2) {
+      return DELETE(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + params)
+    } else {
+      return DELETE(inventoryApi + inventoryUrl[type - 1] + '/' + params)
+    }
   },
   uploadConfig (ip, params) {
-    return POST(inventoryApi + '/tenants/' + getUserId() + '/mechosts/' + ip + '/k8sconfig', params)
+    return POST(inventoryApi + '/mechosts/' + ip + '/k8sconfig', params)
   },
   getConfigRules (id) {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/appd_configuration')
@@ -222,7 +238,7 @@ let inventory = {
     return GET(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/apprule/sync')
   },
   syncMechost (ip) {
-    return GET(inventoryApi + '/tenants/' + getUserId() + '/mepms/' + ip + '/mechost/sync')
+    return GET(inventoryApi + '/mepms/' + ip + '/mechost/sync')
   }
 }
 
