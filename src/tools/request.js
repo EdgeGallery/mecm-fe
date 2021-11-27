@@ -206,10 +206,10 @@ let appo = {
 
 let inventory = {
   create (type, params) {
-    return POST(inventoryApi + inventoryUrl[type - 1], params)
+    return POST(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1], params)
   },
   getList (type) {
-    return GET(inventoryApi + inventoryUrl[type - 1])
+    return GET(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1])
   },
   modify (type, params, ip) {
     return PUT(inventoryApi + '/tenants/' + getUserId() + inventoryUrl[type - 1] + '/' + ip, params)
