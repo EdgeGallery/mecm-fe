@@ -201,6 +201,85 @@ let appo = {
   },
   syncFromAppo () {
     return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
+  },
+  createFlavor (hostIp, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/flavors', params)
+  },
+  queryFlavorsByMechost (hostIp) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/flavors')
+  },
+  queryFlavorByFlavorId (hostIp, flavorId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/flavors/' + flavorId)
+  },
+  deleteFlavorByFlavorId (hostIp, flavorId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/flavors/' + flavorId)
+  },
+
+  createImage (hostIp, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/images', params)
+  },
+  importImage (hostIp, imageId, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/images/' + imageId, params)
+  },
+  queryImagesByMechost (hostIp) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/images')
+  },
+  queryImageByImageId (hostIp, imageId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/images/' + imageId)
+  },
+  deleteImageByImageId (hostIp, imageId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/images/' + imageId)
+  },
+
+  createNetwork (hostIp, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/networks', params)
+  },
+  queryNetworksByMechost (hostIp) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/networks')
+  },
+  queryNetworkByNetworkId (hostIp, networkId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/networks/' + networkId)
+  },
+  deleteNetworkByNetworkId (hostIp, networkId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/networks/' + networkId)
+  },
+
+  createSecurityGroup (hostIp, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups', params)
+  },
+  querySecurityGroupsByMechost (hostIp) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups')
+  },
+  querySecurityGroupBySecurityGroupId (hostIp, securityGroupId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups/' + securityGroupId)
+  },
+  deleteSecurityGroupBySecurityGroupId (hostIp, securityGroupId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups/' + securityGroupId)
+  },
+  createSecurityGroupRule (hostIp, securityGroupId, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups/' + securityGroupId + '/securityGroupRules', params)
+  },
+  querySecurityGroupRulesByMechost (hostIp, securityGroupId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups/' + securityGroupId)
+  },
+  deleteSecurityGroupRuleBySecurityGroupRuleId (hostIp, securityGroupId, securityGroupRuleId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/securityGroups/' + securityGroupId + '/securityGroupRules/' + securityGroupRuleId)
+  },
+
+  createVM (hostIp, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers', params)
+  },
+  queryVMsByMechost (hostIp) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers')
+  },
+  queryVMByVMId (hostIp, serverId) {
+    return GET(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers/' + serverId)
+  },
+  deleteVMByVMId (hostIp, serverId) {
+    return DELETE(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers/' + serverId)
+  },
+  operateVM (hostIp, serverId, params) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers/' + serverId, params)
   }
 }
 
