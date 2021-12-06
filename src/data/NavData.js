@@ -20,61 +20,68 @@ const NavData = [
     'icon': '',
     'name': 'Overview',
     'path': '/',
-    'pageId': '2.0',
+    'pageId': '2.1.1',
     'display': false
   },
   {
     'id': '2.2',
     'name': 'APP Management',
     'path': '/app/pakage',
-    'pageId': '2.0.1',
+    'pageId': '2.2.1',
     'display': false,
     'children': [
       {
-        'id': '2.3',
+        'id': '2.2.1',
         'name': 'Package Management',
         'path': '/mecm/app/package',
-        'pageId': '2.0.1.1',
+        'pageId': '2.2.1.1',
         'display': false
       },
       {
-        'id': '2.5',
+        'id': '2.2.2',
         'name': 'App Instance List',
         'path': '/mecm/app/instance',
-        'pageId': '2.0.1.3',
+        'pageId': '2.2.1.2',
         'display': false
       }
     ]
   },
   {
-    'id': '2.6',
+    'id': '2.3',
     'name': 'Edge Nodes',
     'path': '/mecm/node/index',
-    'pageId': '2.0.2',
+    'pageId': '2.3.1',
     'display': false
   },
   {
-    'id': '2.9',
+    'id': '2.4',
     'name': 'Systems',
     'path': '/systems',
-    'pageId': '2.0.3',
+    'pageId': '2.4.1',
     'display': false,
     'children': [
       {
-        'id': '2.11',
+        'id': '2.4.1',
         'name': 'MEPM',
         'path': '/mecm/system/mepm',
-        'pageId': '2.0.3.1.1',
+        'pageId': '2.4.1.1',
         'display': false
       },
       {
-        'id': '2.12',
+        'id': '2.4.2',
         'name': 'App Store',
         'path': '/mecm/system/appstore',
-        'pageId': '2.0.3.1.3',
+        'pageId': '2.4.1.2',
         'display': false
       }
     ]
+  },
+  {
+    'id': '2.5',
+    'name': 'Resource Management',
+    'path': '/mecm/resource/manager',
+    'pageId': '2.5.1',
+    'display': false
   }
 ]
 

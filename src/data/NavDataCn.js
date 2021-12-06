@@ -20,28 +20,28 @@ const NavDataCn = [
     'icon': '',
     'name': '概览',
     'path': '/',
-    'pageId': '2.0',
+    'pageId': '2.1.1',
     'display': false
   },
   {
     'id': '2.2',
     'name': '应用管理',
     'path': '/app/pakage',
-    'pageId': '2.0.1',
+    'pageId': '2.2.1',
     'display': false,
     'children': [
       {
         'id': '2.2.1',
         'name': '应用包管理',
         'path': '/mecm/app/package',
-        'pageId': '2.0.1.1',
+        'pageId': '2.2.1.1',
         'display': false
       },
       {
         'id': '2.2.3',
         'name': '应用实例管理',
         'path': '/mecm/app/instance',
-        'pageId': '2.0.1.3',
+        'pageId': '2.2.1.2',
         'display': false
       }
     ]
@@ -50,31 +50,38 @@ const NavDataCn = [
     'id': '2.3',
     'name': '边缘节点',
     'path': '/mecm/node/index',
-    'pageId': '2.0.2',
+    'pageId': '2.3.1',
     'display': false
   },
   {
     'id': '2.4',
     'name': '系统',
     'path': '/systems',
-    'pageId': '2.0.3',
+    'pageId': '2.4.1',
     'display': false,
     'children': [
       {
         'id': '2.4.1',
         'name': 'MEPM 注册系统',
         'path': '/mecm/system/mepm',
-        'pageId': '2.0.3.1.1',
+        'pageId': '2.4.1.1',
         'display': false
       },
       {
-        'id': '2.4.3',
+        'id': '2.4.2',
         'name': '应用市场注册系统',
         'path': '/mecm/system/appstore',
-        'pageId': '2.0.3.1.3',
+        'pageId': '2.4.1.2',
         'display': false
       }
     ]
+  },
+  {
+    'id': '2.5',
+    'name': '资源管理',
+    'path': '/mecm/resource/manager',
+    'pageId': '2.5.1',
+    'display': false
   }
 ]
 

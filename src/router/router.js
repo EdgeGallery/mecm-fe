@@ -63,6 +63,11 @@ export default new Router({
       path: '/mecm/system/appstore',
       name: 'appstore',
       component: () => import('../pages/system/Appstore.vue')
+    },
+    {
+      path: '/mecm/resource/manager',
+      name: 'resource',
+      component: () => import('../pages/resource/ResourceMgr.vue')
     }
   ]
 })
