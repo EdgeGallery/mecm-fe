@@ -38,12 +38,20 @@
           width="180px"
         >
           <template slot-scope="scope">
-            <el-input
-              type="text"
-              size="small"
-              placeholder="enter fixedIp"
-              v-model="scope.row.fixedIp"
-            />
+            <el-form
+              :model="scope.row"
+              :rules="rules"
+              ref="scope.row"
+            >
+              <el-form-item prop="fixedIp">
+                <el-input
+                  size="small"
+                  v-model="scope.row.fixedIp"
+                  type="text"
+                  placeholder="enter fixedIp"
+                />
+              </el-form-item>
+            </el-form>
           </template>
         </el-table-column>
         <el-table-column
@@ -93,6 +101,16 @@ export default {
   props: {
   },
   data () {
+    const validateMechost = (rule, value, callback) => {
+      let reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+      if (!value) {
+        callback(new Error(this.$t('resourceMgr.enterIp')))
+      } else if (!reg.test(value)) {
+        callback(new Error(this.$t('resourceMgr.enterRightIp')))
+      } else {
+        callback()
+      }
+    }
     return {
       dialogVisible: true,
       currentPageData: [],
@@ -101,6 +119,11 @@ export default {
         step: 'stepNetwork',
         networks: [],
         availabilityZone: ''
+      },
+      rules: {
+        fixedIp: [
+          { required: true, validator: validateMechost, trigger: 'blur' }
+        ]
       }
     }
   },

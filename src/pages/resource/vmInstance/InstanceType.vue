@@ -35,7 +35,7 @@
         <el-table-column
           prop="vcpus"
           :label="$t('resourceMgr.virtualCore')"
-          width="115px"
+          width="130px"
         />
         <el-table-column
           prop="ram"

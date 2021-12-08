@@ -554,7 +554,9 @@ const cn = {
     openPortRule: '端口类型不能为空',
     remoteRule: '请选择规则来源',
     cidrRule: 'IP地址块不能为空',
-    currentHost: '当前节点:'
+    currentHost: '当前节点:',
+    enterIp: '请输入Ip地址',
+    enterRightIp: '请输入正确的Ip地址'
   },
   ...zhLocale
 }

@@ -558,7 +558,9 @@ const en = {
     openPortRule: 'Port type cannot be empty',
     remoteRule: 'Please select the rule source',
     cidrRule: 'IP address block cannot be empty',
-    currentHost: 'current host:'
+    currentHost: 'current host:',
+    enterIp: 'Please enter the IP address',
+    enterRightIp: 'Please enter the correct IP address'
   },
   ...enLocale
 }
