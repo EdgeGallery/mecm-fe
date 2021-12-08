@@ -161,6 +161,7 @@ export default {
   methods: {
     changeEdgeNode () {
       sessionStorage.setItem('hostIp', this.currentEdgeNode)
+      this.reloadTab()
     },
     groupListHover (index) {
       this.selectedName = index
@@ -169,6 +170,9 @@ export default {
       this.selectedName = 1
     },
     handleClick (tab, event) {
+      this.reloadTab()
+    },
+    reloadTab () {
       let _tempActiveName = this.activeName
       this.activeName = '-1'
       this.$nextTick(() => {

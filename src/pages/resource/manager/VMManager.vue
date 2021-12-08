@@ -65,10 +65,12 @@
         <el-table-column
           prop="imageName"
           label="Image Name"
+          width="160"
         />
         <el-table-column
           prop="ip"
           label="IP Address"
+          width="250"
         />
         <el-table-column
           prop="flavor"
@@ -264,7 +266,7 @@ export default {
     getIpAddr (obj) {
       let _results = ''
       for (let key in obj) {
-        let _item = key + obj[key][0].addr
+        let _item = key + ' ' + obj[key][0].addr + '\n\r'
         _results += _item
       }
       return _results
