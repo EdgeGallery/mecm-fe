@@ -182,13 +182,19 @@ export default {
     getHosts () {
       inventory.getList(2).then(response => {
         response.data.forEach((item) => {
-          let node = {
-            name: item.mechostIp,
-            value: item.mechostIp
+          if (item.vim === 'OpenStack') {
+            let node = {
+              name: item.mechostIp,
+              value: item.mechostIp
+            }
+            this.edgeNodeList.push(node)
           }
-          this.edgeNodeList.push(node)
           if (sessionStorage.getItem('hostIp')) {
             this.currentEdgeNode = sessionStorage.getItem('hostIp')
+          } else if (this.edgeNodeList.length > 0) {
+            this.currentEdgeNode = this.edgeNodeList[0].value
+            sessionStorage.setItem('hostIp', this.currentEdgeNode)
+            this.reloadTab()
           }
         })
       }).catch((error) => {

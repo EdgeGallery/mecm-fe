@@ -93,6 +93,26 @@
             v-model="createNetworkForm.gatewayIp"
           />
         </el-form-item>
+        <el-form-item
+          :label="$t('resourceMgr.isShared')"
+          prop="shared"
+          class="w100"
+        >
+          <el-radio
+            class="default_radio"
+            v-model="createNetworkForm.shared"
+            label="1"
+          >
+            true
+          </el-radio>
+          <el-radio
+            class="default_radio"
+            v-model="createNetworkForm.shared"
+            label="2"
+          >
+            false
+          </el-radio>
+        </el-form-item>
       </el-form>
       <div
         slot="footer"
@@ -143,7 +163,8 @@ export default {
         ipVersion: [{ required: true, message: this.$t('resourceMgr.ipVersionRule'), trigger: 'blur' }],
         subnetName: [{ required: true, message: this.$t('resourceMgr.subnetNameRule'), trigger: 'blur' }]
       },
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      shared: '1'
     }
   },
   methods: {
@@ -154,41 +175,12 @@ export default {
     confirmAction () {
       let _hostIp = sessionStorage.getItem('hostIp')
       let _params = {
-        network: {
-          name: this.createNetworkForm.networkName,
-          adminStateUp: true,
-          dnsDomain: 'my-domain.org.',
-          mtu: 1400,
-          portSecurityEnabled: true,
-          providerNetworkType: 'vlan',
-          providerPhysicalNetwork: 'network',
-          providerSegmentationId: 1,
-          qosPolicyId: null,
-          routerExternal: true,
-          segments: [
-            {
-              providerSegmentationId: 1,
-              providerPhysicalNetwork: 'abc',
-              providerNetworkType: ''
-            }
-          ],
-          shared: true,
-          vlanTransparent: true,
-          isDefault: true,
-          subnets: [{
-            name: this.createNetworkForm.subnetName,
-            ipVersion: this.createNetworkForm.ipVersion,
-            cidr: this.createNetworkForm.networkAddr,
-            gatewayIp: this.createNetworkForm.gatewayIp,
-            enableDhcp: true,
-            dnsNameservers: ['', ''],
-            allocationPools: [{
-              start: '192.168.1.5',
-              end: '192.168.2.25'
-            }],
-            ipv6AddressMode: '',
-            ipv6RaMode: ''
-          }]
+        name: this.createNetworkForm.networkName,
+        shared: this.createNetworkForm.shared === '1',
+        subnet: {
+          name: this.createNetworkForm.subnetName,
+          cidr: this.createNetworkForm.networkAddr,
+          gatewayIp: this.createNetworkForm.gatewayIp
         }
       }
       appo.createNetwork(_hostIp, _params).then(res => {

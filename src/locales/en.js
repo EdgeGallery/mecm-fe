@@ -560,7 +560,8 @@ const en = {
     cidrRule: 'IP address block cannot be empty',
     currentHost: 'current host:',
     enterIp: 'Please enter the IP address',
-    enterRightIp: 'Please enter the correct IP address'
+    enterRightIp: 'Please enter the correct IP address',
+    isShared: 'shared'
   },
   ...enLocale
 }

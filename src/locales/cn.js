@@ -556,7 +556,8 @@ const cn = {
     cidrRule: 'IP地址块不能为空',
     currentHost: '当前节点:',
     enterIp: '请输入Ip地址',
-    enterRightIp: '请输入正确的Ip地址'
+    enterRightIp: '请输入正确的Ip地址',
+    isShared: '是否共享'
   },
   ...zhLocale
 }
