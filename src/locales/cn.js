@@ -451,7 +451,7 @@ const cn = {
     middlePercentage: '占比50%~80%',
     maxPercentage: '占比80%以上',
     flavorVCPU: 'VCPU数量',
-    ram: '内存MB',
+    ram: '内存(MB)',
     rootDisk: '根磁盘',
     tempDisk: '临时磁盘',
     swapDisk: 'Swap磁盘',

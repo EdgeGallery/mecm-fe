@@ -320,6 +320,9 @@ export default {
   .network-table{
     width: 1000px;
     margin: 30px auto;
+    .tableStyle /deep/ .el-table__fixed-right-patch{
+      background-color: #edeef8 !important;
+    }
   }
 }
 </style>
