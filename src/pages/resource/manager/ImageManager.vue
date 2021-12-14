@@ -220,7 +220,11 @@ export default {
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
       appo.queryImagesByMechost(_hostIp).then(res => {
-        this.paginationData = res.data.data
+        res.data.data.forEach(item => {
+          let _tempItem = item
+          _tempItem.size = (item.size / 1024 / 1024).toFixed(2)
+          this.paginationData.push(_tempItem)
+        })
         this.dataLoading = false
       }).catch((error) => {
         this.dataLoading = false
