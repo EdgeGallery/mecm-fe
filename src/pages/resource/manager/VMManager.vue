@@ -99,6 +99,7 @@
               <el-button
                 class="operations_btn"
                 type="text"
+                size="small"
               >
                 {{ $t('resourceMgr.more') }}
               </el-button>
