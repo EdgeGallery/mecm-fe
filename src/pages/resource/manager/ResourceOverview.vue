@@ -181,6 +181,7 @@ export default {
         this.isShowContent = true
       }).catch(error => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.getKpiFailed'))
       })
     }
   },

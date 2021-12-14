@@ -188,6 +188,7 @@ export default {
         this.importImage(_hostIp, _imageId)
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.createImageFailed'))
       })
     },
     importImage (hostIp, imageId) {
@@ -200,6 +201,7 @@ export default {
         this.handleClose()
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.createImageFailed'))
         this.handleClose()
       })
     },

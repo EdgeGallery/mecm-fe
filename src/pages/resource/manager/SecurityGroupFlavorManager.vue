@@ -179,6 +179,7 @@ export default {
           this.getTableData()
         }).catch((error) => {
           console.log(error)
+          this.$message.error(this.$t('resourceMgr.deleteSecurityGroupRuleFailed'))
         })
       }).catch(() => {
       })
@@ -210,6 +211,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.querySecurityGroupRulesFailed'))
       })
     },
     reloadTableData () {

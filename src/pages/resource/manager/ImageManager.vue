@@ -176,6 +176,7 @@ export default {
           this.getTableData()
         }).catch((error) => {
           console.log(error)
+          this.$message.error(this.$t('resourceMgr.deleteImageFailed'))
         })
       }).catch(() => {
       })
@@ -205,6 +206,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryImagesFailed'))
       })
     },
     queryImage () {
@@ -229,6 +231,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryImagesFailed'))
       })
     },
     reloadTableData () {

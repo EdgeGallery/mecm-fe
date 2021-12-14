@@ -189,6 +189,7 @@ export default {
           this.getTableData()
         }).catch((error) => {
           console.log(error)
+          this.$message.error(this.$t('resourceMgr.deleteSecurityGroupFailed'))
         })
       }).catch(() => {
       })
@@ -214,6 +215,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.querySecurityGroupsFailed'))
       })
     },
     querySecurityGroup () {
@@ -237,6 +239,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.querySecurityGroupsFailed'))
       })
     },
     reloadTableData () {

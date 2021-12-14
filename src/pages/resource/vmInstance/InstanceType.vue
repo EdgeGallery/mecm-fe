@@ -127,6 +127,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryFlavorsFailed'))
       })
     }
   },

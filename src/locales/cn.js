@@ -559,7 +559,26 @@ const cn = {
     currentHost: '当前节点:',
     enterIp: '请输入Ip地址',
     enterRightIp: '请输入正确的Ip地址',
-    isShared: '是否共享'
+    isShared: '是否共享',
+    deleteNetworkFailed: '删除网络失败!',
+    createFlavorFailed: '创建规格失败!',
+    createImageFailed: '创建镜像失败!',
+    createNetworkFailed: '创建网络失败!',
+    createSecurityGroupRuleFailed: '创建安全组规则失败!',
+    querySecurityGroupsFailed: '查询安全组失败!',
+    createSecurityGroupFailed: '创建安全组失败!',
+    deleteFlavorFailed: '删除规格失败!',
+    queryFlavorsFailed: '查询规格失败!',
+    deleteImageFailed: '删除镜像失败!',
+    queryImagesFailed: '查询镜像失败!',
+    queryNetworksFailed: '查询网络失败!',
+    getKpiFailed: '查询节点统计信息失败!',
+    deleteSecurityGroupRuleFailed: '删除安全组规则失败!',
+    querySecurityGroupRulesFailed: '查询安全组规则失败!',
+    deleteSecurityGroupFailed: '删除安全组失败!',
+    deleteVMFailed: '删除虚机失败!',
+    queryVMsFailed: '查询虚机失败!',
+    createVMFailed: '创建虚机失败!'
   },
   ...zhLocale
 }

@@ -563,7 +563,26 @@ const en = {
     currentHost: 'current host:',
     enterIp: 'Please enter the IP address',
     enterRightIp: 'Please enter the correct IP address',
-    isShared: 'shared'
+    isShared: 'shared',
+    deleteNetworkFailed: 'Failed to delete network!',
+    createFlavorFailed: 'Failed to create flavor!',
+    createImageFailed: 'Failed to create image!',
+    createNetworkFailed: 'Failed to create network!',
+    createSecurityGroupRuleFailed: 'Failed to create security group rule!',
+    querySecurityGroupsFailed: 'Failed to query security group',
+    createSecurityGroupFailed: 'Failed to create security group!',
+    deleteFlavorFailed: 'Failed to delete flavor!',
+    queryFlavorsFailed: 'Failed to query flavor',
+    deleteImageFailed: 'Failed to delete image!',
+    queryImagesFailed: 'Failed to query image',
+    queryNetworksFailed: 'Failed to query security group',
+    getKpiFailed: 'Failed to query node statistic',
+    deleteSecurityGroupRuleFailed: 'Failed to delete security group rule!',
+    querySecurityGroupRulesFailed: 'Failed to query security group rule',
+    deleteSecurityGroupFailed: 'Failed to delete security group!',
+    deleteVMFailed: 'Failed to delete vm!',
+    queryVMsFailed: 'Failed to query vm',
+    createVMFailed: 'Failed to create vm!'
   },
   ...enLocale
 }

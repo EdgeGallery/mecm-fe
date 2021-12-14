@@ -245,13 +245,13 @@ export default {
       }
       appo.createVM(_hostIp, _params).then(res => {
         this.$message.success(this.$t('resourceMgr.createVMSuccess'))
-        // vm创建过程较慢，后续需要定时刷新任务状态
         setTimeout(() => {
           this.$emit('reloadTableData')
           this.handleClose()
         }, 3000)
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.createVMFailed'))
         this.handleClose()
       })
     },
