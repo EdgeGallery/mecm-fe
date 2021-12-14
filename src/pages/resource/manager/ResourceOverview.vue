@@ -74,6 +74,26 @@
           />
         </el-col>
       </el-row>
+      <el-row
+        class="resource-row"
+        :gutter="24"
+      >
+        <el-col :span="8">
+          <ResourceGrid
+            :statistic-data="statisticPortData"
+          />
+        </el-col>
+        <el-col :span="8">
+          <ResourceGrid
+            :statistic-data="statisticNetworkData"
+          />
+        </el-col>
+        <el-col :span="8">
+          <ResourceGrid
+            :statistic-data="statisticSubnetData"
+          />
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -94,6 +114,9 @@ export default {
       statisticFloatingIpsData: {},
       statisticSecurityGroupsData: {},
       statisticServerGroupsData: {},
+      statisticPortData: {},
+      statisticNetworkData: {},
+      statisticSubnetData: {},
       isShowContent: false
     }
   },
@@ -127,15 +150,33 @@ export default {
         }
         this.statisticSecurityGroupsData = {
           index: 5,
-          totalUsed: res.data.data.totalSecurityGroupsUsed,
-          maxTotal: res.data.data.maxSecurityGroups,
-          percent: res.data.data.totalSecurityGroupsUsed / res.data.data.maxSecurityGroups * 100
+          totalUsed: res.data.data.security_groupUsed,
+          maxTotal: res.data.data.security_groupLimit,
+          percent: res.data.data.security_groupUsed / res.data.data.security_groupLimit * 100
         }
         this.statisticServerGroupsData = {
           index: 6,
           totalUsed: res.data.data.totalServerGroupsUsed,
           maxTotal: res.data.data.maxServerGroups,
           percent: res.data.data.totalServerGroupsUsed / res.data.data.maxServerGroups * 100
+        }
+        this.statisticPortData = {
+          index: 7,
+          totalUsed: res.data.data.portUsed,
+          maxTotal: res.data.data.portLimit,
+          percent: res.data.data.portUsed / res.data.data.portLimit * 100
+        }
+        this.statisticNetworkData = {
+          index: 8,
+          totalUsed: res.data.data.networkUsed,
+          maxTotal: res.data.data.networkLimit,
+          percent: res.data.data.networkUsed / res.data.data.networkLimit * 100
+        }
+        this.statisticSubnetData = {
+          index: 9,
+          totalUsed: res.data.data.subnetUsed,
+          maxTotal: res.data.data.subnetLimit,
+          percent: res.data.data.subnetUsed / res.data.data.subnetLimit * 100
         }
         this.isShowContent = true
       }).catch(error => {
