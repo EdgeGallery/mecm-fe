@@ -93,9 +93,8 @@ export default {
         number: ''
       },
       useDomainList: [
-        { label: 'domain1', value: 'domain1' },
-        { label: 'domain2', value: 'domain2' },
-        { label: 'domain3', value: 'domain3' }
+        { label: 'nova', value: 'nova' },
+        { label: 'az.dc', value: 'az.dc' }
       ],
       rules: {
         instanceName: [{ required: true, message: this.$t('resourceMgr.nameRule'), trigger: 'blur' }],

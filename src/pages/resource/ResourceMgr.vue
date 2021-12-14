@@ -184,7 +184,7 @@ export default {
         response.data.forEach((item) => {
           if (item.vim === 'OpenStack') {
             let node = {
-              name: item.mechostIp,
+              name: item.mechostName,
               value: item.mechostIp
             }
             this.edgeNodeList.push(node)
