@@ -237,7 +237,7 @@ export default {
         name: this.allStepData['stepDetail'].instanceName,
         flavor: this.allStepData['stepFlavor'].flavor,
         image: this.allStepData['stepImage'].imageId,
-        availabilityZone: this.allStepData['stepNetwork'].availabilityZone,
+        availabilityZone: this.allStepData['stepDetail'].useDomain,
         user_data: this.allStepData['userConfigStep'].userData,
         configDrive: this.allStepData['userConfigStep'].configDrive,
         securityGroups: this.allStepData['stepSecurityGroup'].securityGroups,
