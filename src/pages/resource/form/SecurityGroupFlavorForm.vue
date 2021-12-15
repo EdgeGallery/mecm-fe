@@ -316,6 +316,7 @@ export default {
         this.handleClose()
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.createSecurityGroupRuleFailed'))
         this.handleClose()
       })
     },
@@ -354,6 +355,7 @@ export default {
         })
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.querySecurityGroupsFailed'))
       })
     }
   },

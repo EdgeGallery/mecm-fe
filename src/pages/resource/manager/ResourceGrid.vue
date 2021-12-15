@@ -34,6 +34,9 @@
             statisticData.index===4?$t('resourceMgr.floatIpAmount'):
             statisticData.index===5?$t('resourceMgr.securityGroupAmount'):
             statisticData.index===6?$t('resourceMgr.serverGroupAmount'):
+            statisticData.index===7?$t('resourceMgr.portAmount'):
+            statisticData.index===8?$t('resourceMgr.networkAmount'):
+            statisticData.index===9?$t('resourceMgr.subnetAmount'):
             "unknow"
           }}: {{ statisticData.totalUsed }}</span>
       </div>

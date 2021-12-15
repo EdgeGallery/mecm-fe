@@ -195,6 +195,7 @@ export default {
           this.getTableData()
         }).catch((error) => {
           console.log(error)
+          this.$message.error(this.$t('resourceMgr.deleteNetworkFailed'))
         })
       }).catch(() => {
       })
@@ -229,6 +230,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryNetworksFailed'))
       })
     },
     queryNetwork () {
@@ -263,6 +265,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryNetworksFailed'))
       })
     },
     reloadTableData () {

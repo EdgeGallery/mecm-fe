@@ -118,6 +118,7 @@ export default {
         this.handleClose()
       }).catch((error) => {
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.createSecurityGroupFailed'))
         this.handleClose()
       })
     },

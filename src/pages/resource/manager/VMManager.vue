@@ -99,6 +99,7 @@
               <el-button
                 class="operations_btn"
                 type="text"
+                size="small"
               >
                 {{ $t('resourceMgr.more') }}
               </el-button>
@@ -207,6 +208,7 @@ export default {
           }, 3000)
         }).catch((error) => {
           console.log(error)
+          this.$message.error(this.$t('resourceMgr.deleteVMFailed'))
         })
       }).catch(() => {
       })
@@ -251,6 +253,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryVMsFailed'))
       })
     },
     queryVM () {
@@ -291,6 +294,7 @@ export default {
       }).catch((error) => {
         this.dataLoading = false
         console.log(error)
+        this.$message.error(this.$t('resourceMgr.queryVMsFailed'))
       })
     },
     reloadTableData () {
