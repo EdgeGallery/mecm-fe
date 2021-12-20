@@ -187,7 +187,7 @@ export default {
         if (this.jumpToForceModifyPw()) {
           return
         }
-        if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') > -1) {
+        if (res.data.authorities.indexOf('ROLE_MECM_GUEST') < 0) {
           sessionStorage.setItem('rlp', 418)
         } else {
           sessionStorage.removeItem('rlp')
