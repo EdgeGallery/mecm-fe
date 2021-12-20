@@ -54,17 +54,18 @@
         class="tableStyle"
         ref="multipleTable"
         v-loading="dataLoading"
+        @sort-change="sortMethod"
         height="400"
       >
         <el-table-column
           prop="instanceName"
           label="Instance Name"
           width="190"
-          sortable
+          sortable="custom"
         />
         <el-table-column
-          prop="imageName"
-          label="Image Name"
+          prop="imageId"
+          label="Image ID"
           width="160"
         />
         <el-table-column
@@ -79,7 +80,7 @@
         <el-table-column
           prop="status"
           label="Status"
-          sortable
+          sortable="custom"
         />
         <el-table-column
           label="Actions"
@@ -237,7 +238,7 @@ export default {
           let _tempItem = {
             id: item.id,
             instanceName: item.name,
-            imageName: item.image.id,
+            imageId: item.image.id,
             ip: this.getIpAddr(item.addresses),
             flavor: '',
             status: item.status
@@ -282,7 +283,7 @@ export default {
           let _tempItem = {
             id: item.id,
             instanceName: item.name,
-            imageName: item.image.id,
+            imageId: item.image.id,
             ip: this.getIpAddr(item.addresses),
             flavor: '',
             status: item.status
@@ -299,6 +300,27 @@ export default {
     },
     reloadTableData () {
       this.getTableData()
+    },
+    sortMethod (column) {
+      if (column.order === 'ascending') {
+        this.paginationData.sort((a, b) => {
+          let _tempA = column.prop === 'instanceName' ? a['instanceName'] : a['status']
+          let _tempB = column.prop === 'instanceName' ? b['instanceName'] : b['status']
+          if (_tempA.toLowerCase().substring(0, 1) > _tempB.toLowerCase().substring(0, 1)) {
+            return 1
+          }
+          return -1
+        })
+      } else if (column.order === 'descending') {
+        this.paginationData.sort((a, b) => {
+          let _tempA = column.prop === 'instanceName' ? a['instanceName'] : a['status']
+          let _tempB = column.prop === 'instanceName' ? b['instanceName'] : b['status']
+          if (_tempA.toLowerCase().substring(0, 1) > _tempB.toLowerCase().substring(0, 1)) {
+            return -1
+          }
+          return 1
+        })
+      }
     }
   },
   mounted () {
