@@ -322,6 +322,13 @@ export default {
       this.dialogVisible = true
       this.rowdata.hwcapabilities.forEach(item => {
         this.capabilities.push(item.hwType)
+        if (item.hwType === 'GPU') {
+          this.gpuVendor = item.hwVendor
+          this.gpuModel = item.hwModel
+        } else if (item.hwType === 'NPU') {
+          this.npuVendor = item.hwVendor
+          this.npuModel = item.hwModel
+        }
       })
     },
     cancel () {

@@ -388,7 +388,7 @@ export default {
     },
     clickMap (msg, city) {
       let bottom = document.getElementsByClassName('bottom')
-      bottom[0].style.height = '72%'
+      bottom[0].style.height = '71%'
       bottom[0].style.marginTop = '0px'
       this.showType = 'overview'
       if (this.$i18n.locale === 'en') {
@@ -512,7 +512,6 @@ export default {
       padding: 15px 15px 0 15px;
       .blockContent{
         padding: 15px 20px;
-        margin-bottom: 40px;
         margin-top: 15px;
         border-radius:30px;
       }
