@@ -665,7 +665,7 @@ export default {
           params.parameters[key] = item.value
         })
         appo.instantiateApp(instanceId, params).then(response => {
-          this.afterInstantiateApp()
+          this.afterInstantiateApp(instanceId)
         }).catch(() => {
           this.catchInstantiateApp()
         })
@@ -677,11 +677,15 @@ export default {
         })
       }
     },
-    afterInstantiateApp () {
+    afterInstantiateApp (instanceId) {
       this.loading = false
       this.dialogVisible = false
-      this.$nextTick(() => {
-        this.$router.push('/mecm/app/instance')
+      appo.setProfile(instanceId).then(res => {
+        if (res) {
+          this.$nextTick(() => {
+            this.$router.push('/mecm/app/instance')
+          })
+        }
       })
     },
     catchInstantiateApp () {

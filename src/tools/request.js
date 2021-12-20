@@ -193,6 +193,9 @@ let appo = {
   },
   syncFromAppo () {
     return POST(appoApi + '/tenants/' + getUserId() + '/app_instance_infos/sync')
+  },
+  setProfile (id) {
+    return POST(appoApi + '/tenants/' + getUserId() + '/app_instances/' + id + '/profile')
   }
 }
 
