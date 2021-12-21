@@ -680,13 +680,13 @@ export default {
     afterInstantiateApp (instanceId) {
       this.loading = false
       this.dialogVisible = false
-      appo.setProfile(instanceId).then(res => {
-        if (res) {
+      setTimeout(() => {
+        appo.setProfile(instanceId).then(res => {
           this.$nextTick(() => {
             this.$router.push('/mecm/app/instance')
           })
-        }
-      })
+        })
+      }, 30000)
     },
     catchInstantiateApp () {
       this.$message.error(this.$t('tip.deployFailed'))
