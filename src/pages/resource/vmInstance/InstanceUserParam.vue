@@ -72,8 +72,6 @@ export default {
       this.userConfigparam.userData = this.testareaData
       this.$emit('getStepData', this.userConfigparam)
     }
-  },
-  mounted () {
   }
 }
 </script>

@@ -125,8 +125,6 @@ export default {
     cancelAction () {
       this.handleClose()
     }
-  },
-  mounted () {
   }
 }
 </script>

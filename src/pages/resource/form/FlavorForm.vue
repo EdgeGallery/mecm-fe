@@ -244,8 +244,6 @@ export default {
       this.showExtraSpecs = data
       this.keyValueDatas = this.transStrToArr(this.showExtraSpecs)
     }
-  },
-  mounted () {
   }
 }
 </script>

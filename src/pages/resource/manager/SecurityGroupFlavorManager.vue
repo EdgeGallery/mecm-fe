@@ -182,10 +182,18 @@ export default {
           this.$message.error(this.$t('resourceMgr.deleteSecurityGroupRuleFailed'))
         })
       }).catch(() => {
+        // This is intentional
       })
     },
     getCurrentPageData (data) {
       this.currentPageData = data
+    },
+    getPort (item) {
+      if (item.portRangeMin === null && item.portRangeMax === null) {
+        return 'ALL'
+      }
+      return (item.portRangeMin === item.portRangeMax)
+        ? item.portRangeMin : (item.portRangeMin + '-' + item.portRangeMax)
     },
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
@@ -198,9 +206,7 @@ export default {
             direction: item.direction,
             ethertype: item.ethertype,
             ipProtocol: item.ipProtocol,
-            portRange: (item.portRangeMin === null && item.portRangeMax === null
-              ? 'ALL' : (item.portRangeMin === item.portRangeMax
-                ? item.portRangeMin : item.portRangeMin + '-' + item.portRangeMax)),
+            portRange: this.getPort(item),
             remoteIpPrefix: item.remoteIpPrefix,
             remoteSecurityGroup: item.remoteGroupId
           }
