@@ -57,12 +57,13 @@
         class="tableStyle"
         ref="multipleTable"
         v-loading="dataLoading"
+        @sort-change="sortMethod"
         height="400"
       >
         <el-table-column
           prop="name"
           label="Name"
-          sortable
+          sortable="custom"
         />
         <el-table-column
           prop="id"
@@ -244,6 +245,23 @@ export default {
     },
     reloadTableData () {
       this.getTableData()
+    },
+    sortMethod (column) {
+      if (column.order === 'ascending') {
+        this.paginationData.sort((a, b) => {
+          if (a.name.toLowerCase().substring(0, 1) > b.name.toLowerCase().substring(0, 1)) {
+            return 1
+          }
+          return -1
+        })
+      } else if (column.order === 'descending') {
+        this.paginationData.sort((a, b) => {
+          if (a.name.toLowerCase().substring(0, 1) > b.name.toLowerCase().substring(0, 1)) {
+            return -1
+          }
+          return 1
+        })
+      }
     }
   },
   mounted () {
