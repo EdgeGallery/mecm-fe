@@ -665,7 +665,7 @@ export default {
           params.parameters[key] = item.value
         })
         appo.instantiateApp(instanceId, params).then(response => {
-          this.afterInstantiateApp()
+          this.afterInstantiateApp(instanceId)
         }).catch(() => {
           this.catchInstantiateApp()
         })
@@ -677,12 +677,16 @@ export default {
         })
       }
     },
-    afterInstantiateApp () {
+    afterInstantiateApp (instanceId) {
       this.loading = false
       this.dialogVisible = false
-      this.$nextTick(() => {
-        this.$router.push('/mecm/app/instance')
-      })
+      setTimeout(() => {
+        appo.setProfile(instanceId).then(res => {
+          this.$nextTick(() => {
+            this.$router.push('/mecm/app/instance')
+          })
+        })
+      }, 30000)
     },
     catchInstantiateApp () {
       this.$message.error(this.$t('tip.deployFailed'))
