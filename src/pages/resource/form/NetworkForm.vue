@@ -197,8 +197,6 @@ export default {
       this.handleClose()
     }
   },
-  mounted () {
-  },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')

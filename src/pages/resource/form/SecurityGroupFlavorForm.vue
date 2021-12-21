@@ -298,6 +298,13 @@ export default {
       this.$emit('input', false)
       this.dialogVisible = false
     },
+    getPortData (port) {
+      if (this.securityGroupFlavorForm.openPort === 'port') {
+        return parseInt(this.securityGroupFlavorForm.port, 10)
+      } else {
+        return parseInt(port, 10)
+      }
+    },
     confirmAction () {
       let _hostIp = sessionStorage.getItem('hostIp')
       let _params = {
@@ -305,8 +312,8 @@ export default {
         direction: this.securityGroupFlavorForm.direct,
         protocol: this.securityGroupFlavorForm.protocol,
         ethertype: this.securityGroupFlavorForm.ethertype,
-        port_range_min: parseInt(this.securityGroupFlavorForm.portRangeMin, 10),
-        port_range_max: parseInt(this.securityGroupFlavorForm.portRangeMax, 10),
+        port_range_min: this.getPortData(this.securityGroupFlavorForm.portRangeMin),
+        port_range_max: this.getPortData(this.securityGroupFlavorForm.portRangeMax),
         remoteIpPrefix: this.securityGroupFlavorForm.remoteIpPrefix,
         remoteGroupId: this.securityGroupFlavorForm.remoteGroupId
       }
@@ -327,7 +334,6 @@ export default {
       if (item.value === 'port') {
         this.isPortType = true
         this.isPortRangeType = false
-        // Todo
       } else if (item.value === 'portRange') {
         this.isPortRangeType = true
         this.isPortType = false
