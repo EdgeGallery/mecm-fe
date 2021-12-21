@@ -112,9 +112,9 @@
 <script>
 import NavData from '../../data/NavData.js'
 import NavDataCn from '../../data/NavDataCn.js'
-import { user } from '../../tools/request.js'
-import Topbar from './Topbar'
-import Topbarsmall from './Topbarsmall'
+import { user, PROXY_PREFIX_CURRENTSERVER } from '../../tools/request.js'
+import Topbar from './Topbar.vue'
+import Topbarsmall from './Topbarsmall.vue'
 export default {
   name: 'Navgation',
   components: {
@@ -211,7 +211,7 @@ export default {
         return
       }
       let _wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://'
-      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + '/wsserver/' + sessId)
+      this.wsSocketConn = new WebSocket(_wsProtocol + window.location.host + PROXY_PREFIX_CURRENTSERVER + '/wsserver/' + sessId)
       let _thisObj = this
       this.wsSocketConn.onmessage = function (msg) {
         clearTimeout(_thisObj.wsMsgSendInterval)
@@ -230,6 +230,10 @@ export default {
           } else {
             _hintInfo = _thisObj.$t('nav.hsInvalidHintForTimeout') + _hintInfo
           }
+        }
+        if (_thisObj.ifGuest) {
+          window.location.reload()
+          return
         }
         _thisObj.$confirm(_hintInfo, _thisObj.$t('common.warning'), {
           confirmButtonText: _thisObj.$t('nav.reLogin'),
@@ -311,8 +315,7 @@ export default {
       })
     },
     enterLoginPage () {
-      let _protocol = window.location.href.indexOf('https') > -1 ? 'https://' : 'http://'
-      window.location.href = this.loginPage + '&return_to=' + _protocol + window.location.host
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
     },
     openUserAccountCenter () {
       window.open(this.userCenterPage)
