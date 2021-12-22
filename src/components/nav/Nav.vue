@@ -192,6 +192,9 @@ export default {
         } else {
           sessionStorage.removeItem('rlp')
         }
+        if (res.data.authorities.indexOf('ROLE_MECM_ADMIN') < 0) {
+          this.jsonData.splice(4, 1)
+        }
         this.startHttpSessionInvalidListener(res.data.sessId)
       })
       this.switchLan()

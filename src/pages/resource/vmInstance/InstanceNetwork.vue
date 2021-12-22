@@ -43,6 +43,7 @@
               :model="scope.row"
               :rules="rules"
               ref="scope.row"
+              class="fixedIp"
             >
               <el-form-item prop="fixedIp">
                 <el-input
@@ -189,3 +190,18 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+.fixedIp{
+  margin-top: 15px;
+  padding: 0 1px !important;
+  height: 50px;
+}
+.fixedIp /deep/ .el-form-item__error {
+  color: #F56C6C;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 4px;
+  position: absolute;
+  top:30px
+}
+</style>
