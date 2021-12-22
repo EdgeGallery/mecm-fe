@@ -231,6 +231,7 @@ export default {
     },
     returnBack () {
       this.isSecurityGroupMainDlg = true
+      this.getTableData()
     },
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
