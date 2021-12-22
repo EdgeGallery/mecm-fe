@@ -157,7 +157,7 @@
       <el-dialog
         :show-close="false"
         :visible.sync="dialogVisible"
-        width="40%"
+        width="55%"
       >
         <div class="secondLabel">
           {{ $t('app.distriList.deploymentConf') }}
@@ -170,7 +170,10 @@
           :rules="rules"
         >
           <p>MEC Host</p>
-          <el-form-item :label="$t('app.packageList.ip')">
+          <el-form-item
+            :label="$t('app.packageList.ip')"
+            label-width="140px"
+          >
             <div
               v-for="(item,index) in hostList"
               :key="index"
@@ -187,6 +190,7 @@
           <el-form-item
             :label="$t('app.distriList.appName')"
             prop="appName"
+            label-width="140px"
           >
             <el-input
               id="appname"
@@ -197,6 +201,7 @@
           <el-form-item
             :label="$t('app.distriList.appDesc')"
             prop="appInstanceDescription"
+            label-width="140px"
           >
             <el-input
               id="appdesc"
@@ -207,6 +212,7 @@
           <el-form-item
             :label="$t('system.edgeNodes.hwCapability')"
             prop="hwCapabilities"
+            label-width="140px"
           >
             <el-checkbox-group
               v-model="configForm.hwCapabilities"
