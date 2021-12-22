@@ -402,7 +402,7 @@ export default {
       appPackageName: '',
       appAffinity: '',
       provider: '',
-      dialogVisible: true,
+      dialogVisible: false,
       configForm: {
         status: '',
         appPackageId: '',
