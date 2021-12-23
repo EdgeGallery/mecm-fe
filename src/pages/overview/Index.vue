@@ -224,7 +224,7 @@
                   :data="hwCapData"
                   header-row-class-name="headerClassName"
                   class="hwCapData"
-                  v-show="capaType==='hardware'"
+                  v-if="capaType==='hardware'"
                 >
                   <el-table-column
                     prop="hwType"
@@ -243,7 +243,7 @@
                   :data="mepCapData"
                   class="mepCapaTable"
                   header-row-class-name="headerClassName"
-                  v-show="capaType==='software'"
+                  v-if="capaType==='software'"
                 >
                   <el-table-column
                     prop="capabilityName"
