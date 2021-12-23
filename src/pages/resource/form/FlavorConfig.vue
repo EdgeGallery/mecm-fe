@@ -126,8 +126,6 @@ export default {
         this.$message.warning(this.$t('resourceMgr.canonicalInfo'))
       }
     }
-  },
-  mounted () {
   }
 }
 </script>

@@ -171,7 +171,7 @@ export default {
   },
   methods: {
     editFlavor () {
-
+      // This is intentional
     },
     formatBoolean (row, column, cellValue) {
       var ret = ''
@@ -197,6 +197,7 @@ export default {
           this.$message.error(this.$t('resourceMgr.deleteFlavorFailed'))
         })
       }).catch(() => {
+        // This is intentional
       })
     },
     createFlavor () {

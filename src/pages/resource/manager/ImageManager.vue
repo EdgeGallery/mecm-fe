@@ -163,7 +163,7 @@ export default {
   },
   methods: {
     editImage () {
-
+      // This is intentional
     },
     deleteImage (row) {
       this.$confirm(this.$t('resourceMgr.deleteImageMessage'), this.$t('resourceMgr.deleteImageTitle'), {
@@ -180,6 +180,7 @@ export default {
           this.$message.error(this.$t('resourceMgr.deleteImageFailed'))
         })
       }).catch(() => {
+        // This is intentional
       })
     },
     createImage () {
@@ -204,9 +205,8 @@ export default {
           return _itemVal.indexOf(val) > -1
         })
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.queryImagesFailed'))
       })
     },
@@ -230,9 +230,8 @@ export default {
           this.paginationData.push(_tempItem)
         })
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.queryImagesFailed'))
       })
     },

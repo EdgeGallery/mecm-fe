@@ -108,8 +108,6 @@ export default {
       this.$emit('getStepData', this.createInstanceDetailForm)
     }
   },
-  mounted () {
-  },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')

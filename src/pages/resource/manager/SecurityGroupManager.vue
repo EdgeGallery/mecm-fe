@@ -193,6 +193,7 @@ export default {
           this.$message.error(this.$t('resourceMgr.deleteSecurityGroupFailed'))
         })
       }).catch(() => {
+        // This is intentional
       })
     },
     editSecurityGroup () {
@@ -213,9 +214,8 @@ export default {
           return _itemVal.indexOf(val) > -1
         })
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.querySecurityGroupsFailed'))
       })
     },
@@ -231,15 +231,15 @@ export default {
     },
     returnBack () {
       this.isSecurityGroupMainDlg = true
+      this.getTableData()
     },
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
       appo.querySecurityGroupsByMechost(_hostIp).then(res => {
         this.paginationData = res.data.data
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.querySecurityGroupsFailed'))
       })
     },

@@ -173,7 +173,7 @@ export default {
   },
   methods: {
     editNetwork () {
-
+      // This is intentional
     },
     formatBoolean (row, column, cellValue) {
       var ret = ''
@@ -199,6 +199,7 @@ export default {
           this.$message.error(this.$t('resourceMgr.deleteNetworkFailed'))
         })
       }).catch(() => {
+        // This is intentional
       })
     },
     createNetwork () {
@@ -208,29 +209,14 @@ export default {
       this.dataLoading = true
       let _hostIp = sessionStorage.getItem('hostIp')
       appo.queryNetworksByMechost(_hostIp).then(res => {
-        let _tempTableData = []
-        res.data.data.forEach(item => {
-          let _temp = {
-            id: item.id,
-            name: item.name,
-            shared: item.shared,
-            external: item.external,
-            adminState: item.adminState,
-            status: item.status,
-            subnetsAssociated: '',
-            availability: item.availabilityZones[0]
-          }
-          _tempTableData.push(_temp)
-        })
-        this.paginationData = _tempTableData
+        this.paginationData = this.transferData(res.data.data)
         this.paginationData = this.paginationData.filter(item => {
           let _itemVal = item[key].toLowerCase()
           return _itemVal.indexOf(val) > -1
         })
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.queryNetworksFailed'))
       })
     },
@@ -244,28 +230,30 @@ export default {
     getCurrentPageData (data) {
       this.currentPageData = data
     },
+    transferData (dataList) {
+      let _tempTableData = []
+      dataList.forEach(item => {
+        let _temp = {
+          id: item.id,
+          name: item.name,
+          shared: item.shared,
+          external: item.external,
+          adminState: item.adminState,
+          status: item.status,
+          subnetsAssociated: '',
+          availability: item.availabilityZones[0]
+        }
+        _tempTableData.push(_temp)
+      })
+      return _tempTableData
+    },
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
       appo.queryNetworksByMechost(_hostIp).then(res => {
-        let _tempTableData = []
-        res.data.data.forEach(item => {
-          let _temp = {
-            id: item.id,
-            name: item.name,
-            shared: item.shared,
-            external: item.external,
-            adminState: item.adminState,
-            status: item.status,
-            subnetsAssociated: '',
-            availability: item.availabilityZones[0]
-          }
-          _tempTableData.push(_temp)
-        })
-        this.paginationData = _tempTableData
+        this.paginationData = this.transferData(res.data.data)
         this.dataLoading = false
-      }).catch((error) => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.queryNetworksFailed'))
       })
     },
