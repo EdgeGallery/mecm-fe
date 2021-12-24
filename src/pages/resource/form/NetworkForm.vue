@@ -144,6 +144,26 @@ export default {
   props: {
   },
   data () {
+    const validateAddr = (rule, value, callback) => {
+      let reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])(\/24)$/
+      if (!value) {
+        callback(new Error(this.$t('resourceMgr.enterIp')))
+      } else if (!reg.test(value)) {
+        callback(new Error(this.$t('resourceMgr.enterRightIp')))
+      } else {
+        callback()
+      }
+    }
+    const validateGateway = (rule, value, callback) => {
+      let reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+      if (!value) {
+        callback(new Error(this.$t('resourceMgr.enterIp')))
+      } else if (!reg.test(value)) {
+        callback(new Error(this.$t('resourceMgr.enterRightIp')))
+      } else {
+        callback()
+      }
+    }
     return {
       dialogVisible: true,
       ipVersionList: [
@@ -159,7 +179,8 @@ export default {
       },
       rules: {
         networkName: [{ required: true, message: this.$t('resourceMgr.nameRule'), trigger: 'blur' }],
-        networkAddr: [{ required: true, message: this.$t('resourceMgr.networkAddrRule'), trigger: 'blur' }],
+        networkAddr: [{ required: true, validator: validateAddr, trigger: 'blur' }],
+        gatewayIp: [{ required: true, validator: validateGateway, trigger: 'blur' }],
         ipVersion: [{ required: true, message: this.$t('resourceMgr.ipVersionRule'), trigger: 'blur' }],
         subnetName: [{ required: true, message: this.$t('resourceMgr.subnetNameRule'), trigger: 'blur' }]
       },

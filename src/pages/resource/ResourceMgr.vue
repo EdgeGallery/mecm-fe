@@ -151,7 +151,7 @@ export default {
   },
   data () {
     return {
-      activeName: '1',
+      activeName: '-1',
       selectedName: '1',
       currentEdgeNode: '',
       edgeNodeList: [],
@@ -189,14 +189,16 @@ export default {
             }
             this.edgeNodeList.push(node)
           }
-          if (sessionStorage.getItem('hostIp')) {
-            this.currentEdgeNode = sessionStorage.getItem('hostIp')
-          } else if (this.edgeNodeList.length > 0) {
-            this.currentEdgeNode = this.edgeNodeList[0].value
-            sessionStorage.setItem('hostIp', this.currentEdgeNode)
-            this.reloadTab()
-          }
         })
+        if (sessionStorage.getItem('hostIp')) {
+          this.currentEdgeNode = sessionStorage.getItem('hostIp')
+          this.activeName = '1'
+        } else if (this.edgeNodeList.length > 0) {
+          this.currentEdgeNode = this.edgeNodeList[0].value
+          sessionStorage.setItem('hostIp', this.currentEdgeNode)
+          this.activeName = '1'
+          this.reloadTab()
+        }
       }).catch((error) => {
         console.log(error)
         this.$message.error(this.$t('tip.failedToGetList'))
