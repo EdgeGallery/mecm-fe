@@ -104,6 +104,7 @@
               <a
                 href="https://www.openstreetmap.org/#map=11/39.9064/116.3913"
                 target="_blank"
+                rel="noopener noreferrer"
               >OpenStreetMap</a>
             </p>
           </el-form-item>
