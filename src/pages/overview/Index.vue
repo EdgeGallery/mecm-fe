@@ -214,7 +214,7 @@
                       <el-option
                         v-for="item in options"
                         :key="item.value"
-                        :label="item.label"
+                        :label="language==='cn'?item.label[0]:item.label[1]"
                         :value="item.value"
                       />
                     </el-select>
@@ -327,13 +327,14 @@ export default {
       options: [
         {
           value: 'hardware',
-          label: this.$t('overview.mepCapa')
+          label: ['硬件能力', 'Hardware']
         }, {
           value: 'software',
-          label: this.$t('overview.softwareCapa')
+          label: ['软件能力', 'Software']
         }
       ],
-      capaType: 'hardware'
+      capaType: 'hardware',
+      language: localStorage.getItem('language') || 'cn'
     }
   },
   watch: {
@@ -343,6 +344,7 @@ export default {
       } else {
         this.city = '全国'
       }
+      this.language = val
     }
   },
   methods: {
@@ -387,10 +389,12 @@ export default {
       this.edgeIp = val.mechostIp
     },
     clickMap (msg, city) {
-      let bottom = document.getElementsByClassName('bottom')
-      bottom[0].style.height = '71%'
-      bottom[0].style.marginTop = '0px'
-      this.showType = 'overview'
+      if (city !== '1') {
+        let bottom = document.getElementsByClassName('bottom')
+        bottom[0].style.height = '71%'
+        bottom[0].style.marginTop = '0px'
+        this.showType = 'overview'
+      }
       if (this.$i18n.locale === 'en') {
         this.city = city
       } else {
