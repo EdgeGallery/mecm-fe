@@ -205,6 +205,7 @@ export default {
         let lan = window.location.href.substring(lanIndex + 9, lanIndex + 11)
         this.language = lan
         localStorage.setItem('language', this.language)
+        this.$i18n.locale = this.language
       }
     },
     startHttpSessionInvalidListener (sessId) {
