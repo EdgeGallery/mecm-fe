@@ -79,7 +79,7 @@ export default {
       btnShow: false,
       map: null,
       showMainView: true,
-      language: localStorage.getItem('language'),
+      language: localStorage.getItem('language') || 'cn',
       getNodeTimeout: null,
       nodeStatusList: []
     }
@@ -122,7 +122,7 @@ export default {
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
-          this.$emit('area', res.data, '')
+          // this.$emit('area', res.data, '')
         }
       }, error => {
         console.log(error)
