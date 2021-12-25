@@ -144,7 +144,6 @@ export default {
   },
   mounted () {
     this.lanMethods()
-    // message listener, message from unified platform
     window.addEventListener('message', (event) => {
       var data = event.data
       if (data.cmd === 'iframeLanguageChange') {
@@ -204,9 +203,8 @@ export default {
       let lanIndex = window.location.href.search('language')
       if (lanIndex > 0) {
         let lan = window.location.href.substring(lanIndex + 9, lanIndex + 11)
-        if (lan === 'en') {
-          this.changeLang(lan)
-        }
+        this.language = lan
+        localStorage.setItem('language', this.language)
       }
     },
     startHttpSessionInvalidListener (sessId) {
