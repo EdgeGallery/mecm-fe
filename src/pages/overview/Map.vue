@@ -122,7 +122,7 @@ export default {
           })
           this.nodeData = res.data
           this.mapChart('mapChart')
-          // this.$emit('area', res.data, '')
+          this.$emit('area', res.data, '1')
         }
       }, error => {
         console.log(error)
