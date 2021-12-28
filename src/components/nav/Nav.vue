@@ -137,11 +137,6 @@ export default {
       manualLoggout: false
     }
   },
-  watch: {
-    $route (to, from) {
-      sessionStorage.setItem('before_route', to.path)
-    }
-  },
   mounted () {
     this.lanMethods()
     window.addEventListener('message', (event) => {
@@ -308,7 +303,6 @@ export default {
     },
     logout () {
       this.manualLoggout = true
-      sessionStorage.removeItem('before_route')
       sessionStorage.clear()
       user.logout().then(res => {
         this.enterLoginPage()
