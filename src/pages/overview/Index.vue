@@ -540,7 +540,7 @@ export default {
     color: rgba(255, 255, 255, 0.9) !important;
   }
   .nodelistTable{
-    max-height: 300px;
+    max-height: 450px;
     overflow-y: auto;
   }
   .hostName{
