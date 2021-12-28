@@ -121,7 +121,7 @@ const swCapability = function () {
 }
 
 const kpiInfo = function () {
-  let data = { 'cpuusage': { 'total': 354819894, 'used': 106112506 }, 'memusage': { 'total': 10656432, 'used': 9098832 } }
+  let data = { 'data': { 'cpuusage': { 'total': 354819894, 'used': 106112506 }, 'memusage': { 'total': 10656432, 'used': 9098832 } } }
   return data
 }
 
