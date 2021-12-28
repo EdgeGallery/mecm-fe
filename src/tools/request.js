@@ -338,7 +338,12 @@ let check = {
     if (PROXY_PREFIX_CURRENTSERVER) {
       _healthCheckUrlPrefix = window.location.origin + PROXY_PREFIX_HEALTHCHECK
     }
-    return GET(_healthCheckUrlPrefix + '/health-check/v1/center/action/start')
+    return axios.get(_healthCheckUrlPrefix + '/health-check/v1/center/tenants/' + getUserId() + '/action/start', {
+      headers: {
+        'Content-Type': 'application/json',
+        'access_token': sessionStorage.getItem('accessToken')
+      }
+    })
   }
 }
 
