@@ -358,12 +358,11 @@ export default {
       }
     },
     handleRowSelection (ip) {
-      this.showUsageDialog = false
       appo.getNodeKpi(ip).then(res => {
         if (res.data) {
-          this.usageData = res.data
-          this.showUsageDialog = true
+          this.usageData = res.data.data
           this.intervalDialog = setInterval(() => this.showDialogPosition())
+          this.showUsageDialog = true
         }
       }).catch(() => {
         this.$message.error(this.$t('tip.getAppInfoFailed'))
@@ -469,7 +468,7 @@ export default {
     getNodeKpi (ip) {
       appo.getNodeKpi(ip).then(res => {
         if (res.data) {
-          this.kpiInfo = res.data
+          this.kpiInfo = res.data.data
         }
       })
     }
