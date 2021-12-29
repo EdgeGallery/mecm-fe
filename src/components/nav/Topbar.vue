@@ -136,7 +136,7 @@ export default {
       }
       // post message to unified platform
       let content = window
-      content.contentWindow.postMessage({
+      content.parent.postMessage({
         cmd: 'routeTo',
         params: {
           module: 'mecm',

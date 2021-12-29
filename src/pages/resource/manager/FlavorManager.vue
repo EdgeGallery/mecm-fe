@@ -234,9 +234,8 @@ export default {
       appo.queryFlavorsByMechost(_hostIp).then(res => {
         this.paginationData = res.data.data
         this.dataLoading = false
-      }).catch(error => {
+      }).catch(() => {
         this.dataLoading = false
-        console.log(error)
         this.$message.error(this.$t('resourceMgr.queryFlavorsFailed'))
       })
     },
