@@ -461,7 +461,7 @@ export default {
     getMepCapa (host) {
       appo.getMepCapabilities(host).then(res => {
         if (res && res.data) {
-          this.mepCapData = res.data.response
+          this.mepCapData = res.data
         }
       })
     },
