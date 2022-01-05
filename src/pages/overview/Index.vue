@@ -578,10 +578,9 @@ export default {
     color: #ffff;
     background: url('../../assets/images/jdzs_bg.png') center no-repeat;
     background-size: 120% 150%;
-    padding: 20px 50px;
+    padding: 20px 3%;
     .numLeft{
       width: 50%;
-      padding-left: 8%;
     }
     .numRight{
       width: 50%;
