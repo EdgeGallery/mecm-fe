@@ -311,10 +311,10 @@ export default {
       })
     },
     enterLoginPage () {
-      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + this.language
     },
     openUserAccountCenter () {
-      window.open(this.userCenterPage)
+      window.open(this.userCenterPage + '?lang=' + this.language)
     },
     jumpToForceModifyPw () {
       if (this.ifGuest) {
