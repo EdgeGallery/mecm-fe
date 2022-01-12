@@ -190,6 +190,7 @@ export default {
           this.jsonData.splice(4, 1)
         }
         this.startHttpSessionInvalidListener(res.data.sessId)
+        this.sendPageLoadedMsg(res.data.userId)
       })
       this.switchLan()
     },
@@ -201,6 +202,14 @@ export default {
         this.language = lan
         localStorage.setItem('language', this.language)
         this.$i18n.locale = this.language
+      }
+    },
+    sendPageLoadedMsg (userId) {
+      if (window.parent !== window) {
+        window.top.postMessage({
+          cmd: 'subpageLoaded',
+          params: { userId }
+        }, '*')
       }
     },
     startHttpSessionInvalidListener (sessId) {
