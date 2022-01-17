@@ -18,10 +18,11 @@ import axios from 'axios'
 import ElementUI from 'element-ui'
 import i18n from '../locales/i18n.js'
 import 'element-ui/lib/theme-chalk/index.css'
-
-const PROXY_PREFIX_CURRENTSERVER = window.location.pathname.slice(0, window.location.pathname.length - 1)
-const PROXY_PREFIX_USERMGMT = '/edgegallery/usermgmt'
-const PROXY_PREFIX_HEALTHCHECK = '/edgegallery/healthcheck'
+import {
+  PROXY_PREFIX_CURRENTSERVER,
+  PROXY_PREFIX_USERMGMT,
+  PROXY_PREFIX_HEALTHCHECK
+} from './constant.js'
 
 let inventoryApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-inventory/inventory/v1'
 let apmApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-apm/apm/v1'
@@ -356,6 +357,5 @@ export {
   apm,
   appo,
   inventory,
-  check,
-  PROXY_PREFIX_CURRENTSERVER
+  check
 }
