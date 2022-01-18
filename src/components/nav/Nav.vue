@@ -112,7 +112,9 @@
 <script>
 import NavData from '../../data/NavData.js'
 import NavDataCn from '../../data/NavDataCn.js'
-import { user, PROXY_PREFIX_CURRENTSERVER } from '../../tools/request.js'
+import { user } from '../../tools/request.js'
+import { PROXY_PREFIX_CURRENTSERVER, PLATFORMNAME_EG } from '../../tools/constant.js'
+import { common } from '../../tools/common.js'
 import Topbar from './Topbar.vue'
 import Topbarsmall from './Topbarsmall.vue'
 export default {
@@ -190,6 +192,7 @@ export default {
           this.jsonData.splice(4, 1)
         }
         this.startHttpSessionInvalidListener(res.data.sessId)
+        this.sendPageLoadedMsg(res.data.userId)
       })
       this.switchLan()
     },
@@ -201,6 +204,22 @@ export default {
         this.language = lan
         localStorage.setItem('language', this.language)
         this.$i18n.locale = this.language
+      }
+    },
+    sendPageLoadedMsg (userId) {
+      if (window.parent !== window) {
+        let _possibleTopWinOriginUrlList = []
+        if (PROXY_PREFIX_CURRENTSERVER) {
+          _possibleTopWinOriginUrlList.push(window.location.origin)
+        } else {
+          _possibleTopWinOriginUrlList.push(common.getPlatformUrlPrefix(PLATFORMNAME_EG))
+        }
+        _possibleTopWinOriginUrlList.forEach(_possibleTopWinOriginUrl => {
+          window.top.postMessage({
+            cmd: 'subpageLoaded',
+            params: { userId }
+          }, _possibleTopWinOriginUrl)
+        })
       }
     },
     startHttpSessionInvalidListener (sessId) {
@@ -311,10 +330,10 @@ export default {
       })
     },
     enterLoginPage () {
-      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER
+      window.location.href = this.loginPage + '&return_to=' + window.location.origin + PROXY_PREFIX_CURRENTSERVER + '&lang=' + this.language
     },
     openUserAccountCenter () {
-      window.open(this.userCenterPage)
+      window.open(this.userCenterPage + '?lang=' + this.language)
     },
     jumpToForceModifyPw () {
       if (this.ifGuest) {
