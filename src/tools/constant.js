@@ -14,6 +14,24 @@
  *  limitations under the License.
  */
 
+const PROXY_PREFIX_CURRENTSERVER = window.location.pathname.slice(0, window.location.pathname.length - 1)
+const PORT_CURRENTSERVER = '30093'
+const DOMAIN_CURRENTSERVER = 'mecm'
+
+const PLATFORMNAME_EG = 'EG'
+
+const PROXY_PREFIX_USERMGMT = '/edgegallery/usermgmt'
+const PROXY_PREFIX_HEALTHCHECK = '/edgegallery/healthcheck'
+
+const PLATFORM_LIST = [
+  {
+    name: PLATFORMNAME_EG,
+    port: '30095',
+    domain: 'edgegallery',
+    proxyPrefix: '/edgegallery/web'
+  }
+]
+
 const INDUSTRY = [
   {
     label: ['智慧园区', 'Smart Park'],
@@ -198,5 +216,10 @@ const SORT_BY = [
 ]
 
 export {
+  PROXY_PREFIX_CURRENTSERVER, PROXY_PREFIX_USERMGMT, PROXY_PREFIX_HEALTHCHECK,
+  PLATFORM_LIST,
+  PORT_CURRENTSERVER,
+  DOMAIN_CURRENTSERVER,
+  PLATFORMNAME_EG,
   TYPES, AFFINITY, SORT_BY, TYPESFORAPP, INDUSTRY
 }
