@@ -110,7 +110,12 @@ const cn = {
       syncSuccess: '同步成功！',
       industry: '行业',
       syncTime: '同步时间',
-      distriAndDeploy: '分发&部署'
+      distriAndDeploy: '分发&部署',
+      vmConfig: '虚机网络配置',
+      netWork: '网络',
+      netWorkConfig: '高级网络配置',
+      netConfig: '网络配置',
+      otherConfig: '其他配置'
     },
     distriList: {
       mecHost: 'MEC 主机',
