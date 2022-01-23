@@ -111,7 +111,12 @@ const en = {
       syncSuccess: 'Sync succeeded！',
       industry: 'Industry',
       syncTime: 'Sync Time',
-      distriAndDeploy: 'Distribution&Instantiate'
+      distriAndDeploy: 'Distribution&Instantiate',
+      vmConfig: 'VM Network Configuration',
+      netWork: 'NetWork',
+      netWorkConfig: 'Advanced Network Configuration',
+      netConfig: 'Network',
+      otherConfig: 'Other Configuration'
     },
     distriList: {
       mecHost: 'MEC Hosts',

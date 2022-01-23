@@ -158,6 +158,7 @@
         :show-close="false"
         :visible.sync="dialogVisible"
         width="55%"
+        class="deploy-dialog"
       >
         <div class="secondLabel">
           {{ $t('app.distriList.deploymentConf') }}
@@ -169,7 +170,9 @@
           ref="configForm"
           :rules="rules"
         >
-          <p>MEC Host</p>
+          <p class="title">
+            MEC Host
+          </p>
           <el-form-item
             :label="$t('app.packageList.ip')"
             label-width="140px"
@@ -226,26 +229,142 @@
               </el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <p v-if="templateInputs.length>0">
-            Apptemplate Information
-          </p>
-          <el-row>
-            <el-col
-              :span="12"
-              v-for="(item,index) in templateInputs"
-              :key="index"
+          <div
+            v-if="templateInputs.length>0"
+            class="apptemplate"
+          >
+            <p
+              class="title"
             >
-              <el-form-item
-                :label="item.label"
+              Apptemplate Information
+            </p>
+            <el-collapse
+              v-model="activeNames"
+              accordion
+            >
+              <el-collapse-item
+                :title="$t('app.packageList.vmConfig')"
+                name="1"
               >
-                <el-input
-                  id="podsel"
-                  maxlength="30"
-                  v-model="item.value"
-                />
-              </el-form-item>
-            </el-col>
-          </el-row>
+                <div
+                  v-for="(item,index) in this.VmDataGroup"
+                  :key="index"
+                >
+                  <p class="first-title">
+                    {{ $t('app.packageList.vmConfig') }}{{ index+1 }}
+                  </p>
+                  <div
+                    v-for="(vmSourceItem) in item.VmResourceData"
+                    :key="vmSourceItem.label"
+                  >
+                    <el-col
+                      :span="8"
+                    >
+                      <el-form-item
+                        :label="vmSourceItem.label.substring(5)"
+                        class="apptemplate-form"
+                        size="small"
+                      >
+                        <el-input
+                          class="apptemplate-input"
+                          id="podsel"
+                          maxlength="30"
+                          v-model="vmSourceItem.value"
+                          size="small"
+                        />
+                      </el-form-item>
+                    </el-col>
+                  </div>
+                  <div
+                    v-for="(netItem,netIndex) in item.data"
+                    :key="netIndex"
+                  >
+                    <p class="second-title">
+                      {{ $t('app.packageList.netWork') }}{{ netIndex+1 }}
+                    </p>
+                    <el-col
+                      :span="8"
+                      v-for="(netLabel,netIndexLabel) in netItem.data"
+                      :key="netIndexLabel"
+                    >
+                      <el-form-item
+                        :label="netLabel.label.substring(17)"
+                        class="apptemplate-form"
+                        size="small"
+                      >
+                        <el-input
+                          id="podsel"
+                          maxlength="30"
+                          v-model="netLabel.value"
+                          size="small"
+                        />
+                      </el-form-item>
+                    </el-col>
+                  </div>
+                </div>
+              </el-collapse-item>
+              <el-collapse-item
+                :title="$t('app.packageList.netWorkConfig')"
+                name="2"
+              >
+                <div>
+                  <div
+                    v-for="(item,index) in this.netWorkSetData"
+                    :key="index"
+                  >
+                    <p class="second-title">
+                      {{ $t('app.packageList.netConfig') }}{{ index+1 }}
+                    </p>
+                    <el-col
+                      :span="8"
+                      v-for="(netWork,netIndex) in item.data"
+                      :key="netIndex"
+                    >
+                      <el-form-item
+                        class="apptemplate-form"
+                        :label="handleNetName(netWork.label)"
+                        size="small"
+                      >
+                        <el-input
+                          id="podsel"
+                          maxlength="30"
+                          v-model="netWork.value"
+                          size="small"
+                        />
+                      </el-form-item>
+                    </el-col>
+                  </div>
+                </div>
+              </el-collapse-item>
+              <el-collapse-item
+                :title="$t('app.packageList.otherConfig')"
+                name="3"
+              >
+                <div>
+                  <el-row>
+                    <el-col
+                      :span="8"
+                      v-for="(item,index) in otherData"
+                      :key="index"
+                    >
+                      <el-form-item
+                        class="apptemplate-form"
+                        :label="item.label"
+                        size="small"
+                      >
+                        <el-input
+                          id="podsel"
+                          maxlength="30"
+                          v-model="item.value"
+                          size="small"
+                        />
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </div>
+              </el-collapse-item>
+            </el-collapse>
+          </div>
         </el-form>
         <span
           slot="footer"
@@ -270,7 +389,6 @@
       <el-dialog
         :show-close="false"
         :visible.sync="distributionDialogVisible"
-        v-loading="disLoading"
       >
         <div class="secondLabel">
           {{ $t('app.packageList.slectEdgeNodes') }}
@@ -422,6 +540,11 @@ export default {
       hostList: [],
       templateInputs: [],
       capabilities: ['GPU', 'NPU'],
+      VmDataGroup: [],
+      netWorkSetData: [],
+      activeNames: '1',
+      otherData: [],
+      language: localStorage.getItem('language'),
       // 分发
       appId: window.location.href.split('=')[1] || sessionStorage.getItem('appId'),
       edgeNodesData: [],
@@ -464,6 +587,12 @@ export default {
     this.interval = setInterval(() => {
       this.initList()
     }, 15000)
+  },
+  watch: {
+    '$i18n.locale': function () {
+      let language = localStorage.getItem('language')
+      this.language = language
+    }
   },
   beforeDestroy () {
     this.clearInterval()
@@ -573,6 +702,7 @@ export default {
             this.templateInputs.push(obj)
           })
         }
+        this.handleInputsData()
         this.configForm = {
           status: '',
           appPackageId: '',
@@ -607,6 +737,103 @@ export default {
           duration: 2000
         })
       })
+    },
+    handleInputsData () {
+      let VmData = []
+      let NetData = []
+      this.otherData = []
+      this.templateInputs.forEach(item => {
+        if (item.label.indexOf('VDU') === 0) {
+          VmData.push(item)
+        } else if (item.label.indexOf('APP') === 0) {
+          NetData.push(item)
+        } else {
+          this.otherData.push(item)
+        }
+      })
+      this.handleVmData(VmData)
+      this.handleNetData(NetData)
+    },
+    handleVmData (VmData) {
+      let map = {}
+      this.VmDataGroup = []
+      VmData.forEach(item => {
+        let name = item.label.substring(0, 4)
+        if (!map[name]) {
+          this.VmDataGroup.push({
+            label: item.label.substring(0, 4),
+            VmResourceData: [],
+            data: [item]
+          })
+          map[name] = item
+        } else {
+          for (let j = 0; j < this.VmDataGroup.length; j++) {
+            let dj = this.VmDataGroup[j]
+            if (dj.label.substring(0, 4) === item.label.substring(0, 4)) {
+              dj.data.push(item)
+              break
+            }
+          }
+        }
+      })
+      this.VmDataGroup.forEach(item => {
+        let NetDataGroup = []
+        item.data.forEach(netItem => {
+          if (netItem.label.length > 16) {
+            let name = netItem.label.substring(0, 16)
+            if (!map[name]) {
+              NetDataGroup.push({
+                label: netItem.label.substring(5, 16),
+                data: [netItem]
+              })
+              map[name] = netItem
+            } else {
+              for (let j = 0; j < NetDataGroup.length; j++) {
+                let dj = NetDataGroup[j]
+                if (dj.label === netItem.label.substring(5, 16)) {
+                  dj.data.push(netItem)
+                  break
+                }
+              }
+            }
+          } else {
+            item.VmResourceData.push(netItem)
+          }
+        })
+        item.data = NetDataGroup
+      })
+    },
+    handleNetData (NetData) {
+      let map = {}
+      this.netWorkSetData = []
+      NetData.forEach(item => {
+        let name = item.label.substring(0, 11)
+        if (!map[name]) {
+          this.netWorkSetData.push({
+            label: item.label.substring(0, 11),
+            data: [item]
+          })
+          map[name] = item
+        } else {
+          for (let j = 0; j < this.netWorkSetData.length; j++) {
+            let dj = this.netWorkSetData[j]
+            if (dj.label.substring(0, 11) === item.label.substring(0, 11)) {
+              dj.data.push(item)
+              break
+            }
+          }
+        }
+      })
+    },
+    handleNetName (label) {
+      let labelListEn = ['Network', 'Physnet']
+      let labelListCn = ['网络名称', '物理网络名称']
+      if (labelListEn.includes(label.substring(12))) {
+        let index = labelListEn.indexOf(label.substring(12))
+        return this.language === 'cn' ? labelListCn[index] : labelListEn[index]
+      } else {
+        return label.substring(12)
+      }
     },
     confirmToDeploy (configForm) {
       this.$refs[configForm].validate(valid => {
@@ -666,7 +893,25 @@ export default {
         let params = {
           parameters: {}
         }
-        this.templateInputs.forEach(item => {
+        this.VmDataGroup.forEach(item => {
+          item.VmResourceData.forEach(resourceItem => {
+            let key = resourceItem.label
+            params.parameters[key] = resourceItem.value
+          })
+          item.data.forEach(data => {
+            data.data.forEach(netData => {
+              let key = netData.label
+              params.parameters[key] = netData.value
+            })
+          })
+        })
+        this.netWorkSetData.forEach(item => {
+          item.data.forEach(data => {
+            let key = data.label
+            params.parameters[key] = data.value
+          })
+        })
+        this.otherData.forEach(item => {
           let key = item.label
           params.parameters[key] = item.value
         })
@@ -805,12 +1050,13 @@ export default {
 }
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
 .configForm{
-  p{
+  padding: 0 30px;
+  .title{
     margin-bottom: 12px;
   }
-  p::before{
+  .title::before{
     content:'';
     display:inline-block;
     width:3px;
@@ -821,10 +1067,45 @@ export default {
     top:3px;
   }
   .el-form-item{
-    margin-bottom: 20px!important;
+    margin-bottom: 20px !important;
   }
   .hostip{
     margin-right:10px;
+  }
+  .apptemplate{
+    .el-collapse{
+      padding: 0 15px;
+      .el-collapse-item__header{
+        background-color: transparent;
+        font-size: 18px;
+        padding: 5px 0;
+        color: #606266;
+        font-weight: normal;
+      }
+      .el-collapse-item__wrap{
+        background-color: transparent;
+      }
+      .el-collapse-item__header:hover {
+        background-color: #d0cae0;
+        border-radius: 10px;
+      }
+    }
+    .first-title{
+      font-size: 18px;
+      padding: 8px 10px;
+      color: #606266;
+    }
+    .second-title{
+      font-size: 16px;
+      padding: 0 20px;
+      color: #606266;
+    }
+    .apptemplate-form.el-form-item{
+      margin-bottom: 5px !important;
+      .el-form-item__label{
+        font-size: 14px !important;
+      }
+    }
   }
 }
 </style>
