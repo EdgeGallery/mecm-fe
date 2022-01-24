@@ -111,10 +111,11 @@ const cn = {
       industry: '行业',
       syncTime: '同步时间',
       distriAndDeploy: '分发&部署',
-      vmConfig: '虚机网络配置',
+      vmConfig: '虚机',
+      vmNetCongig: '虚机网络配置',
       netWork: '网络',
       netWorkConfig: '高级网络配置',
-      netConfig: '网络配置',
+      netConfig: '网络',
       otherConfig: '其他配置'
     },
     distriList: {
