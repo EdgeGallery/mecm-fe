@@ -253,41 +253,43 @@
                   <p class="first-title">
                     {{ $t('app.packageList.vmConfig') }}{{ index+1 }}:
                   </p>
-                  <div
-                    v-for="(vmSourceItem) in item.VmResourceData"
-                    :key="vmSourceItem.label"
-                  >
-                    <el-col
-                      :span="7"
+                  <el-row>
+                    <div
+                      v-for="(vmSourceItem) in item.VmResourceData"
+                      :key="vmSourceItem.label"
                     >
-                      <el-form-item
-                        :label="vmSourceItem.label.substring(5)"
-                        class="apptemplate-form"
-                        size="small"
+                      <el-col
+                        :span="7"
                       >
-                        <el-input
-                          id="podsel"
-                          maxlength="30"
-                          v-model="vmSourceItem.value"
+                        <el-form-item
+                          :label="vmSourceItem.label.substring(5)"
+                          class="apptemplate-form"
                           size="small"
-                        />
-                      </el-form-item>
-                    </el-col>
-                    <el-col
-                      :span="1"
-                      class="unit"
-                      v-if="vmSourceItem.label.substring(5)==='vCPU'"
-                    >
-                      U
-                    </el-col>
-                    <el-col
-                      :span="1"
-                      class="unit"
-                      v-else
-                    >
-                      GB
-                    </el-col>
-                  </div>
+                        >
+                          <el-input
+                            id="podsel"
+                            maxlength="30"
+                            v-model="vmSourceItem.value"
+                            size="small"
+                          />
+                        </el-form-item>
+                      </el-col>
+                      <el-col
+                        :span="1"
+                        class="unit"
+                        v-if="vmSourceItem.label.substring(5)==='vCPU'"
+                      >
+                        U
+                      </el-col>
+                      <el-col
+                        :span="1"
+                        class="unit"
+                        v-else
+                      >
+                        GB
+                      </el-col>
+                    </div>
+                  </el-row>
                   <div
                     v-for="(netItem,netIndex) in item.data"
                     :key="netIndex"
