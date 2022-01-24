@@ -243,7 +243,7 @@
               accordion
             >
               <el-collapse-item
-                :title="$t('app.packageList.vmConfig')"
+                :title="$t('app.packageList.vmNetCongig')"
                 name="1"
               >
                 <div
@@ -251,14 +251,14 @@
                   :key="index"
                 >
                   <p class="first-title">
-                    {{ $t('app.packageList.vmConfig') }}{{ index+1 }}
+                    {{ $t('app.packageList.vmConfig') }}{{ index+1 }}:
                   </p>
                   <div
                     v-for="(vmSourceItem) in item.VmResourceData"
                     :key="vmSourceItem.label"
                   >
                     <el-col
-                      :span="8"
+                      :span="7"
                     >
                       <el-form-item
                         :label="vmSourceItem.label.substring(5)"
@@ -266,7 +266,6 @@
                         size="small"
                       >
                         <el-input
-                          class="apptemplate-input"
                           id="podsel"
                           maxlength="30"
                           v-model="vmSourceItem.value"
@@ -274,13 +273,27 @@
                         />
                       </el-form-item>
                     </el-col>
+                    <el-col
+                      :span="1"
+                      class="unit"
+                      v-if="vmSourceItem.label.substring(5)==='vCPU'"
+                    >
+                      U
+                    </el-col>
+                    <el-col
+                      :span="1"
+                      class="unit"
+                      v-else
+                    >
+                      GB
+                    </el-col>
                   </div>
                   <div
                     v-for="(netItem,netIndex) in item.data"
                     :key="netIndex"
                   >
                     <p class="second-title">
-                      {{ $t('app.packageList.netWork') }}{{ netIndex+1 }}
+                      {{ $t('app.packageList.netWork') }}{{ netIndex+1 }}:
                     </p>
                     <el-col
                       :span="8"
@@ -313,7 +326,7 @@
                     :key="index"
                   >
                     <p class="second-title">
-                      {{ $t('app.packageList.netConfig') }}{{ index+1 }}
+                      {{ $t('app.packageList.netConfig') }}{{ index+1 }}:
                     </p>
                     <el-col
                       :span="8"
@@ -802,6 +815,13 @@ export default {
         })
         item.data = NetDataGroup
       })
+      this.VmDataGroup.forEach(item => {
+        item.VmResourceData.forEach(resourceData => {
+          if (resourceData.label.substring(5) === 'MEM') {
+            resourceData.value = resourceData.value / 1024
+          }
+        })
+      })
     },
     handleNetData (NetData) {
       let map = {}
@@ -895,6 +915,9 @@ export default {
         }
         this.VmDataGroup.forEach(item => {
           item.VmResourceData.forEach(resourceItem => {
+            if (resourceItem.label.substring(5) === 'MEM') {
+              resourceItem.value = resourceItem.value * 1024
+            }
             let key = resourceItem.label
             params.parameters[key] = resourceItem.value
           })
@@ -1105,6 +1128,10 @@ export default {
       .el-form-item__label{
         font-size: 14px !important;
       }
+    }
+    .unit{
+      position: relative;
+      top: 5px;
     }
   }
 }
