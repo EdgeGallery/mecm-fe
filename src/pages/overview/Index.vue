@@ -472,6 +472,9 @@ export default {
         } else {
           this.kpiInfo = {}
         }
+      }).catch((err) => {
+        console.log(err)
+        this.kpiInfo = {}
       })
     }
   }
