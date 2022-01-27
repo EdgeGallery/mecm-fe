@@ -186,7 +186,9 @@ export default {
     }
   },
   mounted () {
-    this.getTableData()
+    setTimeout(() => {
+      this.getTableData()
+    }, 900)
   }
 }
 </script>
