@@ -469,7 +469,12 @@ export default {
       appo.getNodeKpi(ip).then(res => {
         if (res.data) {
           this.kpiInfo = res.data.data
+        } else {
+          this.kpiInfo = {}
         }
+      }).catch((err) => {
+        console.log(err)
+        this.kpiInfo = {}
       })
     }
   }
