@@ -240,12 +240,20 @@ export default {
           external: item.external,
           adminState: item.adminState,
           status: item.status,
-          subnetsAssociated: '',
+          subnetsAssociated: this.getSubnetsAssociated(item.subnets),
           availability: item.availabilityZones[0]
         }
         _tempTableData.push(_temp)
       })
       return _tempTableData
+    },
+    getSubnetsAssociated (dataList) {
+      let _results = ''
+      dataList.forEach(item => {
+        let _item = item.name + ' ' + item.cidr + '\n\r'
+        _results += _item
+      })
+      return _results
     },
     getTableData () {
       let _hostIp = sessionStorage.getItem('hostIp')
