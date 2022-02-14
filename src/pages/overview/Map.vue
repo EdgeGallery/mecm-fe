@@ -346,6 +346,7 @@ export default {
     openlayers (data) {
       let _this = this
       this.btnShow = true
+      console.log(data[0].coordinates)
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
@@ -409,6 +410,7 @@ export default {
       this.map.addLayer(clusters)
 
       this.map.on('click', (e) => {
+        alert(e.coordinate)
         // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {

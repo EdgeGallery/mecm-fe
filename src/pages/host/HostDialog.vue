@@ -70,12 +70,10 @@
             prop="city"
             style="width:100%;"
           >
-            <area-select
-              v-model="location"
-              :data="$pcaa"
-              @change="cityChanged"
-              :level="2"
-              type="text"
+            <el-input
+              id="location"
+              v-model="currForm.city"
+              :placeholder="$t('system.edgeNodes.location')"
             />
           </el-form-item>
           <el-form-item
@@ -99,14 +97,14 @@
               v-model="currForm.coordinates"
               :placeholder="$t('system.edgeNodes.coordPlaceholder')"
             />
-            <p class="referCoord">
-              {{ $t('system.edgeNodes.referCoord') }}
-              <a
-                href="https://www.openstreetmap.org/#map=11/39.9064/116.3913"
-                target="_blank"
-                rel="noopener noreferrer"
-              >OpenStreetMap</a>
-            </p>
+            <el-button
+              @click="isShowMap=true"
+              class="get-coord"
+              type="primary"
+              plain
+            >
+              {{ $t('system.edgeNodes.getCoord') }}
+            </el-button>
           </el-form-item>
           <el-form-item
             :label="$t('app.packageList.affinity')"
@@ -213,12 +211,24 @@
         @click="cancel()"
       >{{ $t('common.cancel') }}</el-button>
     </span>
+    <div
+      class="coord-comp"
+      v-if="isShowMap"
+    >
+      <Coord
+        @confirmCoord="confirmCoord"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { inventory } from '../../tools/request.js'
+import Coord from './Coordinates.vue'
 export default {
+  components: {
+    Coord
+  },
   props: {
     rowdata: {
       required: true,
@@ -257,7 +267,7 @@ export default {
         coordinates: '',
         vim: 'K8S'
       },
-      location: [],
+      isShowMap: false,
       falsecapabilities: [],
       capabilities: [],
       gpuModel: '',
@@ -289,8 +299,7 @@ export default {
           { required: true, message: this.$t('tip.typeAddress'), trigger: 'change' }
         ],
         coordinates: [
-          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' },
-          { pattern: /^([789][3-9](?:\.\d{1,10})?|[1][0-2][0-9](?:\.\d{1,10})?|[13][0-6](?:\.\d{1,10})?)[,]\s?([3-9](?:\.\d{1,10})?|[1234][0-9](?:\.\d{1,10})?|[5][0-4](?:\.\d{1,10})?)$/, message: this.$t('verify.coordinates') }
+          { required: true, message: this.$t('verify.coordinates'), trigger: 'blur' }
         ],
         appRuleIp: [
           { required: true, message: this.$t('verify.appRuleManaVerify'), trigger: 'change' }
@@ -308,18 +317,16 @@ export default {
     changeType () {
       this.op = !this.op
     },
-    cityChanged (val) {
+    confirmCoord (val) {
       if (val) {
-        this.currForm.city = val.join('/')
-      } else {
-        this.location = []
+        this.currForm.coordinates = val
       }
+      this.isShowMap = false
     },
     handleModify () {
       this.isDisable = true
       let middleData = JSON.parse(JSON.stringify(this.rowdata))
       this.currForm = middleData
-      this.location = this.currForm.city.split('/')
       this.dialogVisible = true
       this.rowdata.hwcapabilities.forEach(item => {
         this.capabilities.push(item.hwType)
@@ -429,5 +436,17 @@ export default {
   a{
     color: #166bea;
   }
+}
+
+.coord-comp{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.get-coord{
+  margin-top: 10px;
 }
 </style>
