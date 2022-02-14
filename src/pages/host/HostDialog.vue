@@ -341,7 +341,6 @@ export default {
     },
     cancel () {
       this.isDisable = false
-      this.location.length = 0
       this.resetForm()
       this.$refs.currForm.resetFields()
       this.$emit('close', 'closeDialog')
