@@ -253,7 +253,10 @@ const en = {
       vim: 'VIM',
       ifUploaded: 'Upload Status',
       coordPlaceholder: 'Please enter longitude and latitude, eg: 116,39',
-      referCoord: 'For coordinate acquisition, please refer to:'
+      referCoord: 'For coordinate acquisition, please refer to:',
+      getCoord: 'Click to get coord',
+      long: 'Long:',
+      lat: 'Lat:'
     },
     appstore: {
       appstoreName: 'App Store Name',
@@ -309,7 +312,7 @@ const en = {
     normalVerify: 'Style is not right',
     hostNameVerify: '4 to 16 digits (letters, numbers)',
     noSymbol: '1-16 characters and not contain special symbols',
-    coordinates: 'Coordinates should be a combination of latitude and longitude, connected by commas',
+    coordinates: 'Coordinates can not be empty.',
     uriVerify: 'Try to type right Uri.',
     descVerify: 'Describtion can not be empty.',
     appNameVerify: 'App name can not be empty',
