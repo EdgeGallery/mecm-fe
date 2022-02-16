@@ -71,8 +71,8 @@ export default {
   },
   data () {
     return {
-      chinaId: 100000,
-      chinaName: 'china',
+      chinaId: 'world',
+      chinaName: 'world',
       chinaJson: null,
       nodeData: [],
       continue: true,
@@ -275,35 +275,15 @@ export default {
             type: 'map',
             map: name,
             zoom: 1,
+            roam: true,
             aspectScale: 0.75,
             animationDelayUpdate: 300,
             top: '8%',
             label: {
-              normal: {
-                show: true,
-                color: '#252525',
-                fontSize: 12,
-                fontFamily: 'HarmonyHeiTi',
-                formatter: function (params) {
-                  if (localStorage.getItem('language') === 'en') {
-                    let pinyin = require('pinyin')
-                    let city = pinyin(params.name, { style: pinyin.STYLE_NORMAL }).join('').replace(/^\S/, s => s.toUpperCase())
-                    if (params.name === '重庆') {
-                      city = 'Chongqing'
-                    } else if (params.name === '西藏') {
-                      city = 'Xizang'
-                    }
-                    return city
-                  } else {
-                    return params.name
-                  }
-                }
-              },
               emphasis: {
                 show: true,
-                color: '#fff'
+                color: 'black'
               }
-
             },
             itemStyle: {
               normal: {
@@ -312,7 +292,7 @@ export default {
                 boxShadow: '10px 20px 30px '
               },
               emphasis: {
-                areaColor: '#5d3ec6'
+                areaColor: '#9062cc'
               }
             },
             data: this.initMapData(mapJson),
@@ -346,7 +326,6 @@ export default {
     openlayers (data) {
       let _this = this
       this.btnShow = true
-      console.log(data[0].coordinates)
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
@@ -410,7 +389,6 @@ export default {
       this.map.addLayer(clusters)
 
       this.map.on('click', (e) => {
-        alert(e.coordinate)
         // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
