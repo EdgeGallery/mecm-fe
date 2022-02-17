@@ -18,7 +18,6 @@
   <div>
     <div class="topLabel">
       {{ $t('nav.appInstance') }}
-      <div class="block" />
     </div>
     <div class="contentList">
       <Search
@@ -28,6 +27,7 @@
       <span class="btnSearch">
         <el-button
           type="primary"
+          class="batch-delete"
           @click="beforeDelete(selectData,1)"
         >
           <span>{{ $t('app.instanceList.batchDelete') }}</span>
@@ -477,5 +477,9 @@ export default {
   }
   #deleteInsBtn{
     background: #5E40C8;
+  }
+  .batch-delete{
+    background: #ffffff !important;
+    color:#0F0D87 !important;
   }
 </style>

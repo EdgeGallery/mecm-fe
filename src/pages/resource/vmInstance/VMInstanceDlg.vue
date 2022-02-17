@@ -274,7 +274,6 @@ export default {
     text-align: center;
     padding: 20px 0;
     box-sizing: border-box;
-    border-bottom:  1px dashed #dfe1e6;
   }
   .elButton {
     text-align: right;
