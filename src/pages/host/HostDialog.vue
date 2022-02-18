@@ -443,6 +443,7 @@ export default {
   width: 120%;
   height: 100%;
   background: #2E147C;
+  z-index: 100;
 }
 .get-coord{
   margin-top: 10px;
