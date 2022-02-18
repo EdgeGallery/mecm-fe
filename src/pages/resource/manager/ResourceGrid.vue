@@ -38,10 +38,10 @@
             statisticData.index===8?$t('resourceMgr.networkAmount'):
             statisticData.index===9?$t('resourceMgr.subnetAmount'):
             "unknow"
-          }}: {{ statisticData.totalUsed }}</span>
+          }}{{ statisticData.totalUsed }}</span>
       </div>
       <div :class="language==='cn'?'statistic-div': 'statistic-div-en'">
-        <span class="statistic-detail">{{ $t('resourceMgr.total') }}: {{ statisticData.maxTotal===-1?$t('resourceMgr.noLimit'):statisticData.maxTotal }}</span>
+        <span class="statistic-detail">{{ $t('resourceMgr.total') }} {{ statisticData.maxTotal===-1?$t('resourceMgr.noLimit'):statisticData.maxTotal }}</span>
       </div>
     </div>
   </div>
@@ -90,7 +90,7 @@ export default {
     .statistic-div{
       padding: 3px;
       .statistic-detail{
-        color: #1F1348;
+        color: #ffffff;
       }
     }
   }
@@ -104,7 +104,7 @@ export default {
     .statistic-div-en{
       padding: 3px;
       .statistic-detail{
-        color: #1F1348;
+        color: #ffffff;
       }
     }
   }

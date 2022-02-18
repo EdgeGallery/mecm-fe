@@ -18,7 +18,6 @@
   <div>
     <div class="topLabel">
       {{ $t('nav.edgeNodes') }}
-      <div class="block" />
     </div>
     <p
       class="btnMain"
@@ -29,7 +28,6 @@
         type="primary"
         @click="showEditDialog()"
       >
-        <span class="iconcont add" />
         <span>{{ $t('system.mepm.newReg') }}</span>
       </el-button>
     </p>
@@ -162,7 +160,7 @@
         <el-dialog
           :show-close="false"
           :visible.sync="dialogVisible"
-          width="50%"
+          width="40%"
         >
           <div class="secondLabel">
             {{ title }}
