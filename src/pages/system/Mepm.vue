@@ -18,6 +18,7 @@
   <div>
     <div class="topLabel">
       {{ $t('nav.mepm') }}
+      <div class="block" />
     </div>
     <p
       class="btnMain"
@@ -29,6 +30,7 @@
         @click="showEditDialog('')"
         class="rt"
       >
+        <span class="iconcont add" />
         <span>{{ $t('system.mepm.newReg') }}</span>
       </el-button>
     </p>
@@ -97,7 +99,6 @@
     <el-dialog
       :show-close="false"
       :visible.sync="dialogVisible"
-      top="15%"
       width="40%"
     >
       <div class="secondLabel">
@@ -204,67 +205,71 @@ export default {
 </script>
 
 <style lang='less'>
-.btn-group{
-  margin: 0px 10% 0px 0px;
-  justify-content: flex-end;
-  position: relative;
-  top: 3px;
-  .el-button{
-    height: 30px;
-    background: #5844be;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 15px;
+.contentList{
+  margin: 0 10%;
+  height: 100%;
+  .btn-group{
+    margin: 0px 10% 0px 0px;
+    justify-content: flex-end;
+    position: relative;
+    top: 3px;
+    .el-button{
+      height: 30px;
+      background: #5844be;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 15px;
+    }
   }
-}
-.mepmList{
-  width: 100%;
-  display:flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  .content {
-    width: 25%;
-    padding: 0 6px;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    .list {
-      padding:15px 0 15px 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      transition: transform 0.3s ease-in;
-      padding-left: 15%;
-      .el-form{
-        width:100%;
-        .el-form-item{
-          margin-bottom: 8px;
-          font-size: 14px;
-          color: #ffffff;
-          .el-form-item__label{
-            line-height:24px ;
+  .mepmList{
+    width: 100%;
+    display:flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    .content {
+      width: 25%;
+      padding: 0 6px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      .list {
+        padding:15px 0 15px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        transition: transform 0.3s ease-in;
+        padding-left: 15%;
+        .el-form{
+          width:100%;
+          .el-form-item{
+            margin-bottom: 8px;
+            font-size: 14px;
             color: #ffffff;
-          }
-          .el-form-item__content{
-            height: 24px;
-            line-height: 24px;
+            .el-form-item__label{
+              line-height:24px ;
+              color: #ffffff;
+            }
+            .el-form-item__content{
+              height: 24px;
+              line-height: 24px;
+            }
           }
         }
       }
-    }
-    .bgImgone{
-      background-image: url('../../assets/images/mepm_bg.png');
-      background-size:100% 105%;
-    }
-    .bgImgtwo{
-      background-image: url('../../assets/images/mepm_bg1.png');
-      background-size:100% 100%;
-    }
-    .bgImgone:hover,.bgImgtwo:hover{
-      transform: translate3d(0,-10px,0);
-      border-radius: 10px;
-      box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
-      background-image: url('../../assets/images/cardBgoneHover.png');
+      .bgImgone{
+        background-image: url('../../assets/images/mepm_bg.png');
+        background-size:100% 105%;
+      }
+      .bgImgtwo{
+        background-image: url('../../assets/images/mepm_bg1.png');
+        background-size:100% 100%;
+      }
+      .bgImgone:hover,.bgImgtwo:hover{
+        transform: translate3d(0,-10px,0);
+        border-radius: 10px;
+        box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
+        background-image: url('../../assets/images/cardBgoneHover.png');
+      }
     }
   }
 }

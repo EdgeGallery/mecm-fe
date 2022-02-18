@@ -18,6 +18,7 @@
   <div>
     <div class="topLabel">
       {{ $t('app.packageList.distriAndDeploy') }}
+      <div class="block" />
     </div>
     <Edge />
   </div>

@@ -18,6 +18,7 @@
   <div>
     <div class="topLabel">
       {{ $t('nav.appstore') }}
+      <div class="block" />
     </div>
     <p
       class="btnMain"
@@ -30,6 +31,7 @@
         @click="showEditDialog(0)"
         class="rt"
       >
+        <span class="iconcont add" />
         <span>{{ $t('system.mepm.newReg') }}</span>
       </el-button>
     </p>
@@ -111,7 +113,6 @@
         :show-close="false"
         :visible.sync="dialogVisible"
         :before-close="closeEditDialog"
-        top="10%"
         width="45%"
       >
         <div class="secondLabel">
