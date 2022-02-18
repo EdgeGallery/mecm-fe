@@ -196,12 +196,13 @@ export default {
   height: 570px;
   padding-top: 1px;
   border-radius: 16px;
-  box-shadow: 0px 3px 62px 6px rgba(226, 220, 247, 0.6) inset;
+  background: #2E147C;
   .resource-introduction{
     margin-top: 40px;
     margin-left: 50px;
     .resourcePercentage{
       text-align: center;
+      color: #FFFFFF;
       .title-icon-blue{
         display: inline-block;
         width: 14px;
@@ -239,6 +240,7 @@ export default {
     .resource-status{
       font-weight: 600;
       margin-left: 10px;
+      color: #FFFFFF;
     }
   }
   .resource-content{

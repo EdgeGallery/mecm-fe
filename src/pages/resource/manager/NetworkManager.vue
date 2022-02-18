@@ -302,7 +302,7 @@ export default {
   height: 613px;
   padding-top: 1px;
   border-radius: 16px;
-  box-shadow: 0px 3px 62px 6px rgba(226, 220, 247, 0.6) inset;
+  background: #2E147C;
   .search-createBtn{
     .search-col{
       margin-top: 30px;
@@ -337,9 +337,6 @@ export default {
   .network-table{
     width: 1000px;
     margin: 30px auto;
-    .tableStyle /deep/ .el-table__fixed-right-patch{
-      background-color: #edeef8 !important;
-    }
   }
 }
 </style>
