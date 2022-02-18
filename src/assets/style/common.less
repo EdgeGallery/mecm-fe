@@ -90,8 +90,8 @@ a{
 .appView{
   .el-button--small, .el-button--small.is-round{
     height: 24px;
-    background: #efefef;
-    color: #7a6e8a;
+    background: #4E3494;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     line-height: 20px;
@@ -107,14 +107,18 @@ a{
   border-color: #55d8bf !important;
   background: #55d8bf !important;
 }
+.el-radio,.el-checkbox{
+  color: #ffffff !important;
+}
 
 
 // dialog
 .el-dialog{
-  border-radius: 12px!important;
-  background: #efefef !important;
+  background: #2E147C!important;
+  border-radius: 16px!important;
   input{
     border-radius: 8px;
+    color: #ffffff !important;
   }
   .secondLabel{
     font-weight: normal;
@@ -123,7 +127,7 @@ a{
     padding: 0 50px;
   }
   .el-form-item__label{
-    color: #5e40c8;
+    color: #ffffff;
     font-size: 16px;
   }
   .el-input__inner{
@@ -180,7 +184,7 @@ a{
   color: gray!important;
 }
 input::placeholder {
-  color: gray!important;
+  color: #ffffff!important;
   font-size: 14px;
 }
 
@@ -203,8 +207,23 @@ input::placeholder {
 body .el-table th.gutter{
   display: table-cell !important;
 }
+.el-table{
+  background-color: transparent !important;
+}
+.el-table tr{
+  background: transparent !important;
+}
+.el-table td, .el-table th.is-leaf{
+  border-bottom: 1px solid #4E3494 !important;
+}
+.el-table th, .el-table tr{
+  min-height: 42px !important;
+}
+.el-table--enable-row-hover .el-table__body tr:hover>td{
+  background-color: transparent!important;
+}
 .el-table tr, .el-table__empty-block{
-  color: #62517a;
+  color: #ffffff;
 }
 .el-table td, .el-table th{
   height: 60px;
@@ -216,14 +235,11 @@ body .el-table th.gutter{
 .el-table--border::after, .el-table--group::after, .el-table::before{
   z-index: -1!important;
 }
-.el-table--enable-row-hover .el-table__body tr:hover>td{
-  background: #faf9fc  !important;
-}
 .el-table .has-gutter th{
-  background: #edeef8!important;
+  background: #4E3494;
   .cell{
     font-weight: bold!important;
-    color: #62517a !important;
+    color: #ffffff !important;
   }
 }
 .el-table td,.mecm-overview .el-table th{
@@ -233,7 +249,7 @@ body .el-table th.gutter{
   border-radius: 6px!important;
 }
 .name{
-  color:#6b68f3;
+  color:#43F6AD;
   cursor: pointer;
 }
 .btnMain{
@@ -284,12 +300,21 @@ body .el-table th.gutter{
   }
 }
 .contentList{
-  margin: 0 10%;
+  margin: 85px 10% 0 10%;
   height: 100%;
   padding: 30px 3%;
   border-radius: 25px;
-  background: #ffffff;
   position: relative;
+  background: rgba(46,20,124,0.7);
+}
+.el-pagination__total,.el-pagination__sizes,.el-pagination__jump{
+  color: #ffffff !important;
+}
+.el-tabs__item{
+  color: #fff!important;
+}
+.el-tabs__item.is-active{
+  color: #ffffff !important;
 }
 .tableDiv{
   margin-top: 10px;
@@ -392,43 +417,23 @@ body .el-table th.gutter{
 // label
 div.topLabel{
   font-weight: bold;
-  font-size: 30px;
+  font-size: 26px;
   text-align: left;
-  color: #380879;
-  margin: 145px 0 60px 15%;
-  .block{
-    width: 80px;
-    height:8px;
-    border-radius: 3px;
-    background: #9e7bcd;
-    margin: 5px 0 15px 0;
-    opacity: 0.2;
-  }
+  color: #ffffff;
+  margin: 145px 0 60px 10%;
 }
 
 .secondLabel{
-  color:#380879;
-  font-weight: bold;
+  color:#ffffff;
   font-size: 20px;
   text-align: left;
   padding: 0 0 20px 0;
 }
-.secondLabel::before{
-  display: inline-block;
-  content:'';
-  width:17px;
-  height:17px;
-  background: #55d8bf;
-  position: relative;
-  top: 2px;
-  margin-right: 10px;
-}
-
 // popover
 
 .showLabelArea{
   border-radius: 6px;
-  background: #e5e1f0;
+  background: #5944C0;
   padding: 15px;
   width: 280px;
   .secondLabel{
@@ -436,7 +441,7 @@ div.topLabel{
   }
   .labelContent{
     p{
-      color:#380879;
+      color:#ffffff;
       font-size: 14px;
       line-height: 25px;
     }
@@ -449,6 +454,10 @@ div.topLabel{
 
 .work-steps {
   margin: 8px;
+}
+.el-input__inner{
+  background-color: #4E3494!important;
+  color: #ffffff !important;
 }
 
 .work-steps .el-step__line {
@@ -550,11 +559,11 @@ div.topLabel{
   z-index: 0;
 }
 .work-steps .el-step__title.is-success {
-  color: #380879;
+  color: #43F6AD;
   margin-top: 5px;
 }
 .work-steps .el-step__title.is-process {
-  color: #380879;
+  color: #ffffff;
   margin-top: 5px;
   font-weight: normal;
 }
@@ -595,12 +604,11 @@ div.topLabel{
   padding: 0 80px 0 !important;
 }
 .default_dialog .el-dialog__header{
-  background: #efefef !important;
   border-radius: 12px 12px 0 0;
   padding: 40px 40px !important;
 }
 .default_dialog .el-dialog .el-dialog__title{
-  color: #380879 !important;
+  color: #ffffff !important;
   font-size: 20px;
 }
 .default_dialog .el-form-item{
@@ -609,21 +617,11 @@ div.topLabel{
 .default_dialog .el-dialog .el-form-item__label{
   height: 32px !important;
   line-height: 32px !important;
-  color: #380879;
+  color: #ffffff;
   font-size: 16px;
 }
 .default_dialog .el-dialog .el-input__inner,.default_dialog .el-dialog .el-textarea__inner{
   border-radius: 8px !important;
-}
-.default_dialog .title_icon{
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  border-radius: 3px;
-  background-image: linear-gradient(45deg, #72dcc8, #c0e8e0);
-  margin-right: 20px;
-  position: relative;
-  top: 2px;
 }
 .default_dialog .el-dialog__close{
   display: none;
@@ -652,18 +650,18 @@ div.topLabel{
   border-color: #5844be;
 }
 .default_radio .el-radio__label{
-  color: #380879;
+  color: #ffffff;
   font-size: 16px;
 }
 .default_radio .el-radio__input.is-checked + .el-radio__label{
-  color: #380879;
+  color: #ffffff;
 }
 .el-table .cell {
   white-space: pre-line;
 }
-.tableStyle.el-table th{
-  background: #edeef8;
-  font-size: 18px;
-  color: #62517a;
-  font-weight: normal;
+.el-table td, .el-table th.is-leaf{
+  background-color: transparent;
+}
+.el-table__fixed-right{
+  background-color:#5844be;
 }

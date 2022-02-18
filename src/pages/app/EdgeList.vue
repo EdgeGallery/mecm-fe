@@ -21,10 +21,6 @@
         type="primary"
         @click="distribute"
       >
-        <span
-          class="iconcont"
-          style="top:0;"
-        >√</span>
         <span>{{ $t('app.packageList.distribute') }}</span>
       </el-button>
     </div>

@@ -22,20 +22,25 @@
             <label for="lat">{{ $t('system.edgeNodes.lat') }}</label>
             <el-input v-model="lat" />
           </div>
-          <el-button
-            @click="confirm"
-            type="primary"
-            plain
+          <div
+            class="btn-group"
+            style="margin-top:15px;text-align:center;"
           >
-            {{ $t('common.confirm') }}
-          </el-button>
-          <el-button
-            @click="close"
-            type="primary"
-            plain
-          >
-            {{ $t('common.cancel') }}
-          </el-button>
+            <el-button
+              @click="confirm"
+              type="primary"
+              plain
+            >
+              {{ $t('common.confirm') }}
+            </el-button>
+            <el-button
+              @click="close"
+              type="primary"
+              plain
+            >
+              {{ $t('common.cancel') }}
+            </el-button>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -92,7 +97,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .coord,.map-content{
     width: 100%;
     height: 100%;
@@ -103,5 +108,8 @@ export default {
   }
   .operation-content{
     padding: 10px;
+  }
+  label{
+    color: #ffffff;
   }
 </style>

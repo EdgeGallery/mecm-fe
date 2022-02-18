@@ -18,7 +18,6 @@
   <div class="ruleconfig">
     <div class="topLabel">
       {{ $t('nav.ruleConfiguration') }}
-      <div class="block" />
     </div>
     <div class="btnMain">
       <el-button
@@ -26,7 +25,6 @@
         id="deleteInsBtn"
         @click="addNew"
       >
-        <span class="iconcont add" />
         <span>{{ $t('app.instanceList.newRules') }}</span>
       </el-button>
     </div>
