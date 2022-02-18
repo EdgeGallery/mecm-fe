@@ -23,6 +23,7 @@
           :model="currForm"
           ref="currForm"
           :rules="rules"
+          :inline="true"
         >
           <el-form-item
             label="VIM"
@@ -63,23 +64,6 @@
               v-model="currForm.mechostIp"
               :disabled="isDisable"
             />
-          </el-form-item>
-          <el-form-item
-            label="MEPM"
-            prop="mepmIp"
-          >
-            <el-select
-              id="mepmip"
-              v-model="currForm.mepmIp"
-              :placeholder="$t('system.edgeNodes.mepmIp')"
-            >
-              <el-option
-                v-for="(item,index) in mepmList"
-                :key="index"
-                :label="item.mepmIp"
-                :value="item.mepmIp"
-              />
-            </el-select>
           </el-form-item>
           <el-form-item
             :label="$t('system.edgeNodes.location')"
@@ -190,6 +174,23 @@
                 />
               </el-col>
             </el-row>
+          </el-form-item>
+          <el-form-item
+            label="MEPM"
+            prop="mepmIp"
+          >
+            <el-select
+              id="mepmip"
+              v-model="currForm.mepmIp"
+              :placeholder="$t('system.edgeNodes.mepmIp')"
+            >
+              <el-option
+                v-for="(item,index) in mepmList"
+                :key="index"
+                :label="item.mepmIp"
+                :value="item.mepmIp"
+              />
+            </el-select>
           </el-form-item>
         </el-form>
       </el-row>
@@ -439,15 +440,12 @@ export default {
 .coord-comp{
   position: absolute;
   top: 0;
-  left: -10%;
-  width: 120%;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background: #2E147C;
+  background: #fff;
 }
 .get-coord{
   margin-top: 10px;
-}
-.el-select{
-  width: 100%;
 }
 </style>

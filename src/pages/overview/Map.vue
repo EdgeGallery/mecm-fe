@@ -274,14 +274,14 @@ export default {
           {
             type: 'map',
             map: name,
-            zoom: 1.2,
+            zoom: 1,
             aspectScale: 0.75,
             animationDelayUpdate: 300,
-            top: '15%',
+            top: '8%',
             label: {
               normal: {
                 show: true,
-                color: '#ffffff',
+                color: '#252525',
                 fontSize: 12,
                 fontFamily: 'HarmonyHeiTi',
                 formatter: function (params) {
@@ -307,18 +307,18 @@ export default {
             },
             itemStyle: {
               normal: {
-                areaColor: '#3E279B',
-                borderColor: '#ffffff',
+                areaColor: '#e7e5ec',
+                borderColor: '#000000',
                 boxShadow: '10px 20px 30px '
               },
               emphasis: {
-                areaColor: '#43F6AD'
+                areaColor: '#5d3ec6'
               }
             },
             data: this.initMapData(mapJson),
             markPoint: {
               symbol: 'image://./outer.png',
-              symbolSize: [36, 36],
+              symbolSize: [26, 26],
               hoverAnimation: true,
               data: data
             }
@@ -346,6 +346,7 @@ export default {
     openlayers (data) {
       let _this = this
       this.btnShow = true
+      console.log(data[0].coordinates)
       if (this.map) {
         this.map.setView(new View({
           projection: 'EPSG:4326',
@@ -375,6 +376,7 @@ export default {
         lnglats.push(item.coordinates)
       })
 
+      // 创建Feature对象集合
       let features = []
       for (let lnglat of lnglats) {
         features.push(
@@ -399,7 +401,7 @@ export default {
         style: new Style({
           image: new Icon({
             src: './outer.png',
-            scale: 1
+            scale: 0.3
           })
         }),
         zIndex: 66
@@ -408,6 +410,8 @@ export default {
       this.map.addLayer(clusters)
 
       this.map.on('click', (e) => {
+        alert(e.coordinate)
+        // 在点击时获取像素区域
         var pixel = this.map.getEventPixel(e.originalEvent)
         this.map.forEachFeatureAtPixel(pixel, function (feature) {
           data.forEach(item => {
@@ -420,6 +424,7 @@ export default {
 
       let selectSingleClick = new InteractionSelect({})
 
+      // 监听选中事件，然后在事件处理函数中改变被选中的`feature`的样式
       this.map.addInteraction(selectSingleClick)
       selectSingleClick.on('select', function (event) {
         event.selected[0].setStyle(new Style({
@@ -438,9 +443,6 @@ export default {
 <style lang='less' scoped>
 .mapContainer{
   height: 100%;
-  padding: 25px;
-  border-radius: 16px;
-  background: rgba(46,20,124,0.7);
 }
 .content {
   width: 100%;
@@ -449,14 +451,18 @@ export default {
     height: 100%;
     width: 100%;
     z-index: 99;
+    background: #f6f6f6;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
   }
   .return{
-    position: absolute;
-    top: 40px;
-    left: 81%;
+    position: relative;
+    top: -55px;
+    left: 80%;
     z-index: 999;
-    background: #3E279B;
-    color: #ffffff;
+    background: #000000;
+    opacity: 0.4;
+    color: #ffff;
     border-radius: 6px;
     width: 125px;
     height: 35px;
