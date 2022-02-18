@@ -166,7 +166,6 @@ export default {
           detail: {
             show: true,
             fontSize: 15,
-            color: '#ffffff',
             offsetCenter: [0, '70%'],
             formatter: '{value}%'
           },

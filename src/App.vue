@@ -41,7 +41,6 @@ export default {
   background:#efefef;
   background-size:cover;
   overflow: auto;
-  background: url('./assets/images/common_bg.png') center no-repeat;
 }
 #container{
   position: relative;

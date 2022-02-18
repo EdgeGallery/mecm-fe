@@ -238,7 +238,7 @@ export default {
   height: 613px;
   padding-top: 1px;
   border-radius: 16px;
-  background: #2E147C;
+  box-shadow: 0px 3px 62px 6px rgba(226, 220, 247, 0.6) inset;
   .search-createBtn{
     .create-col{
       text-align: right;

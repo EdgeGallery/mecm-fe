@@ -18,6 +18,7 @@
   <div>
     <div class="topLabel">
       {{ $t('nav.packageMana') }}
+      <div class="block" />
     </div>
     <div class="btnMain">
       <el-button
@@ -26,6 +27,7 @@
         type="primary"
         @click="showSyncBox()"
       >
+        <span class="iconcont sync" />
         <span>{{ $t('app.packageList.synchronize') }}</span>
       </el-button>
     </div>
