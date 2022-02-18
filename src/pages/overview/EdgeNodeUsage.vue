@@ -170,7 +170,6 @@ export default {
           detail: {
             show: true,
             fontSize: 15,
-            color: '#ffffff',
             offsetCenter: [0, '70%'],
             formatter: '{value}%'
           },
@@ -220,7 +219,7 @@ export default {
       font-weight: normal;
       font-size: 16px;
       line-height: 21px;
-      color: #ffffff;
+      color: #5b4ad1;
     }
   }
   .chart{

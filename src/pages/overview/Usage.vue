@@ -173,7 +173,6 @@ export default {
           detail: {
             show: true,
             fontSize: 15,
-            color: '#ffffff',
             offsetCenter: [0, '70%'],
             formatter: '{value}%'
           },
@@ -219,7 +218,7 @@ export default {
       color: white;
     }
     p{
-      color:#ffffff;
+      color:#5b4ad1;
       font-size:16px;
     }
   }
