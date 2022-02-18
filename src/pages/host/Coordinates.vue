@@ -83,7 +83,7 @@ export default {
         ],
         view: new View({
           projection: 'EPSG:4326',
-          center: ['108.8348', '34.1995'],
+          center: ['116.3912', '39.90726'],
           zoom: 16
         })
       })
