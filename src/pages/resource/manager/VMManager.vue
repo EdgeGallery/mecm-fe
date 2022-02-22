@@ -74,14 +74,30 @@
           width="250"
         />
         <el-table-column
-          prop="flavor"
-          label="Flavor"
-        />
-        <el-table-column
           prop="status"
           label="Status"
           sortable="custom"
         />
+        <el-table-column
+          :label="$t('resourceMgr.task')"
+          width="100"
+        >
+          <template slot-scope="scopeTask">
+            <div v-if="scopeTask.row['status'] === 'HARD_REBOOT' || scopeTask.row['status'] === 'REBOOT'">
+              <div>
+                <img
+                  class="cp"
+                  src="../../../assets/images/task_process.gif"
+                  alt=""
+                >
+              </div>
+              <span>{{ $t('resourceMgr.rebootTask') }}</span>
+            </div>
+            <div v-else>
+              <span>{{ $t('resourceMgr.noTask') }}</span>
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column
           label="Actions"
           width="180"
@@ -111,35 +127,79 @@
               >
                 <el-dropdown-item
                   class="operations_btn"
+                  @click.native="hardRebootVM(scope.row)"
+                  type="text"
+                >
+                  {{ $t('resourceMgr.hardRebootVM') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="softRebootVM(scope.row)"
+                  type="text"
+                >
+                  {{ $t('resourceMgr.softRebootVM') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
                   @click.native="createSnapshot(scope.row)"
                   type="text"
-                  :disabled="true"
                 >
                   {{ $t('resourceMgr.createSnapshot') }}
                 </el-dropdown-item>
                 <el-dropdown-item
                   class="operations_btn"
-                  @click.native="openControl(scope.row)"
-                  type="text"
-                  :disabled="true"
-                >
-                  {{ $t('resourceMgr.control') }}
-                </el-dropdown-item>
-                <el-dropdown-item
-                  class="operations_btn"
                   @click.native="pauseInstance(scope.row)"
                   type="text"
-                  :disabled="true"
+                  v-show="scope.row.status ==='ACTIVE'"
                 >
                   {{ $t('resourceMgr.pauseInstance') }}
                 </el-dropdown-item>
                 <el-dropdown-item
                   class="operations_btn"
-                  @click.native="hangInstance(scope.row)"
+                  @click.native="unpauseInstance(scope.row)"
                   type="text"
-                  :disabled="true"
+                  v-show="scope.row.status ==='PAUSED'"
                 >
-                  {{ $t('resourceMgr.hangInstance') }}
+                  {{ $t('resourceMgr.resumeInstance') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="suspendInstance(scope.row)"
+                  type="text"
+                  v-show="scope.row.status ==='ACTIVE'"
+                >
+                  {{ $t('resourceMgr.suspendInstance') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="resumeInstance(scope.row)"
+                  type="text"
+                  v-show="scope.row.status ==='SUSPENDED'"
+                >
+                  {{ $t('resourceMgr.resumeInstance') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="stopInstance(scope.row)"
+                  type="text"
+                  v-show="scope.row.status ==='ACTIVE'"
+                >
+                  {{ $t('resourceMgr.stopInstance') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="startInstance(scope.row)"
+                  type="text"
+                  v-show="scope.row.status ==='SHUTOFF'"
+                >
+                  {{ $t('resourceMgr.startInstance') }}
+                </el-dropdown-item>
+                <el-dropdown-item
+                  class="operations_btn"
+                  @click.native="openControl(scope.row)"
+                  type="text"
+                >
+                  {{ $t('resourceMgr.control') }}
                 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -188,7 +248,8 @@ export default {
       currentPageData: [],
       isShowForm: false,
       dataLoading: true,
-      language: localStorage.getItem('language')
+      language: localStorage.getItem('language'),
+      timer: null
     }
   },
   methods: {
@@ -218,17 +279,155 @@ export default {
     createVMInstance () {
       this.isShowForm = true
     },
-    createSnapshot (row) {
-      // This is intentional
+    hardRebootVM (row) {
+      this.$confirm(this.$t('resourceMgr.hardRebootVMMessage', [row.instanceName]), this.$t('resourceMgr.hardRebootVMTitle'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        let _hostIp = sessionStorage.getItem('hostIp')
+        let _param = {
+          action: 'reboot',
+          reboot: 'HARD'
+        }
+        appo.operateVM(_hostIp, row.id, _param).then(res => {
+          this.$message.success(this.$t('resourceMgr.rebootSuccess'))
+        }).catch(() => {
+          this.$message.error(this.$t('resourceMgr.rebootFail'))
+        })
+      }).catch(() => {
+        // This is intentional
+      })
     },
-    openControl (row) {
-      // This is intentional
+    softRebootVM (row) {
+      this.$confirm(this.$t('resourceMgr.hardRebootVMMessage', [row.instanceName]), this.$t('resourceMgr.softRebootVMTitle'), {
+        confirmButtonText: this.$t('common.confirm'),
+        cancelButtonText: this.$t('common.cancel'),
+        type: 'warning'
+      }).then(() => {
+        let _hostIp = sessionStorage.getItem('hostIp')
+        let _param = {
+          action: 'reboot',
+          reboot: 'SOFT'
+        }
+        appo.operateVM(_hostIp, row.id, _param).then(res => {
+          this.$message.success(this.$t('resourceMgr.rebootSuccess'))
+        }).catch(() => {
+          this.$message.error(this.$t('resourceMgr.rebootFail'))
+        })
+      }).catch(() => {
+        // This is intentional
+      })
+    },
+    createSnapshot (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'createImage',
+        createImage: {
+          name: 'vmsnap1',
+          metadata: {}
+        }
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.createVMSnapshotSuccess'))
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.createVMSnapshotFail'))
+      })
     },
     pauseInstance (row) {
-      // This is intentional
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'pause'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.pauseSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.pauseFail'))
+      })
     },
-    hangInstance (row) {
-      // This is intentional
+    unpauseInstance (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'unpause'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.operatorSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.operatorFail'))
+      })
+    },
+    suspendInstance (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'suspend'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.operatorSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.operatorFail'))
+      })
+    },
+    resumeInstance (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'resume'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.operatorSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.operatorFail'))
+      })
+    },
+    stopInstance (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'stop'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.operatorSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.operatorFail'))
+      })
+    },
+    startInstance (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'start'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        this.$message.success(this.$t('resourceMgr.operatorSuccess'))
+        setTimeout(() => {
+          this.getTableData()
+        }, 5000)
+      }).catch(() => {
+        this.$message.error(this.$t('resourceMgr.operatorFail'))
+      })
+    },
+    openControl (row) {
+      let _hostIp = sessionStorage.getItem('hostIp')
+      let _param = {
+        action: 'createConsole'
+      }
+      appo.operateVM(_hostIp, row.id, _param).then(res => {
+        window.open(res.data.data.console.url, '_blank')
+      }).catch((error) => {
+        console.log('open control error:' + error)
+      })
     },
     filterTableData (val, key) {
       let _hostIp = sessionStorage.getItem('hostIp')
@@ -305,10 +504,18 @@ export default {
   },
   mounted () {
     this.getTableData()
+    this.timer = setInterval(() => {
+      this.getTableData()
+    }, 5000)
   },
   watch: {
     '$i18n.locale': function () {
       this.language = localStorage.getItem('language')
+    }
+  },
+  destroyed () {
+    if (this.timer) {
+      clearInterval(this.timer)
     }
   }
 }

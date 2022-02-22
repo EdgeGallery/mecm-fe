@@ -587,7 +587,27 @@ const cn = {
     deleteSecurityGroupFailed: '删除安全组失败!',
     deleteVMFailed: '删除虚机失败!',
     queryVMsFailed: '查询虚机失败!',
-    createVMFailed: '创建虚机失败!'
+    createVMFailed: '创建虚机失败!',
+    createVMSnapshotSuccess: '创建快照成功',
+    createVMSnapshotFail: '创建快照失败',
+    rebootSuccess: '重启实例成功',
+    rebootFail: '重启实例失败',
+    pauseSuccess: '实例暂停成功',
+    pauseFail: '实例暂停失败',
+    operatorSuccess: '操作成功',
+    operatorFail: '操作失败',
+    hardRebootVM: '硬重启实例',
+    softRebootVM: '软重启实例',
+    suspendInstance: '挂起实例',
+    resumeInstance: '恢复实例',
+    stopInstance: '关闭实例',
+    startInstance: '重建实例',
+    hardRebootVMMessage: '您已选择了"{0}"。请确认您的选择。重启后实例会丢失所有存放在永久存储设备上的数据。',
+    hardRebootVMTitle: '确认 硬重启实例',
+    softRebootVMTitle: '确认 软重启实例',
+    task: '任务',
+    rebootTask: '重启中...',
+    noTask: '无'
   },
   ...zhLocale
 }
