@@ -81,7 +81,8 @@ const NavDataCn = [
     'name': '资源管理',
     'path': '/mecm/resource/manager',
     'pageId': '2.5.1',
-    'display': true
+    'display': true,
+    'authority': ['ROLE_MECM_ADMIN']
   }
 ]
 

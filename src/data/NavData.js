@@ -81,7 +81,8 @@ const NavData = [
     'name': 'Resource Management',
     'path': '/mecm/resource/manager',
     'pageId': '2.5.1',
-    'display': true
+    'display': true,
+    'authority': ['ROLE_MECM_ADMIN']
   }
 ]
 
