@@ -404,7 +404,7 @@ export default {
       selectSingleClick.on('select', function (event) {
         event.selected[0].setStyle(new Style({
           image: new Icon({
-            src: './outer.png',
+            src: './inner.png',
             scale: 0.3
           })
         }))

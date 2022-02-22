@@ -83,8 +83,8 @@ export default {
         ],
         view: new View({
           projection: 'EPSG:4326',
-          center: ['116.3912', '39.90726'],
-          zoom: 16
+          center: ['108.6911', '34.28637'],
+          zoom: 4
         })
       })
       this.map.on('click', (e) => {

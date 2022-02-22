@@ -14,7 +14,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.2",
     "echarts": "^4.9.0",
-    "eg-view": "0.0.17",
+    "eg-view": "^0.0.30",
     "el-table-pagination": "^0.4.38",
     "element-ui": "^2.13.2",
     "elliptic": "^6.5.4",
@@ -40,6 +40,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
     "less": "^3.11.1",
+    "node-sass": "^4.0.0",
     "mockjs": "^1.1.0",
     "vue-template-compiler": "^2.6.11"
   },
