@@ -21,28 +21,28 @@ const NavData = [
     'name': 'Overview',
     'path': '/',
     'pageId': '2.1.1',
-    'display': false
+    'display': true
   },
   {
     'id': '2.2',
     'name': 'APP Management',
     'path': '/app/pakage',
     'pageId': '2.2.1',
-    'display': false,
+    'display': true,
     'children': [
       {
         'id': '2.2.1',
         'name': 'Package Management',
         'path': '/mecm/app/package',
         'pageId': '2.2.1.1',
-        'display': false
+        'display': true
       },
       {
         'id': '2.2.2',
         'name': 'App Instance List',
         'path': '/mecm/app/instance',
         'pageId': '2.2.1.2',
-        'display': false
+        'display': true
       }
     ]
   },
@@ -51,28 +51,28 @@ const NavData = [
     'name': 'Edge Nodes',
     'path': '/mecm/node/index',
     'pageId': '2.3.1',
-    'display': false
+    'display': true
   },
   {
     'id': '2.4',
     'name': 'Systems',
     'path': '/systems',
     'pageId': '2.4.1',
-    'display': false,
+    'display': true,
     'children': [
       {
         'id': '2.4.1',
         'name': 'MEPM',
         'path': '/mecm/system/mepm',
         'pageId': '2.4.1.1',
-        'display': false
+        'display': true
       },
       {
         'id': '2.4.2',
         'name': 'App Store',
         'path': '/mecm/system/appstore',
         'pageId': '2.4.1.2',
-        'display': false
+        'display': true
       }
     ]
   },
@@ -81,7 +81,8 @@ const NavData = [
     'name': 'Resource Management',
     'path': '/mecm/resource/manager',
     'pageId': '2.5.1',
-    'display': false
+    'display': true,
+    'authority': ['ROLE_MECM_ADMIN']
   }
 ]
 

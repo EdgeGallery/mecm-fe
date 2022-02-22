@@ -15,132 +15,59 @@
   -->
 
 <template>
-  <div class="navgation">
-    <el-row :gutter="10">
-      <el-col
-        :lg="6"
-        :md="12"
-        :sm="12"
-        :xs="12"
-      >
-        <div
-          class="logo"
-          @click="jumpLogoTo"
-        >
-          <img
-            class="cp"
-            src="../../assets/images/logo.png"
-            alt=""
-          >
-        </div>
-      </el-col>
-      <el-col
-        :lg="12"
-        class="hidden-md-and-down"
-      >
-        <div>
-          <Topbar
-            v-if="!smallMenu"
-            :json-data="jsonData"
-          />
-        </div>
-      </el-col>
-      <el-col
-        :lg="6"
-        :md="12"
-        :sm="12"
-        :xs="12"
-      >
-        <div class="nav-tabs">
-          <div class="btn rt hidden-lg-and-up">
-            <em
-              class="el-icon-s-unfold"
-              @click="openNav"
-            />
-          </div>
-          <div class="language rt">
-            <img
-              @click="changeLang"
-              alt="user"
-              src="../../assets/images/Switch_icon.png"
-            >
-          </div>
-          <div class="user rt">
-            <span
-              @click="logout()"
-              v-if="ifGuest"
-            >{{ $t('nav.login') }}</span>
-            <span
-              v-if="!ifGuest"
-            >{{ userName }}</span>
-            <span
-              v-if="!ifGuest"
-            >|</span>
-            <img
-              id="usericon"
-              v-if="!ifGuest"
-              alt="usercenter"
-              @click="openUserAccountCenter()"
-              src="../../assets/images/mine_icon.png"
-            >
-            <span
-              v-if="!ifGuest"
-            >|</span>
-            <span
-              @click="beforeLogout()"
-              v-if="!ifGuest"
-            >{{ $t('nav.logout') }}</span>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-collapse-transition>
-      <div
-        v-if="smallMenu"
-        id="menu-div"
-      >
-        <Topbarsmall
-          :json-data="jsonData"
-          @closeMenu="closeMenu"
-        />
-      </div>
-    </el-collapse-transition>
+  <div>
+    <Navcomp
+      :scroll-top-prop="scrollTop"
+      :is-home-prop="isHome"
+      :to-path-prop="toPath"
+      class="clearfix"
+      @clickLogo="clickLogo"
+      @changeLange="changeLange"
+      @logout="logout"
+      @beforeLogout="beforeLogout"
+      :json-data-prop="jsonData"
+      :if-guest-prop="ifGuest"
+      :user-name-prop="userName"
+      :user-center-page-prop="userCenterPage"
+      :nav-bgcolor-prop="navBgcolor"
+      :nav-menu-fontsize-prop="navMenuFontsize"
+    />
   </div>
 </template>
 
 <script>
 import NavData from '../../data/NavData.js'
 import NavDataCn from '../../data/NavDataCn.js'
+import Navcomp from 'eg-view/src/components/EgNav.vue'
 import { user } from '../../tools/request.js'
 import { PROXY_PREFIX_CURRENTSERVER, PLATFORMNAME_EG } from '../../tools/constant.js'
 import { common } from '../../tools/common.js'
-import Topbar from './Topbar.vue'
-import Topbarsmall from './Topbarsmall.vue'
 export default {
   name: 'Navgation',
   components: {
-    Topbar,
-    Topbarsmall
+    Navcomp
   },
   data () {
     return {
+      scrollTop: 0,
+      isHome: true,
+      toPath: '/index',
+      ifGuest: true,
       loginPage: '',
       userCenterPage: '',
       forceModifyPwPage: '',
-      ifGuest: true,
       jsonData: [],
-      language: 'cn',
-      lang: 'English',
+      language: '',
       smallMenu: false,
       userName: '',
       wsSocketConn: null,
       wsMsgSendInterval: null,
-      manualLoggout: false
+      manualLoggout: false,
+      navBgcolor: 'transparent',
+      navMenuFontsize: 20
     }
   },
   mounted () {
-    this.lanMethods()
     window.addEventListener('message', (event) => {
       var data = event.data
       if (data.cmd === 'iframeLanguageChange') {
@@ -148,24 +75,33 @@ export default {
         this.changeLang(lang)
       }
     })
+    this.language = localStorage.getItem('language') || 'cn'
+    if (this.language === 'cn') {
+      this.jsonData = NavDataCn
+    } else {
+      this.jsonData = NavData
+    }
+    this.$i18n.locale = this.language
   },
   beforeDestroy () {
     clearTimeout(this.wsMsgSendInterval)
     this.wsMsgSendInterval = null
   },
   methods: {
-    lanMethods () {
-      this.jsonData = NavDataCn
+    clickLogo () {
+      this.$router.push('/')
+    },
+    changeLange () {
       this.language = localStorage.getItem('language') || 'cn'
-      this.$i18n.locale = this.language
       if (this.language === 'cn') {
-        this.lang = 'English'
-        this.jsonData = NavDataCn
-      } else {
-        this.lang = '简体中文'
+        this.language = 'en'
         this.jsonData = NavData
+      } else {
+        this.language = 'cn'
+        this.jsonData = NavDataCn
       }
-      if (!localStorage.getItem('language')) { localStorage.setItem('language', 'cn') }
+      this.$i18n.locale = this.language
+      localStorage.setItem('language', this.language)
       this.getuserInfo()
     },
     getuserInfo () {

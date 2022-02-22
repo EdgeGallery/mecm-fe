@@ -196,7 +196,6 @@ export default {
     },
     regAndSetOption (myDetailMap, name, mapJson, flag) {
       let data = this.nodeData
-      console.log(data)
       data.forEach(item => {
         item.coord = item.coordinates
       })
@@ -214,7 +213,6 @@ export default {
             decoration: 'none'
           },
           formatter: function (params) {
-            console.log(params)
             var tipHtml = ''
             let num = 0
             data.forEach(item => {
