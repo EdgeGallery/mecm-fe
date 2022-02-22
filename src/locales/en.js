@@ -591,7 +591,27 @@ const en = {
     deleteSecurityGroupFailed: 'Failed to delete security group!',
     deleteVMFailed: 'Failed to delete vm!',
     queryVMsFailed: 'Failed to query vm',
-    createVMFailed: 'Failed to create vm!'
+    createVMFailed: 'Failed to create vm!',
+    createVMSnapshotSuccess: 'Snapshot created successfully',
+    createVMSnapshotFail: 'Failed to create snapshot',
+    rebootSuccess: 'The instance reboot successfully',
+    rebootFail: 'Failed to reboot the instance',
+    pauseSuccess: 'The instance was suspended successfully',
+    pauseFail: 'Instance suspend failed',
+    operatorSuccess: 'Successful operation',
+    operatorFail: 'operation failed',
+    hardRebootVM: 'Hard reboot the instance',
+    softRebootVM: 'Soft reboot instance',
+    suspendInstance: 'suspend instance',
+    resumeInstance: 'restore instance',
+    stopInstance: 'close the instance',
+    startInstance: 'Rebuild the instance',
+    hardRebootVMMessage: 'You have selected"{0}".Please confirm your selection. After restarting the instance will lose all data stored on the persistent storage device.',
+    hardRebootVMTitle: 'Confirm Hard reboot the instance',
+    softRebootVMTitle: 'Confirm Soft reboot the instance',
+    task: 'Task',
+    rebootTask: 'restarting...',
+    noTask: 'None'
   },
   ...enLocale
 }
