@@ -82,6 +82,7 @@ export default {
       this.jsonData = NavData
     }
     this.$i18n.locale = this.language
+    this.getuserInfo()
   },
   beforeDestroy () {
     clearTimeout(this.wsMsgSendInterval)
