@@ -31,6 +31,7 @@
       :user-center-page-prop="userCenterPage"
       :nav-bgcolor-prop="navBgcolor"
       :nav-menu-fontsize-prop="navMenuFontsize"
+      :version-prop="currentVersion"
     />
   </div>
 </template>
@@ -64,7 +65,8 @@ export default {
       wsMsgSendInterval: null,
       manualLoggout: false,
       navBgcolor: 'transparent',
-      navMenuFontsize: 20
+      navMenuFontsize: 20,
+      currentVersion: '1.6.0'
     }
   },
   mounted () {
