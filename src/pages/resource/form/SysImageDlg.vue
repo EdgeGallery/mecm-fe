@@ -236,7 +236,8 @@ export default {
     getTableData () {
       this.dataLoading = true
       appo.querySysImages().then(res => {
-        res.data.forEach(item => {
+        let _resultList = JSON.parse(res.data.data.body)
+        _resultList.forEach(item => {
           let _tempItem = {
             imageId: item.imageId,
             imageName: item.fileName.split('.')[0],
