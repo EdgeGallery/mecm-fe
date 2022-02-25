@@ -284,6 +284,14 @@ let appo = {
   },
   operateVM (hostIp, serverId, params) {
     return POST(appoApi + '/tenants/' + getUserId() + '/hosts/' + hostIp + '/servers/' + serverId, params)
+  },
+  querySysImages () {
+    return axios.get(healthApi + '/system/images', {
+      headers: {
+        'Content-Type': 'application/json',
+        'access_token': sessionStorage.getItem('accessToken')
+      }
+    })
   }
 }
 

@@ -39,7 +39,14 @@
           class="create-col"
         >
           <el-button
-            :class="language==='cn'? 'create-btn':'create-btn-en'"
+            class="create-btn"
+            id="importImageBtn"
+            @click="openSysImage()"
+          >
+            {{ $t('resourceMgr.importSysImage') }}
+          </el-button>
+          <el-button
+            class="create-btn"
             id="createImageBtn"
             @click="createImage()"
           >
@@ -140,16 +147,24 @@
         @reloadTableData="reloadTableData"
       />
     </div>
+    <div v-if="isShowSysImageDlg">
+      <SysImageDlg
+        v-model="isShowSysImageDlg"
+        @reloadTableData="reloadTableData"
+      />
+    </div>
   </div>
 </template>
 <script>
 import Pagination from '../../../components/common/Pagination.vue'
 import ImageForm from '../form/ImageForm.vue'
+import SysImageDlg from '../form/SysImageDlg.vue'
 import { appo } from '../../../tools/request.js'
 export default {
   components: {
     Pagination,
-    ImageForm
+    ImageForm,
+    SysImageDlg
   },
   data () {
     return {
@@ -158,6 +173,7 @@ export default {
       currentPageData: [],
       isShowForm: false,
       dataLoading: true,
+      isShowSysImageDlg: false,
       language: localStorage.getItem('language')
     }
   },
@@ -254,6 +270,9 @@ export default {
           return 1
         })
       }
+    },
+    openSysImage () {
+      this.isShowSysImageDlg = true
     }
   },
   mounted () {
@@ -279,20 +298,9 @@ export default {
       margin-left: 30px;
     }
     .create-col{
-      text-align: center;
+      text-align: right;
+      margin-left: 115px;
       .create-btn{
-        margin-left: 486px;
-        margin-top: 30px;
-        height: 40px;
-        color: #fff;
-        font-size: 20px !important;
-        border-radius: 10px;
-        padding: 0 35px;
-        background-image: linear-gradient(127deg, #4444d0, #6724cb);
-        border: none;
-      }
-      .create-btn-en{
-        margin-left: 445px;
         margin-top: 30px;
         height: 40px;
         color: #fff;

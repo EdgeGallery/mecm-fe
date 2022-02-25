@@ -609,7 +609,16 @@ const cn = {
     softRebootVMTitle: '确认 软重启实例',
     task: '任务',
     rebootTask: '重启中...',
-    noTask: '无'
+    noTask: '无',
+    importSysImage: '导入系统镜像',
+    slimStatus: '瘦身状态',
+    diskSize: '磁盘大小',
+    imageFormat: '镜像格式',
+    sysIamge: '系统镜像',
+    imageSize: '镜像大小',
+    importImageSuccess: '导入镜像成功！',
+    importImageFailed: '导入镜像失败！',
+    querySysImageFailed: '查询系统镜像失败'
   },
   ...zhLocale
 }
