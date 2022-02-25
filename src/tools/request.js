@@ -335,7 +335,7 @@ let inventory = {
 
 let check = {
   healthCheck (ip) {
-    return axios.get(healthApi + '/mechost/' + ip + '/health', {
+    return axios.get(healthApi + '/mechosts/' + ip + '/health', {
       headers: {
         'Content-Type': 'application/json',
         'access_token': sessionStorage.getItem('accessToken')
