@@ -75,9 +75,8 @@
               >
                 <template slot-scope="scope">
                   <span><em
-                    class="el-icon-success"
-                    style="color:#67C23A;"
-                  /> {{ scope.row.status }}</span>
+                    :class="scope.row.status?'el-icon-success':'el-icon-error'"
+                  /> {{ scope.row.status?$t('common.online'):$t('common.offline') }}</span>
                 </template>
               </el-table-column>
               <el-table-column

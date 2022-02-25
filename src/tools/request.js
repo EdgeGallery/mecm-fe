@@ -20,13 +20,13 @@ import i18n from '../locales/i18n.js'
 import 'element-ui/lib/theme-chalk/index.css'
 import {
   PROXY_PREFIX_CURRENTSERVER,
-  PROXY_PREFIX_USERMGMT,
-  PROXY_PREFIX_HEALTHCHECK
+  PROXY_PREFIX_USERMGMT
 } from './constant.js'
 
 let inventoryApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-inventory/inventory/v1'
 let apmApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-apm/apm/v1'
 let appoApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-appo/appo/v1'
+let healthApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-north/north/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers', '/mepms']
 
@@ -334,12 +334,8 @@ let inventory = {
 }
 
 let check = {
-  healthCheck () {
-    let _healthCheckUrlPrefix = 'http://' + window.location.host.split(':')[0] + ':32757'
-    if (PROXY_PREFIX_CURRENTSERVER) {
-      _healthCheckUrlPrefix = window.location.origin + PROXY_PREFIX_HEALTHCHECK
-    }
-    return axios.get(_healthCheckUrlPrefix + '/health-check/v1/center/tenants/' + getUserId() + '/action/start', {
+  healthCheck (ip) {
+    return axios.get(healthApi + '/mechost/' + ip + '/health', {
       headers: {
         'Content-Type': 'application/json',
         'access_token': sessionStorage.getItem('accessToken')

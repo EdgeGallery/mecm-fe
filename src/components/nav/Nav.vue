@@ -66,7 +66,7 @@ export default {
       manualLoggout: false,
       navBgcolor: 'transparent',
       navMenuFontsize: 20,
-      currentVersion: '1.6.0'
+      currentVersion: 'V1.6.0'
     }
   },
   mounted () {

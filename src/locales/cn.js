@@ -283,7 +283,9 @@ const cn = {
     detail: '详情',
     modify: '编辑',
     warning: '提示',
-    copy: '复制'
+    copy: '复制',
+    online: '在线',
+    offline: '离线'
   },
   verify: {
     ipTip: 'IP地址不能为空。',

@@ -285,7 +285,9 @@ const en = {
     detail: 'Detail',
     modify: 'Modify',
     warning: 'Promt',
-    copy: 'Copy'
+    copy: 'Copy',
+    online: 'Online',
+    offline: 'Offline'
   },
   verify: {
     ipTip: 'Ip should not be empty',
