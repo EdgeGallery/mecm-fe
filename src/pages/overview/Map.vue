@@ -80,12 +80,10 @@ export default {
       map: null,
       showMainView: true,
       language: localStorage.getItem('language') || 'cn',
-      getNodeTimeout: null,
-      nodeStatusList: []
+      getNodeTimeout: null
     }
   },
   mounted () {
-    this.getNodeStatus()
     this.getNodeTimeout = setTimeout(() => { this.getNodeList() })
     let detailMap = document.getElementById('mapDetailMap')
     detailMap.style.height = window.innerHeight
@@ -111,16 +109,11 @@ export default {
     getNodeList () {
       inventory.getList(2).then(res => {
         if (res.data && res.data.length > 0) {
-          res.data.forEach((item, index) => {
-            item.coordinates = item.coordinates.split(',')
-            item.status = 'Online'
-            this.nodeStatusList.forEach(val => {
-              if (val.checkedIp === item.mechostIp) {
-                item.status = val.condition
-              }
-            })
-          })
           this.nodeData = res.data
+          this.nodeData.forEach((item, index) => {
+            item.coordinates = item.coordinates.split(',')
+            this.getNodeStatus(item.mechostIp, index)
+          })
           this.mapChart('mapChart')
           this.$emit('area', res.data, '1')
         }
@@ -128,9 +121,9 @@ export default {
         console.log(error)
       })
     },
-    getNodeStatus () {
-      check.healthCheck().then(res => {
-        this.nodeStatusList = res.data
+    getNodeStatus (ip, index) {
+      check.healthCheck(ip).then(res => {
+        this.nodeData[index].status = res.data.message === 'Healthy'
       })
     },
     showLayers (arr) {
