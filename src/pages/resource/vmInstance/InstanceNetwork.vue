@@ -30,7 +30,7 @@
         />
         <el-table-column
           prop="name"
-          label="Network"
+          :label="$t('resourceMgr.network')"
           width="150px"
           sortable="custom"
         />

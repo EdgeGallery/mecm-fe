@@ -48,37 +48,37 @@
       >
         <el-table-column
           prop="direction"
-          label="Direction"
+          :label="$t('resourceMgr.direct')"
           sortable
           width="150"
         />
         <el-table-column
           prop="ethertype"
-          label="Ether Type"
+          :label="$t('resourceMgr.ethertype')"
           width="130"
         />
         <el-table-column
           prop="ipProtocol"
-          label="IP Protocol"
+          :label="$t('resourceMgr.ipProtocol')"
           width="130"
         />
         <el-table-column
           prop="portRange"
-          label="Port Range"
+          :label="$t('resourceMgr.portRange')"
           width="130"
         />
         <el-table-column
           prop="remoteIpPrefix"
-          label="Remote IP Prefix"
+          :label="$t('resourceMgr.remoteIpPrefix')"
           width="180"
         />
         <el-table-column
           prop="remoteSecurityGroup"
-          label="Remote Security Group"
+          :label="$t('resourceMgr.remoteSecurityGroup')"
           width="230"
         />
         <el-table-column
-          label="Actions"
+          :label="$t('resourceMgr.operator')"
           width="200"
           fixed="right"
         >

@@ -62,20 +62,20 @@
       >
         <el-table-column
           prop="name"
-          label="Name"
+          :label="$t('resourceMgr.name')"
           sortable="custom"
         />
         <el-table-column
           prop="id"
-          label="Security Group ID"
+          :label="$t('resourceMgr.securityGroupId')"
         />
         <el-table-column
           prop="description"
-          label="Description"
+          :label="$t('resourceMgr.description')"
           width="150"
         />
         <el-table-column
-          label="Actions"
+          :label="$t('resourceMgr.operator')"
           :width="language==='cn'?'260': '330'"
         >
           <template slot-scope="scope">

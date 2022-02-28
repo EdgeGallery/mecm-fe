@@ -59,45 +59,45 @@
       >
         <el-table-column
           prop="name"
-          label="Name"
+          :label="$t('resourceMgr.name')"
           width="150"
           sortable="custom"
         />
         <el-table-column
           prop="subnetsAssociated"
-          label="Subnets Associated"
+          :label="$t('resourceMgr.subnetsAssociated')"
           width="200"
         />
         <el-table-column
           prop="shared"
-          label="Shared"
+          :label="$t('resourceMgr.shared')"
           width="110"
           :formatter="formatBoolean"
         />
         <el-table-column
           prop="external"
-          label="External"
+          :label="$t('resourceMgr.external')"
           :formatter="formatBoolean"
           width="130"
         />
         <el-table-column
           prop="status"
-          label="Status"
+          :label="$t('resourceMgr.status')"
           width="110"
         />
         <el-table-column
           prop="adminState"
-          label="Admin State"
+          :label="$t('resourceMgr.adminStatus')"
           width="140"
           :formatter="formatBoolean"
         />
         <el-table-column
           prop="availability"
-          label="Availability Zones"
+          :label="$t('resourceMgr.availability')"
           width="200"
         />
         <el-table-column
-          label="Actions"
+          :label="$t('resourceMgr.operator')"
           width="170"
           fixed="right"
         >
