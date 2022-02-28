@@ -59,7 +59,7 @@
       >
         <el-table-column
           prop="name"
-          label="Flavor Name"
+          :label="$t('resourceMgr.flavorName')"
           width="165"
           sortable="custom"
         />
@@ -70,32 +70,32 @@
         />
         <el-table-column
           prop="vcpus"
-          label="VCPUs"
+          :label="$t('resourceMgr.vcpu')"
           width="90"
         />
         <el-table-column
           prop="ram"
-          label="RAM(MB)"
+          :label="$t('resourceMgr.ram')"
           width="130"
         />
         <el-table-column
           prop="rootDisk"
-          label="Root Disk"
+          :label="$t('resourceMgr.rootDisk')"
           width="130"
         />
         <el-table-column
           prop="ephemeralDisk"
-          label="Ephemeral Disk"
+          :label="$t('resourceMgr.tempDisk')"
           width="180"
         />
         <el-table-column
           prop="isPublic"
-          label="Public"
+          :label="$t('resourceMgr.public')"
           width="120"
           :formatter="formatBoolean"
         />
         <el-table-column
-          label="Actions"
+          :label="$t('resourceMgr.operator')"
           width="170"
           fixed="right"
         >
