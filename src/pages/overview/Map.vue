@@ -124,6 +124,9 @@ export default {
     getNodeStatus (ip, index) {
       check.healthCheck(ip).then(res => {
         this.nodeData[index].status = res.data.message === 'Healthy'
+      }).catch(error => {
+        console.log(error)
+        this.nodeData[index].status = false
       })
     },
     showLayers (arr) {
