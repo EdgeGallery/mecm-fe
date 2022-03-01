@@ -302,6 +302,9 @@ export default {
     .el-tabs__nav-wrap.is-left::after{
       width: 0;
     }
+    .el-select{
+      width: 220px !important;
+    }
   }
 }
 </style>
