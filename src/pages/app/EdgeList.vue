@@ -1030,10 +1030,7 @@ export default {
       })
       this.$refs.multipleEdgeNodeTable.clearSelection()
       this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
-      let address = 'http://'
-      if (this.isSecureBackend === 'true') {
-        address = 'https://'
-      }
+      let address = window.location.protocol === 'https:' ? 'https://' : 'http://'
       let params = {
         appPkgId: this.currentRowData.packageId,
         appId: this.currentRowData.appId,

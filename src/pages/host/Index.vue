@@ -252,7 +252,8 @@ export default {
       this.currPageTableData = data
     },
     handleMonitor (row) {
-      this.src = 'https://' + row.mechostIp + ':30000/dashboards'
+      let address = window.location.protocol === 'https:' ? 'https://' : 'http://'
+      this.src = address + row.mechostIp + ':30000/dashboards'
       window.open(this.src)
     },
     async syncFromEdge (row) {
