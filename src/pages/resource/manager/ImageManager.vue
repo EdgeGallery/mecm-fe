@@ -287,8 +287,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .image-content{
-  width: 1053px;
-  height: 613px;
+  width: 100%;
+  height: 100%;
   padding-top: 1px;
   border-radius: 16px;
   background: #2E147C;
@@ -313,8 +313,7 @@ export default {
     }
   }
   .image-table{
-    width: 1000px;
-    margin: 30px auto;
+    margin: 15px 25px;
   }
 }
 </style>
