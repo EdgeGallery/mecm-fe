@@ -287,8 +287,8 @@ export default {
         clearInterval(this.intervalDialog)
         let nodelistTable = document.getElementsByClassName('nodelistTable')[0]
         let matrixPopDiv = document.getElementsByClassName('popover')[0]
-        matrixPopDiv.style.top = nodelistTable.offsetTop + 100 + 'px'
-        matrixPopDiv.style.left = nodelistTable.offsetLeft + 160 + 'px'
+        matrixPopDiv.style.top = nodelistTable.offsetTop + 360 + 'px'
+        matrixPopDiv.style.left = nodelistTable.offsetLeft + 260 + 'px'
       }
     },
     handleRowSelection (ip) {
@@ -627,7 +627,7 @@ export default {
     z-index: 2007;
     position: absolute;
     padding: 15px;
-    background: #ffffff;
+    background: #2e147c;
     box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
   }
