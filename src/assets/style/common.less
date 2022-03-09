@@ -213,11 +213,14 @@ body .el-table th.gutter{
 .el-table tr{
   background: transparent !important;
 }
-.el-table td, .el-table th.is-leaf{
-  border-bottom: 1px solid #4E3494 !important;
-}
-.el-table th, .el-table tr{
-  min-height: 42px !important;
+.el-table {
+  td, th.is-leaf{
+    border-bottom: 1px solid #4E3494 !important;
+    background-color: transparent;
+  }
+  th, tr{
+    min-height: 42px !important;
+  }
 }
 .el-table--enable-row-hover .el-table__body tr:hover>td{
   background-color: transparent!important;
@@ -665,9 +668,6 @@ div.topLabel{
 }
 .el-table .cell {
   white-space: pre-line;
-}
-.el-table td, .el-table th.is-leaf{
-  background-color: transparent;
 }
 .el-table__fixed-right{
   background-color:#5844be;

@@ -38,10 +38,9 @@ export default {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background:#efefef;
+  background: url('./assets/images/common_bg.png') center no-repeat;
   background-size:cover;
   overflow: auto;
-  background: url('./assets/images/common_bg.png') center no-repeat;
 }
 #container{
   position: relative;

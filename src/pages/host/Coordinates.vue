@@ -88,9 +88,9 @@ export default {
         })
       })
       this.map.on('click', (e) => {
-        let data = e.coordinate
-        this.long = data[0].toString().substr(0, 8)
-        this.lat = data[1].toString().substr(0, 8)
+        let coord = e.coordinate
+        this.long = coord[0].toString().substr(0, 8)
+        this.lat = coord[1].toString().substr(0, 8)
       })
     }
   }
