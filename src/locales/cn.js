@@ -75,9 +75,9 @@ const cn = {
     nodeAddress: '节点地址：',
     nodeInfo: '节点信息',
     overview: '节点统计信息',
-    edgeNodes: '节点总数',
-    onlineNodes: '在线节点数',
-    offlineNodes: '离线节点数',
+    edgeNodes: '节点总数：',
+    onlineNodes: '在线节点',
+    offlineNodes: '离线节点',
     returnOverview: '返回主视图',
     nodeKPI: '节点KPI',
     monitor: '运行状态监控'

@@ -247,6 +247,8 @@ export default {
       loginBtnLoading: false,
       nodeBasicInfo: null,
       nodeNum: 0,
+      onlineNum: 0,
+      offlineNum: 0,
       city: '',
       edgeIp: '',
       nodeList: [],
@@ -339,7 +341,14 @@ export default {
         item.city += '/' + item.address
       })
       this.nodeNum = msg.length
-      this.loadNodeChart()
+      msg.forEach(item => {
+        if (item.status) {
+          this.onlineNum++
+        } else {
+          this.offlineNum++
+        }
+      })
+      this.loadNodeChart(this.$i18n.locale)
     },
     showDetail (row) {
       this.detail = row
@@ -398,13 +407,13 @@ export default {
         this.kpiInfo = {}
       })
     },
-    loadNodeChart () {
+    loadNodeChart (locale) {
       let nodeData = [{
-        name: '在线节点',
-        value: this.nodeNum
+        name: this.$t('overview.onlineNodes'),
+        value: this.onlineNum
       }, {
-        name: '离线节点',
-        value: 0
+        name: this.$t('overview.offlineNodes'),
+        value: this.offlineNum
       }]
 
       let data = []
@@ -426,7 +435,7 @@ export default {
       let option = {
         color: color,
         title: {
-          text: '节点总数：' + this.nodeNum,
+          text: this.$t('overview.edgeNodes') + this.nodeNum,
           top: '46%',
           textAlign: 'center',
           left: '49%',
@@ -439,8 +448,8 @@ export default {
         legend: {
           orient: 'vertical',
           y: 'top',
-          data: ['在线节点', '离线节点'],
-          right: 60,
+          data: [this.$t('overview.onlineNodes'), this.$t('overview.offlineNodes')],
+          right: 20,
           top: 20,
           align: 'left',
           textStyle: {
@@ -463,7 +472,11 @@ export default {
                 fontSize: 13,
                 formatter: function (params) {
                   if (params.name !== '') {
-                    return params.name + '\n' + '\n' + '数量：' + params.value
+                    let num = 'Number: '
+                    if (locale === 'cn') {
+                      num = '数量：'
+                    }
+                    return params.name + '\n' + '\n' + num + params.value
                   } else {
                     return ''
                   }

@@ -77,9 +77,9 @@ const en = {
     nodeAddress: 'Node Address: ',
     nodeInfo: 'Node Information',
     overview: 'Node Statistics',
-    edgeNodes: 'Total Edge Nodes',
-    onlineNodes: 'No. Online Nodes',
-    offlineNodes: 'No. Offline Nodes',
+    edgeNodes: 'Total: ',
+    onlineNodes: 'Online',
+    offlineNodes: 'Offline',
     returnOverview: 'Back to main view',
     nodeKPI: 'Node KPI',
     monitor: 'Status Monitoring'
