@@ -80,7 +80,6 @@
         <el-table-column
           :label="$t('resourceMgr.operator')"
           width="200"
-          fixed="right"
         >
           <template slot-scope="scope">
             <el-button
@@ -234,8 +233,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .security-group-content{
-  width: 1053px;
-  height: 613px;
+  width: 100%;
+  height: 100%;
   padding-top: 1px;
   border-radius: 16px;
   background: #2E147C;
@@ -267,8 +266,7 @@ export default {
     }
   }
   .security-group-table{
-    width: 1000px;
-    margin: 30px auto;
+    margin: 15px 25px;
   }
 }
 </style>
