@@ -453,73 +453,66 @@ div.topLabel{
 .el-tabs__content{
   overflow-x: auto;
 }
-
-.work-steps {
-  margin: 8px;
-}
 .el-input__inner{
   background-color: #4E3494!important;
   color: #ffffff !important;
 }
 
+/* style for steps */
+.work-steps {
+  margin: 8px;
+}
 .work-steps .el-step__line {
   border-top: 4px dotted #5844be !important;
-  background: #fbfbfb !important;
+  background: transparent !important;
+  color: #FFFFFF;
   margin-left: 20px !important;
   margin-right: 10px !important;
 }
-
 .work-steps .el-step__line .el-step__line-inner {
   border-width: 0 !important;
 }
-
+.el-step.is-horizontal .el-step__line {
+  top: 6px;
+}
 .work-steps .el-step__icon {
   position: relative;
   display: block;
   top: 6px;
 }
-
 .work-steps .el-step__icon.is-text {
   width: 10px;
   height: 10px;
   border-color: #5844be;
   font-size: 0;
 }
-
 .work-steps .el-step__head.is-wait {
   color: #5844be;
   border-color: #5844be;
 }
-
 .work-steps .el-step__head.is-wait .el-step__icon {
   background-color: #fbfbfb;
   border: solid 2px #5844be;
 }
-
 .work-steps .el-step__head.is-process .el-step__icon {
   background-color: #ffffff;
 }
-
 .work-steps .el-step__head.is-process {
   border-color: #5844be;
 }
-
 .work-steps .el-step__head.is-process::before {
-  content: '';
   display: block;
   position: absolute;
-  top: 2px;
-  left: -4px;
-  width: 18px;
-  height: 18px;
+  top: 1px;
+  left: -6px;
+  width: 15px;
+  height: 15px;
   background-color: #5844be;
   border-color: #ffffff;
   border-radius: 50%;
   z-index: 1;
 }
-
 .work-steps .el-step__head.is-process::after {
-  content: '';
   display: block;
   position: absolute;
   top: -2px;
@@ -530,13 +523,10 @@ div.topLabel{
   border-radius: 50%;
   z-index: 0;
 }
-
 .work-steps .el-step__head.is-success .el-step__icon {
   background-color: #ffffff;
 }
-
 .work-steps .el-step__head.is-success::before {
-  content: '';
   display: block;
   position: absolute;
   top: 2px;
@@ -547,9 +537,7 @@ div.topLabel{
   border-radius: 50%;
   z-index: 1;
 }
-
 .work-steps .el-step__head.is-success::after {
-  content: '';
   display: block;
   position: absolute;
   top: -2px;
@@ -561,18 +549,21 @@ div.topLabel{
   z-index: 0;
 }
 .work-steps .el-step__title.is-success {
-  color: #43F6AD;
+  color: #FFFFFF;
   margin-top: 5px;
 }
 .work-steps .el-step__title.is-process {
-  color: #ffffff;
+  color: #FFFFFF;
   margin-top: 5px;
   font-weight: normal;
 }
+.el-step__title.is-wait {
+  color: #848386;
+}
+
 .padding_default{
   padding: 0 13%;
 }
-
 .enterinput {
   display: inline-block;
   width: 200px;
@@ -600,6 +591,7 @@ div.topLabel{
 
 .el-dialog>.el-dialog__body{
   padding: 20px !important;
+  color: #FFFFFF;
 }
 .default_dialog .el-dialog{
   font-family: defaultFontLight, Arial, Helvetica, sans-serif;
