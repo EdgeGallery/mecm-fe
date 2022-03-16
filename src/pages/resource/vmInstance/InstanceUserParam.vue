@@ -79,6 +79,7 @@ export default {
 .instance-user-param{
   .radio-select{
     text-align: left;
+    color: #ffffff;
   }
   .user-textarea{
     margin-top: 20px;

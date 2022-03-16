@@ -313,6 +313,7 @@ export default {
       this.showType = 'details'
       this.resetData()
       this.getNodeKpi(val.mechostIp)
+      console.log(val)
       this.getHwCapa(val.mechostIp)
       this.getMepCapa(val.mechostIp)
       this.getAppInfo(val.mechostIp)
@@ -562,7 +563,7 @@ export default {
     color: rgba(255, 255, 255, 0.9) !important;
   }
   .nodelistTable{
-    max-height: 450px;
+    max-height: 359px;
     overflow-y: auto;
   }
   .hostName{

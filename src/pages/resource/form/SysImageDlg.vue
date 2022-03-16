@@ -38,7 +38,7 @@
               v-model="nameQueryVal"
               @change="queryImage"
               :placeholder="$t('resourceMgr.searchPlaceholder')"
-              class="enterinput lt"
+              class="enterinput"
             >
               <em
                 slot="suffix"
@@ -299,6 +299,8 @@ export default {
 .sysImage-content{
   .search-createBtn{
     .create-col{
+      padding-right: 38px !important;
+      padding-right: 38px !important;
       text-align: center;
     }
   }

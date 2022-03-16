@@ -25,7 +25,7 @@
             v-model="nameQueryVal"
             @change="queryVM"
             :placeholder="$t('resourceMgr.searchPlaceholder')"
-            class="enterinput lt"
+            class="enterinput"
           >
             <em
               slot="suffix"
@@ -35,11 +35,11 @@
           </el-input>
         </el-col>
         <el-col
-          :span="12"
+          :span="16"
           class="create-col"
         >
           <el-button
-            :class="language==='cn'? 'create-btn':'create-btn-en'"
+            class="create-btn"
             id="createVMBtn"
             @click="createVMInstance()"
           >
@@ -530,23 +530,13 @@ export default {
   .search-createBtn{
     .search-col{
       margin-top: 30px;
-      margin-left: 30px;
+      padding-left: 38px !important;
     }
     .create-col{
+      padding-right: 38px !important;
       text-align: center;
       .create-btn{
-        margin-left: 486px;
-        margin-top: 30px;
-        height: 40px;
-        color: #fff;
-        font-size: 20px !important;
-        border-radius: 10px;
-        padding: 0 35px;
-        background-image: linear-gradient(127deg, #4444d0, #6724cb);
-        border: none;
-      }
-      .create-btn-en{
-        margin-left: 425px;
+        float: right;
         margin-top: 30px;
         height: 40px;
         color: #fff;

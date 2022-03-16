@@ -240,6 +240,7 @@ export default {
   background: #2E147C;
   .search-createBtn{
     .create-col{
+      padding-right: 38px !important;
       text-align: right;
       display: inline-block;
       .return-btn{
