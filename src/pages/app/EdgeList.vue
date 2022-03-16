@@ -152,6 +152,18 @@
       </div>
       <el-dialog
         :show-close="false"
+        :visible.sync="customDialogVisible"
+        width="45%"
+        class="deploy-dialog"
+      >
+        <CustomResource
+          :cancel="cancelCustomDialog"
+          :confirm="checkAvailability"
+          :distribute="getDistributeParam"
+        />
+      </el-dialog>
+      <el-dialog
+        :show-close="false"
         :visible.sync="dialogVisible"
         width="55%"
         class="deploy-dialog"
@@ -406,8 +418,7 @@
         </div>
         <el-row class="el-row-search">
           <el-col
-            :span="8"
-            :offset="16"
+            :span="7"
           >
             <el-input
               id="nodesearch"
@@ -419,6 +430,21 @@
                 class="el-input__icon el-icon-search"
               />
             </el-input>
+          </el-col>
+          <el-col
+            :span="6"
+          >
+            <span
+              class="btnSearch"
+              style="top: 0px; right: 0%"
+            >
+              <el-button
+                type="primary"
+                @click="customDialogVisible = true,loading=false"
+              >
+                {{ $t('resource.custResCriteria') }}
+              </el-button>
+            </span>
           </el-col>
         </el-row>
         <el-row class="el-row-table">
@@ -448,15 +474,17 @@
               />
               <el-table-column
                 prop="affinity"
+                width="120"
                 :label="$t('app.packageList.affinity')"
               />
               <el-table-column
                 prop="mepmIp"
+                width="120"
                 :label="$t('system.edgeNodes.mepmIp')"
               />
               <el-table-column
                 :label="$t('system.edgeNodes.hwCapability')"
-                width="200"
+                width="150"
               >
                 <template slot-scope="scope">
                   <span
@@ -465,6 +493,118 @@
                   >
                     {{ item.hwType }}
                   </span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                :label="$t('resource.res')"
+                width="150"
+              >
+                <template slot-scope="scope">
+                  <el-row
+                    id="resourcestatus"
+                    v-if="resourceData[scope.row.mechostIp]"
+                  >
+                    <el-col
+                      :span="8"
+                    >
+                      <el-popover
+                        trigger="hover"
+                        id="resStatics"
+                      >
+                        <div>
+                          {{ $t('resource.total') }}: {{ getResourceInfo(scope.row.mechostIp, 'disk').total }}
+                        </div>
+                        <div>
+                          {{ $t('resource.used') }}: {{ getResourceInfo(scope.row.mechostIp, 'disk').used }}
+                        </div>
+                        <div>
+                          {{ $t('resource.required') }}: {{ getResourceInfo(scope.row.mechostIp, 'disk').required }}
+                        </div>
+                        <el-progress
+                          type="circle"
+                          :percentage="getResourceAvailability(scope.row.mechostIp, 'disk')"
+                          :color="getColor(scope.row.mechostIp, 'disk')"
+                          :width="30"
+                          :stroke-width="4"
+                          :text-inside="false"
+                          style="margin-top:5px; cursor: pointer"
+                          slot="reference"
+                        />
+                        <div
+                          style="margin-top:-10px"
+                          slot="reference"
+                        >
+                          Disk
+                        </div>
+                      </el-popover>
+                    </el-col>
+                    <el-col
+                      :span="8"
+                    >
+                      <el-popover
+                        trigger="hover"
+                      >
+                        <div>
+                          {{ $t('resource.total') }}: {{ getResourceInfo(scope.row.mechostIp, 'mem').total }}
+                        </div>
+                        <div>
+                          {{ $t('resource.used') }}: {{ getResourceInfo(scope.row.mechostIp, 'mem').used }}
+                        </div>
+                        <div>
+                          {{ $t('resource.required') }}: {{ getResourceInfo(scope.row.mechostIp, 'mem').required }}
+                        </div>
+                        <el-progress
+                          type="circle"
+                          :percentage="getResourceAvailability(scope.row.mechostIp, 'mem')"
+                          :color="getColor(scope.row.mechostIp, 'mem')"
+                          :width="30"
+                          :stroke-width="4"
+                          :text-inside="false"
+                          style="margin-top:5px; cursor: pointer"
+                          slot="reference"
+                        />
+                        <div
+                          style="margin-top:-10px"
+                          slot="reference"
+                        >
+                          MEM
+                        </div>
+                      </el-popover>
+                    </el-col>
+                    <el-col
+                      :span="8"
+                    >
+                      <el-popover
+                        trigger="hover"
+                      >
+                        <div>
+                          {{ $t('resource.total') }}: {{ getResourceInfo(scope.row.mechostIp, 'cpu').total }}
+                        </div>
+                        <div>
+                          {{ $t('resource.used') }}: {{ getResourceInfo(scope.row.mechostIp, 'cpu').used }}
+                        </div>
+                        <div>
+                          {{ $t('resource.required') }}: {{ getResourceInfo(scope.row.mechostIp, 'cpu').required }}
+                        </div>
+                        <el-progress
+                          type="circle"
+                          :percentage="getResourceAvailability(scope.row.mechostIp, 'cpu')"
+                          :color="getColor(scope.row.mechostIp, 'cpu')"
+                          :width="30"
+                          :stroke-width="4"
+                          :text-inside="false"
+                          style="margin-top:5px; cursor: pointer"
+                          slot="reference"
+                        />
+                        <div
+                          style="margin-top:-10px"
+                          slot="reference"
+                        >
+                          CPU
+                        </div>
+                      </el-popover>
+                    </el-col>
+                  </el-row>
                 </template>
               </el-table-column>
             </el-table>
@@ -512,11 +652,12 @@
 <script>
 import Search from '../../components/common/Search.vue'
 import Pagination from '../../components/common/Pagination.vue'
-import { appo, apm, inventory } from '../../tools/request.js'
+import { appo, apm, inventory, resource } from '../../tools/request.js'
+import CustomResource from './CustomResource'
 export default {
   name: 'EdgeList',
   components: {
-    Search, Pagination
+    Search, Pagination, CustomResource
   },
   data () {
     return {
@@ -532,6 +673,7 @@ export default {
       appAffinity: '',
       provider: '',
       dialogVisible: false,
+      customDialogVisible: false,
       configForm: {
         status: '',
         appPackageId: '',
@@ -568,7 +710,8 @@ export default {
       nodeSelection: [],
       selectedNodeNum: 0,
       currentRowData: '',
-      dialogLoading: false
+      dialogLoading: false,
+      resourceData: {}
     }
   },
   computed: {
@@ -609,6 +752,78 @@ export default {
     this.clearInterval()
   },
   methods: {
+    getColor (hostIp, dt) {
+      let data = this.resourceData[hostIp]
+      if (data) {
+        let newData = data[dt]
+        if (newData.remain < newData.required) {
+          return '#f56c6c'
+        } else if (newData.remain === newData.required) {
+          return '#f79468'
+        } else if ((((newData.used + newData.required) / newData.total) * 100) > 75) {
+          return '#f79468'
+        } else {
+          return '#5cb87a'
+        }
+      }
+    },
+    getResourceAvailability (hostIp, dt) {
+      let data = this.resourceData[hostIp]
+      if (data) {
+        let newData = data[dt]
+        return (newData.used / newData.total) * 100
+      }
+    },
+    getResourceInfo (hostIp, dt) {
+      let data = this.resourceData[hostIp]
+      if (data) {
+        return data[dt]
+      }
+    },
+    getDistributeParam () {
+      let address = window.location.protocol === 'https:' ? 'https://' : 'http://'
+      return {
+        appPkgId: this.currentRowData.packageId,
+        appId: this.currentRowData.appId,
+        appPkgName: this.currentRowData.name,
+        appPkgVersion: this.currentRowData.version,
+        appPkgDesc: this.currentRowData.shortDesc ? this.currentRowData.shortDesc : 'none',
+        appPkgAffinity: this.currentRowData.affinity,
+        appPkgPath: address + this.currentRowData.appstoreEndpoint + '/mec/appstore/v1/apps/' + this.currentRowData.appId + '/packages/' + this.currentRowData.packageId + '/action/download',
+        appProvider: this.currentRowData.provider,
+        mecHostInfo: null,
+        createdTime: new Date().toString(),
+        modifiedTime: new Date().toString()
+      }
+    },
+    async getResources () {
+      let param = this.getDistributeParam()
+      await resource.getResources(param).then(response => {
+        this.makeResourceData(response.data.data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
+    cancelCustomDialog () {
+      this.customDialogVisible = false
+    },
+    makeResourceData (data) {
+      this.resourceData = {}
+      for (let i = 0; i < data.length; i++) {
+        let dt = data[i]
+        this.resourceData[dt.edge] = dt.resource
+      }
+    },
+    async checkAvailability (data) {
+      console.log(JSON.stringify(data))
+      await resource.updateResourceTemplate(data).then(response => {
+        this.customDialogVisible = false
+        console.log(JSON.stringify(response.data.data))
+        this.makeResourceData(response.data.data)
+      }).catch((error) => {
+        console.log(error)
+      })
+    },
     clearInterval () {
       clearTimeout(this.interval)
       this.interval = null
@@ -995,6 +1210,7 @@ export default {
       let row = JSON.parse(sessionStorage.getItem('appRow'))
       console.log(row)
       this.currentRowData = row
+      this.getResources()
       this.distributionDialogVisible = true
       this.getNodeList(row)
     },
@@ -1029,7 +1245,6 @@ export default {
         selectedMecHost.push(obj)
       })
       this.$refs.multipleEdgeNodeTable.clearSelection()
-      this.isSecureBackend = sessionStorage.getItem('isSecureBackend')
       let address = window.location.protocol === 'https:' ? 'https://' : 'http://'
       let params = {
         appPkgId: this.currentRowData.packageId,

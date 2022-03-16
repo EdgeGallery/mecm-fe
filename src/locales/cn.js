@@ -272,6 +272,14 @@ const cn = {
       port: '端口'
     }
   },
+  resource: {
+    custResCriteria: '自定义资源标准',
+    res: '资源',
+    total: '全部的',
+    used: '用过的',
+    required: '必需的',
+    custRes: '自定义资源'
+  },
   common: {
     reset: '重置',
     search: '搜索',

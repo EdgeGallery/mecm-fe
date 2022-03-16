@@ -352,6 +352,18 @@ let check = {
   }
 }
 
+let resource = {
+  getResourceTemplate (params) {
+    return GET(apmApi + '/tenants/' + getUserId() + '/apps/' + params.appId + '/packages/' + params.appPkgId + '/resourceTemplate')
+  },
+  getResources (params) {
+    return POST(apmApi + '/tenants/' + getUserId() + '/apps/resources', params)
+  },
+  updateResourceTemplate (params) {
+    return POST(apmApi + '/tenants/' + getUserId() + '/customizeResource', params)
+  }
+}
+
 export {
   GET,
   POST,
@@ -361,5 +373,6 @@ export {
   apm,
   appo,
   inventory,
-  check
+  check,
+  resource
 }

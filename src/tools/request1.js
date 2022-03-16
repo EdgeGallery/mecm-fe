@@ -77,10 +77,26 @@ let check = {
   }
 }
 
+let resource = {
+  getResourceTemplate (params) {
+    console.log(params)
+    return axios.get('/mock/getResourceTemplate')
+  },
+  getResources (params) {
+    console.log(params)
+    return axios.get('/mock/getResources')
+  },
+  updateResourceTemplate (params) {
+    console.log(params)
+    return axios.get('/mock/getResources')
+  }
+}
+
 export {
   user,
   apm,
   appo,
   inventory,
-  check
+  check,
+  resource
 }
