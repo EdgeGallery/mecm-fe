@@ -25,6 +25,107 @@ const userData = function () {
   }
 }
 
+const resourceData = function () {
+  return {
+    'retCode': 200,
+    'message': 'success',
+    'data': [
+      {
+        'edge': '127.0.1.0',
+        'resource': {
+          'disk': {
+            'total': 20,
+            'used': 10,
+            'remain': 10,
+            'required': 2
+          },
+          'mem': {
+            'total': 1024,
+            'used': 512,
+            'remain': 512,
+            'required': 2560
+          },
+          'cpu': {
+            'total': 50,
+            'used': 30,
+            'remain': 20,
+            'required': 300
+          }
+        }
+      },
+      {
+        'edge': '127.0.1.1',
+        'resource': {
+          'disk': {
+            'total': 1024,
+            'used': 512,
+            'remain': 512,
+            'required': 2560
+          },
+          'mem': {
+            'total': 20,
+            'used': 10,
+            'remain': 10,
+            'required': 1
+          },
+          'cpu': {
+            'total': 50,
+            'used': 30,
+            'remain': 20,
+            'required': 300
+          }
+        }
+      },
+      {
+        'edge': '127.0.1.2',
+        'resource': {
+          'disk': {
+            'total': 20,
+            'used': 10,
+            'remain': 10,
+            'required': 10
+          },
+          'mem': {
+            'total': 50,
+            'used': 30,
+            'remain': 20,
+            'required': 19
+          },
+          'cpu': {
+            'total': 1024,
+            'used': 512,
+            'remain': 512,
+            'required': 2560
+          }
+        }
+      },
+      {
+        'edge': '127.0.1.3',
+        'resource': {
+          'disk': {
+            'total': 50,
+            'used': 30,
+            'remain': 20,
+            'required': 18
+          },
+          'mem': {
+            'total': 1024,
+            'used': 512,
+            'remain': 512,
+            'required': 2560
+          },
+          'cpu': {
+            'total': 20,
+            'used': 10,
+            'remain': 10,
+            'required': 10
+          }
+        }
+      }
+    ]
+  }
+}
+
 const hostData = function () {
   return [
     {
@@ -42,7 +143,7 @@ const hostData = function () {
       'configUploadStatus': 'Uploaded'
     },
     {
-      'mechostIp': '127.0.1.2',
+      'mechostIp': '127.0.1.1',
       'mechostName': 'vmde',
       'zipCode': '',
       'city': '陕西省/西安市/雁塔区',
@@ -70,7 +171,7 @@ const hostData = function () {
       'configUploadStatus': 'Uploaded'
     },
     {
-      'mechostIp': '127.0.1.2',
+      'mechostIp': '127.0.1.3',
       'mechostName': 'vmde',
       'zipCode': '',
       'city': 'Chatswood, Australia',
@@ -84,7 +185,7 @@ const hostData = function () {
       'configUploadStatus': 'Uploaded'
     },
     {
-      'mechostIp': '127.0.1.2',
+      'mechostIp': '127.0.1.4',
       'mechostName': 'vmde',
       'zipCode': '',
       'city': 'Cupertino, USA',
@@ -138,6 +239,52 @@ const checkHealth = function () {
       condition: true
     }
   ]
+}
+
+const getResourceTemplate = function () {
+  return {
+    'retCode': 200,
+    'message': 'success',
+    'data': {
+      'appPkgName': 'location',
+      'appPkgVersion': 'v1',
+      'appId': '3741feeeb24c45e9a550799fb5ab1a89',
+      'appPkgId': '848a11ee4c524304b7a8b2bfc5c95a8d',
+      'deployType': 'testing',
+      'inputs': [
+        {
+          'name': 'vdu1_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        },
+        {
+          'name': 'vdu1_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        },
+        {
+          'name': 'vdu1_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        },
+        {
+          'name': 'vdu2_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        },
+        {
+          'name': 'vdu3_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        },
+        {
+          'name': 'vdu2_mem',
+          'type': 'String',
+          'defaultValue': '12'
+        }
+      ]
+    }
+  }
 }
 
 const packageData = function () {
@@ -585,3 +732,5 @@ Mock.mock('/mock/getSwCapability', swCapability)
 Mock.mock('/mock/getConfigRules', appRuleData)
 Mock.mock('/mock/appPackagefromAppstoreList', pacList)
 Mock.mock('/mock/getNodeStatus', checkHealth)
+Mock.mock('/mock/getResourceTemplate', getResourceTemplate)
+Mock.mock('/mock/getResources', resourceData)

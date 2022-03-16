@@ -274,6 +274,14 @@ const en = {
       port: 'Port'
     }
   },
+  resource: {
+    custResCriteria: 'Customize Resource Criteria',
+    res: 'Resource',
+    total: 'Total',
+    used: 'Used',
+    required: 'Required',
+    custRes: 'Customize Resources'
+  },
   common: {
     reset: 'Reset',
     search: 'Search',
