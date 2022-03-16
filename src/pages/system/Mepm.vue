@@ -206,16 +206,17 @@ export default {
 <style lang='less'>
 .btn-group{
   margin: 0px 10% 0px 0px;
-  justify-content: flex-end;
+  justify-content: flex-start;
   position: relative;
-  top: 3px;
+  top: 13px;
+  left: 10px;
   .el-button{
     height: 30px;
-    background: #5844be;
-    color: #fff;
+    background: #ffffff;
+    color: #5944C0;
     border: none;
-    border-radius: 5px;
-    padding: 5px 15px;
+    border-radius: 30px;
+    padding: 5px 20px;
   }
 }
 .mepmList{
@@ -228,6 +229,9 @@ export default {
     padding: 0 6px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    background: url('../../assets/images/card.png') center no-repeat;
+    background-size: cover;
+    height: 205px;
     .list {
       padding:15px 0 15px 15px;
       display: flex;
@@ -251,20 +255,6 @@ export default {
           }
         }
       }
-    }
-    .bgImgone{
-      background-image: url('../../assets/images/mepm_bg.png');
-      background-size:100% 105%;
-    }
-    .bgImgtwo{
-      background-image: url('../../assets/images/mepm_bg1.png');
-      background-size:100% 100%;
-    }
-    .bgImgone:hover,.bgImgtwo:hover{
-      transform: translate3d(0,-10px,0);
-      border-radius: 10px;
-      box-shadow: 0px 4px 14px rgba(255, 255, 255, 0.2);
-      background-image: url('../../assets/images/cardBgoneHover.png');
     }
   }
 }

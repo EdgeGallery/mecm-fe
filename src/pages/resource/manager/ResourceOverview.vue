@@ -192,7 +192,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .overview-content{
-  width: 1053px;
+  width: 100%;
   height: 570px;
   padding-top: 1px;
   border-radius: 16px;

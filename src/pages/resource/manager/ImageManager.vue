@@ -25,7 +25,7 @@
             v-model="nameQueryVal"
             @change="queryImage"
             :placeholder="$t('resourceMgr.searchPlaceholder')"
-            class="enterinput lt"
+            class="enterinput"
           >
             <em
               slot="suffix"
@@ -35,7 +35,7 @@
           </el-input>
         </el-col>
         <el-col
-          :span="12"
+          :span="16"
           class="create-col"
         >
           <el-button
@@ -295,11 +295,11 @@ export default {
   .search-createBtn{
     .search-col{
       margin-top: 30px;
-      margin-left: 30px;
+      padding-left: 38px !important;
     }
     .create-col{
+      padding-right: 38px !important;
       text-align: right;
-      margin-left: 115px;
       .create-btn{
         margin-top: 30px;
         height: 40px;
