@@ -26,7 +26,7 @@ import {
 let inventoryApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-inventory/inventory/v1'
 let apmApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-apm/apm/v1'
 let appoApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-appo/appo/v1'
-let healthApi = PROXY_PREFIX_CURRENTSERVER + '/mec-mecm-north/north/v1'
+let healthApi = PROXY_PREFIX_CURRENTSERVER + '/mecm-north/north/v1'
 
 let inventoryUrl = ['/applcms', '/mechosts', '/appstores', '/apprulemanagers', '/mepms']
 
